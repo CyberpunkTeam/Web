@@ -1,0 +1,25 @@
+{
+  "short_name": "Find My Team",
+  "name": "Find My Team",
+  "icons": [
+    {
+      "src": "logo-all.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "logo-all.ico",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "logo-all.svg",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
