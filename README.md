@@ -1,6 +1,6 @@
-# Find My Team
 
-<img src="./public/fmg_logo_black.svg" alt="drawing" width="200"/>
+
+<img src="./public/fmg_full_logo_fondo_color.svg" alt="drawing" width="400px"/>
 
 ## Develoment
 
