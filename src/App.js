@@ -1,4 +1,4 @@
-import logo from './assests/logo.svg';
+import logo from './assests/fmt-logo.svg';
 import './App.css';
 
 function App() {
