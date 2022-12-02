@@ -13,7 +13,19 @@ function Login() {
                     </text>
                     <img src={pana} className="pana-style" alt="logo"/>
                 </div>
-                <div className="blue">
+                <div className="form">
+                    <text>
+                        Encuentra tu equipo ideal de manera sencilla y rápida
+                    </text>
+                    <text>
+                        Encuentra tu equipo ideal de manera sencilla y rápida
+                    </text>
+                    <text>
+                        Encuentra tu equipo ideal de manera sencilla y rápida
+                    </text>
+                    <text>
+                        Encuentra tu equipo ideal de manera sencilla y rápida
+                    </text>
                     <text>
                         Encuentra tu equipo ideal de manera sencilla y rápida
                     </text>
