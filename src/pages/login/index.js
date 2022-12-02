@@ -1,32 +1,25 @@
-
 import './style.css';
 import pana from "../../assests/pana.svg";
-import logo from "../../assests/logo-complete.svg";
+import Logo from "../../components/logo";
 
 function Login() {
     return (
-        <div>
-            <div className="title-container">
-                <img src={logo} className="logo-style" alt="logo" />
-                <h2>
-                    Find My Team
-                </h2>
-            </div>
-            <div className="flexbox-container">
-                <div className="image-container">
-                    <h1 className="title-style">
+        <div className="container">
+            <Logo/>
+            <div className="container-login">
+                <div className="pana-container">
+                    <text className="title-style">
                         Encuentra tu equipo ideal de manera sencilla y rápida
-                    </h1>
-                    <img src={pana} className="pana-style" alt="logo" />
+                    </text>
+                    <img src={pana} className="pana-style" alt="logo"/>
                 </div>
-                <div className="form-container">
-                    <h1>
-                        Hola
-                    </h1>
+                <div className="blue">
+                    <text>
+                        Encuentra tu equipo ideal de manera sencilla y rápida
+                    </text>
                 </div>
             </div>
         </div>
-
     );
 }
 
