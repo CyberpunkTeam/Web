@@ -5,13 +5,14 @@
 }
 
 .container-login{
+    margin: 10px;
     display: flex;
     min-height: 90vh;
     align-items: center;
     justify-content: space-around;
 }
 
-.blue{
+.form{
     border-radius: 10px;
     box-shadow: 0px 4px 10px #D1D1D1;
     min-height: 560px;
@@ -31,6 +32,7 @@
 }
 
 .pana-container{
+    padding: 20px;
     height: 560px;
     width: 536px;
     display: flex;
@@ -40,5 +42,5 @@
 }
 
 .pana-style{
-    max-width: 400px;
+    width: 90%;
 }
