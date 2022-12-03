@@ -3,6 +3,7 @@ import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import {useState} from "react";
 import {Eye, EyeSlash} from "iconsax-react";
+import {Link} from "react-router-dom";
 
 function MainScreen() {
     const [email, setEmail] = useState([]);
@@ -51,25 +52,26 @@ function MainScreen() {
                                            className="input"
                                            onChange={setPasswordHandler}/>
                                     {passwordShown ?
-                                        <Eye className="password-button" color="#B1B1B1" variant="outline" size={24}
+                                        <Eye className="password-button" color="#B1B1B1" variant="outline" size={20}
                                              onClick={togglePassword}/> :
                                         <EyeSlash className="password-button" color="#B1B1B1" variant="outline"
-                                                  size={24}
+                                                  size={20}
                                                   onClick={togglePassword}/>}
                                 </div>
                             </label>
                         </div>
                     </from>
                     <div className="button-container">
-                        <button className="button-style" onClick={() => {
-                            console.log("unirse")
-                        }}>Unirse
-                        </button>
+                        <Link to="/" className="button-style">
+                            Únirse
+                        </Link>
                         <div className="container-button-login">
                             <text>
                                 ¿Ya tienes una cuenta?
                             </text>
-                            <button className="login">Inicia Sesión</button>
+                            <Link to="/login" className="login">
+                                Inicia Sesión
+                            </Link>
                         </div>
                     </div>
                 </div>

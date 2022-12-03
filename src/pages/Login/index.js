@@ -2,6 +2,7 @@ import './style.css';
 import Logo from "../../components/logo";
 import {useState} from "react";
 import {Eye, EyeSlash} from "iconsax-react";
+import {Link} from "react-router-dom";
 
 function Login() {
     const [email, setEmail] = useState([]);
@@ -44,25 +45,31 @@ function Login() {
                                            className="input"
                                            onChange={setPasswordHandler}/>
                                     {passwordShown ?
-                                        <Eye className="password-button" color="#B1B1B1" variant="outline" size={24}
+                                        <Eye className="password-button" color="#B1B1B1" variant="outline" size={20}
                                              onClick={togglePassword}/> :
                                         <EyeSlash className="password-button" color="#B1B1B1" variant="outline"
-                                                  size={24}
+                                                  size={20}
                                                   onClick={togglePassword}/>}
                                 </div>
                             </label>
                         </div>
+                        <div className="forgot-container">
+                            <Link to="/" className="forgot">
+                                ¿Has olvidado tu contraseña?
+                            </Link>
+                        </div>
                     </from>
                     <div className="button-container">
-                        <button className="button-style" onClick={() => {
-                            console.log("unirse")
-                        }}>Iniciar Sesión
-                        </button>
+                        <Link to="/" className="button-style">
+                            Iniciar Sesión
+                        </Link>
                         <div className="container-button-login">
                             <text>
                                 ¿No tienes una cuenta?
                             </text>
-                            <button className="login">Únete ahora</button>
+                            <Link to="/main" className="login">
+                                Únete ahora
+                            </Link>
                         </div>
                     </div>
                 </div>

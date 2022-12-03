@@ -91,16 +91,21 @@
 }
 
 .label {
+    font-size: 12px;
+    color: #222222;
     padding-bottom: 20px;
 }
 
 .button-style {
     width: 50%;
     border-radius: 10px;
-    border-width: 0px;
-    outline: none;
+    text-decoration: inherit;
+    display: flex;
+    flex-direction: column;
     height: 40px;
     color: white;
+    text-align: center;
+    justify-content: center;
     background: #014751;
     font-size: 16px;
 }
