@@ -1,0 +1,46 @@
+.container {
+    min-height: 100vh;
+    justify-items: flex-start;
+    align-items: center;
+}
+
+.container-login{
+    margin: 10px;
+    display: flex;
+    min-height: 90vh;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.form{
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #D1D1D1;
+    min-height: 560px;
+    min-width: 536px;
+    background: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.title-style {
+    font-size: 30px;
+    width: 536px;
+    font-weight: 400;
+    color: #0F2830;
+}
+
+.pana-container{
+    padding: 20px;
+    height: 560px;
+    width: 536px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pana-style{
+    width: 90%;
+}
