@@ -1,0 +1,152 @@
+.container {
+    min-height: 100vh;
+}
+
+.data-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    min-height: 90vh;
+}
+
+.form-container {
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #D1D1D1;
+    min-height: 560px;
+    min-width: 536px;
+    background: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title-style {
+    font-size: 30px;
+    width: 536px;
+    font-weight: 400;
+    color: #0F2830;
+}
+
+.pana-container {
+    padding: 20px;
+    height: 560px;
+    width: 536px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.pana-style {
+    width: 90%;
+}
+
+.input {
+    width: 100%;
+    border-radius: 20px;
+    border-color: #E3E3E3;
+    border-width: 0px;
+    outline: none;
+    height: 40px;
+    background: #E3E3E3;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-text {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 32px;
+    line-height: 150%;
+    text-align: center;
+    color: #014751;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.form {
+    width: 50%;
+    font-size: 12px;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.password-button {
+    position: absolute;
+    right: 0;
+    padding: 12px;
+}
+
+.form-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label {
+    padding-bottom: 20px;
+    font-size: 12px;
+    color: #222222;
+}
+
+.button-style {
+    width: 50%;
+    border-radius: 10px;
+    text-decoration: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    background: #014751;
+    font-size: 16px;
+}
+
+.container-button-login {
+    color: #014751;
+    padding-top: 10px;
+    font-size: 12px;
+    align-items: center;
+}
+
+.button-container {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+}
+
+.login{
+    text-decoration: inherit;
+    padding-left: 10px;
+    font-weight: bolder;
+    font-size: 12px;
+    color: #014751;
+}
+
+.forgot{
+    align-items: center;
+    text-decoration: inherit;
+    padding-left: 10px;
+    font-weight: bolder;
+    font-size: 12px;
+    color: #014751;
+}
+
+.forgot-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
