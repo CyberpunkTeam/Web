@@ -4,7 +4,7 @@ import Logo from "../../components/logo";
 import {useState} from "react";
 import {Eye, EyeSlash} from "iconsax-react";
 
-function Login() {
+function MainScreen() {
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [passwordShown, setPasswordShown] = useState(false);
@@ -78,4 +78,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default MainScreen;
