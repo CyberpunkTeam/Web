@@ -5,11 +5,11 @@
 }
 
 .container-login {
-    margin: 10px;
-    display: flex;
-    min-height: 90vh;
+    display: flex;;
+    justify-items: center;
     align-items: center;
     justify-content: space-around;
+    padding-top: 50px;
 }
 
 .form-container {
