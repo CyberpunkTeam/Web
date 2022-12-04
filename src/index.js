@@ -2,6 +2,10 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {firebaseConfig} from "./config/firebaseConfig";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+
 import WorkInProgress from "./pages/work_in_progress";
 import MainScreen from "./pages/MainScreen";
 import Login from "./pages/Login";
@@ -12,11 +16,15 @@ import AppContext from "./utils/AppContext";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function App() {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
     const userStorage = localStorage.getItem("user")
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
     const data = {
         user,
-        setUser
+        setUser,
+        auth
     }
 
     return (

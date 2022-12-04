@@ -3,12 +3,10 @@ import SideBar from "../../components/SideBar";
 import user from "../../assests/user.jpg";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
-import {useNavigate} from "react-router-dom";
 import NotFound from "../NotFound";
 
 function ProfileScreen() {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
 
     console.log(context.user)
 
@@ -23,7 +21,7 @@ function ProfileScreen() {
                         {context.user.name} {context.user.lastname}
                     </text>
                     <text className="extra-data">
-                        {context.user.city}
+                        {context.user.location}
                     </text>
                     <text className="extra-data">
                         {context.user.email}

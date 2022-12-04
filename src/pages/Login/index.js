@@ -1,10 +1,17 @@
+import {signInWithEmailAndPassword} from "firebase/auth";
+import {useContext, useState} from "react";
+import {Eye, EyeSlash} from "iconsax-react";
+import {Link, useNavigate} from "react-router-dom";
+
 import './style.css';
 import Logo from "../../components/logo";
-import {useState} from "react";
-import {Eye, EyeSlash} from "iconsax-react";
-import {Link} from "react-router-dom";
+import AppContext from "../../utils/AppContext";
+import {getUser} from "../../services/userService";
 
 function Login() {
+    let context = useContext(AppContext);
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState([]);
     const [password, setPassword] = useState([]);
     const [passwordShown, setPasswordShown] = useState(false);
@@ -19,6 +26,31 @@ function Login() {
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
+
+    const loginButton = () => {
+        signInWithEmailAndPassword(context.auth, email, password)
+            .then((userCredential) => {
+                getUser(userCredential.user.uid).then((userdata => {
+                    const userLogin = {
+                        'name': userdata.name,
+                        "lastname": userdata.lastname,
+                        "email": email,
+                        "location": userdata.location,
+                        "uid": userCredential.user.uid
+                    }
+                    context.setUser(userLogin);
+                    localStorage.setItem("user", JSON.stringify(userLogin))
+                    navigate('/me')
+                    console.log(userCredential.user);
+                })).catch((error) => {
+                    console.log(error);
+                });
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+    }
 
     return (
         <div className="container">
@@ -60,9 +92,11 @@ function Login() {
                         </div>
                     </form>
                     <div className="button-container">
-                        <Link to="/me" className="button-style">
+                        <button className="button-style" onClick={() => {
+                            loginButton()
+                        }}>
                             Iniciar Sesión
-                        </Link>
+                        </button>
                         <div className="container-button-login">
                             ¿No tienes una cuenta?
                             <Link to="/main" className="login">

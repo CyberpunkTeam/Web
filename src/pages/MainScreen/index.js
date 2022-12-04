@@ -1,10 +1,13 @@
+import {useContext, useState} from "react";
+import {createUserWithEmailAndPassword } from "firebase/auth";
+import {Eye, EyeSlash} from "iconsax-react";
+import {Link, useNavigate} from "react-router-dom";
+
 import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
-import {useContext, useState} from "react";
-import {Eye, EyeSlash} from "iconsax-react";
-import {Link, useNavigate} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
+import {createUser} from "../../services/userService";
 
 function MainScreen() {
     let context = useContext(AppContext);
@@ -42,15 +45,28 @@ function MainScreen() {
     };
 
     const registerButton = () => {
-        const userLogin = {
-            'name': name,
-            "lastname": lastName,
-            "email": email,
-            "city": city
-        }
-        context.setUser(userLogin)
-        localStorage.setItem("user", JSON.stringify(userLogin))
-        navigate('/me')
+
+        createUserWithEmailAndPassword(context.auth, email, password)
+            .then(async (userCredential) => {
+                const userLogin = {
+                    'name': name,
+                    "lastname": lastName,
+                    "email": email,
+                    "location": city,
+                    "uid": userCredential.user.uid,
+                    "token": userCredential.user.accessToken
+                }
+                await createUser(userLogin)
+                context.setUser(userLogin);
+                localStorage.setItem("user", JSON.stringify(userLogin))
+                navigate('/me')
+                console.log(userCredential.user);
+            })
+            .catch((error) => {
+                console.log(error.code);
+                console.log(error.message);
+            });
+
     }
 
 
