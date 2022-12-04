@@ -1,0 +1,54 @@
+.profile-container {
+    padding-top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.front-page {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+    border-radius: 10px;
+    background-size: cover;
+    background-position: 0 50%;
+    background-image:
+            linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
+            url('https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80');
+    background-blend-mode: multiply;
+}
+
+.user {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid rgb(46, 153, 153);
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 50px;
+}
+
+.user-data-container {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    color: white;
+}
+
+.name {
+    font-weight: bold;
+    font-size: 28px;
+}
+
+.extra-data {
+    font-weight: 200;
+    font-size: 14px;
+}

@@ -60,7 +60,7 @@ function Login() {
                         </div>
                     </from>
                     <div className="button-container">
-                        <Link to="/" className="button-style">
+                        <Link to="/me" className="button-style">
                             Iniciar Sesión
                         </Link>
                         <div className="container-button-login">
