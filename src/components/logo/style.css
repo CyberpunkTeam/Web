@@ -1,5 +1,6 @@
 .container-logo {
     display: flex;
+    align-items: center;
 }
 
 .logo {

@@ -3,6 +3,7 @@
   background: #FAFAFA;
   min-height: 540px;
   min-width: 960px;
+  height: 100vh;
   padding-left: 15%;
   padding-right: 15%;
 }
