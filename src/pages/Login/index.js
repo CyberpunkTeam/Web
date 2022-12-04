@@ -25,10 +25,10 @@ function Login() {
             <Logo/>
             <div className="data-container">
                 <div className="form-container">
-                    <text className="form-text">
+                    <div className="form-text">
                         Iniciar Sesión
-                    </text>
-                    <from className="form">
+                    </div>
+                    <form className="form">
                         <div className="label">
                             <label>
                                 Email:
@@ -45,9 +45,9 @@ function Login() {
                                            className="input"
                                            onChange={setPasswordHandler}/>
                                     {passwordShown ?
-                                        <Eye className="password-button" color="#B1B1B1" variant="outline" size={20}
+                                        <Eye className="password-button" color="#B1B1B1" variant="Outline" size={20}
                                              onClick={togglePassword}/> :
-                                        <EyeSlash className="password-button" color="#B1B1B1" variant="outline"
+                                        <EyeSlash className="password-button" color="#B1B1B1" variant="Outline"
                                                   size={20}
                                                   onClick={togglePassword}/>}
                                 </div>
@@ -58,15 +58,13 @@ function Login() {
                                 ¿Has olvidado tu contraseña?
                             </Link>
                         </div>
-                    </from>
+                    </form>
                     <div className="button-container">
                         <Link to="/me" className="button-style">
                             Iniciar Sesión
                         </Link>
                         <div className="container-button-login">
-                            <text>
-                                ¿No tienes una cuenta?
-                            </text>
+                            ¿No tienes una cuenta?
                             <Link to="/main" className="login">
                                 Únete ahora
                             </Link>
