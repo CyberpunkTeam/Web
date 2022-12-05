@@ -12,22 +12,42 @@ function Login() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState([]);
-    const [password, setPassword] = useState([]);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+    const [userError, setUserError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("Usuario no encontrado");
     const setEmailHandler = (event) => {
         setEmail(event.target.value);
+        setUserError(false);
     }
 
     const setPasswordHandler = (event) => {
         setPassword(event.target.value);
+        setUserError(false);
     }
 
     const togglePassword = () => {
         setPasswordShown(!passwordShown);
     };
 
+    const userNotFoundMessage = () => {
+        if (userError)
+            return (
+                <div className="login-user-not-found">
+                    {errorMessage}
+                </div>
+            )
+    }
+
     const loginButton = () => {
+        if (email.length === 0 || password.length === 0) {
+            setUserError(true);
+            setErrorMessage("Completar los campos requeridos")
+            return
+        }
+        setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then((userCredential) => {
                 getUser(userCredential.user.uid).then((userdata => {
@@ -43,13 +63,23 @@ function Login() {
                     navigate('/me')
                     console.log(userCredential.user);
                 })).catch((error) => {
+                    setUserError(true);
+                    setErrorMessage("se produjo un error inesperado, intente más tarde")
                     console.log(error);
                 });
             })
             .catch((error) => {
+                if (error.code.includes("wrong-password")) {
+                    setErrorMessage("Contraseña incorrecta")
+                } else {
+                    setErrorMessage("Usuario no encontrado")
+                }
+                setUserError(true);
+
                 console.log(error.code);
                 console.log(error.message);
             });
+        setButtonDisabled(false)
     }
 
     return (
@@ -89,10 +119,11 @@ function Login() {
                             <Link to="/" className="forgot">
                                 ¿Has olvidado tu contraseña?
                             </Link>
+                            {userNotFoundMessage()}
                         </div>
                     </form>
                     <div className="button-container">
-                        <button className="button-style" onClick={() => {
+                        <button disabled={buttonDisabled} className="button-style" onClick={() => {
                             loginButton()
                         }}>
                             Iniciar Sesión

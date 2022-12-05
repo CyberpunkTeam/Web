@@ -1,5 +1,5 @@
 import {useContext, useState} from "react";
-import {createUserWithEmailAndPassword } from "firebase/auth";
+import {createUserWithEmailAndPassword} from "firebase/auth";
 import {Eye, EyeSlash} from "iconsax-react";
 import {Link, useNavigate} from "react-router-dom";
 
@@ -20,12 +20,18 @@ function MainScreen() {
     const [lastName, setLastName] = useState("");
     const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
+    const [loginError, setLoginError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
+
     const [passwordShown, setPasswordShown] = useState(false);
     const setEmailHandler = (event) => {
+        setLoginError(false);
         setEmail(event.target.value);
     }
 
     const setPasswordHandler = (event) => {
+        setLoginError(false);
         setPassword(event.target.value);
     }
 
@@ -44,10 +50,37 @@ function MainScreen() {
         setPasswordShown(!passwordShown);
     };
 
-    const registerButton = () => {
+    const loginErrorView = () => {
+        if (loginError)
+            return (
+                <div className="login-message-error">
+                    {errorMessage}
+                </div>
+            )
+    }
 
+
+    const registerButton = () => {
+        if (email.length === 0 || password.length === 0) {
+            setLoginError(true);
+            setErrorMessage("Completar los campos requeridos")
+            return
+        }
+
+        if (!register) {
+            setRegister(true);
+            return
+        }
+
+        if (name.length === 0 || lastName.length === 0 || city.length === 0) {
+            setLoginError(true);
+            setErrorMessage("Completar los campos requeridos")
+            return
+        }
+
+        setLoading(true);
         createUserWithEmailAndPassword(context.auth, email, password)
-            .then(async (userCredential) => {
+            .then((userCredential) => {
                 const userLogin = {
                     'name': name,
                     "lastname": lastName,
@@ -56,17 +89,32 @@ function MainScreen() {
                     "uid": userCredential.user.uid,
                     "token": userCredential.user.accessToken
                 }
-                await createUser(userLogin)
-                context.setUser(userLogin);
-                localStorage.setItem("user", JSON.stringify(userLogin))
-                navigate('/me')
-                console.log(userCredential.user);
+                createUser(userLogin).then(() => {
+                    context.setUser(userLogin);
+                    localStorage.setItem("user", JSON.stringify(userLogin))
+                    navigate('/me')
+                    console.log(userCredential.user);
+                }).catch((error) => {
+                    setLoginError(true);
+                    setRegister(false);
+                    setErrorMessage("se produjo un error inesperado, intente más tarde")
+                    console.log(error.code);
+                    console.log(error.message);
+                });
             })
             .catch((error) => {
+                if (error.code.includes("invalid-email")) {
+                    setErrorMessage("El mail es invalido")
+                } else {
+                    setErrorMessage("El email ya se encuentra registado")
+                }
+
+                setLoginError(true);
+                setRegister(false);
                 console.log(error.code);
                 console.log(error.message);
             });
-
+        setLoading(false);
     }
 
 
@@ -128,7 +176,6 @@ function MainScreen() {
                         </div>
                     </label>
                 </div>
-
             </>
         )
     }
@@ -167,15 +214,12 @@ function MainScreen() {
                     <form className="form">
                         {register ? userData() : emailData()}
                     </form>
+                    {loginErrorView()}
                     <div className="button-container">
-                        <button className="button-style" onClick={() => {
-                            if (!register) {
-                                setRegister(true);
-                            } else {
-                                return registerButton();
-                            }
-
-                        }}>
+                        <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
+                                onClick={() => {
+                                    registerButton();
+                                }}>
                             {register ? "Finalizar" : "Únirse"}
                         </button>
                         {loginButton()}

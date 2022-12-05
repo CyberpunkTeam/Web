@@ -97,7 +97,7 @@
 }
 
 .button-style {
-    width: 50%;
+    width: 55%;
     border-radius: 10px;
     text-decoration: inherit;
     display: flex;
@@ -109,6 +109,22 @@
     text-align: center;
     justify-content: center;
     background: #014751;
+    font-size: 16px;
+}
+
+.loading-style {
+    width: 55%;
+    border-radius: 10px;
+    text-decoration: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 40px;
+    color: white;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #D1D1D1;
     font-size: 16px;
 }
 
@@ -134,4 +150,13 @@
     font-size: 12px;
     border-width: 0px;
     color: #014751;
+}
+
+.login-message-error {
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    padding-top: 10px;
+    color: rgb(205, 91, 69);
+    font-size: 14px;
+    font-weight: bold;
 }
