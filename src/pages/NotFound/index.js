@@ -7,13 +7,13 @@ function NotFound() {
         <div className="not-found-container">
             <Logo/>
             <div className="not-found-image-container">
-                <text className="not-found-message">
+                <div className="not-found-message">
                     Lo sentimos, no pudimos
-                </text>
+                </div>
                 <text className="not-found-message">
                     encontrar lo que buscas :(
                 </text>
-                <img src={notFound} className={"not-found-image"}/>
+                <img src={notFound} className={"not-found-image"} alt={""}/>
             </div>
         </div>
     );
