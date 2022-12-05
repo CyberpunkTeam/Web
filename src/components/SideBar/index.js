@@ -14,7 +14,7 @@ function SideBar() {
             </div>
             <div className="bottom">
                 <img src={user} alt='' className="user-sidebar"/>
-                <Setting2 className="settings" color="rgb(46, 153, 153)" variant="outline" size={28}/>
+                <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
             </div>
         </div>
     )

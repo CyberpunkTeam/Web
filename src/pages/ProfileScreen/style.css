@@ -1,3 +1,7 @@
+.profile-screen {
+    height: 100vh;
+}
+
 .profile-container {
     padding-top: 100px;
     display: flex;
