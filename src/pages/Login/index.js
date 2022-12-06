@@ -93,7 +93,7 @@ function Login() {
                     <form className="form">
                         <div className="label">
                             <label>
-                                Email:
+                                Email
                                 <div className="form-input">
                                     <input type="text" value={email} className="input" onChange={setEmailHandler}/>
                                 </div>
@@ -101,7 +101,7 @@ function Login() {
                         </div>
                         <div className="label">
                             <label>
-                                Password:
+                                Password
                                 <div className="form-input">
                                     <input type={passwordShown ? "text" : "password"} value={password}
                                            className="input"

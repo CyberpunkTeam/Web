@@ -46,6 +46,7 @@
 }
 
 .input {
+    font-family: "Inter", sans-serif;
     width: 100%;
     border-radius: 20px;
     border-color: #E3E3E3;
@@ -59,6 +60,7 @@
 }
 
 .form-text {
+    font-family: "Inter", sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 32px;
@@ -81,13 +83,6 @@
     position: absolute;
     right: 0;
     padding: 12px;
-}
-
-.form-input {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .label {
@@ -126,13 +121,6 @@
     justify-content: center;
     background: #D1D1D1;
     font-size: 16px;
-}
-
-.container-button-login {
-    color: #014751;
-    padding-top: 10px;
-    font-size: 12px;
-    align-items: center;
 }
 
 .button-container {

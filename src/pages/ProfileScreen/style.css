@@ -2,6 +2,20 @@
     height: 100vh;
 }
 
+.user-cover-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+    background-image: linear-gradient(268.12deg, rgba(15, 40, 48, 0) 0%, rgba(15, 40, 48, 0.8) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
 .profile-container {
     padding-top: 100px;
     display: flex;
@@ -10,17 +24,11 @@
 }
 
 .front-page {
-    display: flex;
+    position: relative;
     align-items: center;
     width: 100%;
     height: 200px;
     border-radius: 10px;
-    background-size: cover;
-    background-position: 0 50%;
-    background-image:
-            linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
-            url('https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80');
-    background-blend-mode: multiply;
 }
 
 .user {
@@ -28,6 +36,17 @@
     width: 100px;
     overflow: hidden;
     object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid rgb(46, 153, 153);
+}
+
+.user-svg {
+    background: #0F2830;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 100%;
     border: 3px solid rgb(46, 153, 153);
 }
@@ -55,4 +74,138 @@
 .extra-data {
     font-weight: 200;
     font-size: 14px;
+}
+
+.user-data {
+    padding: 0px 40px 0px 40px;
+    display: flex;
+    align-items: center;
+}
+
+.user-info-container {
+    position: relative;
+    width: 49.5%;
+    background: #F1F1F1;
+    height: 200px;
+    border-radius: 10px;
+}
+
+.profile-data-container {
+    margin: 20px 0 0 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.user-info {
+    margin: 40px;
+    height: 120px;
+}
+
+.add-button{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.data-title {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #014751;
+}
+
+.data-info {
+    margin: 20px 40px 20px 40px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    color: #222222;
+}
+
+.icon {
+    padding-right: 8px;
+}
+
+.rank {
+    font-weight: 300;
+    padding-top: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.modal-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    min-height: 560px;
+    min-width: 536px;
+    background: #F1F1F1;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.modal-form{
+    flex-direction: column;
+    width: 60%;
+    font-size: 12px;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.modal-form-input {
+    font-family: "Inter", sans-serif;
+    position: relative;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.modal-form-input-with-tags {
+    font-family: "Inter", sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.container-button-modal {
+    display: flex;
+    width: 60%;
+    color: #014751;
+    font-size: 12px;
+    align-items: center;
+    align-self: center;
+}
+
+.modal-button-style {
+    width: 100%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #014751;
+    font-size: 16px;
+}
+
+.modal-tag {
+    display: flex;
+    padding: 2px 8px 2px 8px;
+    color: #222222;
+    font-weight: 200;
+    margin: 0px 8px 0px 0px;
+    background: #D1D1D1;
+    border-radius: 6px;
+}
+
+.modal-tags-container {
+    width: 100%;
+    padding: 10px 0 0 0px;
+    display: flex;
+    align-items: flex-start;
 }

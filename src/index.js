@@ -12,6 +12,7 @@ import Login from "./pages/Login";
 import ProfileScreen from "./pages/ProfileScreen";
 import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
+import TeamScreen from "./pages/Team";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,7 +27,6 @@ function App() {
         setUser,
         auth
     }
-
     return (
         <AppContext.Provider value={data}>
             <div className="App">
@@ -37,6 +37,7 @@ function App() {
                             <Route path="main" element={<MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
                             <Route path="me" element={<ProfileScreen/>}/>
+                            <Route path="team" element={<TeamScreen/>}/>
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>
