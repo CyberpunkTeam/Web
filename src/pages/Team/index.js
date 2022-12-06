@@ -4,8 +4,8 @@ import SideBar from "../../components/SideBar";
 export default function TeamScreen() {
     const IMAGE = 'https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg'
 
-    const tech = ["python", "react"]
-    const pref = ["web", "crypto"]
+    const tech = ["Python", "React"]
+    const pref = ["Web", "Crypto"]
 
     const tech_tag = (technology) => {
         return(
