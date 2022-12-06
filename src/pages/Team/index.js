@@ -1,11 +1,7 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import AppContext from "../../utils/AppContext";
-import {useContext} from "react";
 
 export default function TeamScreen() {
-    let context = useContext(AppContext);
-
     const IMAGE = 'https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg'
 
     const tech = ["python", "react"]
