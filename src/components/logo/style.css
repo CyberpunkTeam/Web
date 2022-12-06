@@ -1,6 +1,7 @@
 .container-logo {
     display: flex;
     align-items: center;
+    color: #0F2830;
 }
 
 .logo {

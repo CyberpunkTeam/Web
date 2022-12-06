@@ -5,9 +5,9 @@ function Logo() {
     return (
         <header className="container-logo">
             <img src={logo} className="logo" alt="logo"/>
-            <h2>
+            <h3>
                 Find My Team
-            </h2>
+            </h3>
         </header>
     );
 }
