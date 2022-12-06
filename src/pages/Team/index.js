@@ -9,7 +9,7 @@ export default function TeamScreen() {
 
     const tech_tag = (technology) => {
         return(
-            <div className={"tech-tag"}>
+            <div key={technology} className={"tech-tag"}>
                 {technology}
             </div>
         )
@@ -17,7 +17,7 @@ export default function TeamScreen() {
 
     const pref_tag = (preference) => {
         return(
-            <div className={"pref-tag"}>
+            <div key={preference} className={"pref-tag"}>
                 {preference}
             </div>
         )

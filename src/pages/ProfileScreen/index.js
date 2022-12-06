@@ -5,9 +5,11 @@ import {useContext, useState} from "react";
 import NotFound from "../NotFound";
 import {AddCircle, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
+import {Link, useNavigate} from "react-router-dom";
 
 function ProfileScreen() {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
 
     const user_image = () => {
         if (context.user.image === undefined) {
@@ -24,15 +26,15 @@ function ProfileScreen() {
     const user_data = () => {
         return (
             <div className="user-data-container">
-                <text className="name">
+                <div className="name">
                     {context.user.name} {context.user.lastname}
-                </text>
-                <text className="extra-data">
+                </div>
+                <div className="extra-data">
                     {context.user.location}
-                </text>
-                <text className="extra-data">
+                </div>
+                <div className="extra-data">
                     {context.user.email}
-                </text>
+                </div>
             </div>
         )
     }
@@ -46,10 +48,12 @@ function ProfileScreen() {
                 <div className="user-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
-                        Teams
+                            Teams
                     </div>
                     <div className="data-info">
-                        Equipo Alfa
+                        <Link to="/team" className="team-link">
+                            Equipo Alfa
+                        </Link>
                         <div className="rank">
                             <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
                             5.0
