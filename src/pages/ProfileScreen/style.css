@@ -209,3 +209,9 @@
     display: flex;
     align-items: flex-start;
 }
+
+.team-link{
+    text-decoration: inherit;
+    font-weight: 700;
+    color: #222222;
+}
