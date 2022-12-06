@@ -18,7 +18,7 @@
     background-size: cover;
     background-position: 0 50%;
     background-image:
-            linear-gradient(to right, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.3)),
+            linear-gradient(268.12deg, rgba(15, 40, 48, 0) 0%, rgba(15, 40, 48, 0.8) 100%),
             url('https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80');
     background-blend-mode: multiply;
 }
@@ -28,6 +28,17 @@
     width: 100px;
     overflow: hidden;
     object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid rgb(46, 153, 153);
+}
+
+.user-svg {
+    background: #0F2830;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 100%;
     border: 3px solid rgb(46, 153, 153);
 }

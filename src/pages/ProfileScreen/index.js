@@ -1,20 +1,34 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import user from "../../assests/user.jpg";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
 import NotFound from "../NotFound";
+import {User} from "iconsax-react";
 
 function ProfileScreen() {
     let context = useContext(AppContext);
 
     console.log(context.user)
 
+    const user_image = () => {
+        if (context.user.image === undefined) {
+            return (
+                <div className="user-svg">
+                    <User color="#FAFAFA" size="50px" variant="Bold"/>
+                </div>
+            )
+        } else {
+            return <img src={image} alt={'user'} className="user"/>
+        }
+    }
+
+    const image = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
+
     const userCover = () => {
-        return(
+        return (
             <div className="front-page">
                 <div className="user-container">
-                    <img src={user} alt={'user'} className="user"/>
+                    {user_image()}
                 </div>
                 <div className="user-data-container">
                     <text className="name">
@@ -33,10 +47,9 @@ function ProfileScreen() {
 
     if (context.user === undefined || context.user === null) {
         return (
-            <NotFound />
+            <NotFound/>
         )
-    }
-    else {
+    } else {
         return (
             <div className="profile-screen">
                 <SideBar/>
