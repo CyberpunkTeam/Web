@@ -12,7 +12,7 @@ function SideBar() {
         if (context.user.image === undefined) {
             return (
                 <div className="user-sidebar">
-                    <User color="#FAFAFA" size="23px" variant="Bold"/>
+                    <User color="#FAFAFA" size="20px" variant="Bold"/>
                 </div>
             )
         } else {
@@ -25,7 +25,7 @@ function SideBar() {
         <div className="navbar">
             <div className="top">
                 <Link to="/">
-                    <img src={logo} className="logo" alt="logo"/>
+                    <img src={logo} className="logo-side" alt="logo"/>
                 </Link>
             </div>
             <div className="bottom">

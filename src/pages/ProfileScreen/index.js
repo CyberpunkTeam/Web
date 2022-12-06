@@ -67,16 +67,6 @@ function ProfileScreen() {
         )
     }
 
-    const userCover1 = () => {
-        return (
-            <div className="front-page">
-                <div className="user-container">
-
-                </div>
-            </div>
-        )
-    }
-
     if (context.user === undefined || context.user === null) {
         return (
             <NotFound/>
