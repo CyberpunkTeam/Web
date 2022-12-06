@@ -123,7 +123,7 @@ function MainScreen() {
             <>
                 <div className="label">
                     <label>
-                        Email:
+                        Email
                         <div className="form-input">
                             <input type="text" value={email} className="input" onChange={setEmailHandler}/>
                         </div>
@@ -131,7 +131,7 @@ function MainScreen() {
                 </div>
                 <div className="label">
                     <label>
-                        Password:
+                        Password
                         <div className="form-input">
                             <input type={passwordShown ? "text" : "password"} value={password}
                                    className="input"
@@ -154,7 +154,7 @@ function MainScreen() {
             <>
                 <div className="label">
                     <label>
-                        Nombre:
+                        Nombre
                         <div className="form-input">
                             <input type="text" value={name} className="input" onChange={setNameHandler}/>
                         </div>
@@ -162,7 +162,7 @@ function MainScreen() {
                 </div>
                 <div className="label">
                     <label>
-                        Apellido:
+                        Apellido
                         <div className="form-input">
                             <input type="text" value={lastName} className="input" onChange={setLastNameHandler}/>
                         </div>
@@ -170,7 +170,7 @@ function MainScreen() {
                 </div>
                 <div className="label">
                     <label>
-                        Ciudad:
+                        Ciudad
                         <div className="form-input">
                             <input type="text" value={city} className="input" onChange={setCityHandler}/>
                         </div>
