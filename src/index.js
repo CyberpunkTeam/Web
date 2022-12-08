@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {firebaseConfig} from "./config/firebaseConfig";
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
@@ -16,7 +17,7 @@ import TeamScreen from "./pages/Team";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function App() {
-    const app = initializeApp(JSON.parse(process.env.FIREBASE_CONFIG));
+    const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
     const userStorage = localStorage.getItem("user")
