@@ -220,7 +220,7 @@ function MainScreen() {
                                 onClick={() => {
                                     registerButton();
                                 }}>
-                            {register ? "Finalizar" : "Únirse"}
+                            {register ? "Finalizar" : "Unirse"}
                         </button>
                         {loginButton()}
                     </div>
