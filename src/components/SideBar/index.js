@@ -1,7 +1,7 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
 import {Link} from "react-router-dom";
-import {Setting2, User} from "iconsax-react";
+import {Setting2, User, Notification, Message, Notepad2} from "iconsax-react";
 import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 
@@ -27,9 +27,14 @@ function SideBar() {
                 <Link to="/">
                     <img src={logo} className="logo-side" alt="logo"/>
                 </Link>
+                <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
             </div>
             <div className="bottom">
-                {user_image()}
+                <Link to="/me">
+                    {user_image()}
+                </Link>
                 <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
             </div>
         </div>
