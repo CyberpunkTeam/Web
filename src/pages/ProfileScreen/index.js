@@ -6,6 +6,7 @@ import NotFound from "../NotFound";
 import {AddCircle, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate} from "react-router-dom";
+import {createTeam} from "../../services/teamService";
 
 function ProfileScreen() {
     let context = useContext(AppContext);
@@ -48,10 +49,10 @@ function ProfileScreen() {
                 <div className="user-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
-                            Teams
+                        Teams
                     </div>
                     <div className="data-info">
-                        <Link to="/team" className="team-link">
+                        <Link to="/team/1" className="team-link">
                             Equipo Alfa
                         </Link>
                         <div className="rank">
@@ -98,16 +99,16 @@ function ProfileScreen() {
     }
 
 
-        const setPrefHandler = (event) => {
+    const setPrefHandler = (event) => {
         setPref(event.target.value);
     }
 
 
-    function openModal() {
+    const openModal = () => {
         setIsOpen(true);
     }
 
-    function closeModal() {
+    const closeModal = () => {
         setTechs([])
         setPrefs([])
         setTech("")
@@ -117,11 +118,31 @@ function ProfileScreen() {
     }
 
     const tag = (value) => {
-        return(
+        return (
             <div id={value} className={"modal-tag"}>
                 {value}
             </div>
         )
+    }
+
+    const createTeamButton = () => {
+        const body = {
+            name: teamName,
+            technologies: techs,
+            project_preferences: prefs,
+            owner: context.user.uid
+        }
+
+        createTeam(body).then((response) => {
+            setTechs([])
+            setPrefs([])
+            setTech("")
+            setPref("")
+            setTeamName("")
+            setIsOpen(false);
+            navigate("team/" + response.uid)
+        })
+
     }
 
     const modal_create_team = () => {
@@ -142,18 +163,24 @@ function ProfileScreen() {
                             <label>
                                 Tecnologías
                                 <div className="modal-form-input-with-tags">
-                                    <input type="text" value={tech} className="input" onChange={setTechHandler} onKeyUp={addTechTag}/>
+                                    <input type="text" value={tech} className="input" onChange={setTechHandler}
+                                           onKeyUp={addTechTag}/>
                                     <div className="modal-tags-container">
-                                        {techs.map((value) => {return tag(value)})}
+                                        {techs.map((value) => {
+                                            return tag(value)
+                                        })}
                                     </div>
                                 </div>
                             </label>
                             <label>
                                 Preferencias de Proyecto
                                 <div className="modal-form-input-with-tags">
-                                    <input type="text" value={pref} className="input" onChange={setPrefHandler} onKeyUp={addPrefsTag}/>
+                                    <input type="text" value={pref} className="input" onChange={setPrefHandler}
+                                           onKeyUp={addPrefsTag}/>
                                     <div className="modal-tags-container">
-                                        {prefs.map((value) => {return tag(value)})}
+                                        {prefs.map((value) => {
+                                            return tag(value)
+                                        })}
                                     </div>
                                 </div>
                             </label>
@@ -161,7 +188,7 @@ function ProfileScreen() {
                     </form>
                     <div className="container-button-modal">
                         <button className="modal-button-style" onClick={() => {
-                            closeModal()
+                            createTeamButton()
                         }}>
                             Listo
                         </button>
@@ -170,7 +197,6 @@ function ProfileScreen() {
             </Modal>
         )
     }
-
 
     const image = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
     const image_cover = 'https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
