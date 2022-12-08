@@ -14,7 +14,7 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-RUN FIREBASE_CONFIG=$FIREBASE_CONFIG npm run build
+RUN npm run build
 
 EXPOSE 3000
 CMD [ "node", "server.js" ]

@@ -1,11 +1,10 @@
 import logo from '../../assests/fmt-logo.svg';
-import './style.css';
 
-function WorkInProgress() {
+export default function Working() {
     return (
         <div>
             <div className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+                <img src={logo} className="App-logo" alt="logo"/>
                 <h1>
                     Find My Team
                 </h1>
@@ -14,7 +13,5 @@ function WorkInProgress() {
                 </h5>
             </div>
         </div>
-    );
+    )
 }
-
-export default WorkInProgress;

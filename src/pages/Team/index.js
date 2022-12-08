@@ -1,14 +1,40 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
+import {useParams} from "react-router-dom";
+import Loading from "../../components/loading";
+import {useEffect, useState} from "react";
+import {getTeam} from "../../services/teamService";
 
 export default function TeamScreen() {
+    const params = useParams();
+    const [teamData, setTeamData] = useState(undefined)
+    const [loading, setLoading] = useState(true);
+    console.log(params)
+
+    useEffect(() => {
+        getTeam(params.id).then((response) => {
+            const res = {
+                tid: "1",
+                name: "Equipo Alfa",
+                technologies: ["Python", "React"],
+                project_preferences: ["Web", "Crypto"],
+                owner: "1"
+            }
+            setTeamData(res)
+            setLoading(false)
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, [params.id]);
+
+    if (loading) {
+        return <Loading/>
+    }
+
     const IMAGE = 'https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg'
 
-    const tech = ["Python", "React"]
-    const pref = ["Web", "Crypto"]
-
     const tech_tag = (technology) => {
-        return(
+        return (
             <div key={technology} className={"tech-tag"}>
                 {technology}
             </div>
@@ -16,7 +42,7 @@ export default function TeamScreen() {
     }
 
     const pref_tag = (preference) => {
-        return(
+        return (
             <div key={preference} className={"pref-tag"}>
                 {preference}
             </div>
@@ -24,18 +50,18 @@ export default function TeamScreen() {
     }
 
     const cover = () => {
-        return(
+        return (
             <div className="cover-container">
                 <div className="team-data-container">
                     <h1 className="team-name">
-                        Equipo Alfa
+                        {teamData.name}
                     </h1>
                     <div className="tags-container">
-                        {tech.map((data) => {
-                            return(tech_tag(data))
+                        {teamData.technologies.map((data) => {
+                            return (tech_tag(data))
                         })}
-                        {pref.map((data) => {
-                            return(pref_tag(data))
+                        {teamData.project_preferences.map((data) => {
+                            return (pref_tag(data))
                         })}
                     </div>
                 </div>
