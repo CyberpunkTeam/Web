@@ -1,9 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyAF-MBhzN5h0ASIeM8n9LSkrJ9vnt0h-BY",
-    authDomain: "findmyteam-369403.firebaseapp.com",
-    projectId: "findmyteam-369403",
-    storageBucket: "findmyteam-369403.appspot.com",
-    messagingSenderId: "612692348665",
-    appId: "1:612692348665:web:3544287deefb43d7011c28",
-    measurementId: "G-2Q54WEN9KQ"
+    apiKey: process.env.FIREBASE_APIKEY,
+    authDomain: process.env.FIREBASE_AUTHDOMAIN,
+    projectId: process.env.FIREBASE_PROJECTID,
+    storageBucket: process.env.FIREBASE_STORAGEBUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGINGSENDERID,
+    appId: process.env.APP_ID,
+    measurementId: process.env.MEASUREMENTID
 }
