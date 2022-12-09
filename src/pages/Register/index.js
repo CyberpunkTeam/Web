@@ -1,5 +1,4 @@
 import {useContext, useState} from "react";
-import {signInWithEmailLink} from "firebase/auth";
 import {useNavigate} from "react-router-dom";
 
 import AppContext from "../../utils/AppContext";
@@ -11,7 +10,6 @@ function Register(params) {
 
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState(params.email);
     const [name, setName] = useState("");
     const [lastName, setLastName] = useState("");
     const [city, setCity] = useState("");
@@ -48,41 +46,24 @@ function Register(params) {
             return
         }
         setLoading(true);
-        signInWithEmailLink(context.auth, email, window.location.href)
-            .then((userCredential) => {
-                const userLogin = {
-                    'name': name,
-                    "lastname": lastName,
-                    "email": email,
-                    "location": city,
-                    "uid": userCredential.user.uid,
-                    "token": userCredential.user.accessToken
-                }
-                createUser(userLogin).then(() => {
-                    context.setUser(userLogin);
-                    localStorage.setItem("user", JSON.stringify(userLogin))
-                    navigate('/me')
-                    console.log(userCredential.user);
-                }).catch((error) => {
-                    setLoginError(true);
-                    setErrorMessage("se produjo un error inesperado, intente más tarde")
-                    console.log(error.code);
-                    console.log(error.message);
-                });
-            })
-            .catch((error) => {
-                console.log(error.code);
-                console.log(error.message);
-                if (error.code.includes("invalid-email")) {
-                    setErrorMessage("El mail es invalido")
-                } else {
-                    setErrorMessage("El email ya se encuentra registado")
-                }
 
-                setLoginError(true);
-                console.log(error.code);
-                console.log(error.message);
-            });
+        const userLogin = {
+            'name': name,
+            "lastname": lastName,
+            "email": params.email,
+            "location": city,
+            "uid": params.uid
+        }
+        createUser(userLogin).then(() => {
+            context.setUser(userLogin);
+            localStorage.setItem("user", JSON.stringify(userLogin))
+            navigate('/me')
+        }).catch((error) => {
+            setLoginError(true);
+            setErrorMessage("se produjo un error inesperado, intente más tarde")
+            console.log(error.code);
+            console.log(error.message);
+        });
         setLoading(false);
     }
 

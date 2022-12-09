@@ -11,6 +11,7 @@ import AppContext from "../../utils/AppContext";
 function MainScreen() {
     let context = useContext(AppContext);
 
+    const [register, setRegister] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
@@ -57,16 +58,16 @@ function MainScreen() {
                 console.log(context.auth.currentUser)
                 sendEmailVerification(context.auth.currentUser).then((r) => {
                     console.log(r)
+                    setRegister(true)
                     window.localStorage.setItem('emailForSignIn', email);
                 })
             })
             .catch((error) => {
-                /*                if (error.code.includes("invalid-email")) {
-                                    setErrorMessage("El mail es invalido")
-                                } else {
-                                    setErrorMessage("El email ya se encuentra registado")
-                                }*/
-
+                if (error.code.includes("invalid-email")) {
+                    setErrorMessage("El mail es invalido")
+                } else {
+                    setErrorMessage("El email ya se encuentra registado")
+                }
                 setLoginError(true);
                 console.log(error.code);
                 console.log(error.message);
@@ -117,6 +118,45 @@ function MainScreen() {
         )
     }
 
+    const verifyMessage = () => {
+        return (
+            <div className="verify-message">
+                <div className="form-text">
+                    Verifica tu cuenta
+                </div>
+                <div className="verify-text">
+                    <div>
+                        Enviamos un correo a <b>{email}</b>,
+                    </div>
+                    por favor veríficalo para continuar
+                </div>
+            </div>
+        )
+    }
+
+    const registerForm = () => {
+        return (
+            <>
+                <div className="form-text">
+                    Únete y forma parte de nuestra comunidad
+                </div>
+                <form className="form">
+                    {emailData()}
+                </form>
+                {loginErrorView()}
+                <div className="button-container">
+                    <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
+                            onClick={() => {
+                                registerButton();
+                            }}>
+                        Unirse
+                    </button>
+                    {loginButton()}
+                </div>
+            </>
+        )
+    }
+
     return (
         <div className="container">
             <Logo/>
@@ -128,22 +168,7 @@ function MainScreen() {
                     <img src={pana} className="pana-style" alt="logo"/>
                 </div>
                 <div className="form-container">
-                    <div className="form-text">
-                        Únete y forma parte de nuestra comunidad
-                    </div>
-                    <form className="form">
-                        {emailData()}
-                    </form>
-                    {loginErrorView()}
-                    <div className="button-container">
-                        <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
-                                onClick={() => {
-                                    registerButton();
-                                }}>
-                            Unirse
-                        </button>
-                        {loginButton()}
-                    </div>
+                    {register ? verifyMessage() : registerForm()}
                 </div>
             </div>
         </div>

@@ -49,6 +49,14 @@ function Login() {
     const getUserService = (userCredential) => {
         console.log(userCredential)
         getUser(userCredential.user.uid).then((userdata => {
+
+            console.log(userdata)
+            if (Object.keys(userdata).length === 0) {
+                setUid(userCredential.user.uid);
+                setCompleteData(true);
+                return
+            }
+
             const userLogin = {
                 'name': userdata.name,
                 "lastname": userdata.lastname,
@@ -101,6 +109,23 @@ function Login() {
         setButtonDisabled(false)
     }
 
+    const joinButton = () => {
+        if (!emailRegister) {
+            return (
+                <div className="container-button-login">
+                    ¿No tienes una cuenta?
+                    <Link to="/main" className="login">
+                        Únete ahora
+                    </Link>
+                </div>
+            )
+        } else {
+            return (
+                <div className="container-button-login"/>
+            )
+        }
+    }
+
     const loginForm = () => {
         return (
             <div className="form-container">
@@ -146,12 +171,7 @@ function Login() {
                     }}>
                         Iniciar Sesión
                     </button>
-                    <div className="container-button-login">
-                        ¿No tienes una cuenta?
-                        <Link to="/main" className="login">
-                            Únete ahora
-                        </Link>
-                    </div>
+                    {joinButton()}
                 </div>
             </div>
         )

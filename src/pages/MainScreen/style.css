@@ -17,6 +17,7 @@
     box-shadow: 0px 4px 10px #D1D1D1;
     min-height: 560px;
     min-width: 536px;
+    max-width: 536px;
     background: #F1F1F1;
     display: flex;
     flex-direction: column;
@@ -146,4 +147,29 @@
     color: rgb(205, 91, 69);
     font-size: 14px;
     font-weight: bold;
+}
+
+
+.verify-message {
+    width: 70%;
+    min-height: 400px;
+    max-height: 400px;
+    display: flex;
+    color: #014751;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+}
+
+.verify-text {
+    min-height: 350px;
+    max-height: 350px;
+    font-size: 16px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
