@@ -1,24 +1,18 @@
 import {useContext, useState} from "react";
-import {createUserWithEmailAndPassword} from "firebase/auth";
+import {createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import {Eye, EyeSlash} from "iconsax-react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
-import {createUser} from "../../services/userService";
 
 function MainScreen() {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
 
     const [register, setRegister] = useState(false);
-
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -33,17 +27,6 @@ function MainScreen() {
     const setPasswordHandler = (event) => {
         setLoginError(false);
         setPassword(event.target.value);
-    }
-
-    const setNameHandler = (event) => {
-        setName(event.target.value);
-    }
-
-    const setLastNameHandler = (event) => {
-        setLastName(event.target.value);
-    }
-    const setCityHandler = (event) => {
-        setCity(event.target.value);
     }
 
     const togglePassword = () => {
@@ -61,18 +44,8 @@ function MainScreen() {
 
 
     const registerButton = () => {
+        console.log("Apretado")
         if (email.length === 0 || password.length === 0) {
-            setLoginError(true);
-            setErrorMessage("Completar los campos requeridos")
-            return
-        }
-
-        if (!register) {
-            setRegister(true);
-            return
-        }
-
-        if (name.length === 0 || lastName.length === 0 || city.length === 0) {
             setLoginError(true);
             setErrorMessage("Completar los campos requeridos")
             return
@@ -81,26 +54,13 @@ function MainScreen() {
         setLoading(true);
         createUserWithEmailAndPassword(context.auth, email, password)
             .then((userCredential) => {
-                const userLogin = {
-                    'name': name,
-                    "lastname": lastName,
-                    "email": email,
-                    "location": city,
-                    "uid": userCredential.user.uid,
-                    "token": userCredential.user.accessToken
-                }
-                createUser(userLogin).then(() => {
-                    context.setUser(userLogin);
-                    localStorage.setItem("user", JSON.stringify(userLogin))
-                    navigate('/me')
-                    console.log(userCredential.user);
-                }).catch((error) => {
-                    setLoginError(true);
-                    setRegister(false);
-                    setErrorMessage("se produjo un error inesperado, intente más tarde")
-                    console.log(error.code);
-                    console.log(error.message);
-                });
+                console.log(userCredential)
+                console.log(context.auth.currentUser)
+                sendEmailVerification(context.auth.currentUser).then((r) => {
+                    console.log(r)
+                    setRegister(true)
+                    window.localStorage.setItem('emailForSignIn', email);
+                })
             })
             .catch((error) => {
                 if (error.code.includes("invalid-email")) {
@@ -108,9 +68,7 @@ function MainScreen() {
                 } else {
                     setErrorMessage("El email ya se encuentra registado")
                 }
-
                 setLoginError(true);
-                setRegister(false);
                 console.log(error.code);
                 console.log(error.message);
             });
@@ -149,52 +107,54 @@ function MainScreen() {
         )
     }
 
-    const userData = () => {
+    const loginButton = () => {
         return (
-            <>
-                <div className="label">
-                    <label>
-                        Nombre
-                        <div className="form-input">
-                            <input type="text" value={name} className="input" onChange={setNameHandler}/>
-                        </div>
-                    </label>
-                </div>
-                <div className="label">
-                    <label>
-                        Apellido
-                        <div className="form-input">
-                            <input type="text" value={lastName} className="input" onChange={setLastNameHandler}/>
-                        </div>
-                    </label>
-                </div>
-                <div className="label">
-                    <label>
-                        Ciudad
-                        <div className="form-input">
-                            <input type="text" value={city} className="input" onChange={setCityHandler}/>
-                        </div>
-                    </label>
-                </div>
-            </>
+            <div className="container-button-login">
+                ¿Ya tienes una cuenta?
+                <Link to="/login" className="login">
+                    Inicia Sesión
+                </Link>
+            </div>
         )
     }
 
-    const loginButton = () => {
-        if (!register) {
-            return (
-                <div className="container-button-login">
-                    ¿Ya tienes una cuenta?
-                    <Link to="/login" className="login">
-                        Inicia Sesión
-                    </Link>
+    const verifyMessage = () => {
+        return (
+            <div className="verify-message">
+                <div className="form-text">
+                    Verifica tu cuenta
                 </div>
-            )
-        } else {
-            return (
-                <div className="container-button-login"/>
-            )
-        }
+                <div className="verify-text">
+                    <div>
+                        Enviamos un correo a <b>{email}</b>,
+                    </div>
+                    por favor veríficalo para continuar
+                </div>
+            </div>
+        )
+    }
+
+    const registerForm = () => {
+        return (
+            <>
+                <div className="form-text">
+                    Únete y forma parte de nuestra comunidad
+                </div>
+                <form className="form">
+                    {emailData()}
+                </form>
+                {loginErrorView()}
+                <div className="button-container">
+                    <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
+                            onClick={() => {
+                                registerButton();
+                            }}>
+                        Unirse
+                    </button>
+                    {loginButton()}
+                </div>
+            </>
+        )
     }
 
     return (
@@ -208,22 +168,7 @@ function MainScreen() {
                     <img src={pana} className="pana-style" alt="logo"/>
                 </div>
                 <div className="form-container">
-                    <div className="form-text">
-                        {register ? "Completa tus datos para poder continuar" : "Únete y forma parte de nuestra comunidad"}
-                    </div>
-                    <form className="form">
-                        {register ? userData() : emailData()}
-                    </form>
-                    {loginErrorView()}
-                    <div className="button-container">
-                        <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
-                                onClick={() => {
-                                    registerButton();
-                                }}>
-                            {register ? "Finalizar" : "Unirse"}
-                        </button>
-                        {loginButton()}
-                    </div>
+                    {register ? verifyMessage() : registerForm()}
                 </div>
             </div>
         </div>
