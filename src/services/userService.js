@@ -25,12 +25,16 @@ export const getUser = (uid) => {
         method: 'GET'
     }).then(
         response => {
-            console.log(response)
+            console.log("Status " + response.status)
             return response.json().then(
                 data => {
+                    if(response.status === 404) {
+                        return {}
+                    }
+
                     return data
                 }
             )
         }
-    ).catch(errors => console.log(errors))
+    ).catch((error) => {return error})
 }
