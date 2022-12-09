@@ -60,10 +60,9 @@
 }
 
 .form-text {
-    font-family: "Inter", sans-serif;
     font-style: normal;
-    font-weight: bold;
-    font-size: 32px;
+    font-weight: 700;
+    font-size: 28px;
     line-height: 150%;
     text-align: center;
     color: #014751;

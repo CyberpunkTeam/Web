@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
 import Working from "./pages/Working";
+import Register from "./pages/Register";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

@@ -32,5 +32,5 @@ export const getUser = (uid) => {
                 }
             )
         }
-    ).catch(errors => console.log(errors))
+    ).catch((error) => {return error})
 }
