@@ -115,7 +115,7 @@
 }
 
 .data-info {
-    margin: 20px 40px 20px 40px;
+    margin: 20px 40px 0px 40px;
     height: 80px;
     display: flex;
     flex-direction: column;
@@ -128,8 +128,8 @@
 }
 
 .rank {
+    padding: 8px 40px 0px 40px;
     font-weight: 300;
-    padding-top: 8px;
     display: flex;
     align-items: center;
 }
@@ -214,4 +214,60 @@
     text-decoration: inherit;
     font-weight: 700;
     color: #222222;
+}
+
+.scrollDiv {
+    overflow-x:hidden;
+    overflow-y:auto;
+    height: 450px;
+    width: 100%;
+    flex-direction: column;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.team-data-info {
+    height: 80px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.view-more {
+    font-size: 12px;
+    font-weight: 400;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rank-team-view {
+    padding: 8px 40px 0px 40px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+}
+
+.team-link-teams-view{
+    padding: 0px 40px 0px 40px;
+    text-decoration: inherit;
+    font-weight: 700;
+    color: #222222;
+}
+
+.tag {
+    display: flex;
+    padding: 2px 8px 2px 8px;
+    margin: 0px 8px 8px 0px;
+    color: #222222;
+    font-size: 12px;
+    font-weight: 200;
+    background: #D1D1D1;
+    border-radius: 6px;
+}
+
+.tags-modal {
+    margin: 0px 40px 20px 40px;
+    display: flex;
 }

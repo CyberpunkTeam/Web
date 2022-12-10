@@ -22,6 +22,7 @@ function ProfileScreen() {
     const [prefs, setPrefs] = useState([]);
     const [pref, setPref] = useState("");
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -51,13 +52,13 @@ function ProfileScreen() {
         return (
             <div className="user-data-container">
                 <div className="name">
-                    {id ? userData.user.name : context.user.name} {id ? userData.user.lastname : context.user.lastname}
+                    {id !== context.user.uid ? userData.user.name : context.user.name} {id !== context.user.uid ? userData.user.lastname : context.user.lastname}
                 </div>
                 <div className="extra-data">
-                    {id ? userData.user.location : context.user.location}
+                    {id !== context.user.uid ? userData.user.location : context.user.location}
                 </div>
                 <div className="extra-data">
-                    {id ? userData.user.email : context.user.email}
+                    {id !== context.user.uid ? userData.user.email : context.user.email}
                 </div>
             </div>
         )
@@ -66,6 +67,16 @@ function ProfileScreen() {
     const team_user_view = () => {
         if (userData.teams === undefined) {
             return;
+        }
+
+        const viewMore = () => {
+            return (
+                <div className="view-more" onClick={() => {
+                    viewTeams()
+                }}>
+                    Ver más (+{userData.teams.length - 1})
+                </div>
+            )
         }
 
         const teamView = () => {
@@ -90,15 +101,17 @@ function ProfileScreen() {
 
         return (
             <div className="user-info-container">
-                {id ? null : <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                    openModal()
-                }}/>}
+                {id !== context.user.uid ? null :
+                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
+                        createTeamOpenModal()
+                    }}/>}
                 <div className="user-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
-                        Teams
+                        Equipos
                     </div>
                     {teamView()}
+                    {userData.teams.length > 1 ? viewMore() : null}
                 </div>
             </div>
         )
@@ -130,13 +143,17 @@ function ProfileScreen() {
         }
     }
 
-
     const setPrefHandler = (event) => {
         setPref(event.target.value);
     }
 
+    const createTeamOpenModal = () => {
+        setIsCreateTeamModal(true)
+        setIsOpen(true);
+    }
 
-    const openModal = () => {
+    const viewTeams = () => {
+        setIsCreateTeamModal(false)
         setIsOpen(true);
     }
 
@@ -166,6 +183,7 @@ function ProfileScreen() {
         }
 
         createTeam(body).then((response) => {
+            console.log(response)
             setTechs([])
             setPrefs([])
             setTech("")
@@ -177,55 +195,106 @@ function ProfileScreen() {
 
     }
 
+    const createTeamView = () => {
+        return (<div className="modal-container">
+            <div className="form-text">
+                Crea un nuevo equipo
+            </div>
+            <form className="modal-form">
+                <div className="label">
+                    <label>
+                        Nombre
+                        <div className="modal-form-input">
+                            <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
+                        </div>
+                    </label>
+                    <label>
+                        Tecnologías
+                        <div className="modal-form-input-with-tags">
+                            <input type="text" value={tech} className="input" onChange={setTechHandler}
+                                   onKeyUp={addTechTag}/>
+                            <div className="modal-tags-container">
+                                {techs.map((value) => {
+                                    return tag(value)
+                                })}
+                            </div>
+                        </div>
+                    </label>
+                    <label>
+                        Preferencias de Proyecto
+                        <div className="modal-form-input-with-tags">
+                            <input type="text" value={pref} className="input" onChange={setPrefHandler}
+                                   onKeyUp={addPrefsTag}/>
+                            <div className="modal-tags-container">
+                                {prefs.map((value) => {
+                                    return tag(value)
+                                })}
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </form>
+            <div className="container-button-modal">
+                <button className="modal-button-style" onClick={() => {
+                    createTeamButton()
+                }}>
+                    Listo
+                </button>
+            </div>
+        </div>)
+    }
+
+    const viewTeamsModal = () => {
+
+        const tags = (data) => {
+            return (
+                <div key={data} className={"tag"}>
+                    {data}
+                </div>
+            )
+        }
+
+        const teamView = (data) => {
+            const team_link = "/team/" + data.tid
+            return (
+                <div className="team-data-info">
+                    <Link to={team_link} className="team-link-teams-view">
+                        {data.name}
+                    </Link>
+                    <div className="rank-team-view">
+                        <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
+                        5.0
+                    </div>
+                    <div className="tags-modal">
+                        {data.technologies.map((data) => {
+                            return tags(data)
+                        })}
+                        {data.project_preferences.map((data) => {
+                            return tags(data)
+                        })}
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className="modal-container">
+                <div className="form-text">
+                    Equipos
+                </div>
+                <div className="scrollDiv">
+                    {userData.teams.map((data) => {
+                        return teamView(data)
+                    })}
+                </div>
+            </div>
+        )
+    }
+
     const modal_create_team = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle}>
-                <div className="modal-container">
-                    <div className="form-text">
-                        Crea un nuevo equipo
-                    </div>
-                    <form className="modal-form">
-                        <div className="label">
-                            <label>
-                                Nombre
-                                <div className="modal-form-input">
-                                    <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
-                                </div>
-                            </label>
-                            <label>
-                                Tecnologías
-                                <div className="modal-form-input-with-tags">
-                                    <input type="text" value={tech} className="input" onChange={setTechHandler}
-                                           onKeyUp={addTechTag}/>
-                                    <div className="modal-tags-container">
-                                        {techs.map((value) => {
-                                            return tag(value)
-                                        })}
-                                    </div>
-                                </div>
-                            </label>
-                            <label>
-                                Preferencias de Proyecto
-                                <div className="modal-form-input-with-tags">
-                                    <input type="text" value={pref} className="input" onChange={setPrefHandler}
-                                           onKeyUp={addPrefsTag}/>
-                                    <div className="modal-tags-container">
-                                        {prefs.map((value) => {
-                                            return tag(value)
-                                        })}
-                                    </div>
-                                </div>
-                            </label>
-                        </div>
-                    </form>
-                    <div className="container-button-modal">
-                        <button className="modal-button-style" onClick={() => {
-                            createTeamButton()
-                        }}>
-                            Listo
-                        </button>
-                    </div>
-                </div>
+                {isCreateTeamModal ? createTeamView() : viewTeamsModal()}
             </Modal>
         )
     }

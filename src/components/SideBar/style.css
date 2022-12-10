@@ -52,7 +52,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    height: 50vh;
+    height: 20vh;
 }
 
 .top {
@@ -61,5 +61,5 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    height: 50vh;
+    height: 80vh;
 }
