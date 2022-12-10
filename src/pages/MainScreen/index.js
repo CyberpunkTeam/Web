@@ -55,7 +55,6 @@ function MainScreen() {
         createUserWithEmailAndPassword(context.auth, email, password)
             .then((userCredential) => {
                 sendEmailVerification(context.auth.currentUser).then((r) => {
-                    console.log(r)
                     setRegister(true)
                     window.localStorage.setItem('emailForSignIn', email);
                 })

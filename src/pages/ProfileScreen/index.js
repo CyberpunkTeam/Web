@@ -183,7 +183,6 @@ function ProfileScreen() {
         }
 
         createTeam(body).then((response) => {
-            console.log(response)
             setTechs([])
             setPrefs([])
             setTech("")

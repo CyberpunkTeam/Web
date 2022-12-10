@@ -2,14 +2,16 @@ import './style.css';
 import SideBar from "../../components/SideBar";
 import {useParams} from "react-router-dom";
 import Loading from "../../components/loading";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getTeam} from "../../services/teamService";
+import {AddCircle, People, User} from "iconsax-react";
+import AppContext from "../../utils/AppContext";
 
 export default function TeamScreen() {
     const params = useParams();
+    let context = useContext(AppContext);
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
-    console.log(params)
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -70,11 +72,70 @@ export default function TeamScreen() {
         )
     }
 
+    const members = () => {
+        return (
+            <div className="members-info-container">
+                {teamData.owner === context.user.uid ? <AddCircle size="24" color="#B1B1B1" className="add-button"/> : null}
+                <div className="members-info">
+                    <div className="data-title">
+                        <People size="32" color="#014751" className={"icon"}/>
+                        Miembros
+                    </div>
+                    <div className="members-data">
+                        1 Usuario
+                        <div className="members">
+                            <div className="member">
+                                <div className="user-sidebar">
+                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                                </div>
+                                <div className="member-name">
+                                    Gonzalo Marino
+                                    <div className="owner">
+                                        owner
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="member">
+                                <div className="user-sidebar">
+                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                                </div>
+                                <div className="member-name">
+                                    Gonzalo Marino
+                                </div>
+                            </div>
+                        </div>
+                        <div className="members">
+                            <div className="member">
+                                <div className="user-sidebar">
+                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                                </div>
+                                <div className="member-name">
+                                    Gonzalo Marino
+                                </div>
+                            </div>
+                            <div className="member">
+                                <div className="user-sidebar">
+                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                                </div>
+                                <div className="member-name">
+                                    Gonzalo Marino
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
         <div className="team-screen">
             <SideBar/>
             <div className="team-container">
                 {cover()}
+            </div>
+            <div className="profile-data-container">
+                {members()}
             </div>
         </div>
     )
