@@ -9,6 +9,7 @@ import {Link, useNavigate, useParams} from "react-router-dom";
 import {createTeam} from "../../services/teamService";
 import {getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
+import SearchBar from "../../components/SearchBar";
 
 function ProfileScreen() {
     const params = useParams();
@@ -326,7 +327,6 @@ function ProfileScreen() {
     } else {
         return (
             <div className="profile-screen">
-                <SideBar/>
                 <div className="profile-container">
                     {cover()}
                 </div>
@@ -334,6 +334,8 @@ function ProfileScreen() {
                     {team_user_view()}
                 </div>
                 {modal_create_team()}
+                <SearchBar/>
+                <SideBar/>
             </div>
         )
     }

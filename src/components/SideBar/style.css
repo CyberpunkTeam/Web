@@ -1,7 +1,10 @@
 .navbar {
-    position: absolute;
+    position: fixed;
     left: 0;
+    top: 0;
     width: 70px;
+    height: 100vh;
+    backdrop-filter: blur(28px);
     background: rgba(46, 153, 153, 0.1);
     display: flex;
     align-items: center;
@@ -25,16 +28,14 @@
     background: rgba(46, 153, 153, 1);
 }
 
-
-
 .user-sidebar {
     background: #0F2830;
     display: flex;
     align-items: center;
     justify-content: center;
     align-self: center;
-    height: 32px;
-    width: 32px;
+    height: 40px;
+    width: 40px;
     border-radius: 100%;
     overflow: hidden;
     object-fit: cover;

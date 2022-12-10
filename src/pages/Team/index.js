@@ -6,6 +6,7 @@ import {useContext, useEffect, useState} from "react";
 import {getTeam} from "../../services/teamService";
 import {AddCircle, People, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
+import SearchBar from "../../components/SearchBar";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -130,13 +131,14 @@ export default function TeamScreen() {
 
     return (
         <div className="team-screen">
-            <SideBar/>
             <div className="team-container">
                 {cover()}
             </div>
             <div className="profile-data-container">
                 {members()}
             </div>
+            <SearchBar/>
+            <SideBar/>
         </div>
     )
 }
