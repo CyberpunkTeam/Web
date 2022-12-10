@@ -5,23 +5,35 @@ import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
 import {AddCircle, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import {createTeam} from "../../services/teamService";
 import {getProfile} from "../../services/userService";
+import Loading from "../../components/loading";
 
 function ProfileScreen() {
+    const params = useParams();
     let context = useContext(AppContext);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+
+    const [teamName, setTeamName] = useState("");
+    const [tech, setTech] = useState("");
+    const [techs, setTechs] = useState([]);
+    const [prefs, setPrefs] = useState([]);
+    const [pref, setPref] = useState("");
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
-        getProfile(context.user.uid).then((response) => {
+        getProfile(id).then((response) => {
             setUserData(response);
+            setLoading(false)
         }).catch((error) => {
             console.log(error)
         });
-    }, []);
+    }, [id]);
 
     const user_image = () => {
         if (context.user.image === undefined) {
@@ -39,13 +51,13 @@ function ProfileScreen() {
         return (
             <div className="user-data-container">
                 <div className="name">
-                    {context.user.name} {context.user.lastname}
+                    {id ? userData.user.name : context.user.name} {id ? userData.user.lastname : context.user.lastname}
                 </div>
                 <div className="extra-data">
-                    {context.user.location}
+                    {id ? userData.user.location : context.user.location}
                 </div>
                 <div className="extra-data">
-                    {context.user.email}
+                    {id ? userData.user.email : context.user.email}
                 </div>
             </div>
         )
@@ -78,9 +90,9 @@ function ProfileScreen() {
 
         return (
             <div className="user-info-container">
-                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
+                {id ? null : <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
                     openModal()
-                }}/>
+                }}/>}
                 <div className="user-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
@@ -91,14 +103,6 @@ function ProfileScreen() {
             </div>
         )
     }
-
-
-    const [teamName, setTeamName] = useState("");
-    const [tech, setTech] = useState("");
-    const [techs, setTechs] = useState([]);
-    const [prefs, setPrefs] = useState([]);
-    const [pref, setPref] = useState("");
-    const [modalIsOpen, setIsOpen] = useState(false);
 
     const setTeamHandler = (event) => {
         setTeamName(event.target.value);
@@ -241,6 +245,10 @@ function ProfileScreen() {
                 <img src={image_cover} className="image-container" alt=""/>
             </div>
         )
+    }
+
+    if (loading) {
+        return <Loading/>
     }
 
     if (context.user === undefined || context.user === null) {

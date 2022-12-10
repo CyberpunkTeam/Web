@@ -7,6 +7,7 @@ import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
+import NotFound from "../NotFound";
 
 function MainScreen() {
     let context = useContext(AppContext);
@@ -154,22 +155,28 @@ function MainScreen() {
         )
     }
 
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="container-login">
-                <div className="pana-container">
-                    <div className="title-style">
-                        Encuentra tu equipo ideal de manera sencilla y rápida
+    if (context.user !== undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="container-login">
+                    <div className="pana-container">
+                        <div className="title-style">
+                            Encuentra tu equipo ideal de manera sencilla y rápida
+                        </div>
+                        <img src={pana} className="pana-style" alt="logo"/>
                     </div>
-                    <img src={pana} className="pana-style" alt="logo"/>
-                </div>
-                <div className="form-container">
-                    {register ? verifyMessage() : registerForm()}
+                    <div className="form-container">
+                        {register ? verifyMessage() : registerForm()}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default MainScreen;

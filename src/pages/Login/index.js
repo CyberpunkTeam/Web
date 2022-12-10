@@ -8,6 +8,7 @@ import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
 import {getUser} from "../../services/userService";
 import Register from "../Register";
+import NotFound from "../NotFound";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -178,15 +179,20 @@ function Login() {
             <Register uid={uid} email={email}/>
         )
     }
-
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="data-container">
-                {completeData ? registerForm() : loginForm()}
+    if (context.user !== undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="data-container">
+                    {completeData ? registerForm() : loginForm()}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Login;

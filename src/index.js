@@ -40,6 +40,7 @@ function App() {
                             <Route path="main" element={<MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
                             <Route path="me" element={<ProfileScreen/>}/>
+                            <Route path="/user/:id" element={<ProfileScreen/>}/>
                             <Route path="/team/:id" element={<TeamScreen/>}/>
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
