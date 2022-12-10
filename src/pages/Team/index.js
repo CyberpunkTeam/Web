@@ -14,11 +14,11 @@ export default function TeamScreen() {
     useEffect(() => {
         getTeam(params.id).then((response) => {
             const res = {
-                tid: "1",
-                name: "Equipo Alfa",
-                technologies: ["Python", "React"],
-                project_preferences: ["Web", "Crypto"],
-                owner: "1"
+                tid: response.tid,
+                name: response.name,
+                technologies: response.technologies,
+                project_preferences: response.project_preferences,
+                owner: response.owner
             }
             setTeamData(res)
             setLoading(false)

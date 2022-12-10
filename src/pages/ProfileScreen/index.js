@@ -1,16 +1,27 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
 import {AddCircle, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate} from "react-router-dom";
 import {createTeam} from "../../services/teamService";
+import {getProfile} from "../../services/userService";
 
 function ProfileScreen() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
+
+    const [userData, setUserData] = useState({})
+
+    useEffect(() => {
+        getProfile(context.user.uid).then((response) => {
+            setUserData(response);
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, []);
 
     const user_image = () => {
         if (context.user.image === undefined) {
@@ -41,6 +52,30 @@ function ProfileScreen() {
     }
 
     const team_user_view = () => {
+        if (userData.teams === undefined) {
+            return;
+        }
+
+        const teamView = () => {
+            if (userData.teams.length === 0) {
+                return;
+            }
+
+            const team_link = "/team/" + userData.teams[0].tid;
+
+            return (
+                <div className="data-info">
+                    <Link to={team_link} className="team-link">
+                        {userData.teams[0].name}
+                    </Link>
+                    <div className="rank">
+                        <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
+                        5.0
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <div className="user-info-container">
                 <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
@@ -51,19 +86,12 @@ function ProfileScreen() {
                         <People size="32" color="#014751" className={"icon"}/>
                         Teams
                     </div>
-                    <div className="data-info">
-                        <Link to="/team/1" className="team-link">
-                            Equipo Alfa
-                        </Link>
-                        <div className="rank">
-                            <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
-                            5.0
-                        </div>
-                    </div>
+                    {teamView()}
                 </div>
             </div>
         )
     }
+
 
     const [teamName, setTeamName] = useState("");
     const [tech, setTech] = useState("");
@@ -140,7 +168,7 @@ function ProfileScreen() {
             setPref("")
             setTeamName("")
             setIsOpen(false);
-            navigate("team/" + response.uid)
+            navigate("/team/" + response.tid)
         })
 
     }

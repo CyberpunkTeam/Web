@@ -47,10 +47,8 @@ function Login() {
     }
 
     const getUserService = (userCredential) => {
-        console.log(userCredential)
         getUser(userCredential.user.uid).then((userdata => {
 
-            console.log(userdata)
             if (Object.keys(userdata).length === 0) {
                 setUid(userCredential.user.uid);
                 setCompleteData(true);
@@ -90,8 +88,6 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
-
-                console.log(userCredential.user);
                 await getUserService(userCredential);
 
             })

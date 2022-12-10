@@ -44,7 +44,6 @@ function MainScreen() {
 
 
     const registerButton = () => {
-        console.log("Apretado")
         if (email.length === 0 || password.length === 0) {
             setLoginError(true);
             setErrorMessage("Completar los campos requeridos")
@@ -54,8 +53,6 @@ function MainScreen() {
         setLoading(true);
         createUserWithEmailAndPassword(context.auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential)
-                console.log(context.auth.currentUser)
                 sendEmailVerification(context.auth.currentUser).then((r) => {
                     console.log(r)
                     setRegister(true)
