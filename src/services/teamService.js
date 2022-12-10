@@ -1,4 +1,4 @@
-const serviceUrl = "https://teams-wt22wsppsq-uc.a.run.app/"
+const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/"
 
 export const createTeam = (body) => {
     return fetch(serviceUrl + "teams/", {
@@ -10,7 +10,6 @@ export const createTeam = (body) => {
         body: JSON.stringify(body)
     }).then(
         response => {
-            console.log(response)
             return response.json().then(
                 data => {
                     return data
@@ -21,7 +20,7 @@ export const createTeam = (body) => {
 }
 
 export const getTeam = (uid) => {
-    return fetch(serviceUrl + "teams/" + uid, {
+    return fetch(serviceUrl + "teams/" + uid + '/', {
         method: 'GET'
     }).then(
         response => {

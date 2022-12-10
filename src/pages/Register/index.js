@@ -6,7 +6,6 @@ import {createUser} from "../../services/userService";
 
 function Register(params) {
     let context = useContext(AppContext);
-    console.log(params)
 
     const navigate = useNavigate();
 
@@ -36,8 +35,6 @@ function Register(params) {
                 </div>
             )
     }
-
-    console.log(context.auth.currentUser);
 
     const registerButton = () => {
         if (name.length === 0 || lastName.length === 0 || city.length === 0) {

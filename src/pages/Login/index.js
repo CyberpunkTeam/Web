@@ -8,6 +8,7 @@ import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
 import {getUser} from "../../services/userService";
 import Register from "../Register";
+import NotFound from "../NotFound";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -47,10 +48,8 @@ function Login() {
     }
 
     const getUserService = (userCredential) => {
-        console.log(userCredential)
         getUser(userCredential.user.uid).then((userdata => {
 
-            console.log(userdata)
             if (Object.keys(userdata).length === 0) {
                 setUid(userCredential.user.uid);
                 setCompleteData(true);
@@ -90,8 +89,6 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
-
-                console.log(userCredential.user);
                 await getUserService(userCredential);
 
             })
@@ -182,15 +179,20 @@ function Login() {
             <Register uid={uid} email={email}/>
         )
     }
-
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="data-container">
-                {completeData ? registerForm() : loginForm()}
+    if (context.user !== undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="data-container">
+                    {completeData ? registerForm() : loginForm()}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Login;
