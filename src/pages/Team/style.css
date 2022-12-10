@@ -59,7 +59,6 @@
     color: white;
     font-weight: 200;
     margin: 0px 8px 0px 0px;
-    background: #B07DFE;
     border-radius: 6px;
 }
 
@@ -69,6 +68,44 @@
     color: white;
     font-weight: 200;
     margin: 0px 0px 0px 8px;
-    background: #0AC8E0;
     border-radius: 6px;
+}
+
+.members-info-container {
+    position: relative;
+    width: 49.5%;
+    background: #F1F1F1;
+    height: 280px;
+    border-radius: 10px;
+}
+
+.members {
+    margin: 20px 00px 00px 00px;
+    display: flex;
+    align-items: center;
+}
+
+.members-data {
+    margin: 10px 40px 10px 40px;
+    font-weight: 700;
+    color: #014751;
+}
+
+.member-name {
+    display: flex;
+    flex-direction: column;
+    padding-left: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.member {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.owner {
+    font-weight: 300;
+    font-size: 12px;
 }

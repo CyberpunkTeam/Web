@@ -1,7 +1,10 @@
 .navbar {
-    position: absolute;
+    position: fixed;
     left: 0;
+    top: 0;
     width: 70px;
+    height: 100vh;
+    backdrop-filter: blur(28px);
     background: rgba(46, 153, 153, 0.1);
     display: flex;
     align-items: center;
@@ -24,8 +27,6 @@
     justify-content: center;
     background: rgba(46, 153, 153, 1);
 }
-
-
 
 .user-sidebar {
     background: #0F2830;
@@ -52,7 +53,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    height: 50vh;
+    height: 20vh;
 }
 
 .top {
@@ -61,5 +62,10 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    height: 50vh;
+    height: 80vh;
+}
+
+.members-info {
+    margin: 40px;
+    height: 200px;
 }

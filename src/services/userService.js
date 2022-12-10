@@ -10,7 +10,6 @@ export const createUser = (body) => {
         body: JSON.stringify(body)
     }).then(
         response => {
-            console.log(response)
             return response.json().then(
                 data => {
                     return data
@@ -25,7 +24,24 @@ export const getUser = (uid) => {
         method: 'GET'
     }).then(
         response => {
-            console.log("Status " + response.status)
+            return response.json().then(
+                data => {
+                    if(response.status === 404) {
+                        return {}
+                    }
+
+                    return data
+                }
+            )
+        }
+    ).catch((error) => {return error})
+}
+
+export const getProfile = (uid) => {
+    return fetch(serviceUrl + "profiles/" + uid, {
+        method: 'GET'
+    }).then(
+        response => {
             return response.json().then(
                 data => {
                     if(response.status === 404) {

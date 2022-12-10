@@ -13,7 +13,6 @@ import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
 import Working from "./pages/Working";
-import Register from "./pages/Register";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -22,12 +21,15 @@ function App() {
     const auth = getAuth(app);
 
     const userStorage = localStorage.getItem("user")
+
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
+    //const [userTeams, setUserTeams] = useState(undefined);
     const data = {
         user,
         setUser,
         auth
     }
+
     return (
         <AppContext.Provider value={data}>
             <div className="App">
@@ -38,11 +40,8 @@ function App() {
                             <Route path="main" element={<MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
                             <Route path="me" element={<ProfileScreen/>}/>
-                            <Route path="*" element={<NotFound/>}/>
-                        </Route>
-                        <Route path="/team">
-                            <Route index element={<NotFound/>}/>
-                            <Route path=":id" element={<TeamScreen/>}/>
+                            <Route path="/user/:id" element={<ProfileScreen/>}/>
+                            <Route path="/team/:id" element={<TeamScreen/>}/>
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>

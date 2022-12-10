@@ -7,6 +7,7 @@ import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
+import NotFound from "../NotFound";
 
 function MainScreen() {
     let context = useContext(AppContext);
@@ -44,7 +45,6 @@ function MainScreen() {
 
 
     const registerButton = () => {
-        console.log("Apretado")
         if (email.length === 0 || password.length === 0) {
             setLoginError(true);
             setErrorMessage("Completar los campos requeridos")
@@ -54,10 +54,7 @@ function MainScreen() {
         setLoading(true);
         createUserWithEmailAndPassword(context.auth, email, password)
             .then((userCredential) => {
-                console.log(userCredential)
-                console.log(context.auth.currentUser)
                 sendEmailVerification(context.auth.currentUser).then((r) => {
-                    console.log(r)
                     setRegister(true)
                     window.localStorage.setItem('emailForSignIn', email);
                 })
@@ -157,22 +154,28 @@ function MainScreen() {
         )
     }
 
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="container-login">
-                <div className="pana-container">
-                    <div className="title-style">
-                        Encuentra tu equipo ideal de manera sencilla y rápida
+    if (context.user !== undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="container-login">
+                    <div className="pana-container">
+                        <div className="title-style">
+                            Encuentra tu equipo ideal de manera sencilla y rápida
+                        </div>
+                        <img src={pana} className="pana-style" alt="logo"/>
                     </div>
-                    <img src={pana} className="pana-style" alt="logo"/>
-                </div>
-                <div className="form-container">
-                    {register ? verifyMessage() : registerForm()}
+                    <div className="form-container">
+                        {register ? verifyMessage() : registerForm()}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default MainScreen;
