@@ -26,7 +26,7 @@ export const getUser = (uid) => {
         response => {
             return response.json().then(
                 data => {
-                    if(response.status === 404) {
+                    if (response.status === 404) {
                         return {}
                     }
 
