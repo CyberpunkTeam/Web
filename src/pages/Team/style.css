@@ -54,6 +54,7 @@
 }
 
 .tech-tag {
+    background: #B07DFE;
     display: flex;
     padding: 2px 8px 2px 8px;
     color: white;
@@ -63,6 +64,7 @@
 }
 
 .pref-tag {
+    background: #0AC8E0;
     display: flex;
     padding: 2px 8px 2px 8px;
     color: white;
