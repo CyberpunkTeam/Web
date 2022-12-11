@@ -56,7 +56,7 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker APIKEY=${{ env.APIKEY }} AUTHDOMAIN=${{ env.AUTHDOMAIN }} PROJECTID=${{ env.PROJECT_ID }} STORAGEBUCKET=${{ env.STORAGEBUCKET }} MESSAGINGSENDERID=${{ env.MESSAGINGSENDERID }} APPID=${{ env.APPID }} MEASUREMENTID=${{ env.MEASUREMENTID }} build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+          docker build -e APIKEY=${{ env.APIKEY }} -e AUTHDOMAIN=${{ env.AUTHDOMAIN }} -e PROJECTID=${{ env.PROJECT_ID }} -e STORAGEBUCKET=${{ env.STORAGEBUCKET }} -e MESSAGINGSENDERID=${{ env.MESSAGINGSENDERID }} -e APPID=${{ env.APPID }} -e MEASUREMENTID=${{ env.MEASUREMENTID }} -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
           docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
       - name: Deploy to Cloud Run
         run: |-
