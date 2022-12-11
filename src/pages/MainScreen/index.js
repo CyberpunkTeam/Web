@@ -154,28 +154,22 @@ function MainScreen() {
         )
     }
 
-    if (context.user !== undefined) {
-        return (
-            <NotFound/>
-        )
-    } else {
-        return (
-            <div className="container">
-                <Logo/>
-                <div className="container-login">
-                    <div className="pana-container">
-                        <div className="title-style">
-                            Encuentra tu equipo ideal de manera sencilla y rápida
-                        </div>
-                        <img src={pana} className="pana-style" alt="logo"/>
+    return (
+        <div className="container">
+            <Logo/>
+            <div className="container-login">
+                <div className="pana-container">
+                    <div className="title-style">
+                        Encuentra tu equipo ideal de manera sencilla y rápida
                     </div>
-                    <div className="form-container">
-                        {register ? verifyMessage() : registerForm()}
-                    </div>
+                    <img src={pana} className="pana-style" alt="logo"/>
+                </div>
+                <div className="form-container">
+                    {register ? verifyMessage() : registerForm()}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default MainScreen;

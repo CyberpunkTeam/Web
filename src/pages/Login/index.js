@@ -179,20 +179,14 @@ function Login() {
             <Register uid={uid} email={email}/>
         )
     }
-    if (context.user !== undefined) {
-        return (
-            <NotFound/>
-        )
-    } else {
-        return (
-            <div className="container">
-                <Logo/>
-                <div className="data-container">
-                    {completeData ? registerForm() : loginForm()}
-                </div>
+    return (
+        <div className="container">
+            <Logo/>
+            <div className="data-container">
+                {completeData ? registerForm() : loginForm()}
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 export default Login;
