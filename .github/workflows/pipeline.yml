@@ -61,13 +61,6 @@ jobs:
       - name: Deploy to Cloud Run
         run: |-
           gcloud run deploy ${{ env.SERVICE }} \
-            --set-env-vars APIKEY=${{ env.APIKEY }} \
-            --set-env-vars AUTHDOMAIN=${{ env.AUTHDOMAIN }} \
-            --set-env-vars PROJECTID=${{ env.PROJECTID }} \
-            --set-env-vars STORAGEBUCKET=${{ env.STORAGEBUCKET }} \
-            --set-env-vars MESSAGINGSENDERID=${{ env.MESSAGINGSENDERID }} \
-            --set-env-vars APPID=${{ env.APPID }} \
-            --set-env-vars MEASUREMENTID=${{ env.MEASUREMENTID }} \
             --region ${{ env.REGION }} \
             --image gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} \
             --platform "managed" \
