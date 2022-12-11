@@ -10,6 +10,13 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   REGION: us-central1
   SERVICE: fmt-web
+  APIKEY: ${{ secrets.APIKEY }}
+  AUTHDOMAIN: ${{ secrets.AUTHDOMAIN }}
+  PROJECTID: ${{ secrets.PROJECTID }}
+  STORAGEBUCKET: ${{ secrets.STORAGEBUCKET }}
+  MESSAGINGSENDERID: ${{ secrets.MESSAGINGSENDERID }}
+  APPID: ${{ secrets.APPID }}
+  MEASUREMENTID: ${{ secrets.MEASUREMENTID }}
 
 
 jobs:
@@ -49,7 +56,7 @@ jobs:
 
       - name: Build and Push Container
         run: |-
-          docker build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
+          docker APIKEY=${{ env.APIKEY }} AUTHDOMAIN=${{ env.AUTHDOMAIN }} PROJECTID=${{ env.PROJECT_ID }} STORAGEBUCKET=${{ env.STORAGEBUCKET }} MESSAGINGSENDERID=${{ env.MESSAGINGSENDERID }} APPID=${{ env.APPID }} MEASUREMENTID=${{ env.MEASUREMENTID }} build -t gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }} .
           docker push gcr.io/${{ env.PROJECT_ID }}/${{ env.SERVICE }}:${{  github.sha }}
       - name: Deploy to Cloud Run
         run: |-
