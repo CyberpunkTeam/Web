@@ -7,6 +7,7 @@ import {getTeam} from "../../services/teamService";
 import {AddCircle, People, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
+import NotFound from "../NotFound";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -76,7 +77,8 @@ export default function TeamScreen() {
     const members = () => {
         return (
             <div className="members-info-container">
-                {teamData.owner === context.user.uid ? <AddCircle size="24" color="#B1B1B1" className="add-button"/> : null}
+                {teamData.owner === context.user.uid ?
+                    <AddCircle size="24" color="#B1B1B1" className="add-button"/> : null}
                 <div className="members-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
@@ -129,16 +131,22 @@ export default function TeamScreen() {
         )
     }
 
-    return (
-        <div className="team-screen">
-            <div className="team-container">
-                {cover()}
+    if (teamData.tid === undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <div className="team-screen">
+                <div className="team-container">
+                    {cover()}
+                </div>
+                <div className="profile-data-container">
+                    {members()}
+                </div>
+                <SearchBar/>
+                <SideBar/>
             </div>
-            <div className="profile-data-container">
-                {members()}
-            </div>
-            <SearchBar/>
-            <SideBar/>
-        </div>
-    )
+        )
+    }
 }

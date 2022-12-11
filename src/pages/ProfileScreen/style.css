@@ -228,6 +228,7 @@
 }
 
 .team-data-info {
+    margin: 0px 0px 32px 0px;
     height: 80px;
     font-weight: 700;
     color: #222222;
@@ -268,6 +269,6 @@
 }
 
 .tags-modal {
-    margin: 0px 40px 20px 40px;
+    margin: 8px 40px 8px 40px;
     display: flex;
 }
