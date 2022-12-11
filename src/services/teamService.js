@@ -20,13 +20,15 @@ export const createTeam = (body) => {
 }
 
 export const getTeam = (uid) => {
-    return fetch(serviceUrl + "teams/" + uid + '/', {
+    return fetch(serviceUrl + "teams/" + uid, {
         method: 'GET'
     }).then(
         response => {
-            console.log(response)
             return response.json().then(
                 data => {
+                    if (response.status === 404) {
+                        return {}
+                    }
                     return data
                 }
             )
