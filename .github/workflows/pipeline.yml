@@ -10,13 +10,6 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
   REGION: us-central1
   SERVICE: fmt-web
-  APIKEY: ${{ secrets.APIKEY }}
-  AUTHDOMAIN: ${{ secrets.AUTHDOMAIN }}
-  PROJECTID: ${{ secrets.PROJECTID }}
-  STORAGEBUCKET: ${{ secrets.STORAGEBUCKET }}
-  MESSAGINGSENDERID: ${{ secrets.MESSAGINGSENDERID }}
-  APPID: ${{ secrets.APPID }}
-  MEASUREMENTID: ${{ secrets.MEASUREMENTID }}
 
 
 jobs:
@@ -51,8 +44,14 @@ jobs:
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v1
 
+
       - name: Authorize Docker push
         run: gcloud auth configure-docker
+
+      # Download the file locally
+      - name: Get_file
+        run: |-
+          gsutil cp gs://web_configuration/.env.production .
 
       - name: Build and Push Container
         run: |-
