@@ -17,8 +17,6 @@ import Working from "./pages/Working";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function App() {
-    console.log("ENV VARS: ", process.env)
-    console.log("firabase config: ", firebaseConfig)
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
