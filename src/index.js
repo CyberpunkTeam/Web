@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
 import Working from "./pages/Working";
+import ProjectsScreen from "./pages/Projects";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -42,6 +43,7 @@ function App() {
                             <Route path="me" element={<ProfileScreen/>}/>
                             <Route path="/user/:id" element={<ProfileScreen/>}/>
                             <Route path="/team/:id" element={<TeamScreen/>}/>
+                            <Route path="/projects" element={<ProjectsScreen/>}/>
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>

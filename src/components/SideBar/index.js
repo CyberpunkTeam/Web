@@ -1,7 +1,7 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
 import {Link} from "react-router-dom";
-import {Setting2, User, Notification, Message, Notepad2} from "iconsax-react";
+import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 
@@ -28,25 +28,23 @@ function SideBar() {
     const notificationHover = () => {
         if (watchNotifications) {
             return (
-                <>
-                    <div id="notifications" className="notification-list">
-                        <div>
-                            Notificaciones
-                        </div>
-                        <li>
-                            Juan Antono Peréz te invito a su equipo Juan Team
-                        </li>
-                        <li>
-                            Juan Antono Peréz te invito a su equipo Juan Team
-                        </li>
-                        <li>
-                            Juan Antono Peréz te invito a su equipo Juan Team
-                        </li>
-                        <li>
-                            Juan Antono Peréz te invito a su equipo Juan Team
-                        </li>
+                <div id="notifications" className="notification-list">
+                    <div>
+                        Notificaciones
                     </div>
-                </>
+                    <li>
+                        Juan Antono Peréz te invito a su equipo Juan Team
+                    </li>
+                    <li>
+                        Juan Antono Peréz te invito a su equipo Juan Team
+                    </li>
+                    <li>
+                        Juan Antono Peréz te invito a su equipo Juan Team
+                    </li>
+                    <li>
+                        Juan Antono Peréz te invito a su equipo Juan Team
+                    </li>
+                </div>
             )
         }
     }
@@ -68,6 +66,9 @@ function SideBar() {
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                    <Link to="/projects">
+                        <LampCharge className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                    </Link>
                 </div>
                 <div className="bottom">
                     <Link to="/me">
