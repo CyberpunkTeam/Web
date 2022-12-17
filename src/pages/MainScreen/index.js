@@ -7,7 +7,6 @@ import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
-import NotFound from "../NotFound";
 
 function MainScreen() {
     let context = useContext(AppContext);
