@@ -8,7 +8,6 @@ app.use(favicon(__dirname + '/build/logo-complete.svg'));
 app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'build')));
 app.get('/ping', function (req, res) {
-    console.log("envs vars: ", process.env)
     return res.send('pong');
 });
 app.get('/*', function (req, res) {

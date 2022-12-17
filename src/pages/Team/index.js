@@ -17,7 +17,6 @@ export default function TeamScreen() {
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
-            console.log(response)
             setTeamData(response)
             setLoading(false)
         }).catch((error) => {
