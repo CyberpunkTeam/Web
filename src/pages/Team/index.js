@@ -17,14 +17,8 @@ export default function TeamScreen() {
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
-            const res = {
-                tid: response.tid,
-                name: response.name,
-                technologies: response.technologies,
-                project_preferences: response.project_preferences,
-                owner: response.owner
-            }
-            setTeamData(res)
+            console.log(response)
+            setTeamData(response)
             setLoading(false)
         }).catch((error) => {
             console.log(error)
@@ -74,6 +68,23 @@ export default function TeamScreen() {
         )
     }
 
+    const member = (data) => {
+
+        return (
+            <div key={data} className="member">
+                <div className="member-photo">
+                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                </div>
+                <div className="member-name">
+                    {data.name} {data.lastname}
+                    <div className="owner">
+                        {data.uid === teamData.owner ? 'Dueño' : ''}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const members = () => {
         return (
             <div className="members-info-container">
@@ -82,48 +93,22 @@ export default function TeamScreen() {
                 <div className="members-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
-                        Miembros
+                        Miembros ({teamData.members.length})
                     </div>
                     <div className="members-data">
-                        1 Usuario
                         <div className="members">
-                            <div className="member">
-                                <div className="user-sidebar">
-                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
-                                </div>
-                                <div className="member-name">
-                                    Gonzalo Marino
-                                    <div className="owner">
-                                        owner
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="member">
-                                <div className="user-sidebar">
-                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
-                                </div>
-                                <div className="member-name">
-                                    Gonzalo Marino
-                                </div>
-                            </div>
+                            {
+                                teamData.members.slice(0, 2).map((data) => {
+                                    return member(data)
+                                })
+                            }
                         </div>
                         <div className="members">
-                            <div className="member">
-                                <div className="user-sidebar">
-                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
-                                </div>
-                                <div className="member-name">
-                                    Gonzalo Marino
-                                </div>
-                            </div>
-                            <div className="member">
-                                <div className="user-sidebar">
-                                    <User color="#FAFAFA" size="16px" variant="Bold"/>
-                                </div>
-                                <div className="member-name">
-                                    Gonzalo Marino
-                                </div>
-                            </div>
+                            {
+                                teamData.members.slice(2, 4).map((data) => {
+                                    return member(data)
+                                })
+                            }
                         </div>
                     </div>
                 </div>
