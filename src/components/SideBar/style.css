@@ -3,8 +3,9 @@
     left: 0;
     top: 0;
     width: 70px;
+    min-height: 540px;
     height: 100vh;
-    backdrop-filter: blur(28px);
+    backdrop-filter: blur(100px);
     background: rgba(46, 153, 153, 0.1);
     display: flex;
     align-items: center;
@@ -47,6 +48,52 @@
     padding-bottom: 30px;
 }
 
+.notification-numbers {
+    line-height: 20px;
+    text-align: center;
+    right: 4px;
+    color: #F1F1F1;
+    font-size: 12px;
+    justify-content: center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 15px;
+    background: #CD5B45;
+}
+
+.notification-list div {
+    padding-bottom: 20px;
+}
+
+.notification-list li{
+    height: 48px;
+    font-size: 16px;
+    font-weight: 300;
+    list-style: none;
+    padding: 16px 0px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.notification-list li:last-child{
+    border-bottom: none;
+}
+
+.notification-list{
+    border-left: 1px solid rgba(0,0,0,0.1);
+    font-size: 24px;
+    padding: 20px 10px 20px 20px;
+    font-weight: 700;
+    color: #222222;
+    position: fixed;
+    top: 0px;
+    left: 70px;
+    backdrop-filter: blur(120px);
+    background: rgba(46, 153, 153, 0.1);
+    width: 300px;
+    height: 100vh;
+}
+
 .bottom {
     display: flex;
     flex-direction: column;
@@ -63,9 +110,4 @@
     align-items: center;
     justify-content: flex-start;
     height: 80vh;
-}
-
-.members-info {
-    margin: 40px;
-    height: 200px;
 }
