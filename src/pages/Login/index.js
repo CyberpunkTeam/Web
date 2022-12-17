@@ -8,7 +8,6 @@ import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
 import {getUser} from "../../services/userService";
 import Register from "../Register";
-import NotFound from "../NotFound";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
