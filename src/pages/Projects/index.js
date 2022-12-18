@@ -3,35 +3,25 @@ import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import {AddCircle} from "iconsax-react";
+import {useEffect, useState} from "react";
+import {getProjects} from "../../services/projectService";
+import Loading from "../../components/loading";
 
 export default function ProjectsScreen() {
     const navigate = useNavigate();
+    const [projects, setProjects] = useState();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        getProjects().then((response) => {
+            setProjects(response);
+            setLoading(false)
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, []);
 
     const projectsView = () => {
-
-        const numbers = [
-            {
-                "name": "Projecto 1",
-                "owner": "Juan Perez",
-                "tech": ["Python", "React"]
-            },
-            {
-                "name": "Projecto 2",
-                "owner": "Juan Perez",
-                "tech": ["Go"]
-            },
-            {
-                "name": "Projecto 3",
-                "owner": "Juan Perez",
-                "tech": ["Python"]
-            },
-            {
-                "name": "Projecto 3",
-                "owner": "Juan Perez",
-                "tech": ["Python"]
-            }
-        ]
-
         const tag = (value) => {
             return (
                 <div id={value} className={"modal-tag"}>
@@ -42,19 +32,31 @@ export default function ProjectsScreen() {
 
 
         const projectCard = (data) => {
+            const link_to = "/user/" + data.creator_uid
             return (
                 <div className="project-card-container">
                     <div className="project-card">
                         {data.name}
                         <div className="project-info">
                             <div className="titles">
-                                Creador: {data.owner}
+                                Creador:
+                                <div className="titles" onClick={() => {navigate(link_to)}}>
+                                    {data.creator_uid}
+                                </div>
                             </div>
                             <div className="project-tech-info">
                                 <div className="titles">
                                     Tecnologías:
                                 </div>
-                                {data.tech.map((info) => {
+                                {data.technologies.map((info) => {
+                                    return tag(info)
+                                })}
+                            </div>
+                            <div className="project-tech-info">
+                                <div className="titles">
+                                    Idiomas:
+                                </div>
+                                {data.idioms.map((info) => {
                                     return tag(info)
                                 })}
                             </div>
@@ -66,7 +68,7 @@ export default function ProjectsScreen() {
 
         return (
             <div className="projects-card-container">
-                {numbers.map((data) => {
+                {projects.map((data) => {
                     return projectCard(data)
                 })}
             </div>
@@ -83,6 +85,10 @@ export default function ProjectsScreen() {
                 </div>
             </div>
         )
+    }
+
+    if(loading) {
+        return <Loading/>
     }
 
     return (

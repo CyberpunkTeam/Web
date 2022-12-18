@@ -34,7 +34,7 @@
     height: 120px;
 }
 .project-tech-info {
-    padding: 10px 00px;
+    padding: 10px 00px 0px 0px;
     display: flex;
     font-size: 16px;
     font-weight: 500;
@@ -47,6 +47,7 @@
     align-items: center;
 }
 .titles {
+    display: flex;
     font-size: 16px;
     font-weight: 500;
     padding: 00px 08px;

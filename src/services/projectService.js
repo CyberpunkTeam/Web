@@ -20,7 +20,24 @@ export const createProject = (body) => {
 }
 
 export const getProject = (pid) => {
-    return fetch(serviceUrl + uid, {
+    return fetch(serviceUrl + pid, {
+        method: 'GET'
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    if (response.status === 404) {
+                        return {}
+                    }
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}
+
+export const getProjects = () => {
+    return fetch(serviceUrl, {
         method: 'GET'
     }).then(
         response => {
