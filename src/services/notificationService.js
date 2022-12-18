@@ -15,3 +15,22 @@ export const getNotifications = (uid) => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const sendInvitation = (body) => {
+    return fetch(serviceUrl + "team_invitation/", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

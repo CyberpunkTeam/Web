@@ -25,7 +25,6 @@ function App() {
     const userStorage = localStorage.getItem("user")
 
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
-    //const [userTeams, setUserTeams] = useState(undefined);
     const data = {
         user,
         setUser,

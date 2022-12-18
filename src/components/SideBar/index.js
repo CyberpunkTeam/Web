@@ -43,7 +43,7 @@ function SideBar() {
         const notificationLi = (data) => {
             return(
                 <li>
-                    Juan Antono Peréz te invito a su equipo Juan Team
+                    {data.content}
                 </li>
             )
         }
@@ -85,7 +85,7 @@ function SideBar() {
                         closeNotification()
                     }}>
                         <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                        {notifications.length !== 0 ? <span className="notification-numbers">4</span> : null}
+                        {notifications.length !== 0 ? <span className="notification-numbers">{notifications.length}</span> : null}
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Link to="/projects">

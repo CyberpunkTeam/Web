@@ -29,7 +29,6 @@ export const getUser = (uid) => {
                     if (response.status === 404) {
                         return {}
                     }
-
                     return data
                 }
             )
@@ -45,6 +44,24 @@ export const getProfile = (uid) => {
             return response.json().then(
                 data => {
                     if(response.status === 404) {
+                        return {}
+                    }
+
+                    return data
+                }
+            )
+        }
+    ).catch((error) => {return error})
+}
+
+export const getUsers = () => {
+    return fetch(serviceUrl + "users/", {
+        method: 'GET'
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    if (response.status === 404) {
                         return {}
                     }
 
