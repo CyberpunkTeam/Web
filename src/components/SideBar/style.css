@@ -66,11 +66,11 @@
     padding-bottom: 20px;
 }
 .notification-list li{
-    height: 48px;
+    height: 136px;
     font-size: 16px;
     font-weight: 300;
     list-style: none;
-    padding: 16px 0px;
+    padding-top: 16px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
@@ -118,4 +118,30 @@
     height: 80vh;
     font-size: 16px;
     font-weight: 400;
+}
+.accept-invitation {
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    width: 49%;
+    height: 40px;
+    background: #014751;
+    color: #F1F1F1;
+    border-radius: 10px;
+    border-width: 0;
+}
+.deny-invitation {
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    width: 49%;
+    height: 40px;
+    color: #F1F1F1;
+    background: #CD5B45;
+    border-radius: 10px;
+    border-width: 0;
+}
+.invitation {
+    padding: 16px 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

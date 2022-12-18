@@ -1,14 +1,16 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications} from "../../services/notificationService";
 import {getProjects} from "../../services/projectService";
+import {addMember} from "../../services/teamService";
 
 function SideBar() {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
 
@@ -21,6 +23,15 @@ function SideBar() {
         });
     }, []);
 
+    const acceptInvitation = (tid) => {
+        addMember(tid, context.user.uid).then((r) => {
+            console.log(r);
+            const link = "/team/" + tid
+            navigate(link);
+        }).catch((e) => {
+            console.log(e)
+        })
+    }
 
 
     const closeNotification = () => {
@@ -41,11 +52,29 @@ function SideBar() {
 
     const notificationHover = () => {
         const notificationLi = (data) => {
-            return(
-                <li>
-                    {data.content}
-                </li>
-            )
+            console.log(data)
+            if (data.resource === "TEAM") {
+                const link = "/team/" + data.resource_id
+                return (
+                    <li>
+                        <div onClick={() => {
+                            navigate(link);
+                        }}>
+                            {data.content}
+                        </div>
+                        <div className="invitation">
+                            <button className="deny-invitation">
+                                Rechazar
+                            </button>
+                            <button className="accept-invitation" onClick={() => {
+                                acceptInvitation(data.resource_id)
+                            }}>
+                                Aceptar
+                            </button>
+                        </div>
+                    </li>
+                )
+            }
         }
 
         const showNotifications = () => {
@@ -56,7 +85,9 @@ function SideBar() {
                     </div>
                 )
             } else {
-                return notifications.map((not) => {return notificationLi(not)})
+                return notifications.map((not) => {
+                    return notificationLi(not)
+                })
             }
         }
 
@@ -85,7 +116,8 @@ function SideBar() {
                         closeNotification()
                     }}>
                         <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                        {notifications.length !== 0 ? <span className="notification-numbers">{notifications.length}</span> : null}
+                        {notifications.length !== 0 ?
+                            <span className="notification-numbers">{notifications.length}</span> : null}
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Link to="/projects">
