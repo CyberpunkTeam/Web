@@ -89,15 +89,14 @@ export default function ProjectsScreen() {
         <div>
             <div className="projects-screen">
                 <div className="projects-header">
-                    Projectos
-                    <AddCircle size="24" color="#B1B1B1" className="create-project-button"/>
+                    Proyectos
+                    <AddCircle size="24" color="#B1B1B1" className="create-project-button" onClick={() => {navigate(("/projects/new"))}}/>
                 </div>
                 <div className="projects-container">
                     {mostPopular()}
                     {projectsView()}
                 </div>
             </div>
-
             <SearchBar/>
             <SideBar/>
         </div>

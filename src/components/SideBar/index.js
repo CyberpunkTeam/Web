@@ -65,10 +65,10 @@ function SideBar() {
                         <span className="notification-numbers">4</span>
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                    <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Link to="/projects">
                         <LampCharge className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     </Link>
+                    <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                 </div>
                 <div className="bottom">
                     <Link to="/me">
