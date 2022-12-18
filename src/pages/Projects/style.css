@@ -1,22 +1,35 @@
 .projects-screen {
-    padding-top: 100px;
-    height: 180px;
+    padding-top: 70px;
     font-size: 24px;
     font-weight: 700;
     color: #222222;
 }
-.projects-header{
+
+.projects-header {
+    margin: 0;
+    position: fixed;
+    border-top: 1px solid rgba(0,0,0,0.05);
+    background: rgba(241, 241, 241, 0.1);
+    backdrop-filter: blur(28px);
     display: flex;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    padding-left: 15%;
+    padding-right: 15%;
     align-items: center;
 }
+
 .create-project-button {
     padding: 00px 8px;
 }
+
 .projects-container {
     display: flex;
-    padding: 10px 0px;
+    padding: 64px 0px;
     justify-content: space-between;
 }
+
 .project-card-container {
     flex-direction: column;
     display: flex;
@@ -25,14 +38,17 @@
     height: 200px;
     border-radius: 10px;
 }
+
 .project-card-container:first-child {
     margin-top: 0px;
 }
+
 .project-card {
     font-size: 18px;
     margin: 40px;
     height: 120px;
 }
+
 .project-tech-info {
     padding: 10px 00px 0px 0px;
     display: flex;
@@ -40,29 +56,33 @@
     font-weight: 500;
     align-items: center;
 }
+
 .project-info {
     padding: 16px 00px;
     font-size: 16px;
     font-weight: 500;
     align-items: center;
 }
+
 .titles {
     display: flex;
     font-size: 16px;
     font-weight: 500;
     padding: 00px 08px;
 }
+
 .most-popular-card-container {
-    position: relative;
     width: 40%;
     background: #F1F1F1;
     height: 420px;
     border-radius: 10px;
 }
+
 .popular-card {
     margin: 40px;
     height: 340px;
 }
+
 .projects-card-container {
     width: 59%;
 }

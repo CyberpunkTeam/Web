@@ -33,10 +33,13 @@ export default function ProjectsScreen() {
 
         const projectCard = (data) => {
             const link_to = "/user/" + data.creator_uid
+            const project_link = "/projects/" + data.pid
             return (
                 <div className="project-card-container">
-                    <div className="project-card">
-                        {data.name}
+                    <div className="project-card" >
+                        <div onClick={() => {navigate(project_link)}}>
+                            {data.name}
+                        </div>
                         <div className="project-info">
                             <div className="titles">
                                 Creador:

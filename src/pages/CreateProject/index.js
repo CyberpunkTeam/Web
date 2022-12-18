@@ -20,12 +20,13 @@ export default function CreateProjectScreen() {
         const body = {
             "name": name,
             "idioms": [language],
-            "description": "test project",
+            "description": description,
             "technologies": techs,
             "creator_uid": context.user.uid
         }
         createProject(body).then((r) => {
             console.log(r)
+            navigate("/projects/" + r.pid)
         })
     }
 

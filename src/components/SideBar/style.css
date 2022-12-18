@@ -121,20 +121,22 @@
     font-weight: 400;
 }
 .accept-invitation {
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Inter", sans-serif;
-    width: 49%;
-    height: 40px;
+    margin-left: 8px;
+    width: 32%;
+    height: 32px;
     background: #014751;
     color: #F1F1F1;
     border-radius: 10px;
     border-width: 0;
 }
 .deny-invitation {
-    font-size: 16px;
+    font-size: 14px;
     font-family: "Inter", sans-serif;
-    width: 49%;
-    height: 40px;
+    margin-right: 8px;
+    width: 32%;
+    height: 32px;
     color: #F1F1F1;
     background: #CD5B45;
     border-radius: 10px;
@@ -142,6 +144,6 @@
 }
 .invitation {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
 }
