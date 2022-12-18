@@ -5,7 +5,6 @@ import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "icons
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications} from "../../services/notificationService";
-import {getProjects} from "../../services/projectService";
 import {addMember} from "../../services/teamService";
 
 function SideBar() {
@@ -21,7 +20,7 @@ function SideBar() {
         }).catch((error) => {
             console.log(error)
         });
-    }, []);
+    }, [context.user.uid]);
 
     const acceptInvitation = (tid) => {
         addMember(tid, context.user.uid).then((r) => {
