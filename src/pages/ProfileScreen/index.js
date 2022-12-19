@@ -17,8 +17,6 @@ function ProfileScreen() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
-    console.log(context.user)
-
     const [name, setName] = useState(context.user.name);
     const [lastname, setLastName] = useState(context.user.lastname);
     const [city, setCity] = useState(context.user.location);
@@ -208,12 +206,7 @@ function ProfileScreen() {
         }
 
         createTeam(body).then((response) => {
-            setTechs([])
-            setPrefs([])
-            setTech("")
-            setPref("")
-            setTeamName("")
-            setIsOpen(false);
+            closeModal();
             navigate("/team/" + response.tid)
         })
 
@@ -227,9 +220,11 @@ function ProfileScreen() {
         }
 
         updateUser(context.user.uid, body).then((response) => {
-            console.log(response)
+            closeModal()
+            setName(response.name);
+            setLastName(response.lastname);
+            setCity(response.location);
             context.setUser(response)
-           closeModal()
         })
 
     }
@@ -368,7 +363,7 @@ function ProfileScreen() {
 
     const modal = () => {
         return (
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle}>
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isCreateTeamModal ? createTeamView() : isEditProfile ? editProfile() : viewTeamsModal()}
             </Modal>
         )
