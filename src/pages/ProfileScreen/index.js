@@ -98,7 +98,7 @@ function ProfileScreen() {
                         {userData.teams[0].name}
                     </Link>
                     <div className="rank">
-                        <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
+                        <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
                         5.0
                     </div>
                 </div>
@@ -189,14 +189,6 @@ function ProfileScreen() {
         setIsOpen(false);
     }
 
-    const tag = (value) => {
-        return (
-            <div id={value} className={"modal-tag"}>
-                {value}
-            </div>
-        )
-    }
-
     const createTeamButton = () => {
         const body = {
             name: teamName,
@@ -249,7 +241,7 @@ function ProfileScreen() {
                                    onKeyUp={addTechTag}/>
                             <div className="modal-tags-container">
                                 {techs.map((value) => {
-                                    return tag(value)
+                                    return tech_tag(value)
                                 })}
                             </div>
                         </div>
@@ -261,7 +253,7 @@ function ProfileScreen() {
                                    onKeyUp={addPrefsTag}/>
                             <div className="modal-tags-container">
                                 {prefs.map((value) => {
-                                    return tag(value)
+                                    return pref_tag(value)
                                 })}
                             </div>
                         </div>
@@ -314,15 +306,23 @@ function ProfileScreen() {
         </div>)
     }
 
-    const viewTeamsModal = () => {
+    const tech_tag = (technology) => {
+        return (
+            <div key={technology} className={"tech-tag"}>
+                {technology}
+            </div>
+        )
+    }
 
-        const tags = (data) => {
-            return (
-                <div key={data} className={"tag"}>
-                    {data}
-                </div>
-            )
-        }
+    const pref_tag = (preference) => {
+        return (
+            <div key={preference} className={"pref-tag"}>
+                {preference}
+            </div>
+        )
+    }
+
+    const viewTeamsModal = () => {
 
         const teamView = (data) => {
             const team_link = "/team/" + data.tid
@@ -332,15 +332,15 @@ function ProfileScreen() {
                         {data.name}
                     </Link>
                     <div className="rank-team-view">
-                        <Star1 size="24" color="#2E9999" variant="Bold" className={"icon"}/>
+                        <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
                         5.0
                     </div>
                     <div className="tags-modal">
                         {data.technologies.map((data) => {
-                            return tags(data)
+                            return tech_tag(data)
                         })}
                         {data.project_preferences.map((data) => {
-                            return tags(data)
+                            return pref_tag(data)
                         })}
                     </div>
                 </div>
