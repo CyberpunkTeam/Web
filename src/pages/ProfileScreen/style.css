@@ -176,6 +176,7 @@
 
 .container-button-modal {
     display: flex;
+    justify-content: space-between;
     width: 60%;
     color: #014751;
     font-size: 12px;
@@ -273,4 +274,37 @@
 .tags-modal {
     margin: 8px 40px 8px 40px;
     display: flex;
+}
+
+.edit-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    background: #FAFAFA;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+}
+
+.cancel-edit-button-style {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #CD5B45;
+    font-size: 16px;
+}
+
+.save-edit-button-style {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #014751;
+    font-size: 16px;
 }

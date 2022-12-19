@@ -3,11 +3,11 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, People, Star1, User} from "iconsax-react";
+import {AddCircle, Edit, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {createTeam} from "../../services/teamService";
-import {getProfile} from "../../services/userService";
+import {getProfile, updateUser} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
 
@@ -17,6 +17,12 @@ function ProfileScreen() {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
+    console.log(context.user)
+
+    const [name, setName] = useState(context.user.name);
+    const [lastname, setLastName] = useState(context.user.lastname);
+    const [city, setCity] = useState(context.user.location);
+
     const [teamName, setTeamName] = useState("");
     const [tech, setTech] = useState("");
     const [techs, setTechs] = useState([]);
@@ -24,6 +30,7 @@ function ProfileScreen() {
     const [pref, setPref] = useState("");
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
+    const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -118,6 +125,18 @@ function ProfileScreen() {
         )
     }
 
+    const setNameHandler = (event) => {
+        setName(event.target.value);
+    }
+
+    const setLastnameHandler = (event) => {
+        setLastName(event.target.value);
+    }
+
+    const setCityHandler = (event) => {
+        setCity(event.target.value);
+    }
+
     const setTeamHandler = (event) => {
         setTeamName(event.target.value);
     }
@@ -159,10 +178,15 @@ function ProfileScreen() {
     }
 
     const closeModal = () => {
-        setTechs([])
-        setPrefs([])
-        setTech("")
-        setPref("")
+        setTechs([]);
+        setPrefs([]);
+        setTech("");
+        setPref("");
+        setName(context.user.name);
+        setLastName(context.user.lastname);
+        setCity(context.user.location);
+        setIsEditProfile(false);
+        setIsCreateTeamModal(false);
         setTeamName("")
         setIsOpen(false);
     }
@@ -191,6 +215,21 @@ function ProfileScreen() {
             setTeamName("")
             setIsOpen(false);
             navigate("/team/" + response.tid)
+        })
+
+    }
+
+    const updateProfileButton = () => {
+        const body = {
+            name: name,
+            lastname: lastname,
+            location: city
+        }
+
+        updateUser(context.user.uid, body).then((response) => {
+            console.log(response)
+            context.setUser(response)
+           closeModal()
         })
 
     }
@@ -244,6 +283,42 @@ function ProfileScreen() {
         </div>)
     }
 
+    const editProfile = () => {
+        return (<div className="modal-container">
+            <div className="form-text">
+                Editar Perfil
+            </div>
+            <form className="modal-form">
+                <label className="label">
+                    Nombre
+                    <div className="modal-form-input">
+                        <input type="text" value={name} className="input" onChange={setNameHandler}/>
+                    </div>
+                </label>
+                <label className="label">
+                    Apellido
+                    <div className="modal-form-input">
+                        <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
+                    </div>
+                </label>
+                <label className="label">
+                    Ubicación
+                    <div className="modal-form-input">
+                        <input type="text" value={city} className="input" onChange={setCityHandler}/>
+                    </div>
+                </label>
+            </form>
+            <div className="container-button-modal">
+                <button className="cancel-edit-button-style" onClick={closeModal}>
+                    Cancelar
+                </button>
+                <button className="save-edit-button-style" onClick={updateProfileButton}>
+                    Guardar
+                </button>
+            </div>
+        </div>)
+    }
+
     const viewTeamsModal = () => {
 
         const tags = (data) => {
@@ -291,10 +366,10 @@ function ProfileScreen() {
         )
     }
 
-    const modal_create_team = () => {
+    const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle}>
-                {isCreateTeamModal ? createTeamView() : viewTeamsModal()}
+                {isCreateTeamModal ? createTeamView() : isEditProfile ? editProfile() : viewTeamsModal()}
             </Modal>
         )
     }
@@ -309,6 +384,13 @@ function ProfileScreen() {
                     <div className="user-data">
                         {user_image()}
                         {user_data()}
+                    </div>
+                    <div className="edit-button" onClick={() => {
+                        setIsEditProfile(true);
+                        setIsOpen(true);
+                    }
+                    }>
+                        <Edit size="24" color="#014751"/>
                     </div>
                 </div>
                 <img src={image_cover} className="image-container" alt=""/>
@@ -333,7 +415,7 @@ function ProfileScreen() {
                 <div className="profile-data-container">
                     {team_user_view()}
                 </div>
-                {modal_create_team()}
+                {modal()}
                 <SearchBar/>
                 <SideBar/>
             </div>

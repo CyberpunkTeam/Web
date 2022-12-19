@@ -22,14 +22,22 @@ export default function ProjectsScreen() {
     }, []);
 
     const projectsView = () => {
-        const tag = (value) => {
+
+        const tech_tag = (technology) => {
             return (
-                <div id={value} className={"modal-tag"}>
-                    {value}
+                <div key={technology} className={"tech-tag"}>
+                    {technology}
                 </div>
             )
         }
 
+        const leng_tag = (preference) => {
+            return (
+                <div key={preference} className={"pref-tag"}>
+                    {preference}
+                </div>
+            )
+        }
 
         const projectCard = (data) => {
             const link_to = "/user/" + data.creator.uid
@@ -52,7 +60,7 @@ export default function ProjectsScreen() {
                                     Tecnologías:
                                 </div>
                                 {data.technologies.map((info) => {
-                                    return tag(info)
+                                    return tech_tag(info)
                                 })}
                             </div>
                             <div className="project-tech-info">
@@ -60,7 +68,7 @@ export default function ProjectsScreen() {
                                     Idiomas:
                                 </div>
                                 {data.idioms.map((info) => {
-                                    return tag(info)
+                                    return leng_tag(info)
                                 })}
                             </div>
                         </div>
