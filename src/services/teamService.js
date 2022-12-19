@@ -35,3 +35,21 @@ export const getTeam = (uid) => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const addMember = (tid, uid) => {
+    return fetch(serviceUrl + "teams/" + tid + "/members/" + uid, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

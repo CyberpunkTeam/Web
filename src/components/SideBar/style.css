@@ -65,13 +65,11 @@
 .notification-list div {
     padding-bottom: 20px;
 }
-
 .notification-list li{
-    height: 48px;
     font-size: 16px;
     font-weight: 300;
     list-style: none;
-    padding: 16px 0px;
+    margin-bottom: 16px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
@@ -80,9 +78,11 @@
 }
 
 .notification-list{
+    overflow-y: auto;
+    overflow-x: hidden;
     border-left: 1px solid rgba(0,0,0,0.1);
     font-size: 24px;
-    padding: 20px 10px 20px 20px;
+    padding: 20px;
     font-weight: 700;
     color: #222222;
     position: fixed;
@@ -110,4 +110,40 @@
     align-items: center;
     justify-content: flex-start;
     height: 80vh;
+}
+.without{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    height: 80vh;
+    font-size: 16px;
+    font-weight: 400;
+}
+.accept-invitation {
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    margin-left: 8px;
+    width: 32%;
+    height: 32px;
+    background: #014751;
+    color: #F1F1F1;
+    border-radius: 10px;
+    border-width: 0;
+}
+.deny-invitation {
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    margin-right: 8px;
+    width: 32%;
+    height: 32px;
+    color: #F1F1F1;
+    background: #CD5B45;
+    border-radius: 10px;
+    border-width: 0;
+}
+.invitation {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
 }
