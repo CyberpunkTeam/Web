@@ -86,7 +86,7 @@
     position: relative;
     width: 49.5%;
     background: #F1F1F1;
-    height: 200px;
+    height: 208px;
     border-radius: 10px;
 }
 
@@ -251,6 +251,8 @@
 }
 
 .team-link-teams-view{
+    text-overflow: ellipsis;
+    display: -webkit-box;
     padding: 0px 40px 0px 40px;
     text-decoration: inherit;
     font-weight: 700;

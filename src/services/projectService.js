@@ -1,7 +1,7 @@
-const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/"
+const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/projects/"
 
-export const createUser = (body) => {
-    return fetch(serviceUrl + "users/", {
+export const createProject = (body) => {
+    return fetch(serviceUrl, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -19,8 +19,8 @@ export const createUser = (body) => {
     ).catch(errors => console.log(errors))
 }
 
-export const getUser = (uid) => {
-    return fetch(serviceUrl + "users/" + uid, {
+export const getProject = (pid) => {
+    return fetch(serviceUrl + pid, {
         method: 'GET'
     }).then(
         response => {
@@ -33,29 +33,11 @@ export const getUser = (uid) => {
                 }
             )
         }
-    ).catch((error) => {return error})
+    ).catch(errors => console.log(errors))
 }
 
-export const getProfile = (uid) => {
-    return fetch(serviceUrl + "profiles/" + uid, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    if(response.status === 404) {
-                        return {}
-                    }
-
-                    return data
-                }
-            )
-        }
-    ).catch((error) => {return error})
-}
-
-export const getUsers = () => {
-    return fetch(serviceUrl + "users/", {
+export const getProjects = () => {
+    return fetch(serviceUrl, {
         method: 'GET'
     }).then(
         response => {
@@ -64,10 +46,9 @@ export const getUsers = () => {
                     if (response.status === 404) {
                         return {}
                     }
-
                     return data
                 }
             )
         }
-    ).catch((error) => {return error})
+    ).catch(errors => console.log(errors))
 }
