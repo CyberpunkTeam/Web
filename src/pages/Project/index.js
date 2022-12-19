@@ -45,9 +45,9 @@ export default function ProjectScreen() {
         return (
             <div className="cover-container">
                 <div className="project-title-container">
-                    <h1 className="team-name">
+                    <div className="team-name">
                         {project.name}
-                    </h1>
+                    </div>
                     <div className="tags-container">
                         {project.technologies.map((data) => {
                             return (tech_tag(data))
@@ -55,6 +55,9 @@ export default function ProjectScreen() {
                         {project.idioms.map((data) => {
                             return (pref_tag(data))
                         })}
+                    </div>
+                    <div className="creator">
+                        {project.creator.name}  {project.creator.lastname}
                     </div>
                 </div>
             </div>

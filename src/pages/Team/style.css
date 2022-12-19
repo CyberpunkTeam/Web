@@ -42,10 +42,17 @@
 }
 
 .team-name {
-    padding: 0px 40px 0px 40px;
+    padding: 16px 40px;
     color: white;
     font-weight: bold;
     font-size: 28px;
+}
+
+.creator {
+    padding: 16px 40px;
+    font-weight: 400;
+    color: white;
+    font-size: 16px;
 }
 
 .tags-container {
