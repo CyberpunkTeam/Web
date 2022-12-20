@@ -339,6 +339,8 @@ function ProfileScreen() {
                         {data.technologies.map((data) => {
                             return tech_tag(data)
                         })}
+                    </div>
+                    <div className="tags-modal">
                         {data.project_preferences.map((data) => {
                             return pref_tag(data)
                         })}
@@ -373,13 +375,9 @@ function ProfileScreen() {
     const image_cover = 'https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
 
     const cover = () => {
-        return (
-            <div className="cover-container">
-                <div className="user-cover-container">
-                    <div className="user-data">
-                        {user_image()}
-                        {user_data()}
-                    </div>
+        const editButton = () => {
+            if (id === context.user.uid) {
+                return (
                     <div className="edit-button" onClick={() => {
                         setIsEditProfile(true);
                         setIsOpen(true);
@@ -387,6 +385,18 @@ function ProfileScreen() {
                     }>
                         <Edit size="24" color="#014751"/>
                     </div>
+                )
+            }
+        }
+
+        return (
+            <div className="cover-container">
+                <div className="user-cover-container">
+                    <div className="user-data">
+                        {user_image()}
+                        {user_data()}
+                    </div>
+                    {editButton()}
                 </div>
                 <img src={image_cover} className="image-container" alt=""/>
             </div>

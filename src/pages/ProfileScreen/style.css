@@ -229,8 +229,7 @@
 }
 
 .team-data-info {
-    margin: 0px 0px 32px 0px;
-    height: 80px;
+    padding-bottom: 16px;
     font-weight: 700;
     color: #222222;
 }
