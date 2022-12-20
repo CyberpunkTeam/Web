@@ -221,7 +221,7 @@ export default function TeamScreen() {
 
         return (<div className="modal-container">
             <div className="form-text">
-                Crea un nuevo equipo
+                Editar Equipo
             </div>
             <form className="modal-form">
                 <div className="label">

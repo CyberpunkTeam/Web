@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, People, Star1, User} from "iconsax-react";
+import {AddCircle, Edit, LampCharge, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {createTeam} from "../../services/teamService";
@@ -28,6 +28,7 @@ function ProfileScreen() {
     const [pref, setPref] = useState("");
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
+    const [isProjectModal, setIsProjectModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
@@ -123,6 +124,62 @@ function ProfileScreen() {
         )
     }
 
+    const user_projects_view = () => {
+        if (userData.projects === undefined) {
+            return;
+        }
+
+        const viewMore = () => {
+            return (
+                <div className="view-more" onClick={watchProjectsModal}>
+                    Ver más (+{userData.projects.length - 1})
+                </div>
+            )
+        }
+
+        const projectView = () => {
+            if (userData.projects.length === 0) {
+                return;
+            }
+
+            const projects_link = "/projects/" + userData.projects[0].pid;
+            console.log(userData.projects[0])
+
+            return (
+                <div className="data-info">
+                    <Link to={projects_link} className="team-link">
+                        {userData.projects[0].name}
+                    </Link>
+                    <div className="tags-project">
+                        {userData.projects[0].technologies.map((data) => {
+                            return tech_tag(data)
+                        })}
+                        {userData.projects[0].idioms.map((data) => {
+                            return pref_tag(data)
+                        })}
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className="user-info-container">
+                {id !== context.user.uid ? null :
+                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
+                        navigate("/projects/new")
+                    }}/>}
+                <div className="user-info">
+                    <div className="data-title">
+                        <LampCharge size="32" color="#014751" className={"icon"}/>
+                        Proyectos
+                    </div>
+                    {projectView()}
+                    {userData.projects.length > 1 ? viewMore() : null}
+                </div>
+            </div>
+        )
+    }
+
     const setNameHandler = (event) => {
         setName(event.target.value);
     }
@@ -170,6 +227,11 @@ function ProfileScreen() {
         setIsOpen(true);
     }
 
+    const watchProjectsModal = () => {
+        setIsProjectModal(true)
+        setIsOpen(true);
+    }
+
     const viewTeams = () => {
         setIsCreateTeamModal(false)
         setIsOpen(true);
@@ -185,6 +247,7 @@ function ProfileScreen() {
         setCity(context.user.location);
         setIsEditProfile(false);
         setIsCreateTeamModal(false);
+        setIsProjectModal(false);
         setTeamName("")
         setIsOpen(false);
     }
@@ -322,6 +385,45 @@ function ProfileScreen() {
         )
     }
 
+    const viewProjectsModal = () => {
+
+        const teamView = (data) => {
+            const team_link = "/projects/" + data.pid
+            return (
+                <div className="team-data-info">
+                    <Link to={team_link} className="team-link-teams-view">
+                        {data.name}
+                    </Link>
+                    <div className="line">
+                        <div className="tags-modal">
+                            {data.technologies.map((data) => {
+                                return tech_tag(data)
+                            })}
+                        </div>
+                        <div className="tags-modal">
+                            {data.idioms.map((data) => {
+                                return pref_tag(data)
+                            })}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className="modal-container">
+                <div className="form-text">
+                    Proyectos
+                </div>
+                <div className="scrollDiv">
+                    {userData.projects.map((data) => {
+                        return teamView(data)
+                    })}
+                </div>
+            </div>
+        )
+    }
+
     const viewTeamsModal = () => {
 
         const teamView = (data) => {
@@ -335,15 +437,17 @@ function ProfileScreen() {
                         <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
                         5.0
                     </div>
-                    <div className="tags-modal">
-                        {data.technologies.map((data) => {
-                            return tech_tag(data)
-                        })}
-                    </div>
-                    <div className="tags-modal">
-                        {data.project_preferences.map((data) => {
-                            return pref_tag(data)
-                        })}
+                    <div className="line">
+                        <div className="tags-modal">
+                            {data.technologies.map((data) => {
+                                return tech_tag(data)
+                            })}
+                        </div>
+                        <div className="tags-modal">
+                            {data.project_preferences.map((data) => {
+                                return pref_tag(data)
+                            })}
+                        </div>
                     </div>
                 </div>
             )
@@ -366,7 +470,7 @@ function ProfileScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? createTeamView() : isEditProfile ? editProfile() : viewTeamsModal()}
+                {isCreateTeamModal ? createTeamView() : isEditProfile ? editProfile() : isProjectModal ? viewProjectsModal() : viewTeamsModal()}
             </Modal>
         )
     }
@@ -418,7 +522,12 @@ function ProfileScreen() {
                     {cover()}
                 </div>
                 <div className="profile-data-container">
-                    {team_user_view()}
+                    <div className="column">
+                        {team_user_view()}
+                        {user_projects_view()}
+                    </div>
+                    <div className="column">
+                    </div>
                 </div>
                 {modal()}
                 <SearchBar/>
