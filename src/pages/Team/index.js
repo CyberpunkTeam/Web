@@ -211,7 +211,9 @@ export default function TeamScreen() {
             console.log(body, params.id)
 
             updateTeam(params.id, body).then((response) => {
-                console.log(response)
+                setTeamName(response.name);
+                setTechs([...response.technologies]);
+                setPrefs([...response.project_preferences]);
                 response["members"] = teamData.members;
                 setTeamData(response)
                 closeModal()

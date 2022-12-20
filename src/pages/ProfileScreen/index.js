@@ -72,7 +72,7 @@ function ProfileScreen() {
     }
 
     const team_user_view = () => {
-        if (userData.teams === undefined) {
+        if (userData.teams.length === 0) {
             return;
         }
 
@@ -125,7 +125,7 @@ function ProfileScreen() {
     }
 
     const user_projects_view = () => {
-        if (userData.projects === undefined) {
+        if (userData.projects.length === 0) {
             return;
         }
 
