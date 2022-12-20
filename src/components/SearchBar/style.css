@@ -3,7 +3,7 @@
     backdrop-filter: blur(28px);
     width: 100%;
     position: fixed;
-    left: 70px;
+    left: 0;
     top: 0;
     height: 70px;
     display: flex;

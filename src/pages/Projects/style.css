@@ -80,8 +80,9 @@
 }
 
 .most-popular-card-container {
-    width: 40%;
-    background: #F1F1F1;
+    width: 49.5%;
+    color: #FAFAFA;
+    background: #014751;
     height: 420px;
     border-radius: 10px;
 }
@@ -92,5 +93,5 @@
 }
 
 .projects-card-container {
-    width: 59%;
+    width: 49.5%;
 }

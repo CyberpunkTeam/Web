@@ -83,8 +83,8 @@
 }
 
 .user-info-container {
+    margin-bottom: 16px;
     position: relative;
-    width: 49.5%;
     background: #F1F1F1;
     height: 208px;
     border-radius: 10px;
@@ -101,7 +101,7 @@
     height: 120px;
 }
 
-.add-button{
+.add-button {
     position: absolute;
     right: 20px;
     top: 20px;
@@ -128,7 +128,7 @@
 }
 
 .rank {
-    padding: 8px 40px 0px 40px;
+    margin: 8px;
     font-weight: 300;
     display: flex;
     align-items: center;
@@ -145,7 +145,7 @@
     justify-content: space-around;
 }
 
-.modal-form{
+.modal-form {
     flex-direction: column;
     width: 60%;
     font-size: 12px;
@@ -176,6 +176,7 @@
 
 .container-button-modal {
     display: flex;
+    justify-content: space-between;
     width: 60%;
     color: #014751;
     font-size: 12px;
@@ -210,15 +211,15 @@
     align-items: flex-start;
 }
 
-.team-link{
+.team-link {
     text-decoration: inherit;
     font-weight: 700;
     color: #222222;
 }
 
 .scrollDiv {
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow-x: hidden;
+    overflow-y: auto;
     height: 450px;
     width: 100%;
     flex-direction: column;
@@ -228,8 +229,7 @@
 }
 
 .team-data-info {
-    margin: 0px 0px 32px 0px;
-    height: 80px;
+    padding: 8px 0px;
     font-weight: 700;
     color: #222222;
 }
@@ -250,7 +250,7 @@
     align-items: center;
 }
 
-.team-link-teams-view{
+.team-link-teams-view {
     text-overflow: ellipsis;
     display: -webkit-box;
     padding: 0px 40px 0px 40px;
@@ -270,7 +270,56 @@
     border-radius: 6px;
 }
 
+.line {
+    margin: 0px 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .tags-modal {
-    margin: 8px 40px 8px 40px;
+    margin: 8px 0px;
+    display: flex;
+}
+
+.edit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+    background: #FAFAFA;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+}
+
+.cancel-edit-button-style {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #CD5B45;
+    font-size: 16px;
+}
+
+.save-edit-button-style {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #014751;
+    font-size: 16px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    width: 49.5%;
+}
+
+.tags-project {
+    margin: 8px;
     display: flex;
 }
