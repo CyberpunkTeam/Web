@@ -15,7 +15,7 @@ function Login() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState(searchParams.get("email"));
+    const [email, setEmail] = useState(emailRegister ? searchParams.get("email") : "");
     const [uid, setUid] = useState("")
     const [completeData, setCompleteData] = useState(false);
     const [password, setPassword] = useState("");
@@ -72,10 +72,10 @@ function Login() {
                 setCompleteData(true);
                 return
             }
-
             setUserError(true);
             setErrorMessage("se produjo un error inesperado, intente más tarde")
             console.log(error);
+            setButtonDisabled(false)
         });
     }
 
@@ -89,7 +89,7 @@ function Login() {
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
                 await getUserService(userCredential);
-
+                setButtonDisabled(false)
             })
             .catch((error) => {
                 if (error.code.includes("wrong-password")) {
@@ -101,8 +101,8 @@ function Login() {
 
                 console.log(error.code);
                 console.log(error.message);
+                setButtonDisabled(false)
             });
-        setButtonDisabled(false)
     }
 
     const joinButton = () => {
@@ -162,9 +162,10 @@ function Login() {
                     </div>
                 </form>
                 <div className="button-container">
-                    <button disabled={buttonDisabled} className="button-style" onClick={() => {
+                    <button disabled={buttonDisabled} className={buttonDisabled ? "button-style-disabled" : "button-style"} onClick={() => {
                         loginButton()
                     }}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         Iniciar Sesión
                     </button>
                     {joinButton()}

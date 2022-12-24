@@ -3,15 +3,15 @@ import SideBar from "../../components/SideBar";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
-import {getTeam, updateTeam} from "../../services/teamService";
-import {AddCircle, Edit, People, SearchNormal1, User} from "iconsax-react";
+import {getTeam} from "../../services/teamService";
+import {AddCircle, Edit, People, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import Modal from "react-modal";
 import {getUsers} from "../../services/userService";
-import {sendInvitation} from "../../services/notificationService";
 import TeamModal from "../../components/TeamModal";
+import AddMemberModal from "../../components/AddMemberModal";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -23,12 +23,6 @@ export default function TeamScreen() {
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
-
-    const [search, setSearch] = useState("")
-
-    const setSearchHandler = (event) => {
-        setSearch(event.target.value);
-    }
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -110,13 +104,15 @@ export default function TeamScreen() {
     }
 
     const member = (data) => {
-
+        const user_link = data.uid === teamData.owner ? '/me' : '/users/' + data.uid
         return (
             <div key={data.uid} className="member">
                 <div className="member-photo">
                     <User color="#FAFAFA" size="16px" variant="Bold"/>
                 </div>
-                <div className="member-name">
+                <div className="member-name" onClick={() => {
+                    navigate(user_link)
+                }}>
                     {data.name} {data.lastname}
                     <div className="owner">
                         {data.uid === teamData.owner ? 'Dueño' : ''}
@@ -143,6 +139,7 @@ export default function TeamScreen() {
                         <div className="members">
                             {
                                 teamData.members.slice(0, 2).map((data) => {
+                                    console.log(data)
                                     return member(data)
                                 })
                             }
@@ -160,76 +157,10 @@ export default function TeamScreen() {
         )
     }
 
-    const addMembersModal = () => {
-
-        const sendMemberInvitation = (uid) => {
-            const body = {
-                "sender_id": context.user.uid,
-                "receiver_id": uid,
-                "tid": teamData.tid
-            }
-            sendInvitation(body).then((r) => {
-                console.log(r)
-            }).catch()
-        }
-        const memberView = (data) => {
-            if (membersList.includes(data.uid)) {
-                return
-            }
-
-            const user_link = "/user/" + data.uid
-
-
-            if (data.name.toLowerCase().includes(search.toLowerCase()) || data.lastname.toLowerCase().includes(search.toLowerCase()) || data.email.toLowerCase().includes(search.toLowerCase())) {
-                return (
-                    <div className="add-member">
-                        <div key={data} className="member">
-                            <div className="member-photo">
-                                <User color="#FAFAFA" size="24px" variant="Bold"/>
-                            </div>
-                            <div className="member-name" onClick={() => {
-                                navigate(user_link)
-                            }}>
-                                {data.name} {data.lastname}
-                                <div className="email">
-                                    {data.email}
-                                </div>
-                            </div>
-                        </div>
-                        <div className="add-user">
-                            <AddCircle size="24" color="#B1B1B1" onClick={() => {
-                                sendMemberInvitation(data.uid)
-                            }}/>
-                        </div>
-                    </div>
-                )
-            }
-        }
-
-        return (
-            <div className="modal-container">
-                <div className="form-text">
-                    Agregar Miembro
-                </div>
-                <div className="search-member-input">
-                    <input type="text" value={search}
-                           className="search-input-text"
-                           onChange={setSearchHandler}/>
-                    <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
-                </div>
-                <div className="memberDiv">
-                    {users.map((data) => {
-                        return memberView(data)
-                    })}
-                </div>
-            </div>
-        )
-    }
-
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> : addMembersModal()}
+                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> : <AddMemberModal members={membersList} tid={teamData.tid} users={users}/>}
             </Modal>
         )
     }
