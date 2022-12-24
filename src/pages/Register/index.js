@@ -13,7 +13,7 @@ function Register(params) {
     const [lastName, setLastName] = useState("");
     const [city, setCity] = useState("");
     const [loginError, setLoginError] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
 
     const setNameHandler = (event) => {
@@ -38,11 +38,10 @@ function Register(params) {
 
     const registerButton = () => {
         if (name.length === 0 || lastName.length === 0 || city.length === 0) {
-            setLoginError(true);
             setErrorMessage("Completar los campos requeridos")
             return
         }
-        setLoading(true);
+        setButtonDisabled(true);
 
         const userLogin = {
             'name': name,
@@ -54,14 +53,16 @@ function Register(params) {
         createUser(userLogin).then(() => {
             context.setUser(userLogin);
             localStorage.setItem("user", JSON.stringify(userLogin))
+            setButtonDisabled(false);
             navigate('/me')
         }).catch((error) => {
             setLoginError(true);
             setErrorMessage("se produjo un error inesperado, intente más tarde")
             console.log(error.code);
             console.log(error.message);
+            setButtonDisabled(false);
         });
-        setLoading(false);
+
     }
 
     const userData = () => {
@@ -105,10 +106,11 @@ function Register(params) {
             </form>
             {loginErrorView()}
             <div className="button-container">
-                <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
+                <button disabled={buttonDisabled} className={buttonDisabled ? "button-style-disabled" : "button-style"}
                         onClick={() => {
                             registerButton();
                         }}>
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                     Finalizar
                 </button>
             </div>

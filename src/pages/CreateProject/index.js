@@ -6,17 +6,21 @@ import {ArrowDown2} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {createProject} from "../../services/projectService";
+import TechnologyTag from "../../components/TechnologyTag";
 
 export default function CreateProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
+
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [tech, setTech] = useState("")
     const [language, setLanguage] = useState("Inglés")
     const [techs, setTechs] = useState([]);
 
-    const createTeam = () => {
+    const createProjectButton = () => {
+        setButtonDisabled(true)
         const body = {
             "name": name,
             "idioms": [language],
@@ -26,6 +30,7 @@ export default function CreateProjectScreen() {
         }
         createProject(body).then((r) => {
             console.log(r)
+            setButtonDisabled(false)
             navigate("/projects/" + r.pid)
         })
     }
@@ -55,14 +60,6 @@ export default function CreateProjectScreen() {
         }
     }
 
-    const tag = (value) => {
-        return (
-            <div id={value} className={"modal-tag"}>
-                {value}
-            </div>
-        )
-    }
-
     const details = () => {
 
         return (
@@ -78,14 +75,10 @@ export default function CreateProjectScreen() {
                     </div>
                 </div>
                 <div className="create-project-buttons">
-                    <button className="cancel-project-button" onClick={() => {
-                        navigate("/projects")
+                    <button disabled={buttonDisabled} className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"} onClick={() => {
+                        createProjectButton()
                     }}>
-                        Cancelar
-                    </button>
-                    <button className="create-project-from-button" onClick={() => {
-                        createTeam()
-                    }}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         Crear
                     </button>
                 </div>
@@ -126,7 +119,7 @@ export default function CreateProjectScreen() {
                                        onKeyUp={addTechTag}/>
                                 <div className="modal-tags-container">
                                     {techs.map((value) => {
-                                        return tag(value)
+                                        return <TechnologyTag technology={value}/>
                                     })}
                                 </div>
                             </div>
@@ -147,10 +140,9 @@ export default function CreateProjectScreen() {
                     {BasicInfo()}
                     {details()}
                 </div>
+                <SearchBar/>
+                <SideBar/>
             </div>
-
-            <SearchBar/>
-            <SideBar/>
         </div>
     )
 

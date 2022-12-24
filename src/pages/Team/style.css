@@ -60,28 +60,6 @@
     padding: 0px 40px 0px 40px;
 }
 
-.tech-tag {
-    font-size: 12px;
-    background: #B07DFE;
-    display: flex;
-    padding: 4px 8px;
-    color: white;
-    font-weight: 200;
-    margin: 0px 8px 0px 0px;
-    border-radius: 6px;
-}
-
-.pref-tag {
-    font-size: 12px;
-    background: #0AC8E0;
-    display: flex;
-    padding: 4px 8px;
-    color: white;
-    font-weight: 200;
-    margin-right: 8px;
-    border-radius: 6px;
-}
-
 .members-info-container {
     position: relative;
     width: 49.5%;
@@ -93,6 +71,7 @@
 .members {
     margin: 20px 00px 00px 00px;
     display: flex;
+    height: 50px;
     align-items: center;
 }
 
@@ -107,6 +86,7 @@
     flex-direction: column;
     padding-left: 4px;
     font-size: 14px;
+    width: 70%;
     font-weight: 700;
 }
 
