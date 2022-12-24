@@ -194,6 +194,16 @@
     font-size: 16px;
 }
 
+.modal-button-style-disabled {
+    width: 100%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 16px;
+}
+
 .modal-tag {
     display: flex;
     padding: 2px 8px 2px 8px;
@@ -310,6 +320,16 @@
     color: white;
     border: 0;
     background: #014751;
+    font-size: 16px;
+}
+
+.save-edit-button-style-disabled {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
 }
 

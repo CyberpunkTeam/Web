@@ -81,6 +81,7 @@
 
 .button-style {
     width: 55%;
+    border-width: 0;
     border-radius: 10px;
     text-decoration: inherit;
     display: flex;
@@ -90,6 +91,18 @@
     text-align: center;
     justify-content: center;
     background: #014751;
+    font-size: 16px;
+}
+
+.button-style-disabled {
+    width: 55%;
+    border-width: 0;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
 }
 
@@ -109,7 +122,7 @@
     justify-content: center;
 }
 
-.login{
+.login {
     text-decoration: inherit;
     padding-left: 10px;
     font-weight: bolder;
@@ -117,7 +130,7 @@
     color: #014751;
 }
 
-.forgot{
+.forgot {
     align-items: center;
     text-decoration: inherit;
     padding-left: 10px;
