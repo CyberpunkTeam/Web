@@ -1,19 +1,19 @@
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
-import {createTeam} from "../../services/teamService";
+import {createTeam, updateTeam} from "../../services/teamService";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 
-export default function CreateTeamModal() {
+export default function TeamModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
-    const [teamName, setTeamName] = useState("");
+    const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
     const [tech, setTech] = useState("");
-    const [techs, setTechs] = useState([]);
-    const [prefs, setPrefs] = useState([]);
     const [pref, setPref] = useState("");
+    const [techs, setTechs] = useState(params.team !== undefined ? [...params.team.technologies] : []);
+    const [prefs, setPrefs] = useState(params.team !== undefined ? [...params.team.project_preferences] : []);
 
     const setTeamHandler = (event) => {
         setTeamName(event.target.value);
@@ -59,6 +59,44 @@ export default function CreateTeamModal() {
 
     }
 
+    const updateTeamButton = () => {
+        const body = {
+            name: teamName,
+            technologies: techs,
+            project_preferences: prefs
+        }
+        console.log(body, params.id)
+
+        updateTeam(params.team.tid, body).then((response) => {
+            setTeamName(response.name);
+            setTechs([...response.technologies]);
+            setPrefs([...response.project_preferences]);
+            response["members"] = params.team.members;
+            params.setTeamData(response)
+            params.closeModal()
+        })
+    }
+
+    const buttons = () => {
+        if (params.team !== undefined) {
+            return(
+                <>
+                    <button className="cancel-edit-button-style" onClick={params.closeModal}>
+                        Cancelar
+                    </button>
+                    <button className="save-edit-button-style" onClick={updateTeamButton}>
+                        Guardar
+                    </button>
+                </>
+            )
+        }
+        return (
+            <button className="modal-button-style" onClick={createTeamButton}>
+                Listo
+            </button>
+        )
+    }
+
     return (<div className="modal-container">
         <div className="form-text">
             Crea un nuevo equipo
@@ -98,11 +136,7 @@ export default function CreateTeamModal() {
             </div>
         </form>
         <div className="container-button-modal">
-            <button className="modal-button-style" onClick={() => {
-                createTeamButton()
-            }}>
-                Listo
-            </button>
+            {buttons()}
         </div>
     </div>)
 }

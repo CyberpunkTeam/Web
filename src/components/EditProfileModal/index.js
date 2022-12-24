@@ -5,7 +5,6 @@ import {updateUser} from "../../services/userService";
 
 export default function EditProfileModal(params) {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
 
     const [name, setName] = useState(context.user.name);
     const [lastname, setLastName] = useState(context.user.lastname);
@@ -35,7 +34,7 @@ export default function EditProfileModal(params) {
             setLastName(response.lastname);
             setCity(response.location);
             context.setUser(response);
-            params.closeModal();
+            params.closeModal()
         })
     }
 
@@ -64,6 +63,9 @@ export default function EditProfileModal(params) {
             </label>
         </form>
         <div className="container-button-modal">
+            <button className="cancel-edit-button-style" onClick={params.closeModal}>
+                Cancelar
+            </button>
             <button className="save-edit-button-style" onClick={updateProfileButton}>
                 Guardar
             </button>

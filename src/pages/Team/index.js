@@ -11,6 +11,7 @@ import NotFound from "../NotFound";
 import Modal from "react-modal";
 import {getUsers} from "../../services/userService";
 import {sendInvitation} from "../../services/notificationService";
+import TeamModal from "../../components/TeamModal";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -22,43 +23,8 @@ export default function TeamScreen() {
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
-    const [teamName, setTeamName] = useState("");
-    const [tech, setTech] = useState("");
-    const [techs, setTechs] = useState([]);
-    const [prefs, setPrefs] = useState([]);
-    const [pref, setPref] = useState("");
 
     const [search, setSearch] = useState("")
-
-    const setTeamHandler = (event) => {
-        setTeamName(event.target.value);
-    }
-
-    const setTechHandler = (event) => {
-        setTech(event.target.value);
-    }
-
-    const addTechTag = (event) => {
-        if (event.key === "Enter") {
-            let actualTech = techs;
-            actualTech.push(tech)
-            setTechs(actualTech)
-            setTech("")
-        }
-    }
-
-    const addPrefsTag = (event) => {
-        if (event.key === "Enter") {
-            let actualPrefs = prefs;
-            actualPrefs.push(pref)
-            setPrefs(actualPrefs)
-            setPref("")
-        }
-    }
-
-    const setPrefHandler = (event) => {
-        setPref(event.target.value);
-    }
 
     const setSearchHandler = (event) => {
         setSearch(event.target.value);
@@ -67,9 +33,6 @@ export default function TeamScreen() {
     useEffect(() => {
         getTeam(params.id).then((response) => {
             setTeamData(response)
-            setTeamName(response.name);
-            setTechs([...response.technologies]);
-            setPrefs([...response.project_preferences]);
             const list = []
             response.members.forEach((data) => {
                 list.push(data.uid)
@@ -85,11 +48,6 @@ export default function TeamScreen() {
     }, [params.id]);
 
     const closeModal = () => {
-        setPref("")
-        setTech("")
-        setTeamName(teamData.name);
-        setTechs([...teamData.technologies])
-        setPrefs([...teamData.project_preferences])
         setIsOpen(false);
         setIsEditData(false);
     }
@@ -201,74 +159,6 @@ export default function TeamScreen() {
             </div>
         )
     }
-    const editTeam = () => {
-        const updateTeamButton = () => {
-            const body = {
-                name: teamName,
-                technologies: techs,
-                project_preferences: prefs
-            }
-            console.log(body, params.id)
-
-            updateTeam(params.id, body).then((response) => {
-                setTeamName(response.name);
-                setTechs([...response.technologies]);
-                setPrefs([...response.project_preferences]);
-                response["members"] = teamData.members;
-                setTeamData(response)
-                closeModal()
-            })
-        }
-
-
-        return (<div className="modal-container">
-            <div className="form-text">
-                Editar Equipo
-            </div>
-            <form className="modal-form">
-                <div className="label">
-                    <label>
-                        Nombre
-                        <div className="modal-form-input">
-                            <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
-                        </div>
-                    </label>
-                    <label>
-                        Tecnologías
-                        <div className="modal-form-input-with-tags">
-                            <input type="text" value={tech} className="input" onChange={setTechHandler}
-                                   onKeyUp={addTechTag}/>
-                            <div className="modal-tags-container">
-                                {techs.map((value) => {
-                                    return tech_tag(value)
-                                })}
-                            </div>
-                        </div>
-                    </label>
-                    <label>
-                        Preferencias de Proyecto
-                        <div className="modal-form-input-with-tags">
-                            <input type="text" value={pref} className="input" onChange={setPrefHandler}
-                                   onKeyUp={addPrefsTag}/>
-                            <div className="modal-tags-container">
-                                {prefs.map((value) => {
-                                    return pref_tag(value)
-                                })}
-                            </div>
-                        </div>
-                    </label>
-                </div>
-            </form>
-            <div className="container-button-modal">
-                <button className="cancel-edit-button-style" onClick={closeModal}>
-                    Cancelar
-                </button>
-                <button className="save-edit-button-style" onClick={updateTeamButton}>
-                    Guardar
-                </button>
-            </div>
-        </div>)
-    }
 
     const addMembersModal = () => {
 
@@ -339,7 +229,7 @@ export default function TeamScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isEditData ? editTeam() : addMembersModal()}
+                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> : addMembersModal()}
             </Modal>
         )
     }

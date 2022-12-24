@@ -2,7 +2,7 @@ import './style.css';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import {ArrowDown2} from "iconsax-react";
+import {AddCircle, ArrowDown2} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {createProject} from "../../services/projectService";
@@ -16,7 +16,7 @@ export default function CreateProjectScreen() {
     const [language, setLanguage] = useState("Inglés")
     const [techs, setTechs] = useState([]);
 
-    const createTeam = () => {
+    const createProject = () => {
         const body = {
             "name": name,
             "idioms": [language],
@@ -84,7 +84,7 @@ export default function CreateProjectScreen() {
                         Cancelar
                     </button>
                     <button className="create-project-from-button" onClick={() => {
-                        createTeam()
+                        createProject()
                     }}>
                         Crear
                     </button>
@@ -147,10 +147,9 @@ export default function CreateProjectScreen() {
                     {BasicInfo()}
                     {details()}
                 </div>
+                <SearchBar/>
+                <SideBar/>
             </div>
-
-            <SearchBar/>
-            <SideBar/>
         </div>
     )
 

@@ -6,14 +6,14 @@ import NotFound from "../NotFound";
 import {AddCircle, Edit, LampCharge, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate, useParams} from "react-router-dom";
-import {getProfile, updateUser} from "../../services/userService";
+import {getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
 import ProjectsModal from "../../components/ProjectsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import TeamsModal from "../../components/TeamsModal";
-import CreateTeamModal from "../../components/CreateTeamModal";
+import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
 
 function ProfileScreen() {
@@ -192,7 +192,7 @@ function ProfileScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? <CreateTeamModal /> : isEditProfile ? <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
+                {isCreateTeamModal ? <TeamModal /> : isEditProfile ? <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
                     <ProjectsModal projects={userData.projects}/> : <TeamsModal teams={userData.teams}/>}
             </Modal>
         )
