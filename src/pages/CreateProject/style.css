@@ -109,8 +109,8 @@ textarea {
     background: #014751;
     font-size: 16px;
 }
-.cancel-project-button {
-    margin-right: 10px;
+.create-project-from-button-disabled {
+    margin-left: 10px;
     width: 50%;
     height: 40px;
     border-radius: 10px;
@@ -118,6 +118,6 @@ textarea {
     border-width: 0;
     color: white;
     text-align: center;
-    background: #CD5B45;
+    background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
 }

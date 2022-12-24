@@ -9,6 +9,7 @@ export default function TeamModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
     const [tech, setTech] = useState("");
     const [pref, setPref] = useState("");
@@ -46,6 +47,7 @@ export default function TeamModal(params) {
     }
 
     const createTeamButton = () => {
+        setButtonDisabled(true)
         const body = {
             name: teamName,
             technologies: techs,
@@ -54,12 +56,14 @@ export default function TeamModal(params) {
         }
 
         createTeam(body).then((response) => {
+            setButtonDisabled(false)
             navigate("/team/" + response.tid)
         })
 
     }
 
     const updateTeamButton = () => {
+        setButtonDisabled(true)
         const body = {
             name: teamName,
             technologies: techs,
@@ -73,6 +77,7 @@ export default function TeamModal(params) {
             setPrefs([...response.project_preferences]);
             response["members"] = params.team.members;
             params.setTeamData(response)
+            setButtonDisabled(false)
             params.closeModal()
         })
     }
@@ -84,14 +89,16 @@ export default function TeamModal(params) {
                     <button className="cancel-edit-button-style" onClick={params.closeModal}>
                         Cancelar
                     </button>
-                    <button className="save-edit-button-style" onClick={updateTeamButton}>
+                    <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={updateTeamButton}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         Guardar
                     </button>
                 </>
             )
         }
         return (
-            <button className="modal-button-style" onClick={createTeamButton}>
+            <button disabled={buttonDisabled} className={buttonDisabled ? "modal-button-style-disabled" : "modal-button-style"} onClick={createTeamButton}>
+                {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                 Listo
             </button>
         )
