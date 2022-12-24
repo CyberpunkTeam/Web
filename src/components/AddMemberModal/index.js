@@ -8,7 +8,6 @@ export default function AddMemberModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [search, setSearch] = useState("")
-    console.log(params)
 
     const setSearchHandler = (event) => {
         setSearch(event.target.value);

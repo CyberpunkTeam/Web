@@ -29,7 +29,8 @@ function App() {
     const data = {
         user,
         setUser,
-        auth
+        auth,
+        app
     }
 
     return (

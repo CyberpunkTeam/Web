@@ -24,7 +24,6 @@ function SideBar() {
 
     const acceptInvitation = (tid) => {
         addMember(tid, context.user.uid).then((r) => {
-            console.log(r);
             const link = "/team/" + tid
             navigate(link);
         }).catch((e) => {
@@ -51,7 +50,6 @@ function SideBar() {
 
     const notificationHover = () => {
         const notificationLi = (data) => {
-            console.log(data)
             if (data.resource === "TEAM") {
                 const link = "/team/" + data.resource_id
                 return (
