@@ -28,7 +28,7 @@ function ProfileScreen() {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
-    const [userData, setUserData] = useState(id !== params.id ? context.user : {})
+    const [userData, setUserData] = useState( {})
 
     useEffect(() => {
         getProfile(id).then((response) => {
@@ -37,7 +37,7 @@ function ProfileScreen() {
         }).catch((error) => {
             console.log(error)
         });
-    }, [id]);
+    }, [id, context]);
 
     const user_image = () => {
         if (userData.user.profile_image === "default") {
@@ -192,7 +192,7 @@ function ProfileScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? <TeamModal /> : isEditProfile ? <EditProfileModal closeModal={closeModal} setUserData={setUserData}/> : isProjectModal ?
+                {isCreateTeamModal ? <TeamModal /> : isEditProfile ? <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
                     <ProjectsModal projects={userData.projects}/> : <TeamsModal teams={userData.teams}/>}
             </Modal>
         )
@@ -206,7 +206,7 @@ function ProfileScreen() {
                     <div className="cover-user-container"/>
                 )
             }
-            return  <img src={userData.user.cover_image } className="image-container" alt=""/>
+            return  <img src={userData.user.cover_image} className="image-container" alt=""/>
         }
 
         const editButton = () => {

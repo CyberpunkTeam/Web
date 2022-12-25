@@ -47,8 +47,10 @@ export default function EditProfileModal(params) {
         if (profileImg !== context.user.profile_image) {
             savePhoto(context.app, profileImg).then((r) => {
                 body["profile_image"] = r
+                setProfileImg(r)
                 updateUser(context.user.uid, body).then((response) => {
                     context.setUser(response);
+                    localStorage.setItem("user", JSON.stringify(response))
                     setButtonDisabled(false)
                     params.closeModal()
                 })
@@ -58,11 +60,22 @@ export default function EditProfileModal(params) {
         if (coverImg !== context.user.cover_image) {
             savePhoto(context.app, coverImg).then((r) => {
                 body["cover_image"] = r
+                setCoverImg(r);
                 updateUser(context.user.uid, body).then((response) => {
                     context.setUser(response);
+                    localStorage.setItem("user", JSON.stringify(response))
                     setButtonDisabled(false)
                     params.closeModal()
                 })
+            })
+        }
+
+        if (coverImg === context.user.cover_image && profileImg === context.user.profile_image){
+            updateUser(context.user.uid, body).then((response) => {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                setButtonDisabled(false)
+                params.closeModal()
             })
         }
     }
@@ -106,7 +119,6 @@ export default function EditProfileModal(params) {
             return <img src={url} className="image-edit-container" alt=""/>
         }
 
-        const image_cover = 'https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
 
         return (
             <div className="profile-photo-edit">
@@ -160,7 +172,8 @@ export default function EditProfileModal(params) {
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={updateProfileButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    Guardar
+                    {buttonDisabled ? "" : "Guardar"}
+
                 </button>
             </div>
         </div>)

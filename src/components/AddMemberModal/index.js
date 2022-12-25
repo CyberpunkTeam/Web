@@ -23,9 +23,22 @@ export default function AddMemberModal(params) {
             console.log(r)
         }).catch()
     }
+
     const memberView = (data) => {
         if (params.members.includes(data.uid)) {
             return
+        }
+
+        const user_image = (data) => {
+            if (data.profile_image === "default") {
+                return (
+                    <div className="member-photo">
+                        <User color="#FAFAFA" size="24px" variant="Bold"/>
+                    </div>
+                )
+            } else {
+                return <img src={data.profile_image} alt='' className="member-photo"/>
+            }
         }
 
         const user_link = "/user/" + data.uid
@@ -35,9 +48,7 @@ export default function AddMemberModal(params) {
             return (
                 <div key={data} className="add-member">
                     <div className="member">
-                        <div className="member-photo">
-                            <User color="#FAFAFA" size="24px" variant="Bold"/>
-                        </div>
+                        {user_image(data)}
                         <div className="member-name" onClick={() => {
                             navigate(user_link)
                         }}>
