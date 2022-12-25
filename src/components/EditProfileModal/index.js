@@ -37,6 +37,16 @@ export default function EditProfileModal(params) {
     }
 
     const updateProfileButton = () => {
+
+        const updateUserData = (body) => {
+            updateUser(context.user.uid, body).then((response) => {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                setButtonDisabled(false)
+                params.closeModal()
+            })
+        }
+
         setButtonDisabled(true)
         const body = {
             name: name,
@@ -48,12 +58,7 @@ export default function EditProfileModal(params) {
             savePhoto(context.app, profileImg).then((r) => {
                 body["profile_image"] = r
                 setProfileImg(r)
-                updateUser(context.user.uid, body).then((response) => {
-                    context.setUser(response);
-                    localStorage.setItem("user", JSON.stringify(response))
-                    setButtonDisabled(false)
-                    params.closeModal()
-                })
+                updateUserData(body);
             })
         }
 
@@ -61,22 +66,12 @@ export default function EditProfileModal(params) {
             savePhoto(context.app, coverImg).then((r) => {
                 body["cover_image"] = r
                 setCoverImg(r);
-                updateUser(context.user.uid, body).then((response) => {
-                    context.setUser(response);
-                    localStorage.setItem("user", JSON.stringify(response))
-                    setButtonDisabled(false)
-                    params.closeModal()
-                })
+                updateUserData(body);
             })
         }
 
         if (coverImg === context.user.cover_image && profileImg === context.user.profile_image){
-            updateUser(context.user.uid, body).then((response) => {
-                context.setUser(response);
-                localStorage.setItem("user", JSON.stringify(response))
-                setButtonDisabled(false)
-                params.closeModal()
-            })
+            updateUserData(body);
         }
     }
 
