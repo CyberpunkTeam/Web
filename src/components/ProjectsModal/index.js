@@ -34,7 +34,6 @@ export default function ProjectsModal(params) {
             </div>
             <div className="scrollDiv">
                 {projects.map((data) => {
-                    console.log(data)
                     return teamView(data)
                 })}
             </div>

@@ -29,7 +29,6 @@ export default function CreateProjectScreen() {
             "creator_uid": context.user.uid
         }
         createProject(body).then((r) => {
-            console.log(r)
             setButtonDisabled(false)
             navigate("/projects/" + r.pid)
         })

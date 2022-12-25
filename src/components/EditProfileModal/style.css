@@ -1,0 +1,85 @@
+.profile-photo-edit {
+    height: 100px;
+    width: 70%;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.user-image {
+    height: 100px;
+    width: 100px;
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid rgb(46, 153, 153);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-file-upload {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-cover-file-upload {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    background: #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: -8px;
+    right: 8px;
+}
+
+.images {
+    background: #CD5B45;
+    width: 70%;
+    border-radius: 10px;
+    height: 132px;
+}
+
+.user-cover-edit-container {
+    position: absolute;
+    padding: 0px 10px;
+}
+
+.image-edit-container {
+    width: 100%;
+    height: 132px;
+    object-fit: cover;
+    border-radius: 10px;
+    background-position: 0 50%;
+    background-blend-mode: multiply;
+}
+
+.cover-edit-container {
+    border-radius: 10px;
+    width: 100%;
+    height: 132px;
+    background-image: linear-gradient(0deg, rgba(15, 40, 48, 0.78), rgba(15, 40, 48, 0.78)), linear-gradient(268.12deg, rgba(15, 40, 48, 0) 0%, rgba(15, 40, 48, 0.8) 100%);
+}
+
+.cover-user-container {
+    border-radius: 10px;
+    width: 100%;
+    height: 200px;
+    background-image: linear-gradient(0deg, rgba(15, 40, 48, 0.78), rgba(15, 40, 48, 0.78)), linear-gradient(268.12deg, rgba(15, 40, 48, 0) 0%, rgba(15, 40, 48, 0.8) 100%);
+}

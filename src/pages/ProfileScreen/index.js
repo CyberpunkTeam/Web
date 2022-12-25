@@ -28,7 +28,7 @@ function ProfileScreen() {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
-    const [userData, setUserData] = useState({})
+    const [userData, setUserData] = useState( {})
 
     useEffect(() => {
         getProfile(id).then((response) => {
@@ -37,17 +37,17 @@ function ProfileScreen() {
         }).catch((error) => {
             console.log(error)
         });
-    }, [id]);
+    }, [id, context]);
 
     const user_image = () => {
-        if (context.user.image === undefined) {
+        if (userData.user.profile_image === "default") {
             return (
                 <div className="user-svg">
                     <User color="#FAFAFA" size="50px" variant="Bold"/>
                 </div>
             )
         } else {
-            return <img src={image} alt={'user'} className="user"/>
+            return <img src={userData.user.profile_image} alt={'user'} className="user"/>
         }
     }
 
@@ -198,10 +198,17 @@ function ProfileScreen() {
         )
     }
 
-    const image = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
-    const image_cover = 'https://images.unsplash.com/photo-1445363692815-ebcd599f7621?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
-
     const cover = () => {
+
+        const coverImage = () => {
+            if (userData.user.cover_image === "default") {
+                return (
+                    <div className="cover-user-container"/>
+                )
+            }
+            return  <img src={userData.user.cover_image} className="image-container" alt=""/>
+        }
+
         const editButton = () => {
             if (id === context.user.uid) {
                 return (
@@ -216,6 +223,8 @@ function ProfileScreen() {
             }
         }
 
+        console.log()
+
         return (
             <div className="cover-container">
                 <div className="user-cover-container">
@@ -225,7 +234,7 @@ function ProfileScreen() {
                     </div>
                     {editButton()}
                 </div>
-                <img src={image_cover} className="image-container" alt=""/>
+                {coverImage()}
             </div>
         )
     }

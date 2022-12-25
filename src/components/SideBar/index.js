@@ -24,7 +24,6 @@ function SideBar() {
 
     const acceptInvitation = (tid) => {
         addMember(tid, context.user.uid).then((r) => {
-            console.log(r);
             const link = "/team/" + tid
             navigate(link);
         }).catch((e) => {
@@ -38,20 +37,19 @@ function SideBar() {
     }
 
     const user_image = () => {
-        if (context.user.image === undefined) {
+        if (context.user.profile_image === "default") {
             return (
                 <div className="user-sidebar">
                     <User color="#FAFAFA" size="20px" variant="Bold"/>
                 </div>
             )
         } else {
-            return <img src={user} alt='' className="user-sidebar"/>
+            return <img src={context.user.profile_image} alt='' className="user-sidebar"/>
         }
     }
 
     const notificationHover = () => {
         const notificationLi = (data) => {
-            console.log(data)
             if (data.resource === "TEAM") {
                 const link = "/team/" + data.resource_id
                 return (

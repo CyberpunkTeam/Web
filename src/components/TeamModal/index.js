@@ -69,7 +69,6 @@ export default function TeamModal(params) {
             technologies: techs,
             project_preferences: prefs
         }
-        console.log(body, params.id)
 
         updateTeam(params.team.tid, body).then((response) => {
             setTeamName(response.name);
