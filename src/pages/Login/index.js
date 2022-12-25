@@ -54,16 +54,8 @@ function Login() {
                 setCompleteData(true);
                 return
             }
-
-            const userLogin = {
-                'name': userdata.name,
-                "lastname": userdata.lastname,
-                "email": email,
-                "location": userdata.location,
-                "uid": userCredential.user.uid
-            }
-            context.setUser(userLogin);
-            localStorage.setItem("user", JSON.stringify(userLogin))
+            context.setUser(userdata);
+            localStorage.setItem("user", JSON.stringify(userdata))
             navigate('/me')
         })).catch((error) => {
             console.log(error)
@@ -88,8 +80,10 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
-                await getUserService(userCredential);
-                setButtonDisabled(false)
+               getUserService(userCredential).then(() => {
+                    setButtonDisabled(false)
+                })
+
             })
             .catch((error) => {
                 if (error.code.includes("wrong-password")) {

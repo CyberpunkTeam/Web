@@ -104,12 +104,22 @@ export default function TeamScreen() {
     }
 
     const member = (data) => {
-        const user_link = data.uid === teamData.owner ? '/me' : '/users/' + data.uid
+        const user_image = (data) => {
+            if (data.profile_image === "default") {
+                return (
+                    <div className="member-photo">
+                        <User color="#FAFAFA" size="16px" variant="Bold"/>
+                    </div>
+                )
+            } else {
+                return <img src={data.profile_image} alt='' className="user-sidebar"/>
+            }
+        }
+
+        const user_link = data.uid === teamData.owner ? '/me' : '/user/' + data.uid
         return (
             <div key={data.uid} className="member">
-                <div className="member-photo">
-                    <User color="#FAFAFA" size="16px" variant="Bold"/>
-                </div>
+                {user_image(data)}
                 <div className="member-name" onClick={() => {
                     navigate(user_link)
                 }}>
