@@ -4,19 +4,27 @@ import {Link, useNavigate} from "react-router-dom";
 import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {getNotifications} from "../../services/notificationService";
+import {getNotifications, viewNotifications} from "../../services/notificationService";
 import {addMember} from "../../services/teamService";
 
 function SideBar() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
+    const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
 
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
             setNotifications(response);
+            let notifications = []
+            response.map((data) => {
+                if (!data.viewed) {
+                    notifications.push(data.nid);
+                }
+            })
+            setUnreadNotifications(notifications);
         }).catch((error) => {
             console.log(error)
         });
@@ -34,6 +42,13 @@ function SideBar() {
 
     const closeNotification = () => {
         setWatchNotifications(!watchNotifications);
+
+        if (unreadNotifications.length !== 0) {
+            const not = "[" + unreadNotifications.toString() + "]"
+            viewNotifications(not).then((r => {
+                setUnreadNotifications([])
+            }))
+        }
     }
 
     const user_image = () => {
@@ -50,16 +65,16 @@ function SideBar() {
 
     const notificationHover = () => {
         const notificationLi = (data) => {
-            if (data.resource === "TEAM") {
+            if (data.notification_type === "TEAM_INVITATION") {
                 const link = "/team/" + data.resource_id
                 return (
-                    <li>
+                    <li key={data.nid}>
                         <div onClick={() => {
                             navigate(link);
                         }}>
                             {data.content}
                         </div>
-                        <div className="invitation">
+{/*                        <div className="invitation">
                             <button className="deny-invitation">
                                 Rechazar
                             </button>
@@ -68,7 +83,7 @@ function SideBar() {
                             }}>
                                 Aceptar
                             </button>
-                        </div>
+                        </div>*/}
                     </li>
                 )
             }
@@ -113,8 +128,8 @@ function SideBar() {
                         closeNotification()
                     }}>
                         <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                        {notifications.length !== 0 ?
-                            <span className="notification-numbers">{notifications.length}</span> : null}
+                        {unreadNotifications.length !== 0 ?
+                            <span className="notification-numbers">{unreadNotifications.length}</span> : null}
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Link to="/projects">

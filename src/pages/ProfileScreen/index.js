@@ -139,10 +139,10 @@ function ProfileScreen() {
                     </Link>
                     <div className="tags-project">
                         {userData.projects[0].technologies.map((data) => {
-                            return <TechnologyTag technology={data}/>
+                            return <TechnologyTag key={data} technology={data}/>
                         })}
                         {userData.projects[0].idioms.map((data) => {
-                            return <PreferenceTag preference={data}/>
+                            return <PreferenceTag key={data} preference={data}/>
                         })}
                     </div>
                 </div>

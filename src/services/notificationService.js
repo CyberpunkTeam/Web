@@ -34,3 +34,21 @@ export const sendInvitation = (body) => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const viewNotifications = (notifications) => {
+    return fetch(serviceUrl + "viewed/?nids=" + notifications, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

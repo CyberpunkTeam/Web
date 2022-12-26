@@ -192,7 +192,11 @@ export default function TeamScreen() {
     } else {
         return (
             <div className="team-screen">
+
                 <div className="team-container">
+                    <div>
+                        aceptar invitación
+                    </div>
                     {cover()}
                 </div>
                 <div className="profile-data-container">

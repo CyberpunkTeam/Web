@@ -67,7 +67,7 @@ export default function EditProfileModal(params) {
     const profileImage = () => {
 
         const image = () => {
-            if (profileImg === undefined) {
+            if (profileImg === undefined || profileImg === "default") {
                 return (
                     <div className="user-svg">
                         <User color="#FAFAFA" size="50px" variant="Bold"/>
@@ -87,7 +87,7 @@ export default function EditProfileModal(params) {
         }
 
         const coverImage = () => {
-            if (coverImg === undefined) {
+            if (coverImg === undefined || coverImg === "default") {
                 return (
                     <div className="cover-edit-container"/>
                 )
