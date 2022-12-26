@@ -133,6 +133,15 @@ export default function TeamScreen() {
     }
 
     const members = () => {
+
+        const viewMore = () => {
+            return (
+                <div className="view-more">
+                    Ver más (+{teamData.members.length - 4})
+                </div>
+            )
+        }
+
         return (
             <div className="members-info-container">
                 {teamData.owner === context.user.uid ?
@@ -143,13 +152,12 @@ export default function TeamScreen() {
                 <div className="members-info">
                     <div className="data-title">
                         <People size="32" color="#014751" className={"icon"}/>
-                        Miembros ({teamData.members.length})
+                        {teamData.members.length} Miembros
                     </div>
                     <div className="members-data">
                         <div className="members">
                             {
                                 teamData.members.slice(0, 2).map((data) => {
-                                    console.log(data)
                                     return member(data)
                                 })
                             }
@@ -161,6 +169,7 @@ export default function TeamScreen() {
                                 })
                             }
                         </div>
+                        {teamData.members.length > 4 ? viewMore() : null}
                     </div>
                 </div>
             </div>
@@ -170,7 +179,8 @@ export default function TeamScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> : <AddMemberModal members={membersList} tid={teamData.tid} users={users}/>}
+                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> :
+                    <AddMemberModal members={membersList} tid={teamData.tid} users={users}/>}
             </Modal>
         )
     }
