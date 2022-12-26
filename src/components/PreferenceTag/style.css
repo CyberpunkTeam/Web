@@ -1,10 +1,10 @@
 .pref-tag {
     font-size: 12px;
-    background: #0AC8E0;
+    background: #088799;
     display: flex;
     padding: 4px 8px;
     color: white;
-    font-weight: 200;
+    font-weight: 600;
     margin-right: 8px;
     border-radius: 6px;
 }

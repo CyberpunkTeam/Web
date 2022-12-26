@@ -36,17 +36,7 @@ export default function EditProfileModal(params) {
         setCity(event.target.value);
     }
 
-    const updateProfileButton = () => {
-
-        const updateUserData = (body) => {
-            updateUser(context.user.uid, body).then((response) => {
-                context.setUser(response);
-                localStorage.setItem("user", JSON.stringify(response))
-                setButtonDisabled(false)
-                params.closeModal()
-            })
-        }
-
+    const updateProfileButton = async () => {
         setButtonDisabled(true)
         const body = {
             name: name,
@@ -55,24 +45,23 @@ export default function EditProfileModal(params) {
         }
 
         if (profileImg !== context.user.profile_image) {
-            savePhoto(context.app, profileImg).then((r) => {
-                body["profile_image"] = r
-                setProfileImg(r)
-                updateUserData(body);
-            })
+            const photo_url = await savePhoto(context.app, profileImg);
+            body["profile_image"] = photo_url
+            setProfileImg(photo_url)
         }
 
         if (coverImg !== context.user.cover_image) {
-            savePhoto(context.app, coverImg).then((r) => {
-                body["cover_image"] = r
-                setCoverImg(r);
-                updateUserData(body);
-            })
+            const photo_url = await savePhoto(context.app, coverImg);
+            body["cover_image"] = photo_url
+            setCoverImg(photo_url);
         }
 
-        if (coverImg === context.user.cover_image && profileImg === context.user.profile_image){
-            updateUserData(body);
-        }
+        updateUser(context.user.uid, body).then((response) => {
+            context.setUser(response);
+            localStorage.setItem("user", JSON.stringify(response))
+            setButtonDisabled(false)
+            params.closeModal()
+        })
     }
 
     const profileImage = () => {
@@ -168,7 +157,6 @@ export default function EditProfileModal(params) {
                         onClick={updateProfileButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                     {buttonDisabled ? "" : "Guardar"}
-
                 </button>
             </div>
         </div>)
