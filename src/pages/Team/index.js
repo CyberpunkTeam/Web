@@ -13,6 +13,7 @@ import {getUsers} from "../../services/userService";
 import TeamModal from "../../components/TeamModal";
 import AddMemberModal from "../../components/AddMemberModal";
 import TeamInvitation from "../../components/TeamInvitation";
+import {getTeamInvitations} from "../../services/invitationService";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -21,6 +22,7 @@ export default function TeamScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
     const [users, setUsers] = useState([]);
+    const [invitations, setInvitations] = useState([]);
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
@@ -35,6 +37,17 @@ export default function TeamScreen() {
             setMembersList(list)
             getUsers().then((users) => {
                 setUsers(users)
+            })
+            getTeamInvitations(params.id).then((invitations) => {
+                if (invitations.length !== 0) {
+                    const usersInvited = []
+                    invitations.forEach((data) => {
+                        if (data.state === "PENDING") {
+                            usersInvited.push(data.metadata.user.uid)
+                        }
+                    })
+                    setInvitations(usersInvited);
+                }
                 setLoading(false)
             })
         }).catch((error) => {
@@ -181,7 +194,7 @@ export default function TeamScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> :
-                    <AddMemberModal members={membersList} tid={teamData.tid} users={users}/>}
+                    <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations} setInvitations={setInvitations}/>}
             </Modal>
         )
     }

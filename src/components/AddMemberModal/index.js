@@ -1,5 +1,6 @@
+import './style.css'
 import {sendInvitation} from "../../services/notificationService";
-import {AddCircle, SearchNormal1, User} from "iconsax-react";
+import {AddCircle, SearchNormal1, TickCircle, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
@@ -8,6 +9,7 @@ export default function AddMemberModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [search, setSearch] = useState("")
+    const [allUsers, setAllUsers] = useState(true)
 
     const setSearchHandler = (event) => {
         setSearch(event.target.value);
@@ -19,13 +21,19 @@ export default function AddMemberModal(params) {
             "receiver_id": uid,
             "tid": params.tid
         }
-        sendInvitation(body).then((r) => {
-            console.log(r)
+        sendInvitation(body).then(() => {
+            let invitationsUpdated = [...params.invitations]
+            invitationsUpdated.push(uid)
+            params.setInvitations(invitationsUpdated)
         }).catch()
     }
 
     const memberView = (data) => {
         if (params.members.includes(data.uid)) {
+            return
+        }
+
+        if (!allUsers && !params.invitations.includes(data.uid)) {
             return
         }
 
@@ -46,7 +54,7 @@ export default function AddMemberModal(params) {
 
         if (data.name.toLowerCase().includes(search.toLowerCase()) || data.lastname.toLowerCase().includes(search.toLowerCase()) || data.email.toLowerCase().includes(search.toLowerCase())) {
             return (
-                <div key={data} className="add-member">
+                <div key={data.uid} className="add-member">
                     <div className="member">
                         {user_image(data)}
                         <div className="member-name" onClick={() => {
@@ -59,9 +67,11 @@ export default function AddMemberModal(params) {
                         </div>
                     </div>
                     <div className="add-user">
-                        <AddCircle size="24" color="#B1B1B1" onClick={() => {
-                            sendMemberInvitation(data.uid)
-                        }}/>
+                        {params.invitations.includes(data.uid) ? <TickCircle size="24" color="#B1B1B1"/> :
+                            <AddCircle size="24" color="#B1B1B1" onClick={() => {
+                                sendMemberInvitation(data.uid)
+                            }}/>
+                        }
                     </div>
                 </div>
             )
@@ -78,6 +88,18 @@ export default function AddMemberModal(params) {
                        className="search-input-text"
                        onChange={setSearchHandler}/>
                 <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
+            </div>
+            <div className="buttons-filter">
+                <button className={allUsers ? "button-members-left-selected" : "button-members-left"} onClick={() => {
+                    setAllUsers(true)
+                }}>
+                    Todos
+                </button>
+                <button className={allUsers ? "button-members-right" : "button-members-right-selected"} onClick={() => {
+                    setAllUsers(false)
+                }}>
+                    Invitados
+                </button>
             </div>
             <div className="memberDiv">
                 {params.users.map((data) => {
