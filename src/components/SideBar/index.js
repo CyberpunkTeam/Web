@@ -4,36 +4,41 @@ import {Link, useNavigate} from "react-router-dom";
 import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {getNotifications} from "../../services/notificationService";
-import {addMember} from "../../services/teamService";
+import {getNotifications, viewNotifications} from "../../services/notificationService";
+import {getInvitation} from "../../services/invitationService";
 
 function SideBar() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
+    const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
 
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
             setNotifications(response);
+            let notifications = []
+            response.forEach((data) => {
+                if (!data.viewed) {
+                    notifications.push(data.nid);
+                }
+            })
+            setUnreadNotifications(notifications);
         }).catch((error) => {
             console.log(error)
         });
     }, [context.user.uid]);
 
-    const acceptInvitation = (tid) => {
-        addMember(tid, context.user.uid).then((r) => {
-            const link = "/team/" + tid
-            navigate(link);
-        }).catch((e) => {
-            console.log(e)
-        })
-    }
-
-
     const closeNotification = () => {
         setWatchNotifications(!watchNotifications);
+
+        if (unreadNotifications.length !== 0) {
+            const not = "[" + unreadNotifications.toString() + "]"
+            viewNotifications(not).then((r => {
+                setUnreadNotifications([])
+            }))
+        }
     }
 
     const user_image = () => {
@@ -49,26 +54,21 @@ function SideBar() {
     }
 
     const notificationHover = () => {
+
+        const buttonNavigation = (id) => {
+
+            getInvitation(id).then((invitation) => {
+                const link = "/team/" + invitation.metadata.team.tid
+                navigate(link);
+            })
+        }
         const notificationLi = (data) => {
-            if (data.resource === "TEAM") {
-                const link = "/team/" + data.resource_id
+            if (data.notification_type === "TEAM_INVITATION") {
                 return (
-                    <li>
-                        <div onClick={() => {
-                            navigate(link);
-                        }}>
-                            {data.content}
-                        </div>
-                        <div className="invitation">
-                            <button className="deny-invitation">
-                                Rechazar
-                            </button>
-                            <button className="accept-invitation" onClick={() => {
-                                acceptInvitation(data.resource_id)
-                            }}>
-                                Aceptar
-                            </button>
-                        </div>
+                    <li key={data.nid} onClick={() => {
+                        buttonNavigation(data.resource_id)
+                    }}>
+                        {data.content}
                     </li>
                 )
             }
@@ -100,7 +100,6 @@ function SideBar() {
         }
     }
 
-    const user = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
     return (
         <>
             {notificationHover()}
@@ -113,8 +112,8 @@ function SideBar() {
                         closeNotification()
                     }}>
                         <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                        {notifications.length !== 0 ?
-                            <span className="notification-numbers">{notifications.length}</span> : null}
+                        {unreadNotifications.length !== 0 ?
+                            <span className="notification-numbers">{unreadNotifications.length}</span> : null}
                     </div>
                     <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     <Link to="/projects">

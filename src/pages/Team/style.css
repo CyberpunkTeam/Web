@@ -64,12 +64,11 @@
     position: relative;
     width: 49.5%;
     background: #F1F1F1;
-    height: 240px;
     border-radius: 10px;
 }
 
 .members {
-    margin: 20px 00px 00px 00px;
+    padding: 10px 00px;
     display: flex;
     height: 50px;
     align-items: center;
@@ -112,46 +111,31 @@
     border-radius: 100%;
     overflow: hidden;
     object-fit: cover;
+    color: #FAFAFA;
     border: 2px solid rgb(46, 153, 153);
 }
 
 .members-info {
-    margin: 40px;
-    height: 160px;
+    margin: 32px;
 }
-.search-member-input {
-    font-family: "Inter", sans-serif;
-    width: 80%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-bottom: 20px;
-}
-.memberDiv {
-    overflow-x:hidden;
-    overflow-y:auto;
-    height: 400px;
-    width: 100%;
-    flex-direction: column;
-    color: #222222;
-    align-items: center;
-    justify-content: space-around;
-}
+
 .member-info {
     background: #0AC8E0;
 }
+
 .add-member {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 8px 40px;
 }
+
 .add-member .member {
     display: flex;
     align-items: center;
     width: 90%;
 }
+
 .add-member .member-photo {
     background: #0F2830;
     display: flex;
@@ -173,6 +157,7 @@
     font-size: 16px;
     font-weight: 700;
 }
+
 .add-member .email {
     display: flex;
     flex-direction: column;

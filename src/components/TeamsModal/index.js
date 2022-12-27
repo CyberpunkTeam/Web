@@ -8,7 +8,7 @@ export default function TeamsModal(params) {
     const teamView = (data) => {
         const team_link = "/team/" + data.tid
         return (
-            <div className="team-data-info">
+            <div key={data.tid} className="team-data-info">
                 <Link to={team_link} className="team-link-teams-view">
                     {data.name}
                 </Link>
@@ -19,12 +19,12 @@ export default function TeamsModal(params) {
                 <div className="line">
                     <div className="tags-modal">
                         {data.technologies.map((data) => {
-                            return <TechnologyTag technology={data}/>
+                            return <TechnologyTag key={data + "-modal"} technology={data}/>
                         })}
                     </div>
                     <div className="tags-modal">
                         {data.project_preferences.map((data) => {
-                            return <PreferenceTag preference={data}/>
+                            return <PreferenceTag key={data + "-modal"} preference={data}/>
                         })}
                     </div>
                 </div>

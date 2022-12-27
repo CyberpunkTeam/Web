@@ -70,6 +70,7 @@
     font-weight: 300;
     list-style: none;
     margin-bottom: 16px;
+    padding: 10px 0px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
@@ -119,31 +120,4 @@
     height: 80vh;
     font-size: 16px;
     font-weight: 400;
-}
-.accept-invitation {
-    font-size: 14px;
-    font-family: "Inter", sans-serif;
-    margin-left: 8px;
-    width: 32%;
-    height: 32px;
-    background: #014751;
-    color: #F1F1F1;
-    border-radius: 10px;
-    border-width: 0;
-}
-.deny-invitation {
-    font-size: 14px;
-    font-family: "Inter", sans-serif;
-    margin-right: 8px;
-    width: 32%;
-    height: 32px;
-    color: #F1F1F1;
-    background: #CD5B45;
-    border-radius: 10px;
-    border-width: 0;
-}
-.invitation {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
 }

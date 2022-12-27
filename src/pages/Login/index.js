@@ -160,7 +160,7 @@ function Login() {
                         loginButton()
                     }}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        Iniciar Sesión
+                        {buttonDisabled ? "" : "Iniciar Sesión"}
                     </button>
                     {joinButton()}
                 </div>

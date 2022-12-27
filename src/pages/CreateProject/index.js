@@ -78,7 +78,7 @@ export default function CreateProjectScreen() {
                         createProjectButton()
                     }}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        Crear
+                        {buttonDisabled ? "" : "Crear"}
                     </button>
                 </div>
             </div>

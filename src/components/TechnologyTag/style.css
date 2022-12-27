@@ -1,10 +1,10 @@
 .tech-tag {
     font-size: 12px;
-    background: #B07DFE;
+    background: #8D64CC;
     display: flex;
     padding: 4px 8px;
     color: white;
-    font-weight: 200;
+    font-weight: 600;
     margin: 0px 8px 0px 0px;
     border-radius: 6px;
 }

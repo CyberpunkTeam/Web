@@ -1,0 +1,76 @@
+.search-member-input {
+    font-family: "Inter", sans-serif;
+    width: 80%;
+    position: relative;
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-icon {
+    position: absolute;
+    left: 0;
+    padding: 12px;
+}
+
+.memberDiv {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 480px;
+    width: 100%;
+    flex-direction: column;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.button-members-right-selected {
+    width: 30%;
+    border-width: 0px;
+    color: white;
+    background: #2E9999FF;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 28px;
+}
+
+.button-members-right {
+    width: 30%;
+    border-width: 0px;
+    background: #E3E3E3;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    height: 28px;
+}
+
+.button-members-left {
+    width: 30%;
+    border-width: 0px;
+    background: #E3E3E3;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 28px;
+}
+
+.button-members-left-selected {
+    width: 30%;
+    border-width: 0px;
+    background: #2E9999FF;
+    color: white;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    height: 28px;
+}
+
+
+.buttons-filter {
+    font-family: "Inter", sans-serif;
+    width: 80%;
+    margin: 16px 0px;
+    padding: 0px 10%;
+    align-self: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
