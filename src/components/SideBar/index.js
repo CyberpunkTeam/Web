@@ -5,7 +5,7 @@ import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "icons
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
-import {addMember} from "../../services/teamService";
+import {getInvitation} from "../../services/invitationService";
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -19,7 +19,7 @@ function SideBar() {
         getNotifications(context.user.uid).then((response) => {
             setNotifications(response);
             let notifications = []
-            response.map((data) => {
+            response.forEach((data) => {
                 if (!data.viewed) {
                     notifications.push(data.nid);
                 }
@@ -29,16 +29,6 @@ function SideBar() {
             console.log(error)
         });
     }, [context.user.uid]);
-
-    const acceptInvitation = (tid) => {
-        addMember(tid, context.user.uid).then((r) => {
-            const link = "/team/" + tid
-            navigate(link);
-        }).catch((e) => {
-            console.log(e)
-        })
-    }
-
 
     const closeNotification = () => {
         setWatchNotifications(!watchNotifications);
@@ -64,26 +54,21 @@ function SideBar() {
     }
 
     const notificationHover = () => {
+
+        const buttonNavigation = (id) => {
+
+            getInvitation(id).then((invitation) => {
+                const link = "/team/" + invitation.metadata.team.tid
+                navigate(link);
+            })
+        }
         const notificationLi = (data) => {
             if (data.notification_type === "TEAM_INVITATION") {
-                const link = "/team/" + data.resource_id
                 return (
-                    <li key={data.nid}>
-                        <div onClick={() => {
-                            navigate(link);
-                        }}>
-                            {data.content}
-                        </div>
-{/*                        <div className="invitation">
-                            <button className="deny-invitation">
-                                Rechazar
-                            </button>
-                            <button className="accept-invitation" onClick={() => {
-                                acceptInvitation(data.resource_id)
-                            }}>
-                                Aceptar
-                            </button>
-                        </div>*/}
+                    <li key={data.nid} onClick={() => {
+                        buttonNavigation(data.resource_id)
+                    }}>
+                        {data.content}
                     </li>
                 )
             }
@@ -115,7 +100,6 @@ function SideBar() {
         }
     }
 
-    const user = "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80"
     return (
         <>
             {notificationHover()}

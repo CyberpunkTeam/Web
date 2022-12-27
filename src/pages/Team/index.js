@@ -12,6 +12,7 @@ import Modal from "react-modal";
 import {getUsers} from "../../services/userService";
 import TeamModal from "../../components/TeamModal";
 import AddMemberModal from "../../components/AddMemberModal";
+import TeamInvitation from "../../components/TeamInvitation";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -192,11 +193,8 @@ export default function TeamScreen() {
     } else {
         return (
             <div className="team-screen">
-
                 <div className="team-container">
-                    <div>
-                        aceptar invitación
-                    </div>
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]}/>
                     {cover()}
                 </div>
                 <div className="profile-data-container">

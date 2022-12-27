@@ -111,7 +111,7 @@ function Register(params) {
                             registerButton();
                         }}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    Finalizar
+                    {buttonDisabled ? "" : "Finalizar"}
                 </button>
             </div>
         </div>

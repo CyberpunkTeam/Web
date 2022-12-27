@@ -45,13 +45,15 @@ export default function EditProfileModal(params) {
         }
 
         if (profileImg !== context.user.profile_image) {
-            const photo_url = await savePhoto(context.app, profileImg);
+            const photo_url = await savePhoto(context.app, profileImg, context.user.uid + "-profile" );
+            console.log(photo_url)
             body["profile_image"] = photo_url
             setProfileImg(photo_url)
         }
 
         if (coverImg !== context.user.cover_image) {
-            const photo_url = await savePhoto(context.app, coverImg);
+            const photo_url = await savePhoto(context.app, coverImg, context.user.uid + "-cover");
+            console.log(photo_url)
             body["cover_image"] = photo_url
             setCoverImg(photo_url);
         }
