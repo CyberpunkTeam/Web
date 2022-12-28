@@ -31,7 +31,7 @@ export default function SearchBar() {
     }
 
     const openSearch = () => {
-        if(searchWord !== "") {
+        if (searchWord !== "") {
             setIsSearch(true)
         }
     }
@@ -109,13 +109,13 @@ export default function SearchBar() {
         return (
             <div className="search-result" onBlur={clearSearch}>
                 <div className="search-result-container">
-                    {result.users.length !== 0 ? "Usuarios": ""}
-                    {result.users.slice(0,5).map((user) => {
+                    {result.users.length !== 0 ? "Usuarios" : ""}
+                    {result.users.slice(0, 5).map((user) => {
                         return memberView(user)
                     })}
                     <div className="teams-search">
-                        {result.teams.length !== 0 ? "Equipos": ""}
-                        {result.teams.slice(0,5).map((team) => {
+                        {result.teams.length !== 0 ? "Equipos" : ""}
+                        {result.teams.slice(0, 5).map((team) => {
                             return teamView(team)
                         })}
                     </div>
@@ -131,7 +131,7 @@ export default function SearchBar() {
 
     return (
         <div className="searchbar" onFocus={openSearch}>
-            <div onClick={closeSearch} className="all"/>
+            {isSearch ? <div onClick={closeSearch} className="all"/> : null}
             {searchResults()}
             <div className="search-input">
                 <input type="text" value={searchWord}
