@@ -19,6 +19,25 @@ export const createProject = (body) => {
     ).catch(errors => console.log(errors))
 }
 
+export const updateProject = (pid, body) => {
+    return fetch(serviceUrl + pid, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}
+
 export const getProject = (pid) => {
     return fetch(serviceUrl + pid, {
         method: 'GET'

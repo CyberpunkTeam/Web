@@ -1,25 +1,26 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import {ArrowDown2} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {createProject} from "../../services/projectService";
+import {createProject, updateProject} from "../../services/projectService";
 import TechnologyTag from "../../components/TechnologyTag";
 
 export default function CreateProjectScreen() {
+    const {state} = useLocation();
     const navigate = useNavigate();
     let context = useContext(AppContext);
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [name, setName] = useState("")
-    const [description, setDescription] = useState("")
+    const [name, setName] = useState(state === null ? "" : state.project.name)
+    const [description, setDescription] = useState(state === null ? "" : state.project.description)
     const [tech, setTech] = useState("")
-    const [language, setLanguage] = useState("Inglés")
-    const [techs, setTechs] = useState([]);
+    const [language, setLanguage] = useState(state === null ? "" : state.project.idioms[0])
+    const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies]);
 
-    const createProjectButton = () => {
+    const projectButton = () => {
         setButtonDisabled(true)
         const body = {
             "name": name,
@@ -28,10 +29,18 @@ export default function CreateProjectScreen() {
             "technologies": techs,
             "creator_uid": context.user.uid
         }
-        createProject(body).then((r) => {
-            setButtonDisabled(false)
-            navigate("/projects/" + r.pid)
-        })
+        if (state === null) {
+            createProject(body).then((r) => {
+                setButtonDisabled(false)
+                navigate("/projects/" + r.pid)
+            })
+        } else {
+            updateProject(state.project.pid, body).then((r) => {
+                setButtonDisabled(false)
+                navigate("/projects/" + r.pid)
+            })
+        }
+
     }
 
     const setNameHandler = (event) => {
@@ -74,11 +83,9 @@ export default function CreateProjectScreen() {
                     </div>
                 </div>
                 <div className="create-project-buttons">
-                    <button disabled={buttonDisabled} className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"} onClick={() => {
-                        createProjectButton()
-                    }}>
+                    <button disabled={buttonDisabled} className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"} onClick={projectButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : "Crear"}
+                        {buttonDisabled ? "" : state === null ? "Crear" : "Guardar"}
                     </button>
                 </div>
             </div>
@@ -118,7 +125,7 @@ export default function CreateProjectScreen() {
                                        onKeyUp={addTechTag}/>
                                 <div className="modal-tags-container">
                                     {techs.map((value) => {
-                                        return <TechnologyTag technology={value}/>
+                                        return <TechnologyTag key={value} technology={value}/>
                                     })}
                                 </div>
                             </div>

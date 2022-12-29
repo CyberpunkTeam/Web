@@ -1,14 +1,18 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import {getProject} from "../../services/projectService";
+import {Edit} from "iconsax-react";
+import AppContext from "../../utils/AppContext";
 
 export default function ProjectScreen() {
     const params = useParams();
+    const navigate = useNavigate();
+    let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
     const [loading, setLoading] = useState(true);
 
@@ -42,6 +46,20 @@ export default function ProjectScreen() {
     }
 
     const cover = () => {
+        const editButton = () => {
+            if (project.creator.uid === context.user.uid) {
+                const edit = () => {
+                    navigate(`/projects/${project.pid}/edit`, {state: {project}})
+                }
+
+                return (
+                    <div className="edit-button" onClick={edit}>
+                        <Edit size="24" color="#014751"/>
+                    </div>
+                )
+            }
+        }
+
         return (
             <div className="cover-container">
                 <div className="project-title-container">
@@ -57,9 +75,10 @@ export default function ProjectScreen() {
                         })}
                     </div>
                     <div className="creator">
-                        {project.creator.name}  {project.creator.lastname}
+                        {project.creator.name} {project.creator.lastname}
                     </div>
                 </div>
+                {editButton()}
             </div>
         )
     }
