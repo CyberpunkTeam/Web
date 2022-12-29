@@ -102,15 +102,14 @@ function SideBar() {
 
     return (
         <>
+            {watchNotifications ? <div onClick={closeNotification} className="all-sidebar"/> : null}
             {notificationHover()}
             <div className="navbar">
                 <div className="top">
                     <Link to="/">
                         <img src={logo} className="logo-side" alt="logo"/>
                     </Link>
-                    <div className="notification" onClick={() => {
-                        closeNotification()
-                    }}>
+                    <div className="notification" onClick={closeNotification}>
                         <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                         {unreadNotifications.length !== 0 ?
                             <span className="notification-numbers">{unreadNotifications.length}</span> : null}
