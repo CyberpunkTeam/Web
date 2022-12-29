@@ -58,18 +58,26 @@
 }
 
 .search-header {
-    margin: 0;
-    position: fixed;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     background: rgba(241, 241, 241, 0.1);
-    backdrop-filter: blur(28px);
-    display: flex;
-    left: 0;
-    height: 60px;
+    backdrop-filter: blur(100px);
     width: 100%;
-    padding-left: 15%;
-    padding-right: 15%;
+    position: fixed;
+    left: 0;
+    top: 70px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+}
+
+.search-header-buttons {
+    width: 30%;
+    min-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .search-link {

@@ -54,7 +54,7 @@ export default function TeamScreen() {
             console.log(error)
             navigate("/*")
         });
-    }, [params.id]);
+    }, [params.id, navigate]);
 
     const closeModal = () => {
         setIsOpen(false);

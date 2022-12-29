@@ -27,7 +27,7 @@
 
 .button-members-right-selected {
     width: 30%;
-    border-width: 0px;
+    border-width: 0;
     color: white;
     background: #2E9999FF;
     border-top-right-radius: 8px;
@@ -37,7 +37,7 @@
 
 .button-members-right {
     width: 30%;
-    border-width: 0px;
+    border-width: 0;
     background: #E3E3E3;
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
@@ -46,7 +46,7 @@
 
 .button-members-left {
     width: 30%;
-    border-width: 0px;
+    border-width: 0;
     background: #E3E3E3;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
@@ -55,7 +55,7 @@
 
 .button-members-left-selected {
     width: 30%;
-    border-width: 0px;
+    border-width: 0;
     background: #2E9999FF;
     color: white;
     border-top-left-radius: 8px;

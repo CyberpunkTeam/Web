@@ -11,14 +11,10 @@ import PreferenceTag from "../../components/PreferenceTag";
 
 export default function SearchResults() {
     let context = useContext(AppContext);
-    const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "Usuarios" : "Equipos" )
+    const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "users" : "teams" )
 
     if (context.search === undefined) {
         return <NotFound/>
-    }
-
-    const setFilterHandler = (event) => {
-        setFilter(event.target.value);
     }
 
     const teamView = (data) => {
@@ -98,16 +94,22 @@ export default function SearchResults() {
 
     return (
         <div className="screen">
-                <label className="search-header">
-                    <div className="create-project-input">
-                        <select value={filter} className="select-filter" onChange={setFilterHandler}>
-                            <option value="Usuarios">Usuarios</option>
-                            <option value="Equipos">Equipos</option>
-                        </select>
+                <div className="search-header">
+                    <div className="search-header-buttons">
+                        <button className={filter === "users" ? "button-members-left-selected" : "button-members-left"} onClick={() => {
+                            setFilter("users")
+                        }}>
+                            Usuarios
+                        </button>
+                        <button className={filter === "users" ? "button-members-right" : "button-members-right-selected"} onClick={() => {
+                            setFilter("teams")
+                        }}>
+                            Equipos
+                        </button>
                     </div>
-                </label>
+                </div>
             <div className="search-result-page-container">
-                {filter === "Usuarios" ? showUsers() : showTeams()}
+                {filter === "users" ? showUsers() : showTeams()}
             </div>
             <SearchBar/>
             <SideBar/>
