@@ -16,6 +16,7 @@ import Working from "./pages/Working";
 import ProjectsScreen from "./pages/Projects";
 import CreateProjectScreen from "./pages/CreateProject";
 import ProjectScreen from "./pages/Project";
+import SearchResults from "./pages/searchResults";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -26,9 +27,12 @@ function App() {
     const userStorage = localStorage.getItem("user")
 
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
+    const [search, setSearch] = useState(undefined);
     const data = {
         user,
         setUser,
+        search,
+        setSearch,
         auth,
         app
     }
@@ -48,6 +52,7 @@ function App() {
                             <Route path="/projects" element={<ProjectsScreen/>}/>
                             <Route path="/projects/:id" element={<ProjectScreen/>}/>
                             <Route path="/projects/new" element={<CreateProjectScreen/>}/>
+                            <Route path="/search" element={<SearchResults/>}/>
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>

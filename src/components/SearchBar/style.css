@@ -1,33 +1,33 @@
 .searchbar {
     background: rgba(241, 241, 241, 0.1);
-    backdrop-filter: blur(28px);
+    backdrop-filter: blur(100px);
     width: 100%;
     position: fixed;
     left: 0;
     top: 0;
     height: 70px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .search-input {
-    padding-top: 20px;
+    padding-top: 10px;
     font-family: "Inter", sans-serif;
     width: 30%;
+    min-width: 400px;
     position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 20px;
 }
 
 .search-input-text {
     font-family: "Inter", sans-serif;
     width: 100%;
     border-radius: 20px;
-    border-color: #E3E3E3;
-    border-width: 0;
+    border: 1px solid #E9E9E9;
     outline: none;
     height: 40px;
     background: #E3E3E3;
@@ -40,4 +40,98 @@
     position: absolute;
     left: 0;
     padding: 12px;
+}
+
+.clear-icon {
+    position: absolute;
+    right: 0;
+    padding: 12px;
+}
+
+.search-result {
+    background: #DDDDDD;
+    position: absolute;
+    top: 10px;
+    width: 31%;
+    min-width: 420px;
+    height: 500px;
+    border-radius: 24px;
+}
+
+.search-result-container {
+    position: relative;
+    overflow-y: auto;
+    margin: 60px 20px;
+    height: 408px;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.user-search {
+    width: 100%;
+    padding: 8px 0px;
+}
+.user-search:last-child{
+    border-bottom: none;
+}
+
+.user-info-search {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.user-name-search {
+    width: 90%;
+    padding-left: 4px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.see-more {
+    position: absolute;
+    font-size: 16px;
+    font-weight: 400;
+    bottom: 8px;
+    height: 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.teams-search {
+    padding-top: 16px;
+}
+
+.all{
+    position: absolute;
+    width: 4000px;
+    height: 4000px;
+}
+
+.select-filter {
+    background: none;
+    font-family: "Inter", sans-serif;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    font-weight: 700;
+    height: 43px;
+    text-align: left;
+    padding: 0px 24px 0px 0px;
+}
+
+.select-filter-button {
+    position: absolute;
+    right: 0;
+}
+
+.select-filter-input {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px 20px 10px;
 }
