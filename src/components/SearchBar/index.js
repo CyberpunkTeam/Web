@@ -20,7 +20,6 @@ export default function SearchBar() {
             return
         }
         search(event.target.value).then((response) => {
-            console.log(response)
             setResult(response)
             setIsSearch(true);
         })
@@ -96,6 +95,12 @@ export default function SearchBar() {
         )
     }
 
+    const viewResults = () => {
+        context.setSearch(result);
+        navigate("/search")
+        closeSearch()
+    }
+
     const searchResults = () => {
         if (searchWord === "" || !isSearch) {
             return
@@ -104,7 +109,6 @@ export default function SearchBar() {
         if (Object.keys(result).length === 0) {
             return
         }
-
 
         return (
             <div className="search-result" onBlur={clearSearch}>
@@ -121,11 +125,17 @@ export default function SearchBar() {
                     </div>
 
                 </div>
-                <div className="see-more">
+                <div className="see-more" onClick={viewResults}>
                     Ver todo
                 </div>
             </div>
         )
+    }
+
+    const submit = (event) => {
+        if (event.key === "Enter") {
+           viewResults();
+        }
     }
 
 
@@ -135,6 +145,7 @@ export default function SearchBar() {
             {searchResults()}
             <div className="search-input">
                 <input type="text" value={searchWord}
+                       onKeyUp={submit}
                        className="search-input-text"
                        onChange={setSearchHandler}/>
                 <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>

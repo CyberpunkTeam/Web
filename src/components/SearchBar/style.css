@@ -77,11 +77,13 @@
 
 .user-info-search {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
 
 .user-name-search {
+    width: 90%;
     padding-left: 4px;
     font-size: 16px;
     font-weight: 700;
@@ -89,6 +91,8 @@
 
 .see-more {
     position: absolute;
+    font-size: 16px;
+    font-weight: 400;
     bottom: 8px;
     height: 20px;
     width: 100%;
@@ -105,4 +109,29 @@
     position: absolute;
     width: 4000px;
     height: 4000px;
+}
+
+.select-filter {
+    background: none;
+    font-family: "Inter", sans-serif;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    font-weight: 700;
+    height: 43px;
+    text-align: left;
+    padding: 0px 24px 0px 0px;
+}
+
+.select-filter-button {
+    position: absolute;
+    right: 0;
+}
+
+.select-filter-input {
+    font-family: "Inter", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px 20px 10px;
 }
