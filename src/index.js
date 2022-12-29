@@ -51,6 +51,7 @@ function App() {
                             <Route path="/team/:id" element={<TeamScreen/>}/>
                             <Route path="/projects" element={<ProjectsScreen/>}/>
                             <Route path="/projects/:id" element={<ProjectScreen/>}/>
+                            <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
                             <Route path="/projects/new" element={<CreateProjectScreen/>}/>
                             <Route path="/search" element={<SearchResults/>}/>
                             <Route path="*" element={<NotFound/>}/>
