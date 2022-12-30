@@ -1,23 +1,24 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProject} from "../../services/projectService";
+import {getPostulations, getProject} from "../../services/projectService";
 import {Edit} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {getProfile} from "../../services/userService";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
 import {getOwnerTeams} from "../../services/teamService";
+import PostulationsModal from "../../components/PostulationsModal";
 
 export default function ProjectScreen() {
     const params = useParams();
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
+    const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -26,19 +27,22 @@ export default function ProjectScreen() {
         getProject(params.id).then((response) => {
             setProject(response)
             if (response.creator.uid !== context.user.uid) {
-                console.log(context.user.uid)
                 getOwnerTeams(context.user.uid).then((teams) => {
-                    console.log(teams)
                     setUserTeam(teams);
+                    setLoading(false);
                 }).catch((error) => {
                     console.log(error)
                 });
+            } else {
+                getPostulations(params.id).then((response) => {
+                    setPostulations(response)
+                    setLoading(false);
+                })
             }
-            setLoading(false);
         }).catch((error) => {
             console.log(error)
         });
-    },[params.id, context.user.uid]);
+    }, [params.id, context.user.uid]);
 
     if (loading) {
         return <Loading/>
@@ -67,9 +71,24 @@ export default function ProjectScreen() {
                     navigate(`/projects/${project.pid}/edit`, {state: {project}})
                 }
 
+                const postulationsButton = () => {
+                    if (postulations.length !== 0) {
+                        return (
+                            <button className="postulations-button" onClick={() => {
+                                setIsOpen(true);
+                            }}>
+                                Postulaciones
+                            </button>
+                        )
+                    }
+                }
+
                 return (
-                    <div className="edit-button" onClick={edit}>
-                        <Edit size="24" color="#014751"/>
+                    <div className="cover-buttons">
+                        {postulationsButton()}
+                        <div className="project-edit-button" onClick={edit}>
+                            <Edit size="24" color="#014751"/>
+                        </div>
                     </div>
                 )
             } else {
@@ -133,7 +152,8 @@ export default function ProjectScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>
+                {project.creator.uid === context.user.uid ? <PostulationsModal postulations={postulations}/> :
+                    <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
             </Modal>
         )
     }

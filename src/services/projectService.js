@@ -71,3 +71,17 @@ export const getProjects = () => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const getPostulations = (pid) => {
+    return fetch(serviceUrl + `postulations/${pid}`, {
+        method: 'GET'
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

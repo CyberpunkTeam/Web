@@ -17,7 +17,7 @@ function SideBar() {
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
-            setNotifications(response);
+            setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {
                 if (!data.viewed) {
@@ -69,6 +69,8 @@ function SideBar() {
                         buttonNavigation(data.resource_id)
                     }}>
                         {data.content}
+                        <br/>
+                        {data.created_date}
                     </li>
                 )
             }

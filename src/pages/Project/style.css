@@ -48,3 +48,33 @@
     height: 44px;
     border-radius: 22px;
 }
+
+.cover-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+.postulations-button {
+    padding: 0 20px;
+    background: #FAFAFA;
+    font-size: 16px;
+    border: none;
+    height: 44px;
+    border-radius: 22px;
+    margin-right: 8px;
+}
+
+.project-edit-button {
+    margin-left: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+}

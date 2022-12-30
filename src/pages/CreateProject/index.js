@@ -104,7 +104,7 @@ export default function CreateProjectScreen() {
                                 <input type="text" value={name} className="input" onChange={setNameHandler}/>
                             </div>
                         </label>
-                        <label className="create-project-la bel">
+                        <label className="create-project-label">
                             Idioma
                             <div className="create-project-input">
                                 <select value={language} className="select" onChange={setLanguageHandler}>
