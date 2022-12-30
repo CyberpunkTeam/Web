@@ -19,6 +19,20 @@ export const createTeam = (body) => {
     ).catch(errors => console.log(errors))
 }
 
+export const getOwnerTeams = (uid) => {
+    return fetch(serviceUrl + `?owner=${uid}`, {
+        method: 'GET'
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}
+
 export const getTeam = (uid) => {
     return fetch(serviceUrl + uid, {
         method: 'GET'
