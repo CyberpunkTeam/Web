@@ -5,7 +5,7 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getPostulations, getProject} from "../../services/projectService";
+import {getPostulation, getProject} from "../../services/projectService";
 import {Edit} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -34,7 +34,7 @@ export default function ProjectScreen() {
                     console.log(error)
                 });
             } else {
-                getPostulations(params.id).then((response) => {
+                getPostulation(params.id).then((response) => {
                     setPostulations(response)
                     setLoading(false);
                 })

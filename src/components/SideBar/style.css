@@ -78,12 +78,9 @@
     border-bottom: none;
 }
 
-.notification-list{
-    overflow-y: auto;
-    overflow-x: hidden;
+.notifications{
     border-left: 1px solid rgba(0,0,0,0.1);
     font-size: 24px;
-    padding: 20px;
     font-weight: 700;
     color: #222222;
     position: fixed;
@@ -91,8 +88,22 @@
     left: 70px;
     backdrop-filter: blur(120px);
     background: rgba(46, 153, 153, 0.1);
-    width: 300px;
+    width: 340px;
     height: 100vh;
+}
+
+.notification-title{
+    padding: 10px 20px;
+}
+
+.notification-list{
+    padding: 0px 20px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 24px;
+    font-weight: 700;
+    width: 300px;
+    height: 95vh;
 }
 
 .bottom {
