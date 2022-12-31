@@ -140,7 +140,7 @@ export default function CreateProjectScreen() {
         <div>
             <div className="projects-screen">
                 <div className="projects-header">
-                    Nuevo Proyecto
+                    {state === null ? "Nuevo Proyecto" : "Editar Proyecto"}
                 </div>
                 <div className="projects-container">
                     {BasicInfo()}
