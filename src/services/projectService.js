@@ -99,3 +99,17 @@ export const getProjectPostulations = (pid) => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const getTeamPostulations = (tid) => {
+    return fetch(serviceUrl + `postulations/?tid=${tid}`, {
+        method: 'GET'
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

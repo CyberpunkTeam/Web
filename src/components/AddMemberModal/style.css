@@ -37,6 +37,7 @@
 
 .button-members-right {
     width: 30%;
+    color: #222222;
     border-width: 0;
     background: #E3E3E3;
     border-top-right-radius: 8px;
@@ -47,6 +48,7 @@
 .button-members-left {
     width: 30%;
     border-width: 0;
+    color: #222222;
     background: #E3E3E3;
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;

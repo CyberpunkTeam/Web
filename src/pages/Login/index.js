@@ -147,12 +147,12 @@ function Login() {
                                               onClick={togglePassword}/>}
                             </div>
                         </label>
-                    </div>
-                    <div className="forgot-container">
-                        <Link to="/" className="forgot">
-                            ¿Has olvidado tu contraseña?
-                        </Link>
-                        {userNotFoundMessage()}
+                        <div className="forgot-container">
+                            <Link to="/" className="forgot">
+                                ¿Has olvidado tu contraseña?
+                            </Link>
+                            {userNotFoundMessage()}
+                        </div>
                     </div>
                 </form>
                 <div className="button-container">

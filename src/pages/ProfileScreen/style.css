@@ -137,6 +137,8 @@
 
 .modal-container {
     display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
     flex-direction: column;
     height: 600px;
     width: 560px;
@@ -296,9 +298,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    right: 16px;
-    bottom: 16px;
     background: #FAFAFA;
     height: 44px;
     width: 44px;
