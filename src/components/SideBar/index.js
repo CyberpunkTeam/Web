@@ -6,6 +6,9 @@ import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
+import moment from "moment/moment";
+import 'moment/locale/es';
+import {getPostulation} from "../../services/projectService";
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -17,7 +20,7 @@ function SideBar() {
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
-            setNotifications(response);
+            setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {
                 if (!data.viewed) {
@@ -55,23 +58,34 @@ function SideBar() {
 
     const notificationHover = () => {
 
-        const buttonNavigation = (id) => {
+        const buttonNavigation = (id, notification_type) => {
+            if (notification_type === "TEAM_INVITATION") {
+                getInvitation(id).then((invitation) => {
+                    const link = "/team/" + invitation.metadata.team.tid
+                    navigate(link);
+                })
+            } else if (notification_type === "TEAM_POSTULATION") {
+                getPostulation(id).then((postulation) => {
+                    const link = "/projects/" + postulation.pid
+                    navigate(link);
+                })
+            }
+        }
 
-            getInvitation(id).then((invitation) => {
-                const link = "/team/" + invitation.metadata.team.tid
-                navigate(link);
-            })
+        const formatDate = (date) => {
+            const d = date.replace(/:/, ' ');
+            return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').fromNow();
         }
         const notificationLi = (data) => {
-            if (data.notification_type === "TEAM_INVITATION") {
-                return (
-                    <li key={data.nid} onClick={() => {
-                        buttonNavigation(data.resource_id)
-                    }}>
-                        {data.content}
-                    </li>
-                )
-            }
+
+            return (
+                <li key={data.nid} onClick={ () => {buttonNavigation(data.resource_id, data.notification_type)}}>
+                    {data.content}
+                    <div className="date">
+                        {formatDate(data.created_date)}
+                    </div>
+                </li>
+            )
         }
 
         const showNotifications = () => {
@@ -90,11 +104,13 @@ function SideBar() {
 
         if (watchNotifications) {
             return (
-                <div id="notifications" className="notification-list">
-                    <div>
+                <div id="notifications" className="notifications">
+                    <div className="notification-title">
                         Notificaciones
                     </div>
-                    {showNotifications()}
+                    <div className="notification-list">
+                        {showNotifications()}
+                    </div>
                 </div>
             )
         }

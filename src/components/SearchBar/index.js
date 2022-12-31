@@ -110,6 +110,17 @@ export default function SearchBar() {
             return
         }
 
+        const viewMore = () => {
+            if (Object.keys(result).length === 0 || (result.teams.length === 0 && result.users.length === 0)) {
+                return
+            }
+            return (
+                <div className="see-more" onClick={viewResults}>
+                    Ver todo
+                </div>
+            )
+        }
+
         return (
             <div className="search-result" onBlur={clearSearch}>
                 <div className="search-result-container">
@@ -123,18 +134,15 @@ export default function SearchBar() {
                             return teamView(team)
                         })}
                     </div>
-
                 </div>
-                <div className="see-more" onClick={viewResults}>
-                    Ver todo
-                </div>
+                {viewMore()}
             </div>
         )
     }
 
     const submit = (event) => {
         if (event.key === "Enter") {
-           viewResults();
+            viewResults();
         }
     }
 

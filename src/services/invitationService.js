@@ -32,7 +32,7 @@ export const getPostulantInvitations = (uid) => {
 }
 
 export const getPostulantTeamInvitations = (uid, tid) => {
-    return fetch(serviceUrl + `?tid=${tid}&postulant_uid=${uid}` , {
+    return fetch(serviceUrl + `?tid=${tid}&postulant_uid=${uid}&state=PENDING` , {
         method: 'GET'
     }).then(
         response => {

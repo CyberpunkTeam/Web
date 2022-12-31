@@ -50,6 +50,8 @@
     padding: 0px 8px 0px 8px;
 }
 .from-button {
+    background: #E3E3E3;
+    border-radius: 50%;
     position: absolute;
     right: 0;
 }
