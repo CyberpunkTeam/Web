@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, LampCharge, People, Star1, Teacher, User} from "iconsax-react";
+import {AddCircle, Briefcase, Edit, LampCharge, People, Star1, Teacher, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {getProfile} from "../../services/userService";
@@ -16,6 +16,7 @@ import TeamsModal from "../../components/TeamsModal";
 import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
 import AddEducationModal from "../../components/AddEducationModal";
+import AddExperienceModal from "../../components/AddExperienceModal";
 
 function ProfileScreen() {
     const params = useParams();
@@ -28,13 +29,13 @@ function ProfileScreen() {
     const [isProjectModal, setIsProjectModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const [isAddEducation, setIsAddEducation] = useState(false);
+    const [isAddExperience, setIsAddExperience] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
         getProfile(id).then((response) => {
-            console.log(response)
             setUserData(response);
             setLoading(false)
         }).catch((error) => {
@@ -105,6 +106,49 @@ function ProfileScreen() {
                     <div className="data-title">
                         <Teacher size="32" color="#014751" className={"icon"}/>
                         Títulos y Certificaciones
+                    </div>
+                    {experienceView()}
+                    {userData.user.education.length > 1 ? viewMore() : null}
+                </div>
+            </div>
+        )
+    }
+
+    const workView = () => {
+        const viewMore = () => {
+            return (
+                <div className="view-more">
+                    Ver más (+{userData.user.work_experience.length - 1})
+                </div>
+            )
+        }
+
+        const experienceView = () => {
+            if (userData.user.work_experience.length === 0) {
+                return;
+            }
+
+            return (
+                <div className="data-info">
+                    {userData.user.work_experience[0].position}
+                    <div className="education-info">
+                        {userData.user.work_experience[0].company}
+                        <div>
+                            {userData.user.work_experience[0].start_date.split('-')[0]} - {userData.user.work_experience[0].current_job ? userData.user.work_experience[0].finish_date.split('-')[0] : "Actual"}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className="user-info-container">
+                {id !== context.user.uid ? null :
+                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={isAddExperienceModal}/>}
+                <div className="user-info">
+                    <div className="data-title">
+                        <Briefcase size="32" color="#014751" className={"icon"}/>
+                        Experiencia
                     </div>
                     {experienceView()}
                     {userData.user.education.length > 1 ? viewMore() : null}
@@ -217,12 +261,19 @@ function ProfileScreen() {
         setIsCreateTeamModal(true)
         setIsOpen(true);
     }
+
     const isAddEducationModal = () => {
         setIsAddEducation(true)
         setIsOpen(true);
     }
+
     const watchProjectsModal = () => {
         setIsProjectModal(true)
+        setIsOpen(true);
+    }
+
+    const isAddExperienceModal = () => {
+        setIsAddExperience(true)
         setIsOpen(true);
     }
 
@@ -235,7 +286,8 @@ function ProfileScreen() {
         setIsEditProfile(false);
         setIsCreateTeamModal(false);
         setIsProjectModal(false);
-        setIsAddEducation(false)
+        setIsAddEducation(false);
+        setIsAddExperience(false);
         setIsOpen(false);
     }
 
@@ -246,7 +298,8 @@ function ProfileScreen() {
                     <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
                         <ProjectsModal projects={userData.projects}/> :
                         isAddEducation ? <AddEducationModal closeModal={closeModal}/> :
-                            <TeamsModal teams={userData.teams}/>}
+                            isAddExperience ? <AddExperienceModal closeModal={closeModal}/> :
+                                <TeamsModal teams={userData.teams}/>}
             </Modal>
         )
     }
@@ -277,8 +330,6 @@ function ProfileScreen() {
                 )
             }
         }
-
-        console.log()
 
         return (
             <div className="cover-container">
@@ -313,7 +364,7 @@ function ProfileScreen() {
                         {team_user_view()}
                         {user_projects_view()}
                         {educationView()}
-                        {team_user_view()}
+                        {workView()}
                     </div>
                     <div className="column">
                     </div>
