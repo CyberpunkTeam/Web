@@ -71,3 +71,22 @@ export const sendTeamPostulation = (body) => {
         }
     ).catch(errors => console.log(errors))
 }
+
+export const updateTeamPostulation = (body) => {
+    return fetch(serviceUrl + "team_postulation_response/", {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    }).then(
+        response => {
+            return response.json().then(
+                data => {
+                    return data
+                }
+            )
+        }
+    ).catch(errors => console.log(errors))
+}

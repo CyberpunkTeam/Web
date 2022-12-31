@@ -5,7 +5,7 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getPostulation, getProject} from "../../services/projectService";
+import {getProjectPostulations, getProject} from "../../services/projectService";
 import {Edit} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -34,7 +34,7 @@ export default function ProjectScreen() {
                     console.log(error)
                 });
             } else {
-                getPostulation(params.id).then((response) => {
+                getProjectPostulations(params.id).then((response) => {
                     setPostulations(response)
                     setLoading(false);
                 })
@@ -43,6 +43,15 @@ export default function ProjectScreen() {
             console.log(error)
         });
     }, [params.id, context.user.uid]);
+
+    const changePostulations = (post) => {
+        if(post.length === 0) {
+            closeModal()
+            setPostulations([])
+        } else {
+            setPostulations(post)
+        }
+    }
 
     if (loading) {
         return <Loading/>
@@ -152,7 +161,7 @@ export default function ProjectScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {project.creator.uid === context.user.uid ? <PostulationsModal postulations={postulations}/> :
+                {project.creator.uid === context.user.uid ? <PostulationsModal postulations={postulations} closeModal={closeModal} changePostulations={changePostulations}/> :
                     <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
             </Modal>
         )

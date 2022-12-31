@@ -1,0 +1,134 @@
+.postulations-buttons {
+    padding: 16px 0;
+    width: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.postulation-view-modal {
+    flex-direction: column;
+    width: 60%;
+    height: 80%;
+    font-size: 12px;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.postulation-team-view {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 8px 0px;
+    font-size: 16px;
+}
+
+.team-postulation-name {
+    font-size: 20px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.team-postulation-star {
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 400;
+    align-items: center;
+}
+
+.team-postulation-data {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.team-postulation-budget{
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 24px;
+    font-weight: 300;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.team-postulation-description {
+    font-size: 16px;
+    font-weight: 700;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.team-postulation-description-data {
+    font-size: 14px;
+    font-weight: 400;
+    border-radius: 16px;
+    padding: 4px 16px;
+    height: 85%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: #E3E3E3;
+}
+
+.photo-postulations {
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 32px;
+    width: 32px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    color: #FAFAFA;
+    border: 2px solid rgb(46, 153, 153);
+}
+.usd {
+    background: #E3E3E3;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    padding: 0 8px;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.postulations-buttons-container {
+    display: flex;
+    width: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.loading-button {
+    margin: 4px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(1, 71, 81, 0.5);
+    color: white;
+}
+
+.loading-button-reject {
+    margin: 4px;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(205, 91, 69, 0.5);
+    color: white;
+}

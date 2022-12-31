@@ -63,7 +63,6 @@ export default function PostulationModal(params) {
             setButtonDisabled(false)
             params.closeModal()
         })
-        setButtonDisabled(false)
     }
 
     return (
