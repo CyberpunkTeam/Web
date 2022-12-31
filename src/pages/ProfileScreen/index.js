@@ -28,7 +28,7 @@ function ProfileScreen() {
     const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
-    const [userData, setUserData] = useState( {})
+    const [userData, setUserData] = useState({})
 
     useEffect(() => {
         getProfile(id).then((response) => {
@@ -192,8 +192,9 @@ function ProfileScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? <TeamModal /> : isEditProfile ? <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
-                    <ProjectsModal projects={userData.projects}/> : <TeamsModal teams={userData.teams}/>}
+                {isCreateTeamModal ? <TeamModal/> : isEditProfile ?
+                    <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
+                        <ProjectsModal projects={userData.projects}/> : <TeamsModal teams={userData.teams}/>}
             </Modal>
         )
     }
@@ -206,18 +207,20 @@ function ProfileScreen() {
                     <div className="cover-user-container"/>
                 )
             }
-            return  <img src={userData.user.cover_image} className="image-container" alt=""/>
+            return <img src={userData.user.cover_image} className="image-container" alt=""/>
         }
 
         const editButton = () => {
             if (id === context.user.uid) {
                 return (
-                    <div className="edit-button" onClick={() => {
-                        setIsEditProfile(true);
-                        setIsOpen(true);
-                    }
-                    }>
-                        <Edit size="24" color="#014751"/>
+                    <div className="cover-buttons">
+                        <div className="edit-button" onClick={() => {
+                            setIsEditProfile(true);
+                            setIsOpen(true);
+                        }
+                        }>
+                            <Edit size="24" color="#014751"/>
+                        </div>
                     </div>
                 )
             }

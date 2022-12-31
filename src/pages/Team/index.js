@@ -14,6 +14,8 @@ import TeamModal from "../../components/TeamModal";
 import AddMemberModal from "../../components/AddMemberModal";
 import TeamInvitation from "../../components/TeamInvitation";
 import {getTeamInvitations} from "../../services/invitationService";
+import {getTeamPostulations} from "../../services/projectService";
+import ProjectPostulationsModal from "../../components/ProjectPostulationsModal";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -21,11 +23,13 @@ export default function TeamScreen() {
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
+    const [isPostulations, setIsPostulations] = useState(false);
     const [users, setUsers] = useState([]);
     const [invitations, setInvitations] = useState([]);
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
+    const [postulations, setPostulations] = useState([])
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -48,7 +52,10 @@ export default function TeamScreen() {
                     })
                     setInvitations(usersInvited);
                 }
-                setLoading(false)
+                getTeamPostulations(params.id).then((response) => {
+                    setPostulations(response)
+                    setLoading(false);
+                })
             })
         }).catch((error) => {
             console.log(error)
@@ -58,6 +65,7 @@ export default function TeamScreen() {
 
     const closeModal = () => {
         setIsOpen(false);
+        setIsPostulations(false);
         setIsEditData(false);
     }
 
@@ -85,13 +93,29 @@ export default function TeamScreen() {
 
     const editButton = () => {
         if (teamData.owner === context.user.uid) {
-            return (
-                <div className="edit-button" onClick={() => {
-                    setIsEditData(true)
-                    setIsOpen(true);
+            const postulationsButton = () => {
+                if (postulations.length !== 0) {
+                    return (
+                        <button className="postulations-button" onClick={() => {
+                            setIsOpen(true);
+                            setIsPostulations(true);
+                        }}>
+                            Postulaciones
+                        </button>
+                    )
                 }
-                }>
-                    <Edit size="24" color="#014751"/>
+            }
+
+            return (
+                <div className="cover-buttons">
+                    {postulationsButton()}
+                    <div className="edit-button" onClick={() => {
+                        setIsEditData(true)
+                        setIsOpen(true);
+                    }
+                    }>
+                        <Edit size="24" color="#014751"/>
+                    </div>
                 </div>
             )
         }
@@ -195,7 +219,9 @@ export default function TeamScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> :
-                    <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations} setInvitations={setInvitations}/>}
+                    isPostulations ? <ProjectPostulationsModal postulations={postulations}/> :
+                        <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
+                                        setInvitations={setInvitations}/>}
             </Modal>
         )
     }
