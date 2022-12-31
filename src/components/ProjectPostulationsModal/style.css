@@ -25,6 +25,7 @@
 }
 
 .date-project {
+    padding: 8px 0;
     font-weight: 400;
     font-size: 12px;
     justify-content: flex-end;

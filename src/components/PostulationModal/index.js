@@ -35,7 +35,7 @@ export default function PostulationModal(params) {
     const showTeamMembers = (data) => {
         if (data.profile_image === "default") {
             return (
-                <div className="member-photo-postulation">
+                <div  key={data.uid} className="member-photo-postulation">
                     <div className="photo-postulation">
                         <User color="#FAFAFA" size="24px" variant="Bold"/>
                     </div>
@@ -43,7 +43,7 @@ export default function PostulationModal(params) {
             )
         } else {
             return (
-                <div className="member-photo-postulation">
+                <div key={data.uid} className="member-photo-postulation">
                     <img src={data.profile_image} alt='' className="photo-postulation"/>
                 </div>
             )
