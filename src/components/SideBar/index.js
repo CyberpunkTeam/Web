@@ -6,6 +6,8 @@ import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
+import moment from "moment/moment";
+import 'moment/locale/es';
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -62,6 +64,11 @@ function SideBar() {
                 navigate(link);
             })
         }
+
+        const formatDate = (date) => {
+            const d = date.replace(/:/, ' ');
+            return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').fromNow();
+        }
         const notificationLi = (data) => {
             if (data.notification_type === "TEAM_INVITATION") {
                 return (
@@ -69,8 +76,9 @@ function SideBar() {
                         buttonNavigation(data.resource_id)
                     }}>
                         {data.content}
-                        <br/>
-                        {data.created_date}
+                        <div className="date">
+                            {formatDate(data.created_date)}
+                        </div>
                     </li>
                 )
             }
