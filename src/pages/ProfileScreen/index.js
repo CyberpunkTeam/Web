@@ -151,7 +151,7 @@ function ProfileScreen() {
                         Experiencia
                     </div>
                     {experienceView()}
-                    {userData.user.education.length > 1 ? viewMore() : null}
+                    {userData.user.work_experience.length > 1 ? viewMore() : null}
                 </div>
             </div>
         )
