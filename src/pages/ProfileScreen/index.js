@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Briefcase, Edit, LampCharge, People, Star1, User} from "iconsax-react";
+import {AddCircle, Edit, LampCharge, People, Star1, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {getProfile} from "../../services/userService";
@@ -16,7 +16,7 @@ import TeamsModal from "../../components/TeamsModal";
 import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
 import EducationComponent from "../../components/EducationComponent";
-import AddExperienceModal from "../../components/AddExperienceModal";
+import WorkExperienceComponent from "../../components/WorkExperienceComponent";
 
 function ProfileScreen() {
     const params = useParams();
@@ -28,7 +28,6 @@ function ProfileScreen() {
     const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
     const [isProjectModal, setIsProjectModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
-    const [isAddExperience, setIsAddExperience] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -69,50 +68,6 @@ function ProfileScreen() {
             </div>
         )
     }
-
-    const workView = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more">
-                    Ver más (+{userData.user.work_experience.length - 1})
-                </div>
-            )
-        }
-
-        const experienceView = () => {
-            if (userData.user.work_experience.length === 0) {
-                return;
-            }
-
-            return (
-                <div className="data-info">
-                    {userData.user.work_experience[0].position}
-                    <div className="education-info">
-                        {userData.user.work_experience[0].company}
-                        <div>
-                            {userData.user.work_experience[0].start_date.split('-')[0]} - {userData.user.work_experience[0].current_job ? userData.user.work_experience[0].finish_date.split('-')[0] : "Actual"}
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={isAddExperienceModal}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <Briefcase size="32" color="#014751" className={"icon"}/>
-                        Experiencia
-                    </div>
-                    {experienceView()}
-                    {userData.user.work_experience.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
     const team_user_view = () => {
         const viewMore = () => {
             return (
@@ -223,11 +178,6 @@ function ProfileScreen() {
         setIsOpen(true);
     }
 
-    const isAddExperienceModal = () => {
-        setIsAddExperience(true)
-        setIsOpen(true);
-    }
-
     const viewTeams = () => {
         setIsCreateTeamModal(false)
         setIsOpen(true);
@@ -237,7 +187,6 @@ function ProfileScreen() {
         setIsEditProfile(false);
         setIsCreateTeamModal(false);
         setIsProjectModal(false);
-        setIsAddExperience(false);
         setIsOpen(false);
     }
 
@@ -247,8 +196,7 @@ function ProfileScreen() {
                 {isCreateTeamModal ? <TeamModal/> : isEditProfile ?
                     <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
                         <ProjectsModal projects={userData.projects}/> :
-                            isAddExperience ? <AddExperienceModal closeModal={closeModal}/> :
-                                <TeamsModal teams={userData.teams}/>}
+                            <TeamsModal teams={userData.teams}/>}
             </Modal>
         )
     }
@@ -313,7 +261,7 @@ function ProfileScreen() {
                         {team_user_view()}
                         {user_projects_view()}
                         <EducationComponent userData={userData} />
-                        {workView()}
+                        <WorkExperienceComponent userData={userData} />
                     </div>
                     <div className="column">
                     </div>

@@ -1,12 +1,12 @@
-export default function UserEducationsModal(params) {
-    const educations = params.educations
-    const educationView = (data) => {
+export default function WorkExperienceModal(params) {
+    const works = params.works
+    const workView = (data) => {
         return (
             <div key={data.title + data.institution} className="education-data-info">
                 <div className="line">
-                    {data.title}
+                    {data.position}
                     <div className="education-info">
-                        {data.institution}
+                        {data.company}
                         <div>
                             {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "Actual"}
                         </div>
@@ -19,11 +19,11 @@ export default function UserEducationsModal(params) {
     return (
         <div className="modal-container">
             <div className="form-text">
-                Títulos y Certificaciones
+                Experiencia
             </div>
             <div className="scrollDiv">
-                {educations.map((data) => {
-                    return educationView(data)
+                {works.map((data) => {
+                    return workView(data)
                 })}
             </div>
         </div>
