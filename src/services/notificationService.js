@@ -1,92 +1,23 @@
-const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/notifications/"
+import {post, get, put} from "./baseService";
+
+const endpoint = "notifications/"
+
 export const getNotifications = (uid) => {
-    return fetch(serviceUrl + "?receiver_id=" + uid, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    if (response.status === 404) {
-                        return {}
-                    }
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint + "?receiver_id=" + uid)
 }
 
 export const sendInvitation = (body) => {
-    return fetch(serviceUrl + "team_invitation/", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return post(endpoint + "team_invitation/", body)
 }
 
 export const viewNotifications = (notifications) => {
-    return fetch(serviceUrl + "viewed/?nids=" + notifications, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        }
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return put(endpoint + "viewed/?nids=" + notifications)
 }
 
 export const sendTeamPostulation = (body) => {
-    return fetch(serviceUrl + "team_postulation/", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return post(endpoint + "team_postulation/", body)
 }
 
 export const updateTeamPostulation = (body) => {
-    return fetch(serviceUrl + "team_postulation_response/", {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return post(endpoint + "team_postulation_response/", body)
 }

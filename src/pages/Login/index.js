@@ -8,6 +8,7 @@ import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
 import {getUser} from "../../services/userService";
 import Register from "../Register";
+import {createToken} from "../../services/authenticationService";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -80,9 +81,18 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
-               getUserService(userCredential).then(() => {
-                    setButtonDisabled(false)
-                })
+               userCredential.user.getIdToken().then((token) => {
+                   let body = {"auth_google_token": token, "user_id": userCredential.user.uid}
+                   console.log("body: ", body)
+                   createToken(body).then((authToken) => {
+                       localStorage.setItem("auth_token", authToken.token)
+                       getUserService(userCredential).then(() => {
+                           setButtonDisabled(false)
+                       }).catch((error) => {})
+                   }).catch((error) => {})
+
+
+               }).catch((error) => {})
 
             })
             .catch((error) => {

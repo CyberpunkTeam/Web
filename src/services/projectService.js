@@ -1,115 +1,31 @@
-const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/projects/"
+import {post, get, put} from "./baseService";
+
+const endpoint = "projects/"
 
 export const createProject = (body) => {
-    return fetch(serviceUrl, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return post(endpoint, body)
 }
 
 export const updateProject = (pid, body) => {
-    return fetch(serviceUrl + pid, {
-        method: 'PUT',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(body)
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return put(endpoint + pid, body)
 }
 
 export const getProject = (pid) => {
-    return fetch(serviceUrl + pid, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    if (response.status === 404) {
-                        return {}
-                    }
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint + pid)
 }
 
 export const getProjects = () => {
-    return fetch(serviceUrl, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    if (response.status === 404) {
-                        return {}
-                    }
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint)
 }
 
 export const getPostulation = (ppid) => {
-    return fetch(serviceUrl + `postulations/${ppid}`, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint + `postulations/${ppid}`)
 }
 
 export const getProjectPostulations = (pid) => {
-    return fetch(serviceUrl + `postulations/?pid=${pid}&state=PENDING`, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint + `postulations/?pid=${pid}&state=PENDING`)
 }
 
 export const getTeamPostulations = (tid) => {
-    return fetch(serviceUrl + `postulations/?tid=${tid}`, {
-        method: 'GET'
-    }).then(
-        response => {
-            return response.json().then(
-                data => {
-                    return data
-                }
-            )
-        }
-    ).catch(errors => console.log(errors))
+    return get(endpoint +  `postulations/?tid=${tid}`)
 }
