@@ -101,13 +101,16 @@ export default function ProjectScreen() {
                     </div>
                 )
             } else {
-                return (
-                    <button className="postulation-button" onClick={() => {
-                        setIsOpen(true);
-                    }}>
-                        Postularse
-                    </button>
-                )
+                if (userTeams.length > 0){
+                    return (
+                        <button className="postulation-button" onClick={() => {
+                            setIsOpen(true);
+                        }}>
+                            Postularse
+                        </button>
+                    )
+                }
+
             }
         }
         const link = project.creator.uid !== context.user.uid ? `/user/${project.creator.uid}` : "/me"
