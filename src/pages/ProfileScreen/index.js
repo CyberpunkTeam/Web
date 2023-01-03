@@ -17,6 +17,7 @@ import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
 import EducationComponent from "../../components/EducationComponent";
 import WorkExperienceComponent from "../../components/WorkExperienceComponent";
+import UserTeamsComponent from "../../components/UserTeamsComponent";
 
 function ProfileScreen() {
     const params = useParams();
@@ -25,8 +26,6 @@ function ProfileScreen() {
     const [loading, setLoading] = useState(true);
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
-    const [isProjectModal, setIsProjectModal] = useState(false);
     const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
@@ -64,54 +63,6 @@ function ProfileScreen() {
                 </div>
                 <div className="extra-data">
                     {id !== context.user.uid ? userData.user.email : context.user.email}
-                </div>
-            </div>
-        )
-    }
-    const team_user_view = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more" onClick={() => {
-                    viewTeams()
-                }}>
-                    Ver más (+{userData.teams.length - 1})
-                </div>
-            )
-        }
-
-        const teamView = () => {
-            if (userData.teams.length === 0) {
-                return;
-            }
-
-            const team_link = "/team/" + userData.teams[0].tid;
-
-            return (
-                <div className="data-info">
-                    <Link to={team_link} className="team-link">
-                        {userData.teams[0].name}
-                    </Link>
-                    <div className="rank">
-                        <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
-                        5.0
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                        createTeamOpenModal()
-                    }}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <People size="32" color="#014751" className={"icon"}/>
-                        Equipos
-                    </div>
-                    {teamView()}
-                    {userData.teams.length > 1 ? viewMore() : null}
                 </div>
             </div>
         )
@@ -168,35 +119,21 @@ function ProfileScreen() {
         )
     }
 
-    const createTeamOpenModal = () => {
-        setIsCreateTeamModal(true)
-        setIsOpen(true);
-    }
-
     const watchProjectsModal = () => {
-        setIsProjectModal(true)
-        setIsOpen(true);
-    }
-
-    const viewTeams = () => {
-        setIsCreateTeamModal(false)
+        setIsEditProfile(false);
         setIsOpen(true);
     }
 
     const closeModal = () => {
         setIsEditProfile(false);
-        setIsCreateTeamModal(false);
-        setIsProjectModal(false);
         setIsOpen(false);
     }
 
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? <TeamModal/> : isEditProfile ?
-                    <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
-                        <ProjectsModal projects={userData.projects}/> :
-                            <TeamsModal teams={userData.teams}/>}
+                {isEditProfile ?
+                    <EditProfileModal closeModal={closeModal}/> : <ProjectsModal projects={userData.projects}/> }
             </Modal>
         )
     }
@@ -246,7 +183,7 @@ function ProfileScreen() {
         return <Loading/>
     }
 
-    if (context.user === undefined || context.user === null || Object.keys(userData).length === 0 ) {
+    if (context.user === undefined || context.user === null || Object.keys(userData).length === 0) {
         return (
             <NotFound/>
         )
@@ -258,10 +195,10 @@ function ProfileScreen() {
                 </div>
                 <div className="profile-data-container">
                     <div className="column">
-                        {team_user_view()}
+                        <UserTeamsComponent userData={userData}/>
                         {user_projects_view()}
-                        <EducationComponent userData={userData} />
-                        <WorkExperienceComponent userData={userData} />
+                        <EducationComponent userData={userData}/>
+                        <WorkExperienceComponent userData={userData}/>
                     </div>
                     <div className="column">
                     </div>
