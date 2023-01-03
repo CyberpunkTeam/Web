@@ -19,8 +19,8 @@
     color: #014751;
 }
 
-.add-button-empty {
-    position: absolute;
-    right: 20px;
-    top: 20px;
+.education-data-info {
+    padding: 8px 0px;
+    font-weight: 700;
+    color: #222222;
 }

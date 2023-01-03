@@ -4,26 +4,34 @@ import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";
 import AddEducationModal from "../AddEducationModal";
+import UserEducationsModal from "../UserEducationsModal";
 
 export default function EducationComponent(params) {
 
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [viewAll, setViewAll] = useState(false);
 
     if (Object.keys(params.userData).length === 0) {
         return;
     }
 
     const closeModal = () => {
+        setViewAll(false);
         setIsOpen(false)
     }
 
     const openModal = () => {
         setIsOpen(true)
     }
+
+    const openViewAll = () => {
+        setViewAll(true)
+        setIsOpen(true)
+    }
     const viewMore = () => {
         return (
-            <div className="view-more">
+            <div className="view-more" onClick={openViewAll}>
                 Ver más (+{params.userData.user.education.length - 1})
             </div>
         )
@@ -50,7 +58,7 @@ export default function EducationComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <AddEducationModal closeModal={closeModal}/>
+                {viewAll ? <UserEducationsModal educations={params.userData.user.education}/> : <AddEducationModal closeModal={closeModal}/>}
             </Modal>
         )
     }
