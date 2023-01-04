@@ -98,7 +98,7 @@ export default function AddEducationModal(params) {
                 Cancelar
             </button>
             <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={createEducationButton}>
-                {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Guardar"}
+                {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Agregar"}
             </button>
         </div>
     </div>)

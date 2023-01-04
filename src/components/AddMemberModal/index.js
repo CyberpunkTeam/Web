@@ -67,7 +67,7 @@ export default function AddMemberModal(params) {
                         </div>
                     </div>
                     <div className="add-user">
-                        {params.invitations.includes(data.uid) ? <TickCircle size="24" color="#B1B1B1"/> :
+                        {params.invitations.includes(data.uid) ? <TickCircle size="24" color="#2E9999"/> :
                             <AddCircle size="24" color="#B1B1B1" onClick={() => {
                                 sendMemberInvitation(data.uid)
                             }}/>

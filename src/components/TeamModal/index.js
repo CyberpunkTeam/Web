@@ -89,23 +89,26 @@ export default function TeamModal(params) {
                         Cancelar
                     </button>
                     <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={updateTeamButton}>
-                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        Guardar
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Guardar"}
                     </button>
                 </>
             )
         }
         return (
-            <button disabled={buttonDisabled} className={buttonDisabled ? "modal-button-style-disabled" : "modal-button-style"} onClick={createTeamButton}>
-                {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                Listo
-            </button>
+            <>
+                <button className="cancel-edit-button-style" onClick={params.closeModal}>
+                    Cancelar
+                </button>
+                <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={createTeamButton}>
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Crear"}
+                </button>
+            </>
         )
     }
 
     return (<div className="modal-container">
         <div className="form-text">
-            Crea un nuevo equipo
+            {params.team !== undefined ? "Editar equipo" : "Crea un nuevo equipo"}
         </div>
         <form className="modal-form">
             <div className="label">

@@ -3,30 +3,24 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, LampCharge, People, Star1, User} from "iconsax-react";
+import {Edit, User} from "iconsax-react";
 import Modal from 'react-modal';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
-import ProjectsModal from "../../components/ProjectsModal";
-import TechnologyTag from "../../components/TechnologyTag";
-import PreferenceTag from "../../components/PreferenceTag";
-import TeamsModal from "../../components/TeamsModal";
-import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
 import EducationComponent from "../../components/EducationComponent";
 import WorkExperienceComponent from "../../components/WorkExperienceComponent";
 import UserTeamsComponent from "../../components/UserTeamsComponent";
+import UserProjectComponent from "../../components/UserProjectComponent";
 
 function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [isEditProfile, setIsEditProfile] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -68,72 +62,18 @@ function ProfileScreen() {
         )
     }
 
-    const user_projects_view = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more" onClick={watchProjectsModal}>
-                    Ver más (+{userData.projects.length - 1})
-                </div>
-            )
-        }
-
-        const projectView = () => {
-            if (userData.projects.length === 0) {
-                return;
-            }
-
-            const projects_link = "/projects/" + userData.projects[0].pid;
-
-            return (
-                <div className="data-info">
-                    <Link to={projects_link} className="team-link">
-                        {userData.projects[0].name}
-                    </Link>
-                    <div className="tags-project">
-                        {userData.projects[0].technologies.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                        {userData.projects[0].idioms.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                        navigate("/projects/new")
-                    }}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <LampCharge size="32" color="#014751" className={"icon"}/>
-                        Proyectos
-                    </div>
-                    {projectView()}
-                    {userData.projects.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
-    const watchProjectsModal = () => {
-        setIsEditProfile(false);
+    const openModal = () => {
         setIsOpen(true);
     }
 
     const closeModal = () => {
-        setIsEditProfile(false);
         setIsOpen(false);
     }
 
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isEditProfile ?
-                    <EditProfileModal closeModal={closeModal}/> : <ProjectsModal projects={userData.projects}/> }
+                <EditProfileModal closeModal={closeModal}/>
             </Modal>
         )
     }
@@ -153,11 +93,7 @@ function ProfileScreen() {
             if (id === context.user.uid) {
                 return (
                     <div className="cover-buttons">
-                        <div className="edit-button" onClick={() => {
-                            setIsEditProfile(true);
-                            setIsOpen(true);
-                        }
-                        }>
+                        <div className="edit-button" onClick={openModal}>
                             <Edit size="24" color="#014751"/>
                         </div>
                     </div>
@@ -196,7 +132,7 @@ function ProfileScreen() {
                 <div className="profile-data-container">
                     <div className="column">
                         <UserTeamsComponent userData={userData}/>
-                        {user_projects_view()}
+                        <UserProjectComponent userData={userData}/>
                         <EducationComponent userData={userData}/>
                         <WorkExperienceComponent userData={userData}/>
                     </div>
