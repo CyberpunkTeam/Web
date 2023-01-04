@@ -3,6 +3,7 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {updateUser} from "../../services/userService";
+import {CloseCircle} from "iconsax-react";
 
 export default function AddExperienceModal(params) {
     let context = useContext(AppContext);
@@ -100,5 +101,7 @@ export default function AddExperienceModal(params) {
                 {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Agregar"}
             </button>
         </div>
-    </div>)
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
+    </div>
+    )
 }

@@ -1,5 +1,5 @@
 import './style.css'
-import {ArrowDown2, User} from "iconsax-react";
+import {ArrowDown2, CloseCircle, User} from "iconsax-react";
 import {useState} from "react";
 import {sendTeamPostulation} from "../../services/notificationService";
 
@@ -116,6 +116,7 @@ export default function PostulationModal(params) {
                     {buttonDisabled ? "" : "Enviar"}
                 </button>
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 

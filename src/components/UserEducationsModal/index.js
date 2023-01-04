@@ -1,3 +1,5 @@
+import {CloseCircle} from "iconsax-react";
+
 export default function UserEducationsModal(params) {
     const educations = params.educations
     const educationView = (data) => {
@@ -26,6 +28,7 @@ export default function UserEducationsModal(params) {
                     return educationView(data)
                 })}
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 

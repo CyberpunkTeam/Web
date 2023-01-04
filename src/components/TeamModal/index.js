@@ -4,6 +4,7 @@ import {createTeam, updateTeam} from "../../services/teamService";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
+import {CloseCircle} from "iconsax-react";
 
 export default function TeamModal(params) {
     let context = useContext(AppContext);
@@ -147,5 +148,7 @@ export default function TeamModal(params) {
         <div className="container-button-modal">
             {buttons()}
         </div>
-    </div>)
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
+    </div>
+    )
 }

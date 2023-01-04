@@ -3,7 +3,7 @@ import "./style.css"
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {updateUser} from "../../services/userService";
-import {GalleryImport, User} from "iconsax-react";
+import {CloseCircle, GalleryImport, User} from "iconsax-react";
 import {savePhoto} from "../../services/firebaseStorage";
 
 export default function EditProfileModal(params) {
@@ -45,7 +45,7 @@ export default function EditProfileModal(params) {
         }
 
         if (profileImg !== context.user.profile_image) {
-            const photo_url = await savePhoto(context.app, profileImg, context.user.uid + "-profile" );
+            const photo_url = await savePhoto(context.app, profileImg, context.user.uid + "-profile");
             body["profile_image"] = photo_url
             setProfileImg(photo_url)
         }
@@ -159,6 +159,7 @@ export default function EditProfileModal(params) {
                     {buttonDisabled ? "" : "Guardar"}
                 </button>
             </div>
-        </div>)
-
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
+        </div>
+    )
 }

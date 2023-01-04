@@ -1,6 +1,6 @@
 import './style.css'
 import {sendInvitation} from "../../services/notificationService";
-import {AddCircle, SearchNormal1, TickCircle, User} from "iconsax-react";
+import {AddCircle, CloseCircle, SearchNormal1, TickCircle, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
@@ -106,6 +106,7 @@ export default function AddMemberModal(params) {
                     return memberView(data)
                 })}
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 

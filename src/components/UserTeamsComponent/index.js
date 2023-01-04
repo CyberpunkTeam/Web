@@ -59,8 +59,8 @@ export default function UserTeamsComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ?  <TeamsModal teams={params.userData.teams}/> :
-                    <TeamModal/>}
+                {viewAll ?  <TeamsModal teams={params.userData.teams} closeModal={closeModal}/> :
+                    <TeamModal closeModal={closeModal}/>}
             </Modal>
         )
     }

@@ -1,3 +1,5 @@
+import {CloseCircle} from "iconsax-react";
+
 export default function WorkExperienceModal(params) {
     const works = params.works
     const workView = (data) => {
@@ -26,6 +28,7 @@ export default function WorkExperienceModal(params) {
                     return workView(data)
                 })}
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 

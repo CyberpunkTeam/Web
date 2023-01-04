@@ -2,8 +2,6 @@ import {AddCircle, LampCharge, People, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";
-import TeamModal from "../TeamModal";
-import TeamsModal from "../TeamsModal";
 import {Link, useNavigate} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
@@ -64,7 +62,7 @@ export default function UserProjectComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <ProjectsModal projects={params.userData.projects}/>
+                <ProjectsModal projects={params.userData.projects} closeModal={closeModal}/>
             </Modal>
         )
     }

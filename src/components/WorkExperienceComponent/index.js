@@ -56,7 +56,7 @@ export default function WorkExperienceComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ? <WorkExperienceModal works={params.userData.user.work_experience}/> :
+                {viewAll ? <WorkExperienceModal works={params.userData.user.work_experience} closeModal={closeModal}/> :
                     <AddExperienceModal closeModal={closeModal}/>}
             </Modal>
         )

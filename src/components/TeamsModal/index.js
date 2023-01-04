@@ -1,5 +1,5 @@
 import {Link} from "react-router-dom";
-import {Star1} from "iconsax-react";
+import {CloseCircle, Star1} from "iconsax-react";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 
@@ -42,6 +42,7 @@ export default function TeamsModal(params) {
                     return teamView(data)
                 })}
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 
