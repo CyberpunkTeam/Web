@@ -161,6 +161,7 @@ export default function PostulationsModal(params) {
                     }}
                 />
             </div>
+            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 
