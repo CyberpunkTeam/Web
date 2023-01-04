@@ -1,4 +1,4 @@
-import {AddCircle, LampCharge, People, Star1} from "iconsax-react";
+import {AddCircle, LampCharge} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";

@@ -31,5 +31,4 @@ export default function WorkExperienceModal(params) {
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
-
 }

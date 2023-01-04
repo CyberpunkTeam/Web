@@ -3,7 +3,7 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {updateUser} from "../../services/userService";
-import {AddCircle, CloseCircle} from "iconsax-react";
+import {CloseCircle} from "iconsax-react";
 
 export default function AddEducationModal(params) {
     let context = useContext(AppContext);
