@@ -218,10 +218,10 @@ export default function TeamScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isEditData ? <TeamModal team={teamData} closeModal={closeModal} setTeamData={setTeamData}/> :
-                    isPostulations ? <ProjectPostulationsModal postulations={postulations}/> :
+                {isEditData ? <TeamModal team={teamData} setTeamData={setTeamData} closeModal={closeModal}/> :
+                    isPostulations ? <ProjectPostulationsModal postulations={postulations} closeModal={closeModal}/> :
                         <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
-                                        setInvitations={setInvitations}/>}
+                                        setInvitations={setInvitations} closeModal={closeModal}/>}
             </Modal>
         )
     }

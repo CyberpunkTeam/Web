@@ -3,33 +3,24 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Briefcase, Edit, LampCharge, People, Star1, Teacher, User} from "iconsax-react";
+import {Edit, User} from "iconsax-react";
 import Modal from 'react-modal';
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
-import ProjectsModal from "../../components/ProjectsModal";
-import TechnologyTag from "../../components/TechnologyTag";
-import PreferenceTag from "../../components/PreferenceTag";
-import TeamsModal from "../../components/TeamsModal";
-import TeamModal from "../../components/TeamModal";
 import EditProfileModal from "../../components/EditProfileModal";
-import AddEducationModal from "../../components/AddEducationModal";
-import AddExperienceModal from "../../components/AddExperienceModal";
+import EducationComponent from "../../components/EducationComponent";
+import WorkExperienceComponent from "../../components/WorkExperienceComponent";
+import UserTeamsComponent from "../../components/UserTeamsComponent";
+import UserProjectComponent from "../../components/UserProjectComponent";
 
 function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
 
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [isCreateTeamModal, setIsCreateTeamModal] = useState(false);
-    const [isProjectModal, setIsProjectModal] = useState(false);
-    const [isEditProfile, setIsEditProfile] = useState(false);
-    const [isAddEducation, setIsAddEducation] = useState(false);
-    const [isAddExperience, setIsAddExperience] = useState(false);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -71,235 +62,18 @@ function ProfileScreen() {
         )
     }
 
-    const educationView = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more">
-                    Ver más (+{userData.user.education.length - 1})
-                </div>
-            )
-        }
-
-        const experienceView = () => {
-            if (userData.user.education.length === 0) {
-                return;
-            }
-
-            return (
-                <div className="data-info">
-                    {userData.user.education[0].title}
-                    <div className="education-info">
-                        {userData.user.education[0].institution}
-                        <div>
-                            {userData.user.education[0].start_date.split('-')[0]} - {userData.user.education[0].finished ? userData.user.education[0].finish_date.split('-')[0] : "Actual"}
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={isAddEducationModal}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <Teacher size="32" color="#014751" className={"icon"}/>
-                        Títulos y Certificaciones
-                    </div>
-                    {experienceView()}
-                    {userData.user.education.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
-    const workView = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more">
-                    Ver más (+{userData.user.work_experience.length - 1})
-                </div>
-            )
-        }
-
-        const experienceView = () => {
-            if (userData.user.work_experience.length === 0) {
-                return;
-            }
-
-            return (
-                <div className="data-info">
-                    {userData.user.work_experience[0].position}
-                    <div className="education-info">
-                        {userData.user.work_experience[0].company}
-                        <div>
-                            {userData.user.work_experience[0].start_date.split('-')[0]} - {userData.user.work_experience[0].current_job ? userData.user.work_experience[0].finish_date.split('-')[0] : "Actual"}
-                        </div>
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={isAddExperienceModal}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <Briefcase size="32" color="#014751" className={"icon"}/>
-                        Experiencia
-                    </div>
-                    {experienceView()}
-                    {userData.user.work_experience.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
-    const team_user_view = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more" onClick={() => {
-                    viewTeams()
-                }}>
-                    Ver más (+{userData.teams.length - 1})
-                </div>
-            )
-        }
-
-        const teamView = () => {
-            if (userData.teams.length === 0) {
-                return;
-            }
-
-            const team_link = "/team/" + userData.teams[0].tid;
-
-            return (
-                <div className="data-info">
-                    <Link to={team_link} className="team-link">
-                        {userData.teams[0].name}
-                    </Link>
-                    <div className="rank">
-                        <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
-                        5.0
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                        createTeamOpenModal()
-                    }}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <People size="32" color="#014751" className={"icon"}/>
-                        Equipos
-                    </div>
-                    {teamView()}
-                    {userData.teams.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
-    const user_projects_view = () => {
-        const viewMore = () => {
-            return (
-                <div className="view-more" onClick={watchProjectsModal}>
-                    Ver más (+{userData.projects.length - 1})
-                </div>
-            )
-        }
-
-        const projectView = () => {
-            if (userData.projects.length === 0) {
-                return;
-            }
-
-            const projects_link = "/projects/" + userData.projects[0].pid;
-
-            return (
-                <div className="data-info">
-                    <Link to={projects_link} className="team-link">
-                        {userData.projects[0].name}
-                    </Link>
-                    <div className="tags-project">
-                        {userData.projects[0].technologies.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                        {userData.projects[0].idioms.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                    </div>
-                </div>
-            )
-        }
-
-        return (
-            <div className="user-info-container">
-                {id !== context.user.uid ? null :
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                        navigate("/projects/new")
-                    }}/>}
-                <div className="user-info">
-                    <div className="data-title">
-                        <LampCharge size="32" color="#014751" className={"icon"}/>
-                        Proyectos
-                    </div>
-                    {projectView()}
-                    {userData.projects.length > 1 ? viewMore() : null}
-                </div>
-            </div>
-        )
-    }
-
-    const createTeamOpenModal = () => {
-        setIsCreateTeamModal(true)
-        setIsOpen(true);
-    }
-
-    const isAddEducationModal = () => {
-        setIsAddEducation(true)
-        setIsOpen(true);
-    }
-
-    const watchProjectsModal = () => {
-        setIsProjectModal(true)
-        setIsOpen(true);
-    }
-
-    const isAddExperienceModal = () => {
-        setIsAddExperience(true)
-        setIsOpen(true);
-    }
-
-    const viewTeams = () => {
-        setIsCreateTeamModal(false)
+    const openModal = () => {
         setIsOpen(true);
     }
 
     const closeModal = () => {
-        setIsEditProfile(false);
-        setIsCreateTeamModal(false);
-        setIsProjectModal(false);
-        setIsAddEducation(false);
-        setIsAddExperience(false);
         setIsOpen(false);
     }
 
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {isCreateTeamModal ? <TeamModal/> : isEditProfile ?
-                    <EditProfileModal closeModal={closeModal}/> : isProjectModal ?
-                        <ProjectsModal projects={userData.projects}/> :
-                        isAddEducation ? <AddEducationModal closeModal={closeModal}/> :
-                            isAddExperience ? <AddExperienceModal closeModal={closeModal}/> :
-                                <TeamsModal teams={userData.teams}/>}
+                <EditProfileModal closeModal={closeModal}/>
             </Modal>
         )
     }
@@ -319,11 +93,7 @@ function ProfileScreen() {
             if (id === context.user.uid) {
                 return (
                     <div className="cover-buttons">
-                        <div className="edit-button" onClick={() => {
-                            setIsEditProfile(true);
-                            setIsOpen(true);
-                        }
-                        }>
+                        <div className="edit-button" onClick={openModal}>
                             <Edit size="24" color="#014751"/>
                         </div>
                     </div>
@@ -349,7 +119,7 @@ function ProfileScreen() {
         return <Loading/>
     }
 
-    if (context.user === undefined || context.user === null) {
+    if (context.user === undefined || context.user === null || Object.keys(userData).length === 0) {
         return (
             <NotFound/>
         )
@@ -361,10 +131,10 @@ function ProfileScreen() {
                 </div>
                 <div className="profile-data-container">
                     <div className="column">
-                        {team_user_view()}
-                        {user_projects_view()}
-                        {educationView()}
-                        {workView()}
+                        <UserTeamsComponent userData={userData}/>
+                        <UserProjectComponent userData={userData}/>
+                        <EducationComponent userData={userData}/>
+                        <WorkExperienceComponent userData={userData}/>
                     </div>
                     <div className="column">
                     </div>
