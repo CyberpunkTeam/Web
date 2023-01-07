@@ -34,7 +34,6 @@ function Login() {
 
     const setPasswordHandler = (event) => {
         setPassword(event.target.value);
-        setPasswordError(false);
         setUserError(false);
     }
 
@@ -46,6 +45,7 @@ function Login() {
         if (passwordError) {
             return (
                 <div className="login-message-error-list">
+                    La Contraseña debe contener:
                     <ul>
                         <li>Una Mayúscula</li>
                         <li>Una Minúscula</li>
@@ -76,6 +76,7 @@ function Login() {
             return;
         }
 
+        setPasswordError(false);
         setButtonDisabled(true)
         const body = {
             "newPassword": password,
@@ -176,6 +177,12 @@ function Login() {
         }
     }
 
+    const keyUp = (event) => {
+        if (event.key === "Enter") {
+            return recoveryPasswordMode ? changePassword() : loginButton()
+        }
+    }
+
     const loginForm = () => {
         return (
             <div className="form-container">
@@ -194,10 +201,11 @@ function Login() {
                     </div>
                     <div className="label">
                         <label>
-                            Password
+                            Contraseña
                             <div className="form-input">
                                 <input type={passwordShown ? "text" : "password"} value={password}
                                        className="input"
+                                       onKeyUp={keyUp}
                                        onChange={setPasswordHandler}/>
                                 {passwordShown ?
                                     <Eye className="password-button" color="#B1B1B1" variant="Outline" size={20}

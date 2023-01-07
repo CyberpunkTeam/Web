@@ -125,6 +125,10 @@
     font-size: 16px;
 }
 
+.submit {
+    display: none;
+}
+
 .button-container {
     border: 0;
     width: 90%;
