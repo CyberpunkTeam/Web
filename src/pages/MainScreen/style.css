@@ -106,6 +106,7 @@
     justify-content: center;
     background: #014751;
     font-size: 16px;
+    cursor: pointer;
 }
 
 .loading-style {
@@ -122,6 +123,10 @@
     justify-content: center;
     background: #D1D1D1;
     font-size: 16px;
+}
+
+.submit {
+    display: none;
 }
 
 .button-container {
