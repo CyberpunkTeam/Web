@@ -9,15 +9,18 @@ import AppContext from "../../utils/AppContext";
 import {getUser} from "../../services/userService";
 import Register from "../Register";
 import {createToken} from "../../services/authenticationService";
+import {updatePassword} from "../../services/recoveryService";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
     const emailRegister = searchParams.get("email") !== null
+    const recoveryPasswordMode = searchParams.get("mode") === "resetPassword";
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
     const [email, setEmail] = useState(emailRegister ? searchParams.get("email") : "");
     const [uid, setUid] = useState("")
+    const [passwordError, setPasswordError] = useState(false);
     const [completeData, setCompleteData] = useState(false);
     const [password, setPassword] = useState("");
     const [passwordShown, setPasswordShown] = useState(false);
@@ -31,6 +34,7 @@ function Login() {
 
     const setPasswordHandler = (event) => {
         setPassword(event.target.value);
+        setPasswordError(false);
         setUserError(false);
     }
 
@@ -39,6 +43,19 @@ function Login() {
     };
 
     const userNotFoundMessage = () => {
+        if (passwordError) {
+            return (
+                <div className="login-message-error-list">
+                    <ul>
+                        <li>Una Mayúscula</li>
+                        <li>Una Minúscula</li>
+                        <li>Un Número</li>
+                        <li>Al menos 8 caracteres</li>
+                    </ul>
+                </div>
+            )
+        }
+
         return (
             <div className="login-user-not-found">
                 {userError ? errorMessage : ""}
@@ -46,6 +63,35 @@ function Login() {
         )
     }
 
+    const changePassword = () => {
+        if (email.length === 0 || password.length === 0) {
+            setUserError(true);
+            setErrorMessage("Completar los campos requeridos")
+            return
+        }
+
+        const regularExpression = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        if (!regularExpression.test(password)) {
+            setPasswordError(true);
+            return;
+        }
+
+        setButtonDisabled(true)
+        const body = {
+            "newPassword": password,
+            "oobCode": searchParams.get("oobCode")
+        }
+        updatePassword(body, searchParams.get("apiKey")).then((r) => {
+            if (r.status === 200) {
+                loginButton()
+            } else {
+                setUserError(true);
+                setErrorMessage("La solicitud para restablecer tu contraseña caducó o ya se usó el vínculo")
+            }
+        }).finally(() => {
+            setButtonDisabled(false)
+        })
+    }
     const getUserService = (userCredential) => {
         getUser(userCredential.user.uid).then((userdata => {
             if (Object.keys(userdata).length === 0) {
@@ -118,11 +164,23 @@ function Login() {
         }
     }
 
+    const recoveryPasswordButton = () => {
+        if (!recoveryPasswordMode) {
+            return (
+                <div className="forgot-container">
+                    <Link to="/recovery" className="forgot">
+                        ¿Has olvidado tu contraseña?
+                    </Link>
+                </div>
+            )
+        }
+    }
+
     const loginForm = () => {
         return (
             <div className="form-container">
                 <div className="form-text">
-                    Iniciar Sesión
+                    {recoveryPasswordMode ? "Recuperar Cuenta" : "Iniciar Sesión"}
                 </div>
                 <form className="form">
                     <div className="label">
@@ -149,20 +207,17 @@ function Login() {
                                               onClick={togglePassword}/>}
                             </div>
                         </label>
-                        <div className="forgot-container">
-                            <Link to="/recovery" className="forgot">
-                                ¿Has olvidado tu contraseña?
-                            </Link>
-                        </div>
+                        {recoveryPasswordButton()}
                     </div>
                     {userNotFoundMessage()}
                 </form>
                 <div className="button-container">
-                    <button disabled={buttonDisabled} className={buttonDisabled ? "button-style-disabled" : "button-style"} onClick={() => {
-                        loginButton()
-                    }}>
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? "button-style-disabled" : "button-style"}
+                            onClick={recoveryPasswordMode ? changePassword :
+                                loginButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : "Iniciar Sesión"}
+                        {buttonDisabled ? "" : recoveryPasswordMode ? "Recuperar" : "Iniciar Sesión"}
                     </button>
                     {joinButton()}
                 </div>
@@ -177,7 +232,7 @@ function Login() {
     }
 
 
-    if (searchParams.get("mode") === "resetPassword") {
+    if (recoveryPasswordMode === "resetPassword") {
         window.location.replace(`https://findmyteam-369403.firebaseapp.com/__/auth/action?mode=resetPassword&oobCode=${searchParams.get("oobCode")}&apiKey=${searchParams.get("apiKey")}&lang=es-419`);
     } else {
         return (
