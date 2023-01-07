@@ -12,11 +12,11 @@ import ProfileScreen from "./pages/ProfileScreen";
 import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
-import Working from "./pages/Working";
 import ProjectsScreen from "./pages/Projects";
 import CreateProjectScreen from "./pages/CreateProject";
 import ProjectScreen from "./pages/Project";
 import SearchResults from "./pages/searchResults";
+import RecoveryPassword from "./pages/RecoveryPassword";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -43,9 +43,9 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
-                            <Route index element={<Working/>}/>
-                            <Route path="main" element={<MainScreen/>}/>
+                            <Route index element={<MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
+                            <Route path="recovery" element={<RecoveryPassword/>}/>
                             <Route path="me" element={<ProfileScreen/>}/>
                             <Route path="/user/:id" element={<ProfileScreen/>}/>
                             <Route path="/team/:id" element={<TeamScreen/>}/>
