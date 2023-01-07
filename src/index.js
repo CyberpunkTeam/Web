@@ -12,11 +12,11 @@ import ProfileScreen from "./pages/ProfileScreen";
 import NotFound from "./pages/NotFound";
 import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
-import Working from "./pages/Working";
 import ProjectsScreen from "./pages/Projects";
 import CreateProjectScreen from "./pages/CreateProject";
 import ProjectScreen from "./pages/Project";
 import SearchResults from "./pages/searchResults";
+import RecoveryPassword from "./pages/RecoveryPassword";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -37,23 +37,33 @@ function App() {
         app
     }
 
+    const ifUserLogs = () => {
+        if (user !== null) {
+            return (
+                <>
+                    <Route path="me" element={<ProfileScreen/>}/>
+                    <Route path="/user/:id" element={<ProfileScreen/>}/>
+                    <Route path="/team/:id" element={<TeamScreen/>}/>
+                    <Route path="/projects" element={<ProjectsScreen/>}/>
+                    <Route path="/projects/:id" element={<ProjectScreen/>}/>
+                    <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
+                    <Route path="/projects/new" element={<CreateProjectScreen/>}/>
+                    <Route path="/search" element={<SearchResults/>}/>
+                </>
+            )
+        }
+    }
+
     return (
         <AppContext.Provider value={data}>
             <div className="App">
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
-                            <Route index element={<Working/>}/>
-                            <Route path="main" element={<MainScreen/>}/>
+                            <Route index element={<MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
-                            <Route path="me" element={<ProfileScreen/>}/>
-                            <Route path="/user/:id" element={<ProfileScreen/>}/>
-                            <Route path="/team/:id" element={<TeamScreen/>}/>
-                            <Route path="/projects" element={<ProjectsScreen/>}/>
-                            <Route path="/projects/:id" element={<ProjectScreen/>}/>
-                            <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
-                            <Route path="/projects/new" element={<CreateProjectScreen/>}/>
-                            <Route path="/search" element={<SearchResults/>}/>
+                            <Route path="recovery" element={<RecoveryPassword/>}/>
+                            {ifUserLogs()}
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>

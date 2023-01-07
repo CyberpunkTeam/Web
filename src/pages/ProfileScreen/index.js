@@ -19,7 +19,6 @@ function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(true);
-
     const [modalIsOpen, setIsOpen] = useState(false);
     const id = params.id ? params.id : context.user.uid
 

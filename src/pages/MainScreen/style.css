@@ -142,9 +142,18 @@
 }
 
 .login-message-error {
+    height: 80px;
     text-align: center;
     font-family: "Inter", sans-serif;
     padding-top: 10px;
+    color: rgb(205, 91, 69);
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-message-error-list {
+    height: 80px;
+    font-family: "Inter", sans-serif;
     color: rgb(205, 91, 69);
     font-size: 14px;
     font-weight: bold;

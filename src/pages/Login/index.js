@@ -39,17 +39,15 @@ function Login() {
     };
 
     const userNotFoundMessage = () => {
-        if (userError)
-            return (
-                <div className="login-user-not-found">
-                    {errorMessage}
-                </div>
-            )
+        return (
+            <div className="login-user-not-found">
+                {userError ? errorMessage : ""}
+            </div>
+        )
     }
 
     const getUserService = (userCredential) => {
         getUser(userCredential.user.uid).then((userdata => {
-
             if (Object.keys(userdata).length === 0) {
                 setUid(userCredential.user.uid);
                 setCompleteData(true);
@@ -67,7 +65,6 @@ function Login() {
             }
             setUserError(true);
             setErrorMessage("se produjo un error inesperado, intente más tarde")
-            console.log(error);
             setButtonDisabled(false)
         });
     }
@@ -81,30 +78,25 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
-               userCredential.user.getIdToken().then((token) => {
-                   let body = {"auth_google_token": token, "user_id": userCredential.user.uid}
-                   console.log("body: ", body)
-                   createToken(body).then((authToken) => {
-                       localStorage.setItem("auth_token", authToken.token)
-                       getUserService(userCredential).then(() => {
-                           setButtonDisabled(false)
-                       }).catch((error) => {})
-                   }).catch((error) => {})
-
-
-               }).catch((error) => {})
-
+                userCredential.user.getIdToken().then((token) => {
+                    let body = {"auth_google_token": token, "user_id": userCredential.user.uid}
+                    createToken(body).then((authToken) => {
+                        localStorage.setItem("auth_token", authToken.token)
+                        getUserService(userCredential).then(() => {
+                            setButtonDisabled(false)
+                        })
+                    })
+                })
             })
             .catch((error) => {
                 if (error.code.includes("wrong-password")) {
                     setErrorMessage("Contraseña incorrecta")
-                } else {
+                } else if (error.code.includes("auth/user-not-found")) {
                     setErrorMessage("Usuario no encontrado")
+                } else {
+                    setErrorMessage("Hubo un error con su usuario")
                 }
                 setUserError(true);
-
-                console.log(error.code);
-                console.log(error.message);
                 setButtonDisabled(false)
             });
     }
@@ -114,7 +106,7 @@ function Login() {
             return (
                 <div className="container-button-login">
                     ¿No tienes una cuenta?
-                    <Link to="/main" className="login">
+                    <Link to="/" className="login">
                         Únete ahora
                     </Link>
                 </div>
@@ -158,12 +150,12 @@ function Login() {
                             </div>
                         </label>
                         <div className="forgot-container">
-                            <Link to="/" className="forgot">
+                            <Link to="/recovery" className="forgot">
                                 ¿Has olvidado tu contraseña?
                             </Link>
-                            {userNotFoundMessage()}
                         </div>
                     </div>
+                    {userNotFoundMessage()}
                 </form>
                 <div className="button-container">
                     <button disabled={buttonDisabled} className={buttonDisabled ? "button-style-disabled" : "button-style"} onClick={() => {
@@ -183,14 +175,20 @@ function Login() {
             <Register uid={uid} email={email}/>
         )
     }
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="data-container">
-                {completeData ? registerForm() : loginForm()}
+
+
+    if (searchParams.get("mode") === "resetPassword") {
+        window.location.replace(`https://findmyteam-369403.firebaseapp.com/__/auth/action?mode=resetPassword&oobCode=${searchParams.get("oobCode")}&apiKey=${searchParams.get("apiKey")}&lang=es-419`);
+    } else {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="data-container">
+                    {completeData ? registerForm() : loginForm()}
+                </div>
             </div>
-        </div>
-    );
+        );
+    }
 }
 
 export default Login;
