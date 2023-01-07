@@ -1,7 +1,17 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
 import {Link, useNavigate} from "react-router-dom";
-import {Setting2, User, Notification, Message, Notepad2, LampCharge, Logout} from "iconsax-react";
+import {
+    Setting2,
+    User,
+    Notification,
+    Message,
+    Notepad2,
+    LampCharge,
+    Logout,
+    People,
+    EmojiHappy
+} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
@@ -17,7 +27,6 @@ function SideBar() {
     const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
     const [watchSettings, setWatchSettings] = useState(false)
-
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
@@ -88,11 +97,31 @@ function SideBar() {
             const d = date.replace(/:/, ' ');
             return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').fromNow();
         }
-        const notificationLi = (data) => {
 
+        const icon = (notification_type) => {
+            if (notification_type === "TEAM_INVITATION") {
+                return (
+                    <People color="#FAFAFA" size="20px" variant="Bold"/>
+                )
+            } else{
+                return (
+                    <LampCharge color="#FAFAFA" size="20px" variant="Bold"/>
+                )
+            }
+        }
+        const notificationLi = (data) => {
             return (
-                <li key={data.nid} onClick={ () => {buttonNavigation(data.resource_id, data.notification_type)}}>
-                    {data.content}
+                <li key={data.nid} onClick={() => {
+                    buttonNavigation(data.resource_id, data.notification_type)
+                }}>
+                    <div className="notification-list-data">
+                        <div className="user-notification">
+                            {icon(data.notification_type)}
+                        </div>
+                        <div className="notification-list-data-message">
+                            {data.content}
+                        </div>
+                    </div>
                     <div className="date">
                         {formatDate(data.created_date)}
                     </div>
@@ -104,6 +133,7 @@ function SideBar() {
             if (notifications.length === 0) {
                 return (
                     <div className="without">
+                        <EmojiHappy size="48" color="rgb(46, 153, 153)" variant="Bold"/>
                         Sin Notificaciones
                     </div>
                 )
@@ -177,7 +207,8 @@ function SideBar() {
                     <Link to="/me">
                         {user_image()}
                     </Link>
-                    <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28} onClick={settingsModal}/>
+                    <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}
+                              onClick={settingsModal}/>
                 </div>
             </div>
         </>

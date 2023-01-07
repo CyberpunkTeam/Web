@@ -63,16 +63,23 @@
     background: #CD5B45;
 }
 
-.notification-list div {
-    padding-bottom: 20px;
-}
 .notification-list li{
     font-size: 16px;
     font-weight: 300;
     list-style: none;
     margin-bottom: 16px;
-    padding: 10px 0px;
     border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.notification-list-data{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.notification-list-data-message{
+    width: 80%;
 }
 
 .notification-list li:last-child{
@@ -132,6 +139,7 @@
 }
 .without{
     display: flex;
+    align-items: center;
     flex-direction: column;
     text-align: center;
     justify-content: center;
@@ -143,6 +151,7 @@
 .date {
     font-size: 12px;
     height: 0px;
+    padding-bottom: 20px;
     justify-content: flex-end;
     text-align: right;
     align-items: flex-end;
@@ -179,4 +188,17 @@
 .logout-icon{
     padding-right: 10px;
     cursor: pointer;
+}
+
+.user-notification {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background: #0F2830;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 2px solid rgb(46, 153, 153);
 }
