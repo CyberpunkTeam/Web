@@ -84,21 +84,6 @@
     color: #222222;
 }
 
-.button-style {
-    width: 55%;
-    border-width: 0;
-    border-radius: 10px;
-    text-decoration: inherit;
-    display: flex;
-    flex-direction: column;
-    height: 40px;
-    color: white;
-    text-align: center;
-    justify-content: center;
-    background: #014751;
-    font-size: 16px;
-}
-
 .button-style-disabled {
     width: 55%;
     border-width: 0;
@@ -109,6 +94,7 @@
     justify-content: center;
     background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
+    cursor: pointer;
 }
 
 .container-button-login {
@@ -155,7 +141,7 @@
     font-family: "Inter", sans-serif;
     padding-top: 10px;
     text-align: center;
-    height: 20px;
+    height: 80px;
     color: rgb(205, 91, 69);
     font-size: 14px;
     font-weight: bold;

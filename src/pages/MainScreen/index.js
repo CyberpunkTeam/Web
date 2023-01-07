@@ -26,7 +26,6 @@ function MainScreen() {
 
     const setPasswordHandler = (event) => {
         setLoginError(false);
-        setPasswordError(false);
         setPassword(event.target.value);
     }
 
@@ -38,6 +37,7 @@ function MainScreen() {
         if (passwordError) {
             return (
                 <div className="login-message-error-list">
+                    La Contraseña debe contener:
                     <ul>
                         <li>Una Mayúscula</li>
                         <li>Una Minúscula</li>
@@ -68,6 +68,7 @@ function MainScreen() {
             setPasswordError(true);
             return;
         }
+        setPasswordError(false);
 
         setLoading(true);
         createUserWithEmailAndPassword(context.auth, email, password)
@@ -90,6 +91,12 @@ function MainScreen() {
         setLoading(false);
     }
 
+    const keyUp = (event) => {
+        if (event.key === "Enter") {
+            registerButton()
+        }
+    }
+
 
     const emailData = () => {
         return (
@@ -104,10 +111,11 @@ function MainScreen() {
                 </div>
                 <div className="label-last">
                     <label>
-                        Password
+                        Contraseña
                         <div className="form-input">
                             <input type={passwordShown ? "text" : "password"} value={password}
                                    className="input"
+                                   onKeyUp={keyUp}
                                    onChange={setPasswordHandler}/>
                             {passwordShown ?
                                 <Eye className="password-button" color="#B1B1B1" variant="Outline" size={20}
@@ -161,9 +169,7 @@ function MainScreen() {
                 </form>
                 <div className="button-container">
                     <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
-                            onClick={() => {
-                                registerButton();
-                            }}>
+                            onClick={registerButton}>
                         Unirse
                     </button>
                     {loginButton()}
