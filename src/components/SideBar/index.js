@@ -1,7 +1,7 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
 import {Link, useNavigate} from "react-router-dom";
-import {Setting2, User, Notification, Message, Notepad2, LampCharge} from "iconsax-react";
+import {Setting2, User, Notification, Message, Notepad2, LampCharge, Logout} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
@@ -16,6 +16,7 @@ function SideBar() {
     const [notifications, setNotifications] = useState([])
     const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
+    const [watchSettings, setWatchSettings] = useState(false)
 
 
     useEffect(() => {
@@ -33,7 +34,13 @@ function SideBar() {
         });
     }, [context.user.uid]);
 
+    const closeAll = () => {
+        setWatchNotifications(false);
+        setWatchSettings(false);
+    }
+
     const closeNotification = () => {
+        closeAll();
         setWatchNotifications(!watchNotifications);
 
         if (unreadNotifications.length !== 0) {
@@ -42,6 +49,11 @@ function SideBar() {
                 setUnreadNotifications([])
             }))
         }
+    }
+
+    const settingsModal = () => {
+        closeAll();
+        setWatchSettings(!watchSettings);
     }
 
     const user_image = () => {
@@ -116,10 +128,35 @@ function SideBar() {
         }
     }
 
+    const settingsHover = () => {
+        const logout = () => {
+            localStorage.removeItem("user");
+            navigate("/")
+        }
+
+
+        if (watchSettings) {
+            return (
+                <div id="settings-container" className="notifications">
+                    <div className="notification-title">
+                        Configuración
+                    </div>
+                    <div className="logout" onClick={logout}>
+                        <div className="logout-info">
+                            <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
+                            Cerrar Sesión
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+    }
+
     return (
         <>
-            {watchNotifications ? <div onClick={closeNotification} className="all-sidebar"/> : null}
+            {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
             {notificationHover()}
+            {settingsHover()}
             <div className="navbar">
                 <div className="top">
                     <Link to="/">
@@ -140,7 +177,7 @@ function SideBar() {
                     <Link to="/me">
                         {user_image()}
                     </Link>
-                    <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                    <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28} onClick={settingsModal}/>
                 </div>
             </div>
         </>
