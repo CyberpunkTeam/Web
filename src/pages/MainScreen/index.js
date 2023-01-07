@@ -15,9 +15,9 @@ function MainScreen() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loginError, setLoginError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
-
     const [passwordShown, setPasswordShown] = useState(false);
     const setEmailHandler = (event) => {
         setLoginError(false);
@@ -26,6 +26,7 @@ function MainScreen() {
 
     const setPasswordHandler = (event) => {
         setLoginError(false);
+        setPasswordError(false);
         setPassword(event.target.value);
     }
 
@@ -34,12 +35,24 @@ function MainScreen() {
     };
 
     const loginErrorView = () => {
-        if (loginError)
+        if (passwordError) {
             return (
-                <div className="login-message-error">
-                    {errorMessage}
+                <div className="login-message-error-list">
+                    <ul>
+                        <li>Una Mayúscula</li>
+                        <li>Una Minúscula</li>
+                        <li>Un Número</li>
+                        <li>Al menos 8 caracteres</li>
+                    </ul>
                 </div>
             )
+        }
+
+        return (
+            <div className="login-message-error">
+                {loginError ? errorMessage : ""}
+            </div>
+        )
     }
 
 
@@ -48,6 +61,12 @@ function MainScreen() {
             setLoginError(true);
             setErrorMessage("Completar los campos requeridos")
             return
+        }
+
+        const regularExpression = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/;
+        if (!regularExpression.test(password)) {
+            setPasswordError(true);
+            return;
         }
 
         setLoading(true);
@@ -83,7 +102,7 @@ function MainScreen() {
                         </div>
                     </label>
                 </div>
-                <div className="label">
+                <div className="label-last">
                     <label>
                         Password
                         <div className="form-input">
@@ -138,8 +157,8 @@ function MainScreen() {
                 </div>
                 <form className="form">
                     {emailData()}
+                    {loginErrorView()}
                 </form>
-                {loginErrorView()}
                 <div className="button-container">
                     <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
                             onClick={() => {
