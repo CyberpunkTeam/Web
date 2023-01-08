@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import AppContext from "../../utils/AppContext";
 import {createUser} from "../../services/userService";
+import {isMobile} from "react-device-detect";
 
 function Register(params) {
     let context = useContext(AppContext);
@@ -68,27 +69,36 @@ function Register(params) {
     const userData = () => {
         return (
             <>
-                <div className="label">
+                <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Nombre
                         <div className="form-input">
-                            <input type="text" value={name} className="input" onChange={setNameHandler}/>
+                            <input type="text"
+                                   value={name}
+                                   className={isMobile ? "input-mobile" : "input"}
+                                   onChange={setNameHandler}/>
                         </div>
                     </label>
                 </div>
-                <div className="label">
+                <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Apellido
                         <div className="form-input">
-                            <input type="text" value={lastName} className="input" onChange={setLastNameHandler}/>
+                            <input type="text"
+                                   value={lastName}
+                                   className={isMobile ? "input-mobile" : "input"}
+                                   onChange={setLastNameHandler}/>
                         </div>
                     </label>
                 </div>
-                <div className="label">
+                <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Ciudad
                         <div className="form-input">
-                            <input type="text" value={city} className="input" onChange={setCityHandler}/>
+                            <input type="text"
+                                   value={city}
+                                   className={isMobile ? "input-mobile" : "input"}
+                                   onChange={setCityHandler}/>
                         </div>
                     </label>
                 </div>
@@ -97,19 +107,18 @@ function Register(params) {
     }
 
     return (
-        <div className="form-container">
-            <div className="form-text">
+        <div className={isMobile ? "form-container-mobile" : "form-container"}>
+            <div className={isMobile ? "form-text-mobile" : "form-text"}>
                 Completa tus datos para poder continuar
             </div>
-            <form className="form">
+            <form className={isMobile ? "form-mobile" : "form"}>
                 {userData()}
             </form>
             {loginErrorView()}
             <div className="button-container">
-                <button disabled={buttonDisabled} className={buttonDisabled ? "button-style-disabled" : "button-style"}
-                        onClick={() => {
-                            registerButton();
-                        }}>
+                <button disabled={buttonDisabled}
+                        className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
+                        onClick={registerButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                     {buttonDisabled ? "" : "Finalizar"}
                 </button>

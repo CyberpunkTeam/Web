@@ -5,6 +5,7 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {firebaseConfig} from "./config/firebaseConfig";
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
+import {isMobile} from 'react-device-detect';
 
 import MainScreen from "./pages/MainScreen";
 import Login from "./pages/Login";
@@ -56,7 +57,7 @@ function App() {
 
     return (
         <AppContext.Provider value={data}>
-            <div className="App">
+            <div className={isMobile ? "App-mobile" : "App"}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
