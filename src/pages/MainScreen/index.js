@@ -7,6 +7,7 @@ import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
+import {BrowserView, isMobile, MobileView} from "react-device-detect";
 
 function MainScreen() {
     let context = useContext(AppContext);
@@ -36,7 +37,7 @@ function MainScreen() {
     const loginErrorView = () => {
         if (passwordError) {
             return (
-                <div className="login-message-error-list">
+                <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
                     La Contraseña debe contener:
                     <ul>
                         <li>Una Mayúscula</li>
@@ -49,12 +50,11 @@ function MainScreen() {
         }
 
         return (
-            <div className="login-message-error">
+            <div className={isMobile ? "login-message-error-mobile" : "login-message-error"}>
                 {loginError ? errorMessage : ""}
             </div>
         )
     }
-
 
     const registerButton = () => {
         if (email.length === 0 || password.length === 0) {
@@ -101,28 +101,34 @@ function MainScreen() {
     const emailData = () => {
         return (
             <>
-                <div className="label">
+                <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Email
                         <div className="form-input">
-                            <input type="text" value={email} className="input" onChange={setEmailHandler}/>
+                            <input type="text" value={email} className={isMobile ? "input-mobile" : "input"}
+                                   onChange={setEmailHandler}/>
                         </div>
                     </label>
                 </div>
-                <div className="label-last">
+                <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Contraseña
                         <div className="form-input">
                             <input type={passwordShown ? "text" : "password"} value={password}
-                                   className="input"
+                                   className={isMobile ? "input-mobile" : "input"}
                                    onKeyUp={keyUp}
                                    onChange={setPasswordHandler}/>
-                            {passwordShown ?
-                                <Eye className="password-button" color="#B1B1B1" variant="Outline" size={20}
-                                     onClick={togglePassword}/> :
-                                <EyeSlash className="password-button" color="#B1B1B1" variant="Outline"
-                                          size={20}
-                                          onClick={togglePassword}/>}
+                            <div className={isMobile ? "password-button-mobile" : "password-button"}>
+                                {passwordShown ?
+                                    <Eye color="#B1B1B1"
+                                         variant="Outline"
+                                         size={isMobile ? 40 : 20}
+                                         onClick={togglePassword}/> :
+                                    <EyeSlash color="#B1B1B1"
+                                              variant="Outline"
+                                              size={isMobile ? 40 : 20}
+                                              onClick={togglePassword}/>}
+                            </div>
                         </div>
                     </label>
                 </div>
@@ -132,9 +138,9 @@ function MainScreen() {
 
     const loginButton = () => {
         return (
-            <div className="container-button-login">
+            <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
                 ¿Ya tienes una cuenta?
-                <Link to="/login" className="login">
+                <Link to="/login" className={isMobile ? "login-mobile" : "login"}>
                     Inicia Sesión
                 </Link>
             </div>
@@ -144,10 +150,10 @@ function MainScreen() {
     const verifyMessage = () => {
         return (
             <div className="verify-message">
-                <div className="form-text">
+                <div className={isMobile ? "form-text-mobile" : "form-text"}>
                     Verifica tu cuenta
                 </div>
-                <div className="verify-text">
+                <div className={isMobile ? "verify-text-mobile" : "verify-text"}>
                     <div>
                         Enviamos un correo a <b>{email}</b>,
                     </div>
@@ -160,15 +166,16 @@ function MainScreen() {
     const registerForm = () => {
         return (
             <>
-                <div className="form-text">
+                <div className={isMobile ? "form-text-mobile" : "form-text"}>
                     Únete y forma parte de nuestra comunidad
                 </div>
-                <form className="form">
+                <form className={isMobile ? "form-mobile" : "form"}>
                     {emailData()}
                     {loginErrorView()}
                 </form>
                 <div className="button-container">
-                    <button disabled={loginError || loading} className={loading ? "loading-style" : "button-style"}
+                    <button disabled={loginError || loading}
+                            className={loading ? isMobile ? "loading-style-mobile" : "loading-style" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={registerButton}>
                         Unirse
                     </button>
@@ -178,21 +185,51 @@ function MainScreen() {
         )
     }
 
-    return (
-        <div className="container">
-            <Logo/>
-            <div className="container-login">
-                <div className="pana-container">
-                    <div className="title-style">
+    const mobileView = () => {
+        return (
+            <div>
+                <Logo/>
+                <div className="mobile-register-container">
+                    <div className="title-style-mobile">
                         Encuentra tu equipo ideal de manera sencilla y rápida
                     </div>
-                    <img src={pana} className="pana-style" alt="logo"/>
-                </div>
-                <div className="form-container">
-                    {register ? verifyMessage() : registerForm()}
+                    <div className="form-container-mobile">
+                        {register ? verifyMessage() : registerForm()}
+                    </div>
+                    <img src={pana} className="pana-style-mobile" alt="logo"/>
                 </div>
             </div>
-        </div>
+        )
+    }
+
+    const browserView = () => {
+        return (
+            <div className="container">
+                <Logo/>
+                <div className="container-login">
+                    <div className="pana-container">
+                        <div className="title-style">
+                            Encuentra tu equipo ideal de manera sencilla y rápida
+                        </div>
+                        <img src={pana} className="pana-style" alt="logo"/>
+                    </div>
+                    <div className="form-container">
+                        {register ? verifyMessage() : registerForm()}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <>
+            <BrowserView>
+                {browserView()}
+            </BrowserView>
+            <MobileView>
+                {mobileView()}
+            </MobileView>
+        </>
     );
 }
 

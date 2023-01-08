@@ -97,10 +97,30 @@
     cursor: pointer;
 }
 
+.button-style-disabled-mobile {
+    width: 75%;
+    border-width: 0;
+    border-radius: 20px;
+    height: 80px;
+    color: white;
+    text-align: center;
+    justify-content: center;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .container-button-login {
     color: #014751;
     padding-top: 10px;
     font-size: 12px;
+    align-items: center;
+}
+
+.container-button-login-mobile {
+    color: #014751;
+    padding-top: 30px;
+    font-size: 32px;
     align-items: center;
 }
 
@@ -127,6 +147,15 @@
     padding-left: 10px;
     font-weight: bolder;
     font-size: 12px;
+    color: #014751;
+}
+
+.forgot-mobile {
+    align-items: center;
+    text-decoration: inherit;
+    padding-left: 10px;
+    font-weight: bolder;
+    font-size: 28px;
     color: #014751;
 }
 

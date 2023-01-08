@@ -1,10 +1,11 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
+import {BrowserView, isMobile, MobileView} from "react-device-detect";
 
 function Logo() {
     return (
-        <header className="container-logo">
-            <img src={logo} className="logo" alt="logo"/>
+        <header className={isMobile ? "container-logo-mobile" : "container-logo"}>
+            <img src={logo} className={isMobile ? "logo-mobile" : "logo"} alt="logo"/>
             <h3>
                 Find My Team
             </h3>
