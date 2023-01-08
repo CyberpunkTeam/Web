@@ -235,23 +235,23 @@ function SideBar() {
         return (
             <div className="navbar-mobile">
                 <div className="navbar-mobile-icon">
-                    <Home2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    <Home2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={60}/>
                     Inicio
                 </div>
                 <div className="navbar-mobile-icon" onClick={() => {navigate("/projects")}}>
-                    <LampCharge className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    <LampCharge className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={60}/>
                     Proyectos
                 </div>
                 <div className="navbar-mobile-icon">
-                    <Notepad2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    <Notepad2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={60}/>
                     Publicaciones
                 </div>
                 <div className="navbar-mobile-icon">
-                    <Message className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    <Message className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={60}/>
                     Mensajes
                 </div>
                 <div className="navbar-mobile-icon">
-                    <Notification className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    <Notification className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={60}/>
                     Notificaciones
                 </div>
                 <div className="navbar-mobile-icon" onClick={() => {navigate("/me")}}>
