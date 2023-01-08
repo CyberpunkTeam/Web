@@ -8,3 +8,14 @@
     margin-right: 8px;
     border-radius: 6px;
 }
+
+.pref-tag-mobile {
+    font-size: 30px;
+    background: #089BAD;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 10px;
+}
