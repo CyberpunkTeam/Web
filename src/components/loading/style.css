@@ -7,6 +7,14 @@
   .App-logo {
     animation: App-logo-spin infinite 3s linear;
   }
+  .App-logo-mobile {
+    animation: App-logo-spin infinite 3s linear;
+  }
+}
+
+.App-logo-mobile {
+  height: 300px;
+  pointer-events: none;
 }
 
 .App-header {
