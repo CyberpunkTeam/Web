@@ -4,6 +4,8 @@ import {useContext, useState} from "react";
 import {search} from "../../services/searchService";
 import {useNavigate} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
+import {isMobile} from "react-device-detect";
+import Logo from "../logo";
 
 export default function SearchBar() {
     const navigate = useNavigate();
@@ -144,6 +146,19 @@ export default function SearchBar() {
         if (event.key === "Enter") {
             viewResults();
         }
+    }
+
+    if (isMobile) {
+        return (
+            <div className="searchbar-mobile">
+                <div className="searchbar-mobile-container">
+                    <Logo />
+                    <div className="search-button">
+                        <SearchNormal1 color="#222222" variant="Outline" size={38}/>
+                    </div>
+                </div>
+            </div>
+        )
     }
 
 

@@ -53,6 +53,19 @@
     justify-content: center;
 }
 
+.user-svg-mobile {
+    overflow: hidden;
+    object-fit: cover;
+    border-radius: 100%;
+    border: 3px solid rgb(46, 153, 153);
+    background: #0F2830;
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .user-container {
     display: flex;
     align-items: center;
@@ -73,9 +86,19 @@
     font-size: 28px;
 }
 
+.name-mobile {
+    font-weight: bold;
+    font-size: 52px;
+}
+
 .extra-data {
     font-weight: 200;
     font-size: 14px;
+}
+
+.extra-data-mobile {
+    font-weight: 200;
+    font-size: 32px;
 }
 
 .user-data {
@@ -92,10 +115,21 @@
     border-radius: 10px;
 }
 
+.user-info-container-mobile {
+    margin-bottom: 16px;
+    position: relative;
+    background: #F1F1F1;
+    height: 230px;
+    border-radius: 10px;
+}
+
 .profile-data-container {
     margin: 20px 0 0 0;
     display: flex;
     justify-content: space-between;
+}
+.profile-data-container-mobile {
+    margin: 20px 0 0 0;
 }
 
 .user-info {
@@ -115,6 +149,14 @@
     color: #014751;
 }
 
+.data-title-mobile {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 32px;
+    color: #014751;
+}
+
 .data-info {
     margin: 20px 40px 0px 40px;
     height: 80px;
@@ -129,6 +171,14 @@
 }
 
 .rank {
+    margin: 8px;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+}
+
+.rank-mobile {
+    font-size: 28px;
     margin: 8px;
     font-weight: 300;
     display: flex;
@@ -231,6 +281,13 @@
     color: #222222;
 }
 
+.team-link-mobile {
+    font-size: 28px;
+    text-decoration: inherit;
+    font-weight: 700;
+    color: #222222;
+}
+
 .scrollDiv {
     overflow-x: hidden;
     overflow-y: auto;
@@ -250,6 +307,15 @@
 
 .view-more {
     font-size: 12px;
+    font-weight: 400;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view-more-mobile {
+    font-size: 24px;
     font-weight: 400;
     width: 100%;
     display: flex;
@@ -304,6 +370,16 @@
     border-radius: 50%;
 }
 
+.edit-button-mobile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FAFAFA;
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+}
+
 .cancel-edit-button-style {
     width: 49%;
     border-radius: 10px;
@@ -338,6 +414,12 @@
     display: flex;
     flex-direction: column;
     width: 49.5%;
+}
+
+.column-mobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .tags-project {
