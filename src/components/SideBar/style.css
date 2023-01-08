@@ -34,6 +34,7 @@
     align-items: center;
     justify-content: space-between;
     font-size: 24px;
+    font-weight: 400;
     color: #222222;
 }
 
@@ -74,8 +75,8 @@
     align-items: center;
     justify-content: center;
     align-self: center;
-    height: 52px;
-    width: 52px;
+    height: 60px;
+    width: 60px;
     border-radius: 100%;
     overflow: hidden;
     object-fit: cover;
