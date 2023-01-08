@@ -1,7 +1,9 @@
 import './style.css';
-export default function TechnologyTag (params) {
+import {isMobile} from "react-device-detect";
+
+export default function TechnologyTag(params) {
     return (
-        <div key={params.technology} className={"tech-tag"}>
+        <div key={params.technology} className={isMobile ? "tech-tag-mobile" : "tech-tag"}>
             {params.technology}
         </div>
     )

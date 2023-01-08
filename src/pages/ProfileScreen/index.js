@@ -26,6 +26,7 @@ function ProfileScreen() {
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
+        setLoading(true);
         getProfile(id).then((response) => {
             setUserData(response);
             setLoading(false)
