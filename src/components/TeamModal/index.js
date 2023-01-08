@@ -5,6 +5,7 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {CloseCircle} from "iconsax-react";
+import {isMobile} from "react-device-detect";
 
 export default function TeamModal(params) {
     let context = useContext(AppContext);
@@ -84,12 +85,14 @@ export default function TeamModal(params) {
 
     const buttons = () => {
         if (params.team !== undefined) {
-            return(
+            return (
                 <>
                     <button className="cancel-edit-button-style" onClick={params.closeModal}>
                         Cancelar
                     </button>
-                    <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={updateTeamButton}>
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
+                            onClick={updateTeamButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Guardar"}
                     </button>
                 </>
@@ -100,55 +103,58 @@ export default function TeamModal(params) {
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
                     Cancelar
                 </button>
-                <button disabled={buttonDisabled} className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"} onClick={createTeamButton}>
+                <button disabled={buttonDisabled}
+                        className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
+                        onClick={createTeamButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Crear"}
                 </button>
             </>
         )
     }
 
-    return (<div className="modal-container">
-        <div className="form-text">
-            {params.team !== undefined ? "Editar equipo" : "Crea un nuevo equipo"}
-        </div>
-        <form className="modal-form">
-            <div className="label">
-                <label>
-                    Nombre
-                    <div className="modal-form-input">
-                        <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
-                    </div>
-                </label>
-                <label>
-                    Tecnologías
-                    <div className="modal-form-input-with-tags">
-                        <input type="text" value={tech} className="input" onChange={setTechHandler}
-                               onKeyUp={addTechTag}/>
-                        <div className="modal-tags-container">
-                            {techs.map((value) => {
-                                return <TechnologyTag technology={value}/>
-                            })}
-                        </div>
-                    </div>
-                </label>
-                <label>
-                    Preferencias de Proyecto
-                    <div className="modal-form-input-with-tags">
-                        <input type="text" value={pref} className="input" onChange={setPrefHandler}
-                               onKeyUp={addPrefsTag}/>
-                        <div className="modal-tags-container">
-                            {prefs.map((value) => {
-                                return <PreferenceTag preference={value}/>
-                            })}
-                        </div>
-                    </div>
-                </label>
+    return (
+        <div className="modal-container">
+            <div className="form-text">
+                {params.team !== undefined ? "Editar equipo" : "Crea un nuevo equipo"}
             </div>
-        </form>
-        <div className="container-button-modal">
-            {buttons()}
-        </div>
+            <form className="modal-form">
+                <div className="label">
+                    <label>
+                        Nombre
+                        <div className="modal-form-input">
+                            <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
+                        </div>
+                    </label>
+                    <label>
+                        Tecnologías
+                        <div className="modal-form-input-with-tags">
+                            <input type="text" value={tech} className="input" onChange={setTechHandler}
+                                   onKeyUp={addTechTag}/>
+                            <div className="modal-tags-container">
+                                {techs.map((value) => {
+                                    return <TechnologyTag technology={value}/>
+                                })}
+                            </div>
+                        </div>
+                    </label>
+                    <label>
+                        Preferencias de Proyecto
+                        <div className="modal-form-input-with-tags">
+                            <input type="text" value={pref} className="input" onChange={setPrefHandler}
+                                   onKeyUp={addPrefsTag}/>
+                            <div className="modal-tags-container">
+                                {prefs.map((value) => {
+                                    return <PreferenceTag preference={value}/>
+                                })}
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </form>
+            <div className="container-button-modal">
+                {buttons()}
+            </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
-    </div>
+        </div>
     )
 }

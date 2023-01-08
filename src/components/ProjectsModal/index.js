@@ -2,6 +2,7 @@ import {Link} from "react-router-dom";
 import PreferenceTag from "../PreferenceTag";
 import TechnologyTag from "../TechnologyTag";
 import {CloseCircle} from "iconsax-react";
+import {isMobile} from "react-device-detect";
 
 export default function ProjectsModal(params) {
     const projects = params.projects
@@ -29,7 +30,7 @@ export default function ProjectsModal(params) {
     }
 
     return (
-        <div className="modal-container">
+        <div className={isMobile ? "modal-container-mobile": "modal-container"}>
             <div className="form-text">
                 Proyectos
             </div>

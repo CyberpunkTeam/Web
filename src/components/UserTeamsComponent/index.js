@@ -32,7 +32,7 @@ export default function UserTeamsComponent(params) {
     const viewMore = () => {
         return (
             <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
-                Ver más (+{params.userData.teams.length - 1})
+                {params.userData.teams.length > 1 ? `Ver más (+${params.userData.teams.length - 1})` : ""}
             </div>
         )
     }
@@ -93,7 +93,7 @@ export default function UserTeamsComponent(params) {
                     Equipos
                 </div>
                 {teamView()}
-                {params.userData.teams.length > 1 ? viewMore() : null}
+                {viewMore()}
             </div>
             {modal()}
         </div>
