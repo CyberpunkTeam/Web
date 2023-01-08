@@ -10,7 +10,8 @@ import {
     LampCharge,
     Logout,
     People,
-    EmojiHappy
+    EmojiHappy,
+    Home2
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
@@ -19,6 +20,7 @@ import {getInvitation} from "../../services/invitationService";
 import moment from "moment/moment";
 import 'moment/locale/es';
 import {getPostulation} from "../../services/projectService";
+import {BrowserView, MobileView} from "react-device-detect";
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -77,6 +79,19 @@ function SideBar() {
         }
     }
 
+    const user_image_mobile = () => {
+        if (context.user.profile_image === "default") {
+            return (
+                <div className="user-sidebar-mobile">
+                    <User color="#FAFAFA" size="20px" variant="Bold"/>
+                </div>
+            )
+        } else {
+            return <img src={context.user.profile_image} alt='' className="user-sidebar-mobile"/>
+        }
+    }
+
+
     const notificationHover = () => {
 
         const buttonNavigation = (id, notification_type) => {
@@ -103,7 +118,7 @@ function SideBar() {
                 return (
                     <People color="#FAFAFA" size="20px" variant="Bold"/>
                 )
-            } else{
+            } else {
                 return (
                     <LampCharge color="#FAFAFA" size="20px" variant="Bold"/>
                 )
@@ -182,38 +197,81 @@ function SideBar() {
         }
     }
 
-    return (
-        <>
-            {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
-            {notificationHover()}
-            {settingsHover()}
-            <div className="navbar">
-                <div className="top">
-                    <Link to="/">
-                        <img src={logo} className="logo-side" alt="logo"/>
-                    </Link>
-                    <div className="notification" onClick={closeNotification}>
-                        <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                        {unreadNotifications.length !== 0 ?
-                            <span className="notification-numbers">{unreadNotifications.length}</span> : null}
+    const browserView = () => {
+        return (
+            <>
+                {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
+                {notificationHover()}
+                {settingsHover()}
+                <div className="navbar">
+                    <div className="top">
+                        <Link to="/">
+                            <img src={logo} className="logo-side" alt="logo"/>
+                        </Link>
+                        <div className="notification" onClick={closeNotification}>
+                            <Notification className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                            {unreadNotifications.length !== 0 ?
+                                <span className="notification-numbers">{unreadNotifications.length}</span> : null}
+                        </div>
+                        <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                        <Link to="/projects">
+                            <LampCharge className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                        </Link>
+                        <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
                     </div>
-                    <Message className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                    <Link to="/projects">
-                        <LampCharge className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
-                    </Link>
-                    <Notepad2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}/>
+                    <div className="bottom">
+                        <Link to="/me">
+                            {user_image()}
+                        </Link>
+                        <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}
+                                  onClick={settingsModal}/>
+                    </div>
                 </div>
-                <div className="bottom">
-                    <Link to="/me">
-                        {user_image()}
-                    </Link>
-                    <Setting2 className="settings" color="rgb(46, 153, 153)" variant="Outline" size={28}
-                              onClick={settingsModal}/>
+            </>
+        )
+    }
+
+    const mobileView = () => {
+        return (
+            <div className="navbar-mobile">
+                <div className="navbar-mobile-icon">
+                    <Home2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    Inicio
+                </div>
+                <div className="navbar-mobile-icon" onClick={() => {navigate("/projects")}}>
+                    <LampCharge className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    Proyectos
+                </div>
+                <div className="navbar-mobile-icon">
+                    <Notepad2 className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    Publicaciones
+                </div>
+                <div className="navbar-mobile-icon">
+                    <Message className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    Mensajes
+                </div>
+                <div className="navbar-mobile-icon">
+                    <Notification className="settings-mobile" color="rgb(46, 153, 153)" variant="Outline" size={52}/>
+                    Notificaciones
+                </div>
+                <div className="navbar-mobile-icon" onClick={() => {navigate("/me")}}>
+                    {user_image_mobile()}
+                    Perfil
                 </div>
             </div>
-        </>
-    )
+        )
+    }
 
+    return (
+        <>
+            <BrowserView>
+                {browserView()}
+            </BrowserView>
+            <MobileView>
+                {mobileView()}
+            </MobileView>
+        </>
+    );
 }
 
 export default SideBar;
