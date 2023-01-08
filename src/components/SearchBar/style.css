@@ -12,6 +12,32 @@
     align-items: center;
 }
 
+.searchbar-mobile {
+    background: rgba(241, 241, 241, 0.1);
+    backdrop-filter: blur(100px);
+    width: 100%;
+    position: fixed;
+    left: 0;
+    top: 0;
+}
+
+.searchbar-mobile-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   padding: 0 20px;
+}
+
+.search-button {
+    background: #E3E3E3;
+    width: 66px;
+    height: 66px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .search-input {
     padding-top: 10px;
     font-family: "Inter", sans-serif;

@@ -20,7 +20,7 @@ import {getInvitation} from "../../services/invitationService";
 import moment from "moment/moment";
 import 'moment/locale/es';
 import {getPostulation} from "../../services/projectService";
-import {BrowserView, MobileView} from "react-device-detect";
+import {BrowserView, isMobile, MobileView} from "react-device-detect";
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -230,7 +230,6 @@ function SideBar() {
             </>
         )
     }
-
     const mobileView = () => {
         return (
             <div className="navbar-mobile">
@@ -262,16 +261,7 @@ function SideBar() {
         )
     }
 
-    return (
-        <>
-            <BrowserView>
-                {browserView()}
-            </BrowserView>
-            <MobileView>
-                {mobileView()}
-            </MobileView>
-        </>
-    );
+    return isMobile ? mobileView() : browserView()
 }
 
 export default SideBar;
