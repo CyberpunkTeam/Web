@@ -45,7 +45,7 @@ function Login() {
     const userNotFoundMessage = () => {
         if (passwordError) {
             return (
-                <div className="login-message-error-list">
+                <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
                     La Contraseña debe contener:
                     <ul>
                         <li>Una Mayúscula</li>
@@ -58,7 +58,7 @@ function Login() {
         }
 
         return (
-            <div className="login-user-not-found">
+            <div className={isMobile ? "login-message-error-mobile" : "login-message-error"}>
                 {userError ? errorMessage : ""}
             </div>
         )
@@ -152,9 +152,9 @@ function Login() {
     const joinButton = () => {
         if (!emailRegister) {
             return (
-                <div className="container-button-login">
+                <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
                     ¿No tienes una cuenta?
-                    <Link to="/" className="login">
+                    <Link to="/" className={isMobile ? "login-mobile" : "login"}>
                         Únete ahora
                     </Link>
                 </div>
@@ -170,7 +170,7 @@ function Login() {
         if (!recoveryPasswordMode) {
             return (
                 <div className="forgot-container">
-                    <Link to="/recovery" className="forgot">
+                    <Link to="/recovery" className={isMobile ? "forgot-mobile" : "forgot"}>
                         ¿Has olvidado tu contraseña?
                     </Link>
                 </div>
@@ -187,33 +187,43 @@ function Login() {
     const loginForm = () => {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
-                <div className="form-text">
+                <div className={isMobile ? "form-text-mobile" : "form-text"}>
                     {recoveryPasswordMode ? "Recuperar Cuenta" : "Iniciar Sesión"}
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
-                    <div className="label">
+                    <div className={isMobile ? "label-mobile" : "label"}>
                         <label>
                             Email
                             <div className="form-input">
-                                <input type="text" value={email} disabled={emailRegister} className="input"
+                                <input type="text"
+                                       value={email}
+                                       disabled={emailRegister}
+                                       className={isMobile ? "input-mobile" : "input"}
                                        onChange={setEmailHandler}/>
                             </div>
                         </label>
                     </div>
-                    <div className="label">
+                    <div className={isMobile ? "label-mobile" : "label"}>
                         <label>
                             Contraseña
                             <div className="form-input">
-                                <input type={passwordShown ? "text" : "password"} value={password}
-                                       className="input"
+                                <input type={passwordShown ? "text" : "password"}
+                                       value={password}
+                                       className={isMobile ? "input-mobile" : "input"}
                                        onKeyUp={keyUp}
                                        onChange={setPasswordHandler}/>
-                                {passwordShown ?
-                                    <Eye className="password-button" color="#B1B1B1" variant="Outline" size={20}
-                                         onClick={togglePassword}/> :
-                                    <EyeSlash className="password-button" color="#B1B1B1" variant="Outline"
-                                              size={20}
-                                              onClick={togglePassword}/>}
+                                <div className={isMobile ? "password-button-mobile" : "password-button"}>
+                                    {passwordShown ?
+                                        <Eye color="#B1B1B1"
+                                             variant="Outline"
+                                             size={isMobile ? 40 : 20}
+                                             onClick={togglePassword}/> :
+                                        <EyeSlash color="#B1B1B1"
+                                                  variant="Outline"
+                                                  size={isMobile ? 40 : 20}
+                                                  onClick={togglePassword}/>
+                                    }
+                                </div>
                             </div>
                         </label>
                         {recoveryPasswordButton()}
@@ -222,9 +232,8 @@ function Login() {
                 </form>
                 <div className="button-container">
                     <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "button-style-disabled" : "button-style"}
-                            onClick={recoveryPasswordMode ? changePassword :
-                                loginButton}>
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
+                            onClick={recoveryPasswordMode ? changePassword : loginButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         {buttonDisabled ? "" : recoveryPasswordMode ? "Recuperar" : "Iniciar Sesión"}
                     </button>
