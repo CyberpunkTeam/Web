@@ -19,6 +19,15 @@
     color: #014751;
 }
 
+.experience-empty-title-mobile {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #014751;
+}
+
 .education-data-info {
     padding: 8px 0px;
     font-weight: 700;

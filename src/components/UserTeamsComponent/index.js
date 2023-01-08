@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import TeamModal from "../TeamModal";
 import TeamsModal from "../TeamsModal";
 import {Link} from "react-router-dom";
+import {isMobile} from "react-device-detect";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
@@ -30,7 +31,7 @@ export default function UserTeamsComponent(params) {
     }
     const viewMore = () => {
         return (
-            <div className="view-more" onClick={openViewAll}>
+            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
                 Ver más (+{params.userData.teams.length - 1})
             </div>
         )
@@ -45,11 +46,11 @@ export default function UserTeamsComponent(params) {
 
         return (
             <div className="data-info">
-                <Link to={team_link} className="team-link">
+                <Link to={team_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                     {params.userData.teams[0].name}
                 </Link>
-                <div className="rank">
-                    <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
+                <div className={isMobile ? "rank-mobile" : "rank"}>
+                    <Star1 size={isMobile ? "32" : "16"} color="#2E9999" variant="Bold" className={"icon"}/>
                     5.0
                 </div>
             </div>
@@ -59,7 +60,7 @@ export default function UserTeamsComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ?  <TeamsModal teams={params.userData.teams} closeModal={closeModal}/> :
+                {viewAll ? <TeamsModal teams={params.userData.teams} closeModal={closeModal}/> :
                     <TeamModal closeModal={closeModal}/>}
             </Modal>
         )
@@ -72,23 +73,23 @@ export default function UserTeamsComponent(params) {
 
         return (
             <div className="experience-empty-container">
-                <div className="experience-empty-title">
-                    <People size="32" color="#014751" className={"icon"}/>
+                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
+                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
                     Crear Equipo
                 </div>
-                <AddCircle size="24" color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" onClick={openModal}/>
                 {modal()}
             </div>
         )
     }
 
     return (
-        <div className="user-info-container">
+        <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
+                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className="user-info">
-                <div className="data-title">
-                    <People size="32" color="#014751" className={"icon"}/>
+                <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
                     Equipos
                 </div>
                 {teamView()}
