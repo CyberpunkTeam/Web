@@ -2,6 +2,7 @@ import {sendPasswordResetEmail} from "firebase/auth";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import Logo from "../../components/logo";
+import {isMobile} from "react-device-detect";
 
 export default function RecoveryPassword() {
     let context = useContext(AppContext);
@@ -36,7 +37,7 @@ export default function RecoveryPassword() {
 
     const verifyMessage = () => {
         return (
-            <div className="form-container">
+            <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className="form-text">
                     Restablece tu contraseña
                 </div>
@@ -52,7 +53,7 @@ export default function RecoveryPassword() {
 
     const recoveryForm = () => {
         return (
-            <div className="form-container">
+            <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className="form-text">
                     Recupera tu cuenta
                 </div>

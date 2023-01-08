@@ -104,6 +104,13 @@
     align-items: center;
 }
 
+.container-button-login-mobile {
+    color: #014751;
+    padding-top: 30px;
+    font-size: 32px;
+    align-items: center;
+}
+
 .button-container {
     width: 90%;
     display: flex;

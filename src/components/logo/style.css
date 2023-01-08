@@ -4,7 +4,19 @@
     color: #0F2830;
 }
 
+.container-logo-mobile {
+    display: flex;
+    align-items: center;
+    color: #0F2830;
+    font-size: 24px;
+}
+
 .logo {
     width: 40px;
+    padding-right: 5px;
+}
+
+.logo-mobile {
+    width: 80px;
     padding-right: 5px;
 }

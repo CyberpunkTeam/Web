@@ -10,6 +10,7 @@ import {getUser} from "../../services/userService";
 import Register from "../Register";
 import {createToken} from "../../services/authenticationService";
 import {updatePassword} from "../../services/recoveryService";
+import {isMobile} from "react-device-detect";
 
 function Login() {
     const [searchParams, setSearchParams] = useSearchParams();
@@ -185,11 +186,11 @@ function Login() {
 
     const loginForm = () => {
         return (
-            <div className="form-container">
+            <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className="form-text">
                     {recoveryPasswordMode ? "Recuperar Cuenta" : "Iniciar Sesión"}
                 </div>
-                <form className="form">
+                <form className={isMobile ? "form-mobile" : "form"}>
                     <div className="label">
                         <label>
                             Email
@@ -240,18 +241,15 @@ function Login() {
     }
 
 
-    if (recoveryPasswordMode === "resetPassword") {
-        window.location.replace(`https://findmyteam-369403.firebaseapp.com/__/auth/action?mode=resetPassword&oobCode=${searchParams.get("oobCode")}&apiKey=${searchParams.get("apiKey")}&lang=es-419`);
-    } else {
-        return (
-            <div className="container">
-                <Logo/>
-                <div className="data-container">
-                    {completeData ? registerForm() : loginForm()}
-                </div>
+    return (
+        <div className="container">
+            <Logo/>
+            <div className="data-container">
+                {completeData ? registerForm() : loginForm()}
             </div>
-        );
-    }
+        </div>
+    );
+
 }
 
 export default Login;

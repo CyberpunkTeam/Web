@@ -46,6 +46,11 @@
     width: 90%;
 }
 
+.pana-style-mobile {
+    width: 60%;
+    align-self: center;
+}
+
 .input {
     font-family: "Inter", sans-serif;
     width: 100%;
@@ -61,10 +66,36 @@
     padding-right: 10px;
 }
 
+.input-mobile {
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    border-radius: 30px;
+    border-color: #E3E3E3;
+    border-width: 0px;
+    outline: none;
+    height: 60px;
+    color: #222222;
+    background: #E3E3E3;
+    font-size: 32px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
 .form-text {
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
+    line-height: 150%;
+    text-align: center;
+    color: #014751;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.form-text-mobile {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 40px;
     line-height: 150%;
     text-align: center;
     color: #014751;
@@ -79,15 +110,36 @@
     align-items: center;
     justify-content: space-around;
 }
+.form-mobile {
+    width: 70%;
+    font-size: 24px;
+    color: #222222;
+    align-items: center;
+    justify-content: space-around;
+}
 
 .password-button {
     position: absolute;
     right: 0;
+    top: 0;
     padding: 12px;
+}
+.password-button-mobile {
+    position: absolute;
+    border-radius: 50%;
+    top: -2px;
+    right: 0;
+    padding: 20px;
 }
 
 .label {
     font-size: 12px;
+    color: #222222;
+    padding-bottom: 20px;
+}
+
+.label-mobile {
+    font-size: 28px;
     color: #222222;
     padding-bottom: 20px;
 }
@@ -109,6 +161,23 @@
     cursor: pointer;
 }
 
+.button-style-mobile {
+    width: 75%;
+    border-radius: 20px;
+    text-decoration: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    color: white;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #014751;
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .loading-style {
     width: 55%;
     border-radius: 10px;
@@ -125,6 +194,22 @@
     font-size: 16px;
 }
 
+.loading-style-mobile {
+    width: 75%;
+    border-radius: 20px;
+    text-decoration: inherit;
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    color: white;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #D1D1D1;
+    font-size: 32px;
+}
+
 .submit {
     display: none;
 }
@@ -139,9 +224,27 @@
     justify-content: center;
 }
 
+.button-container-mobile {
+    border: 0;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+}
+
 .login{
     font-weight: bold;
     font-size: 12px;
+    border-width: 0px;
+    color: #014751;
+}
+
+.login-mobile{
+    font-weight: bold;
+    font-size: 32px;
+    padding-left: 20px;
     border-width: 0px;
     color: #014751;
 }
@@ -155,12 +258,29 @@
     font-size: 14px;
     font-weight: bold;
 }
+.login-message-error-mobile {
+    height: 200px;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    padding-top: 10px;
+    color: rgb(205, 91, 69);
+    font-size: 32px;
+    font-weight: bold;
+}
 
 .login-message-error-list {
     height: 80px;
     font-family: "Inter", sans-serif;
     color: rgb(205, 91, 69);
     font-size: 14px;
+    font-weight: bold;
+}
+
+.login-message-error-list-mobile {
+    height: 200px;
+    font-family: "Inter", sans-serif;
+    color: rgb(205, 91, 69);
+    font-size: 32px;
     font-weight: bold;
 }
 
@@ -187,4 +307,45 @@
     justify-content: center;
     align-items: center;
 
+}
+
+.verify-text-mobile {
+    min-height: 350px;
+    max-height: 350px;
+    font-size: 32px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.mobile-register-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container-mobile {
+    align-self: center;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px #D1D1D1;
+    width: 90%;
+    height: 900px;
+    background: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.title-style-mobile {
+    font-size: 48px;
+    width: 80%;
+    text-align: center;
+    padding: 20px 0px;
+    font-weight: 400;
+    color: #0F2830;
 }

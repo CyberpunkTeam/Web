@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import AppContext from "../../utils/AppContext";
 import {createUser} from "../../services/userService";
+import {isMobile} from "react-device-detect";
 
 function Register(params) {
     let context = useContext(AppContext);
@@ -97,7 +98,7 @@ function Register(params) {
     }
 
     return (
-        <div className="form-container">
+        <div className={isMobile ? "form-container-mobile" : "form-container"}>
             <div className="form-text">
                 Completa tus datos para poder continuar
             </div>
