@@ -45,12 +45,12 @@ export default function UserTeamsComponent(params) {
         const team_link = "/team/" + params.userData.teams[0].tid;
 
         return (
-            <div className="data-info">
+            <div className={isMobile ? "data-info-mobile" : "data-info"}>
                 <Link to={team_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                     {params.userData.teams[0].name}
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>
-                    <Star1 size={isMobile ? "32" : "16"} color="#2E9999" variant="Bold" className={"icon"}/>
+                    <Star1 size={isMobile ? "40" : "16"} color="#2E9999" variant="Bold" className={"icon"}/>
                     5.0
                 </div>
             </div>
@@ -74,10 +74,10 @@ export default function UserTeamsComponent(params) {
         return (
             <div className="experience-empty-container">
                 <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
+                    <People size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
                     Crear Equipo
                 </div>
-                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={openModal}/>
                 {modal()}
             </div>
         )
@@ -86,10 +86,10 @@ export default function UserTeamsComponent(params) {
     return (
         <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
-            <div className="user-info">
+                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
+            <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
+                    <People size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
                     Equipos
                 </div>
                 {teamView()}
