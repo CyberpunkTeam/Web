@@ -32,7 +32,7 @@ export default function EducationComponent(params) {
     }
     const viewMore = () => {
         return (
-            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll} onClick={openViewAll}>
+            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
                 {params.userData.user.education.length > 1 ? `Ver más (+${params.userData.user.education.length - 1})` : ""}
             </div>
         )

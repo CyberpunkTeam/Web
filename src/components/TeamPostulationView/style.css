@@ -1,0 +1,30 @@
+.teamPostulationContainer {
+    margin-bottom: 32px;
+    width: 100%;
+    font-weight: 700;
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+    color: #222222;
+}
+
+.teamPostulationInfo {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.postulationInfo {
+    border-radius: 16px;
+    padding: 16px;
+    width: 33%;
+    background: linear-gradient(122.17deg, #4953b9 0%, #0F2830 100%)
+}
+
+.projectTitle {
+    color: #FAFAFA;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    text-decoration: inherit;
+    font-weight: 700;
+}
