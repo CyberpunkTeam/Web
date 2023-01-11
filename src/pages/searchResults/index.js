@@ -96,12 +96,12 @@ export default function SearchResults() {
         <div className="screen">
                 <div className="search-header">
                     <div className="search-header-buttons">
-                        <button className={filter === "users" ? "button-members-left-selected" : "button-members-left"} onClick={() => {
+                        <button className={filter === "users" ? "button-members-selected" : "button-members"} onClick={() => {
                             setFilter("users")
                         }}>
                             Usuarios
                         </button>
-                        <button className={filter === "users" ? "button-members-right" : "button-members-right-selected"} onClick={() => {
+                        <button className={filter === "users" ? "button-members" : "button-members-selected"} onClick={() => {
                             setFilter("teams")
                         }}>
                             Equipos

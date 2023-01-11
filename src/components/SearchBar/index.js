@@ -1,5 +1,5 @@
 import './style.css';
-import {CloseCircle, People, SearchNormal1, User} from "iconsax-react";
+import {CloseCircle, Message, People, SearchNormal1, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import {search} from "../../services/searchService";
 import {useNavigate} from "react-router-dom";
@@ -153,8 +153,13 @@ export default function SearchBar() {
             <div className="searchbar-mobile">
                 <div className="searchbar-mobile-container">
                     <Logo />
-                    <div className="search-button">
-                        <SearchNormal1 color="#222222" variant="Outline" size={38}/>
+                    <div className="searchbar-mobile-buttons">
+                        <div className="search-button">
+                            <Message color="#222222" variant="Outline" size={48}/>
+                        </div>
+                        <div className="search-button">
+                            <SearchNormal1 color="#222222" variant="Outline" size={48}/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -163,17 +168,19 @@ export default function SearchBar() {
 
 
     return (
-        <div className="searchbar" onFocus={openSearch}>
-            {isSearch ? <div onClick={closeSearch} className="all"/> : null}
-            {searchResults()}
-            <div className="search-input">
-                <input type="text" value={searchWord}
-                       onKeyUp={submit}
-                       className="search-input-text"
-                       onChange={setSearchHandler}/>
-                <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
-                {searchWord !== "" ? <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={20}
-                                                  onClick={clearSearch}/> : null}
+        <div className="searchbar-container" onFocus={openSearch}>
+            <div className="searchbar">
+                {isSearch ? <div onClick={closeSearch} className="all"/> : null}
+                {searchResults()}
+                <div className="search-input">
+                    <input type="text" value={searchWord}
+                           onKeyUp={submit}
+                           className="search-input-text"
+                           onChange={setSearchHandler}/>
+                    <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
+                    {searchWord !== "" ? <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={20}
+                                                      onClick={clearSearch}/> : null}
+                </div>
             </div>
         </div>
     )

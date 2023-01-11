@@ -5,7 +5,6 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {CloseCircle} from "iconsax-react";
-import {isMobile} from "react-device-detect";
 
 export default function TeamModal(params) {
     let context = useContext(AppContext);

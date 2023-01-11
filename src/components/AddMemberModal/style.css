@@ -45,23 +45,23 @@
     height: 28px;
 }
 
-.button-members-left {
+.button-members {
     width: 30%;
     border-width: 0;
     color: #222222;
+    margin: 0 8px;
     background: #E3E3E3;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
     height: 28px;
 }
 
-.button-members-left-selected {
+.button-members-selected {
     width: 30%;
+    margin: 0 8px;
     border-width: 0;
     background: #2E9999FF;
     color: white;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
     height: 28px;
 }
 
