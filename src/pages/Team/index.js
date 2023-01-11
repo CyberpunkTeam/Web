@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import {getTeam} from "../../services/teamService";
-import {AddCircle, Edit, People, User} from "iconsax-react";
+import {Edit, Star1, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
@@ -16,6 +16,7 @@ import TeamInvitation from "../../components/TeamInvitation";
 import {getTeamInvitations} from "../../services/invitationService";
 import {getTeamPostulations} from "../../services/projectService";
 import ProjectPostulationsModal from "../../components/ProjectPostulationsModal";
+import {isMobile} from "react-device-detect";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -124,13 +125,19 @@ export default function TeamScreen() {
         return (
             <div className="cover-container">
                 <div className="team-data-container">
-                    <h1 className="team-name">
+                    <div className="team-name">
                         {teamData.name}
-                    </h1>
+                        <div className="team-rating">
+                            <Star1 size="24" color="#ECA95A" variant="Bold" className={"icon"}/>
+                            5.0
+                        </div>
+                    </div>
                     <div className="tags-container">
                         {teamData.technologies.map((data) => {
                             return (tech_tag(data))
                         })}
+                    </div>
+                    <div className="tags-container">
                         {teamData.project_preferences.map((data) => {
                             return (pref_tag(data))
                         })}
@@ -143,6 +150,11 @@ export default function TeamScreen() {
     }
 
     const member = (data) => {
+        const userNavigate = () => {
+            const user_link = data.uid === teamData.owner ? '/me' : '/user/' + data.uid;
+            navigate(user_link);
+        }
+
         const user_image = (data) => {
             if (data.profile_image === "default") {
                 return (
@@ -155,60 +167,15 @@ export default function TeamScreen() {
             }
         }
 
-        const user_link = data.uid === teamData.owner ? '/me' : '/user/' + data.uid
-        return (
-            <div key={data.uid} className="member">
-                {user_image(data)}
-                <div className="member-name" onClick={() => {
-                    navigate(user_link)
-                }}>
-                    {data.name} {data.lastname}
-                    <div className="owner">
-                        {data.uid === teamData.owner ? 'Dueño' : ''}
-                    </div>
-                </div>
-            </div>
-        )
-    }
-
-    const members = () => {
-
-        const viewMore = () => {
-            return (
-                <div className="view-more">
-                    Ver más (+{teamData.members.length - 4})
-                </div>
-            )
-        }
-
         return (
             <div className="members-info-container">
-                {teamData.owner === context.user.uid ?
-                    <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={() => {
-                        setIsOpen(true)
-                    }
-                    }/> : null}
                 <div className="members-info">
-                    <div className="data-title">
-                        <People size="32" color="#014751" className={"icon"}/>
-                        {teamData.members.length} Miembros
-                    </div>
-                    <div className="members-data">
-                        <div className="members">
-                            {
-                                teamData.members.slice(0, 2).map((data) => {
-                                    return member(data)
-                                })
-                            }
+                    {user_image(data)}
+                    <div className="member-name" onClick={userNavigate}>
+                        {data.name} {data.lastname}
+                        <div className="owner">
+                            {data.uid === teamData.owner ? 'Dueño' : ''}
                         </div>
-                        <div className="members">
-                            {
-                                teamData.members.slice(2, 4).map((data) => {
-                                    return member(data)
-                                })
-                            }
-                        </div>
-                        {teamData.members.length > 4 ? viewMore() : null}
                     </div>
                 </div>
             </div>
@@ -238,7 +205,17 @@ export default function TeamScreen() {
                     {cover()}
                 </div>
                 <div className="profile-data-container">
-                    {members()}
+                    <button className="addMemberButton" onClick={() => {
+                        setIsOpen(true)
+                    }}>
+                        <UserCirlceAdd color="#FAFAFA" variant="Bold" size={40}/>
+                    </button>
+                    <div className="members-container">
+                        {teamData.members.map((data) => {
+                                return member(data)
+                            }
+                        )}
+                    </div>
                 </div>
                 {modal()}
                 <SearchBar/>
