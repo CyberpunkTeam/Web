@@ -11,7 +11,9 @@
 
 .App-mobile {
   font-family: "Inter", sans-serif;
-  padding: 8px 16px;
+  margin: 8px 16px;
+  padding-bottom: 16%;
+  padding-top: 10%;
   background: #FAFAFA;
   color: #222222;
 }

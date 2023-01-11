@@ -4,7 +4,7 @@
     border-radius: 16px;
     height: 92vh;
     background: #0F2830;
-    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -22,29 +22,37 @@
 }
 
 .navbar-mobile {
-    position: fixed;
-    left: 0;
-    bottom: 0;
+    background: #0F2830;
     width: 100%;
-    padding: 20px 0;
-    backdrop-filter: blur(100px);
-    background: rgba(46, 153, 153, 0.1);
+    margin: 32px;
+    border-radius: 48px;
+    height: 184px;
     display: flex;
     justify-content: space-around;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.5);
     flex-direction: row;
+    align-items: center;
+}
+
+.navbar-mobile-container {
+    position: fixed;
+    left: 0;
+    bottom: 32px;
+    width: 100%;
+    display: flex;
     align-items: center;
 }
 
 .navbar-mobile-icon {
    display: flex;
-    width: 16%;
-    height: 90px;
+    color: #FAFAFA;
+    width: 20%;
+    height: 100px;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     font-size: 24px;
     font-weight: 400;
-    color: #222222;
 }
 
 .logo-side {
