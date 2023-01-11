@@ -1,12 +1,21 @@
 .navbar {
+    margin: 36px;
+    width: 70px;
+    border-radius: 16px;
+    height: 92vh;
+    background: #0F2830;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.navbar-container {
     position: fixed;
     left: 0;
     top: 0;
-    width: 70px;
-    min-height: 540px;
     height: 100vh;
-    backdrop-filter: blur(100px);
-    background: rgba(46, 153, 153, 0.1);
+    min-height: 540px;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -39,7 +48,7 @@
 }
 
 .logo-side {
-    width: 56px;
+    width: 48px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
@@ -96,7 +105,7 @@
 .notification-numbers {
     line-height: 20px;
     text-align: center;
-    right: 4px;
+    right: 40px;
     color: #F1F1F1;
     font-size: 12px;
     justify-content: center;
@@ -131,18 +140,28 @@
 }
 
 .notifications{
-    border-left: 1px solid rgba(0,0,0,0.1);
     font-size: 24px;
+    border-radius: 16px;
     font-weight: 700;
     color: #222222;
-    position: fixed;
-    top: 0px;
-    left: 70px;
+    height: 92vh;
+    margin: 36px 16px;
     backdrop-filter: blur(120px);
-    background: rgba(46, 153, 153, 0.1);
+    background: rgba(1, 71, 81, 0.1);
     width: 340px;
-    height: 100vh;
 }
+
+.notifications-container{
+    position: fixed;
+    left: 106px;
+    top: 0;
+    height: 100vh;
+    min-height: 540px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
 .notification:hover{
     cursor: pointer;
 }
@@ -151,17 +170,18 @@
 }
 
 .notification-title{
-    padding: 10px 20px;
+    padding: 24px 24px;
+    cursor: default;
 }
 
 .notification-list{
-    padding: 0px 20px;
+    padding: 0px 18px;
     overflow-y: auto;
     overflow-x: hidden;
     font-size: 24px;
     font-weight: 700;
     width: 300px;
-    height: 95vh;
+    height: 89%;
 }
 
 .bottom {
