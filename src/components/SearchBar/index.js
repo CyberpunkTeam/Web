@@ -163,17 +163,19 @@ export default function SearchBar() {
 
 
     return (
-        <div className="searchbar" onFocus={openSearch}>
-            {isSearch ? <div onClick={closeSearch} className="all"/> : null}
-            {searchResults()}
-            <div className="search-input">
-                <input type="text" value={searchWord}
-                       onKeyUp={submit}
-                       className="search-input-text"
-                       onChange={setSearchHandler}/>
-                <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
-                {searchWord !== "" ? <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={20}
-                                                  onClick={clearSearch}/> : null}
+        <div className="searchbar-container" onFocus={openSearch}>
+            <div className="searchbar">
+                {isSearch ? <div onClick={closeSearch} className="all"/> : null}
+                {searchResults()}
+                <div className="search-input">
+                    <input type="text" value={searchWord}
+                           onKeyUp={submit}
+                           className="search-input-text"
+                           onChange={setSearchHandler}/>
+                    <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
+                    {searchWord !== "" ? <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={20}
+                                                      onClick={clearSearch}/> : null}
+                </div>
             </div>
         </div>
     )
