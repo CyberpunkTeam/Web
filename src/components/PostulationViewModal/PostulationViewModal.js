@@ -1,4 +1,4 @@
-import '../ProjectPostulationsModal/style.css'
+import '../TeamProjectPostulations/style.css'
 
 import {Link} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";

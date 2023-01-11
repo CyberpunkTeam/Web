@@ -15,8 +15,7 @@ import AddMemberModal from "../../components/AddMemberModal";
 import TeamInvitation from "../../components/TeamInvitation";
 import {getTeamInvitations} from "../../services/invitationService";
 import {getTeamPostulations} from "../../services/projectService";
-import ProjectPostulationsModal from "../../components/ProjectPostulationsModal";
-import {isMobile} from "react-device-detect";
+import TeamProjectPostulations from "../../components/TeamProjectPostulations";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -31,6 +30,7 @@ export default function TeamScreen() {
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
     const [postulations, setPostulations] = useState([])
+    const [tagSelect, setTagSelect] = useState("info")
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -109,7 +109,6 @@ export default function TeamScreen() {
 
             return (
                 <div className="cover-buttons">
-                    {postulationsButton()}
                     <div className="edit-button" onClick={() => {
                         setIsEditData(true)
                         setIsOpen(true);
@@ -186,11 +185,22 @@ export default function TeamScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isEditData ? <TeamModal team={teamData} setTeamData={setTeamData} closeModal={closeModal}/> :
-                    isPostulations ? <ProjectPostulationsModal postulations={postulations} closeModal={closeModal}/> :
                         <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
                                         setInvitations={setInvitations} closeModal={closeModal}/>}
             </Modal>
         )
+    }
+
+    const addButton = () => {
+        if (context.user.uid !== teamData.owner.uid) {
+            return (
+                <button className="addMemberButton" onClick={() => {
+                    setIsOpen(true)
+                }}>
+                    <UserCirlceAdd color="#FAFAFA" variant="Bold" size={40}/>
+                </button>
+            )
+        }
     }
 
     if (teamData.tid === undefined) {
@@ -205,11 +215,7 @@ export default function TeamScreen() {
                     {cover()}
                 </div>
                 <div className="profile-data-container">
-                    <button className="addMemberButton" onClick={() => {
-                        setIsOpen(true)
-                    }}>
-                        <UserCirlceAdd color="#FAFAFA" variant="Bold" size={40}/>
-                    </button>
+                    {addButton()}
                     <div className="members-container">
                         {teamData.members.map((data) => {
                                 return member(data)
@@ -217,6 +223,24 @@ export default function TeamScreen() {
                         )}
                     </div>
                 </div>
+                <div className="profile-data-container">
+                    <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("info")
+                    }}>
+                        Información del Equipo
+                    </div>
+                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("members")
+                    }}>
+                        Postulaciones de Miembros
+                    </div>
+                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("projects")
+                    }}>
+                        Postulaciones de Proyectos
+                    </div>
+                </div>
+                {tagSelect === "projects" ? <TeamProjectPostulations postulations={postulations}/> : null}
                 {modal()}
                 <SearchBar/>
                 <SideBar/>

@@ -207,7 +207,7 @@
 
 .members-container {
     overflow-x: auto;
-    width: 92%;
+    width: 100%;
     display: flex;
 }
 
@@ -215,6 +215,22 @@
     border-radius: 16px;
     height: 92px;
     width: 92px;
+    margin-right: 16px;
     background: #014751;
     border: 0;
+}
+
+.tagSelector {
+    text-align: center;
+    width: 100%;
+    cursor: pointer;
+    border-bottom: 1px solid #B1B1B1;
+}
+
+.tagSelectorSelect {
+    text-align: center;
+    width: 100%;
+    color: #014751;
+    cursor: pointer;
+    border-bottom: 3px solid #014751;
 }
