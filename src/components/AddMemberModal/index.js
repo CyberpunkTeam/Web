@@ -90,12 +90,12 @@ export default function AddMemberModal(params) {
                 <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={20}/>
             </div>
             <div className="buttons-filter">
-                <button className={allUsers ? "button-members-left-selected" : "button-members-left"} onClick={() => {
+                <button className={allUsers ? "button-members-selected" : "button-members"} onClick={() => {
                     setAllUsers(true)
                 }}>
                     Todos
                 </button>
-                <button className={allUsers ? "button-members-right" : "button-members-right-selected"} onClick={() => {
+                <button className={allUsers ? "button-members" : "button-members-selected"} onClick={() => {
                     setAllUsers(false)
                 }}>
                     Invitados

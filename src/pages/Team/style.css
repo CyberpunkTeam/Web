@@ -16,6 +16,7 @@
     width: 100%;
     height: 200px;
     border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .cover-container-mobile {
@@ -233,4 +234,11 @@
     color: #014751;
     cursor: pointer;
     border-bottom: 3px solid #014751;
+}
+
+.tagsFilterContainer {
+    margin-top: 36px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
 }

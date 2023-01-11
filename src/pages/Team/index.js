@@ -192,7 +192,7 @@ export default function TeamScreen() {
     }
 
     const addButton = () => {
-        if (context.user.uid !== teamData.owner.uid) {
+        if (context.user.uid === teamData.owner) {
             return (
                 <button className="addMemberButton" onClick={() => {
                     setIsOpen(true)
@@ -223,7 +223,7 @@ export default function TeamScreen() {
                         )}
                     </div>
                 </div>
-                <div className="profile-data-container">
+                <div className="tagsFilterContainer">
                     <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("info")
                     }}>

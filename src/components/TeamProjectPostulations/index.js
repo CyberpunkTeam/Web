@@ -1,7 +1,6 @@
 import './style.css'
 import {useState} from "react";
-import PostulationViewModal from "../PostulationViewModal/PostulationViewModal";
-import {CloseCircle} from "iconsax-react";
+import TeamPostulationView from "../TeamPostulationView";
 
 export default function TeamProjectPostulations(params) {
     const postulations = params.postulations
@@ -11,13 +10,13 @@ export default function TeamProjectPostulations(params) {
         return (
             <div className="filterButtonsContainer">
                 <div className="filtersButtons">
-                    <button className={filter === "PENDING" ? "button-members-left-selected" : "button-members-left"}
+                    <button className={filter === "PENDING" ? "button-members-selected" : "button-members"}
                             onClick={() => {
                                 setFilter("PENDING")
                             }}>
                         Pendientes
                     </button>
-                    <button className={filter === "PENDING" ? "button-members-right" : "button-members-right-selected"}
+                    <button className={filter === "PENDING" ? "button-members" : "button-members-selected"}
                             onClick={() => {
                                 setFilter("REJECTED")
                             }}>
@@ -28,14 +27,16 @@ export default function TeamProjectPostulations(params) {
         )
     }
 
+    if (postulations.length === 0) {
+        return;
+    }
+
     return (
         <div className="postulations-container">
             {filters()}
-            <div className="scrollDivProjects">
-                {postulations.map((data) => {
-                    return <PostulationViewModal key={data.ppid} data={data} filter={filter}/>
-                })}
-            </div>
+            {postulations.map((data) => {
+                return <TeamPostulationView key={data.ppid} data={data} filter={filter}/>
+            })}
         </div>
     )
 }

@@ -11,10 +11,10 @@
     border-radius: 8px;
 }
 .title-and-budget{
+    padding-bottom: 16px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 40px 0px 40px;
 }
 .project-link-view {
     text-overflow: ellipsis;
@@ -25,7 +25,7 @@
 }
 
 .date-project {
-    padding: 8px 0;
+    padding: 0 16px;
     font-weight: 400;
     font-size: 12px;
     justify-content: flex-end;
@@ -34,8 +34,24 @@
 }
 
 .description-modal {
+    height: 100%;
+    padding-top: 16px;
     font-weight: 400;
     font-size: 14px;
+}
+
+.descriptionContainer {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    padding: 16px;
+    background: #F1F1F1;
+    border-radius: 16px;
+}
+
+.seeMore {
+    padding-top: 16px;
+    align-self: center;
 }
 
 .scrollDivProjects {
@@ -51,4 +67,5 @@
 
 .postulations-container {
     margin-top: 20px;
+    padding-bottom: 20px;
 }
