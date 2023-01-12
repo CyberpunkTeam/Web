@@ -83,11 +83,11 @@ export default function EducationComponent(params) {
 
     return (
         <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
+            {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
+                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <Teacher size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                    <Teacher size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
                     Títulos y Certificaciones
                 </div>
                 {experienceView()}

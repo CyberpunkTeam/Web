@@ -74,22 +74,22 @@ export default function UserTeamsComponent(params) {
         return (
             <div className="experience-empty-container">
                 <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <People size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
                     Crear Equipo
                 </div>
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" onClick={openModal}/>
                 {modal()}
             </div>
         )
     }
 
     return (
-        <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
+        <div className={isMobile ? "team-info-container-mobile" : "user-info-container"}>
+            {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
+                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <People size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
                     Equipos
                 </div>
                 {teamView()}

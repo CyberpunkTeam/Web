@@ -86,7 +86,7 @@ export default function UserProjectComponent(params) {
     }
 
     return (
-        <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
+        <div className={isMobile ? "team-info-container-mobile" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null :
                 <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={createProject}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
