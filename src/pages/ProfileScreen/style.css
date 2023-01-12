@@ -148,6 +148,13 @@
     border-radius: 32px;
 }
 
+.button-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 80px;
+}
+
 .team-info-container-mobile {
     margin-bottom: 32px;
     width: 100%;

@@ -66,22 +66,6 @@ export default function UserTeamsComponent(params) {
         )
     }
 
-    if (params.userData.teams.length === 0) {
-        if (params.userData.user.uid !== context.user.uid) {
-            return
-        }
-
-        return (
-            <div className="experience-empty-container">
-                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
-                    Crear Equipo
-                </div>
-                <AddCircle size={isMobile ? "48" : "24"} color="#B1B1B1" onClick={openModal}/>
-                {modal()}
-            </div>
-        )
-    }
 
     return (
         <div className={isMobile ? "team-info-container-mobile" : "user-info-container"}>
