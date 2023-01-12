@@ -68,6 +68,23 @@ export default function WorkExperienceComponent(params) {
             return
         }
 
+        if (isMobile) {
+            return (
+                <div className="user-info-container-mobile">
+                    <div className="user-info-mobile">
+                        <div className="data-title-mobile">
+                            <Briefcase size="56" color="#014751" className={"icon"}/>
+                            Agregar Experiencia
+                        </div>
+                        <div className="button-center">
+                            <AddCircle size="80" color="#B1B1B1" onClick={openModal}/>
+                        </div>
+                    </div>
+                    {modal()}
+                </div>
+            )
+        }
+
         return (
             <div className="experience-empty-container">
                 <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
@@ -82,8 +99,8 @@ export default function WorkExperienceComponent(params) {
 
     return (
         <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
+            {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
+                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
                     <Briefcase size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>

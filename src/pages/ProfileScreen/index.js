@@ -21,6 +21,7 @@ function ProfileScreen() {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(true);
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [tagSelect, setTagSelect] = useState("profile")
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
@@ -39,7 +40,7 @@ function ProfileScreen() {
         if (userData.user.profile_image === "default") {
             return (
                 <div className={isMobile ? "user-svg-mobile" : "user-svg"}>
-                    <User color="#FAFAFA" size="100px" variant="Bold"/>
+                    <User color="#FAFAFA" size={isMobile ? "100px" : "50px"} variant="Bold"/>
                 </div>
             )
         } else {
@@ -125,7 +126,7 @@ function ProfileScreen() {
                 return (
                     <div className="cover-buttons">
                         <div className="edit-button-mobile" onClick={openModal}>
-                            <Edit size="40" color="#014751"/>
+                            <Edit size="48" color="#014751"/>
                         </div>
                     </div>
                 )
@@ -134,7 +135,7 @@ function ProfileScreen() {
 
         return (
             <div className="cover-container-mobile">
-                <div className="user-cover-container">
+                <div className="user-cover-container-mobile">
                     <div className="user-data">
                         {user_image()}
                         {user_data()}
@@ -146,6 +147,27 @@ function ProfileScreen() {
         )
     }
 
+    const showUserInfo = () => {
+        if (tagSelect === "profile") {
+            return (
+                <div className={isMobile ? "column-mobile" : "column"}>
+                    <EducationComponent userData={userData}/>
+                    <WorkExperienceComponent userData={userData}/>
+                </div>
+            )
+        } else if (tagSelect === "teams") {
+            return (
+                <UserTeamsComponent userData={userData}/>
+            )
+        } else {
+            return (
+                <div className={isMobile ? "column-mobile" : "column"}>
+                    <UserProjectComponent userData={userData}/>
+                </div>
+            )
+        }
+    }
+
     if (loading) {
         return <Loading/>
     }
@@ -154,19 +176,65 @@ function ProfileScreen() {
         return (
             <NotFound/>
         )
+    } else if (isMobile) {
+        return (
+            <div className="profile-screen-mobile">
+                <div className="profile-container">
+                    {isMobile ? coverMobile() : cover()}
+                </div>
+                <div className="tagsFilterContainer">
+                    <div className={tagSelect === "profile" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
+                         onClick={() => {
+                             setTagSelect("profile")
+                         }}>
+                        Perfil
+                    </div>
+                    <div className={tagSelect === "teams" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
+                         onClick={() => {
+                             setTagSelect("teams")
+                         }}>
+                        Equipos
+                    </div>
+                    <div className={tagSelect === "projects" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
+                         onClick={() => {
+                             setTagSelect("projects")
+                         }}>
+                        Proyectos
+                    </div>
+                </div>
+                <div className="profile-data-container-mobile">
+                    {showUserInfo()}
+                </div>
+                {modal()}
+                <SearchBar/>
+                <SideBar/>
+            </div>
+        )
     } else {
         return (
             <div className="profile-screen">
                 <div className="profile-container">
                     {isMobile ? coverMobile() : cover()}
                 </div>
-                <div className={isMobile ? "profile-data-container-mobile" : "profile-data-container"}>
-                    <div className={isMobile ? "column-mobile" : "column"}>
-                        <UserTeamsComponent userData={userData}/>
-                        <UserProjectComponent userData={userData}/>
-                        <EducationComponent userData={userData}/>
-                        <WorkExperienceComponent userData={userData}/>
+                <div className="tagsFilterContainer">
+                    <div className={tagSelect === "profile" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("profile")
+                    }}>
+                        Perfil
                     </div>
+                    <div className={tagSelect === "teams" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("teams")
+                    }}>
+                        Equipos
+                    </div>
+                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("projects")
+                    }}>
+                        Proyectos
+                    </div>
+                </div>
+                <div className="profile-data-container">
+                    {showUserInfo()}
                 </div>
                 {modal()}
                 <SearchBar/>
