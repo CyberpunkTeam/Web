@@ -157,9 +157,7 @@ function ProfileScreen() {
             )
         } else if (tagSelect === "teams") {
             return (
-                <div className={isMobile ? "column-mobile" : "column"}>
-                    <UserTeamsComponent userData={userData}/>
-                </div>
+                <UserTeamsComponent userData={userData}/>
             )
         } else {
             return (

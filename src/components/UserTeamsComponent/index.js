@@ -1,23 +1,22 @@
-import {AddCircle, People, Star1} from "iconsax-react";
+import {AddCircle, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";
 import TeamModal from "../TeamModal";
-import TeamsModal from "../TeamsModal";
 import {Link} from "react-router-dom";
 import {isMobile} from "react-device-detect";
+import TechnologyTag from "../TechnologyTag";
+import PreferenceTag from "../PreferenceTag";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [viewAll, setViewAll] = useState(false);
 
     if (Object.keys(params.userData).length === 0) {
         return;
     }
 
     const closeModal = () => {
-        setViewAll(false);
         setIsOpen(false)
     }
 
@@ -25,29 +24,31 @@ export default function UserTeamsComponent(params) {
         setIsOpen(true)
     }
 
-    const openViewAll = () => {
-        setViewAll(true)
-        setIsOpen(true)
-    }
-    const viewMore = () => {
+    const teamTags = (data) => {
+
         return (
-            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
-                {params.userData.teams.length > 1 ? `Ver más (+${params.userData.teams.length - 1})` : ""}
+            <div className={isMobile ? "teamTagsMobile" : "teamTags"}>
+                <div className="teamTagContainer">
+                    {data.technologies.map((data) => {
+                        return <TechnologyTag key={data} technology={data}/>
+                    })}
+                </div>
+                <div className="teamTagContainer">
+                    {data.project_preferences.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                </div>
             </div>
         )
     }
+    const teamView = (data) => {
 
-    const teamView = () => {
-        if (params.userData.teams.length === 0) {
-            return;
-        }
-
-        const team_link = "/team/" + params.userData.teams[0].tid;
+        const team_link = "/team/" + data.tid;
 
         return (
-            <div className={isMobile ? "data-info-mobile" : "data-info"}>
-                <Link to={team_link} className={isMobile ? "team-link-mobile" : "team-link"}>
-                    {params.userData.teams[0].name}
+            <div key={data.tid} className={isMobile ? "teamDataInfoMobile" : "teamDataInfo"}>
+                <Link to={team_link} className="teamLinkName">
+                    {data.name}
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>
                     <Star1 size={isMobile ? "40" : "16"} color="#2E9999" variant="Bold" className={"icon"}/>
@@ -60,25 +61,50 @@ export default function UserTeamsComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ? <TeamsModal teams={params.userData.teams} closeModal={closeModal}/> :
-                    <TeamModal closeModal={closeModal}/>}
+                <TeamModal closeModal={closeModal}/>
             </Modal>
         )
     }
 
+    const team = (data) => {
+
+        return (
+            <div className={isMobile ? "teamContainerMobile" : "teamContainer"}>
+                <div className="teamInfo">
+                    {teamView(data)}
+                    {teamTags(data)}
+                </div>
+            </div>
+        )
+    }
+
+    const addButton = () => {
+        if (params.userData.user.uid !== context.user.uid){
+            return
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={openModal}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="createTeamButton" onClick={openModal}>
+                <AddCircle color="#FAFAFA" variant="Bold" size={40}/>
+                Crear Equipo
+            </button>
+        )
+    }
 
     return (
-        <div className={isMobile ? "team-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
-                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
-            <div className={isMobile ? "user-info-mobile" : "user-info"}>
-                <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <People size={isMobile ? "48" : "32"} color="#014751" className={"icon"}/>
-                    Equipos
-                </div>
-                {teamView()}
-                {viewMore()}
-            </div>
+        <div className={"user-team-container"}>
+            {addButton()}
+            {params.userData.teams.map((data) => {
+                return team(data)
+            })}
             {modal()}
         </div>
     )

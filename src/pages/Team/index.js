@@ -16,6 +16,8 @@ import TeamInvitation from "../../components/TeamInvitation";
 import {getTeamInvitations} from "../../services/invitationService";
 import {getTeamPostulations} from "../../services/projectService";
 import TeamProjectPostulations from "../../components/TeamProjectPostulations";
+import TechnologyTag from "../../components/TechnologyTag";
+import PreferenceTag from "../../components/PreferenceTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -23,7 +25,6 @@ export default function TeamScreen() {
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
-    const [isPostulations, setIsPostulations] = useState(false);
     const [users, setUsers] = useState([]);
     const [invitations, setInvitations] = useState([]);
     const [membersList, setMembersList] = useState([]);
@@ -66,7 +67,6 @@ export default function TeamScreen() {
 
     const closeModal = () => {
         setIsOpen(false);
-        setIsPostulations(false);
         setIsEditData(false);
     }
 
@@ -76,36 +76,8 @@ export default function TeamScreen() {
 
     const IMAGE = 'https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg'
 
-    const tech_tag = (technology) => {
-        return (
-            <div key={technology} className={"tech-tag"}>
-                {technology}
-            </div>
-        )
-    }
-
-    const pref_tag = (preference) => {
-        return (
-            <div key={preference} className={"pref-tag"}>
-                {preference}
-            </div>
-        )
-    }
-
     const editButton = () => {
         if (teamData.owner === context.user.uid) {
-            const postulationsButton = () => {
-                if (postulations.length !== 0) {
-                    return (
-                        <button className="postulations-button" onClick={() => {
-                            setIsOpen(true);
-                            setIsPostulations(true);
-                        }}>
-                            Postulaciones
-                        </button>
-                    )
-                }
-            }
 
             return (
                 <div className="cover-buttons">
@@ -133,12 +105,12 @@ export default function TeamScreen() {
                     </div>
                     <div className="tags-container">
                         {teamData.technologies.map((data) => {
-                            return (tech_tag(data))
+                            return <TechnologyTag key={data} technology={data}/>
                         })}
                     </div>
                     <div className="tags-container">
                         {teamData.project_preferences.map((data) => {
-                            return (pref_tag(data))
+                            return <PreferenceTag key={data} preference={data}/>
                         })}
                     </div>
                     {editButton()}

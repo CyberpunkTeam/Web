@@ -139,6 +139,32 @@
     border-radius: 16px;
 }
 
+.user-team-container {
+    width: 100%;
+}
+
+.teamContainer {
+    width: 100%;
+    height: 120px;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    color: #FAFAFA;
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+}
+
+.teamContainerMobile {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    border-radius: 32px;
+    margin-bottom: 32px;
+    color: #FAFAFA;
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+}
+
 .user-info-container-mobile {
     margin-bottom: 32px;
     width: 49%;
@@ -182,6 +208,14 @@
     margin: 32px;
 }
 
+.teamInfo {
+    margin: 32px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    color: #FAFAFA;
+}
+
 .user-info-mobile {
     margin: 32px;
     height: 336px;
@@ -213,9 +247,49 @@
 
 .data-info {
     margin: 20px 40px 0px 40px;
-    height: 80px;
     display: flex;
     flex-direction: column;
+    font-weight: 700;
+    color: #222222;
+}
+
+.teamDataInfo {
+    display: flex;
+    width: 30%;
+    align-items: center;
+    font-weight: 700;
+    color: #FAFAFA;
+}
+
+.teamDataInfoMobile {
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 28%;
+    align-items: center;
+    font-weight: 700;
+    color: #FAFAFA;
+}
+
+.teamTags {
+    width: 70%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-weight: 700;
+    color: #222222;
+}
+
+.teamTagContainer {
+    display: flex;
+    padding: 8px 0;
+}
+
+.teamTagsMobile {
+    width: 70%;
+    align-items: center;
     font-weight: 700;
     color: #222222;
 }
@@ -354,6 +428,12 @@
     text-decoration: inherit;
     font-weight: 700;
     color: #222222;
+}
+
+.teamLinkName {
+    text-decoration: inherit;
+    font-weight: 700;
+    color: #FAFAFA;
 }
 
 .team-link-mobile {
@@ -527,4 +607,30 @@
     font-weight: 300;
     display: flex;
     flex-direction: column;
+}
+
+.createTeamButton {
+    border-radius: 16px;
+    font-size: 20px;
+    color: #FAFAFA;
+    align-items: center;
+    display: flex;
+    padding: 16px;
+    align-self: flex-end;
+    margin-bottom: 16px;
+    background: #014751;
+    border: 0;
+}
+
+.createTeamButtonMobile {
+    border-radius: 32px;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 16px;
+    margin-bottom: 16px;
+    background: #014751;
+    border: 0;
 }
