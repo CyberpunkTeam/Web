@@ -27,6 +27,16 @@
   font-size: 16px;
   color: #0F2830;
 }
+.App-mobile{
+  background-color: #FAFAFA;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #0F2830;
+}
 
 @keyframes App-logo-spin {
   from {

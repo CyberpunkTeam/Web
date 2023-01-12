@@ -69,13 +69,30 @@ export default function EducationComponent(params) {
             return
         }
 
+        if (isMobile) {
+            return (
+                <div className="user-info-container-mobile">
+                    <div className="user-info-mobile">
+                        <div className="data-title-mobile">
+                            <Teacher size="80" color="#014751" className={"icon"}/>
+                            Agregar Título o Certificación
+                        </div>
+                        <div className="button-center">
+                            <AddCircle size="80" color="#B1B1B1" onClick={openModal}/>
+                        </div>
+                    </div>
+                    {modal()}
+                </div>
+            )
+        }
+
         return (
             <div className="experience-empty-container">
-                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <Teacher size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                <div className="experience-empty-title">
+                    <Teacher size="32" color="#014751" className={"icon"}/>
                     Agregar Título o Certificación
                 </div>
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size="24" color="#B1B1B1" onClick={openModal}/>
                 {modal()}
             </div>
         )
@@ -83,11 +100,11 @@ export default function EducationComponent(params) {
 
     return (
         <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={openModal}/>}
+            {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
+                <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <Teacher size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                    <Teacher size={isMobile ? "80" : "32"} color="#014751" className={"icon"}/>
                     Títulos y Certificaciones
                 </div>
                 {experienceView()}
