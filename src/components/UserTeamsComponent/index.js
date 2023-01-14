@@ -3,13 +3,15 @@ import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";
 import TeamModal from "../TeamModal";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
+
     const [modalIsOpen, setIsOpen] = useState(false);
 
     if (Object.keys(params.userData).length === 0) {
@@ -67,9 +69,12 @@ export default function UserTeamsComponent(params) {
     }
 
     const team = (data) => {
+        const goTo = () => {
+            navigate("/team/" + data.tid)
+        }
 
         return (
-            <div className={isMobile ? "teamContainerMobile" : "teamContainer"}>
+            <div className={isMobile ? "teamContainerMobile" : "teamContainer"} onClick={goTo}>
                 <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfo"}>
                     {teamView(data)}
                     {teamTags(data)}

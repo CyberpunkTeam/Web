@@ -19,10 +19,13 @@ export default function UserProjectComponent(params) {
     }
 
     const projectView = (data) => {
-        const projects_link = "/projects/" + data.pid;
+        const projects_link = "/projects/" + data.pid
+        const goTo = () => {
+            navigate(projects_link)
+        }
 
         return (
-            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info"}>
+            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info"} onClick={goTo}>
                 <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                     {data.name}
                 </Link>

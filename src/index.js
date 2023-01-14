@@ -18,6 +18,7 @@ import CreateProjectScreen from "./pages/CreateProject";
 import ProjectScreen from "./pages/Project";
 import SearchResults from "./pages/searchResults";
 import RecoveryPassword from "./pages/RecoveryPassword";
+import EditProfile from "./pages/EditProfile";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -70,6 +71,16 @@ function App() {
         }
     }
 
+    const ifUserLogsMobile = () => {
+        if (isMobile) {
+            return (
+                <>
+                    <Route path="/user/edit" element={<EditProfile/>}/>
+                </>
+            )
+        }
+    }
+
     return (
         <AppContext.Provider value={data}>
             <div className={isMobile || size ? "App-mobile" : "App"}>
@@ -80,6 +91,7 @@ function App() {
                             <Route path="login" element={<Login/>}/>
                             <Route path="recovery" element={<RecoveryPassword/>}/>
                             {ifUserLogs()}
+                            {ifUserLogsMobile()}
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>

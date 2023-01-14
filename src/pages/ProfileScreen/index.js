@@ -5,7 +5,7 @@ import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
 import {Edit, User} from "iconsax-react";
 import Modal from 'react-modal';
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
@@ -19,6 +19,7 @@ import {isMobile} from "react-device-detect";
 function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [tagSelect, setTagSelect] = useState("profile")
@@ -121,11 +122,15 @@ function ProfileScreen() {
 
     const coverMobile = () => {
 
+        const editProfile = () => {
+            navigate("/user/edit")
+        }
+
         const editButton = () => {
             if (id === context.user.uid) {
                 return (
                     <div className="cover-buttons">
-                        <div className="edit-button-mobile" onClick={openModal}>
+                        <div className="edit-button-mobile" onClick={editProfile}>
                             <Edit size="48" color="#014751"/>
                         </div>
                     </div>
@@ -203,7 +208,6 @@ function ProfileScreen() {
                 <div className="profile-data-container-mobile">
                     {showUserInfo()}
                 </div>
-                {modal()}
                 <SearchBar/>
                 <SideBar/>
             </div>
