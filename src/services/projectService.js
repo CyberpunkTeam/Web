@@ -15,7 +15,7 @@ export const getProject = (pid) => {
 }
 
 export const getProjects = () => {
-    return get(endpoint)
+    return get(endpoint + "?state=PENDING")
 }
 
 export const getPostulation = (ppid) => {

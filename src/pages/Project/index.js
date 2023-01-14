@@ -5,13 +5,16 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject} from "../../services/projectService";
-import {Edit} from "iconsax-react";
+import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
+import {AddCircle, CloseCircle, Edit, People, Trash, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
 import {getOwnerTeams} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
+import TechnologyTag from "../../components/TechnologyTag";
+import PreferenceTag from "../../components/PreferenceTag";
+import {isMobile} from "react-device-detect";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -22,10 +25,20 @@ export default function ProjectScreen() {
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [tagSelect, setTagSelect] = useState("info")
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
+    }
 
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.creator.uid !== context.user.uid) {
                 getOwnerTeams(context.user.uid).then((teams) => {
                     setUserTeam(teams);
@@ -44,8 +57,18 @@ export default function ProjectScreen() {
         });
     }, [params.id, context.user.uid]);
 
+    if (loading) {
+        return <Loading/>
+    }
+
+    if (project.pid === undefined) {
+        return (
+            <NotFound/>
+        )
+    }
+
     const changePostulations = (post) => {
-        if(post.length === 0) {
+        if (post.length === 0) {
             closeModal()
             setPostulations([])
         } else {
@@ -53,22 +76,94 @@ export default function ProjectScreen() {
         }
     }
 
-    if (loading) {
-        return <Loading/>
-    }
+    const postulate = () => {
+        if (project.creator.uid === context.user.uid) {
+            return
+        }
 
-    const tech_tag = (technology) => {
+        if (project.state !== "PENDING") {
+            return
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={openModal}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
         return (
-            <div key={technology} className={"tech-tag"}>
-                {technology}
-            </div>
+            <button className="postulate-button" onClick={openModal}>
+                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Postular Equipo
+            </button>
         )
     }
 
-    const pref_tag = (preference) => {
+    const cancelProject = () => {
+        if (project.creator.uid !== context.user.uid) {
+            return
+        }
+
+        if (project.state !== "PENDING") {
+            return
+        }
+
+        const cancel = () => {
+            const body = {
+                "state": "CANCELLED"
+            }
+            updateProject(project.pid, body).then((r) => {
+                navigate("/projects/" + r.pid)
+            })
+        }
+
+        if (isMobile) {
+            return (
+                <button className="cancelButtonMobile" onClick={cancel}>
+                    <CloseCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
         return (
-            <div key={preference} className={"pref-tag"}>
-                {preference}
+            <button className="cancel-project-button" onClick={cancel}>
+                <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Cancelar Proyecto
+            </button>
+        )
+    }
+
+    const owner = (data) => {
+        const userNavigate = () => {
+            const user_link = data.uid === project.creator.uid ? '/me' : '/user/' + data.uid;
+            navigate(user_link);
+        }
+
+        const user_image = (data) => {
+            if (data.profile_image === "default") {
+                return (
+                    <div className="member-photo">
+                        <User color="#FAFAFA" size="16px" variant="Bold"/>
+                    </div>
+                )
+            } else {
+                return <img src={data.profile_image} alt='' className="user-sidebar"/>
+            }
+        }
+
+        return (
+            <div className="members-info-container">
+                <div className="members-info">
+                    {user_image(data)}
+                    <div className="member-name" onClick={userNavigate}>
+                        {data.name} {data.lastname}
+                        <div className="owner">
+                            Owner
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
@@ -76,44 +171,22 @@ export default function ProjectScreen() {
     const cover = () => {
         const editButton = () => {
             if (project.creator.uid === context.user.uid) {
+
+                if (project.state !== "PENDING") {
+                    return
+                }
                 const edit = () => {
                     navigate(`/projects/${project.pid}/edit`, {state: {project}})
                 }
-
-                const postulationsButton = () => {
-                    if (postulations.length !== 0) {
-                        return (
-                            <button className="postulations-button" onClick={() => {
-                                setIsOpen(true);
-                            }}>
-                                Postulaciones
-                            </button>
-                        )
-                    }
-                }
-
                 return (
                     <div className="cover-buttons">
-                        {postulationsButton()}
                         <div className="project-edit-button" onClick={edit}>
                             <Edit size="24" color="#014751"/>
                         </div>
                     </div>
                 )
-            } else {
-                if (userTeams.length > 0){
-                    return (
-                        <button className="postulation-button" onClick={() => {
-                            setIsOpen(true);
-                        }}>
-                            Postularse
-                        </button>
-                    )
-                }
-
             }
         }
-        const link = project.creator.uid !== context.user.uid ? `/user/${project.creator.uid}` : "/me"
 
         return (
             <div className="cover-container">
@@ -123,14 +196,13 @@ export default function ProjectScreen() {
                     </div>
                     <div className="tags-container">
                         {project.technologies.map((data) => {
-                            return (tech_tag(data))
-                        })}
-                        {project.idioms.map((data) => {
-                            return (pref_tag(data))
+                            return <TechnologyTag key={data} technology={data}/>
                         })}
                     </div>
-                    <div className="creator" onClick={() => navigate(link)}>
-                        {project.creator.name} {project.creator.lastname}
+                    <div className="tags-container">
+                        {project.idioms.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
                     </div>
                 </div>
                 {editButton()}
@@ -138,15 +210,9 @@ export default function ProjectScreen() {
         )
     }
 
-    if (project.pid === undefined) {
-        return (
-            <NotFound/>
-        )
-    }
-
     const information = () => {
         return (
-            <div className="project-information-container">
+            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
                 <div className="project-information-card">
                     Descripción
                     <div className="project-description-card">
@@ -157,27 +223,67 @@ export default function ProjectScreen() {
         )
     }
 
-    const closeModal = () => {
-        setIsOpen(false);
-    }
-
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {project.creator.uid === context.user.uid ? <PostulationsModal postulations={postulations} closeModal={closeModal} changePostulations={changePostulations}/> :
-                    <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
+                <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>
             </Modal>
         )
     }
 
+    const tagInfo = () => {
+        if (tagSelect === "info") {
+            return (
+                <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
+                    {information()}
+                </div>
+            )
+        } else if (tagSelect === "postulations") {
+            return (
+                <div className="project-data-container-reduce">
+                    <PostulationsModal postulations={postulations} closeModal={closeModal}
+                                       changePostulations={changePostulations}/>
+                </div>
+            )
+        }
+    }
+
+    const teamsPostulations = () => {
+        if (project.creator.uid === context.user.uid) {
+            return (
+                <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                    setTagSelect("postulations")
+                }}>
+                    Postulaciones
+                </div>
+            )
+        }
+    }
+
     return (
-        <div className="team-screen">
+        <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
                 {cover()}
             </div>
-            <div className="project-data-container">
-                {information()}
+            <div className="project-buttons-container">
+                {owner(project.creator)}
+                {postulate()}
+                {cancelProject()}
             </div>
+            <div className="tagsFilterContainer">
+                <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                    setTagSelect("info")
+                }}>
+                    Información del Proyecto
+                </div>
+                <div className={tagSelect === "history" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                    setTagSelect("history")
+                }}>
+                    Historial
+                </div>
+                {teamsPostulations()}
+            </div>
+            {tagInfo()}
             {modal()}
             <SearchBar/>
             <SideBar/>

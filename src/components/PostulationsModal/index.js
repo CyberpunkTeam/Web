@@ -1,15 +1,23 @@
 import './style.css'
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, Star1, TickCircle, User} from "iconsax-react";
 import TechnologyTag from "../TechnologyTag";
 import {updateTeamPostulation} from "../../services/notificationService";
+import AppContext from "../../utils/AppContext";
 
 export default function PostulationsModal(params) {
+    let context = useContext(AppContext);
+
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
+    const [showMore, setShowMore] = useState(false);
 
     if (params.postulations.length === 0) {
         return
+    }
+
+    const seeMore = () => {
+        setShowMore(!showMore)
     }
 
     const formatter = new Intl.NumberFormat('en-US', {
@@ -56,43 +64,49 @@ export default function PostulationsModal(params) {
     }
     const postulationView = (data) => {
         return (
-            <div className="postulation-team-view">
-                <div className="team-postulation-name">
-                    {data.team.name}
-                    <div className="team-postulation-star">
-                        <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
-                        5.0
+            <div className={context.size ? "postulation-team-view-reduce" : "postulation-team-view"}>
+                <div className={context.size ? "team-postulation-info-reduce" : "team-postulation-info"}>
+                    <div className="team-postulation-name">
+                        {data.team.name}
+                        <div className="team-postulation-star">
+                            <Star1 size="16" color="#ECA95A" variant="Bold" className={"icon"}/>
+                            5.0
+                        </div>
                     </div>
-                </div>
-                <div className="members-postulation">
-                    {data.team.members.map((user) => {
-                        return showTeamMembers(user)
-                    })}
-                </div>
-                <div className="team-postulation-data">
-                    Herramientas
-                    <div className="tags-modal">
-                        {data.team.technologies.map((data) => {
-                            return <TechnologyTag key={data + "-modal"} technology={data}/>
+                    <div className="members-postulation">
+                        {data.team.members.map((user) => {
+                            return showTeamMembers(user)
                         })}
                     </div>
-                </div>
-                <div className="team-postulation-data">
-                    Presupuesto propuesto
-                    <div className="team-postulation-budget">
-                        {formatter.format(data.estimated_budget)}
-                        <div className="usd">
-                            USD
+                    <div className="team-postulation-data">
+                        Herramientas
+                        <div className="tags-modal">
+                            {data.team.technologies.map((data) => {
+                                return <TechnologyTag key={data + "-modal"} technology={data}/>
+                            })}
+                        </div>
+                    </div>
+                    <div className="team-postulation-data">
+                        Presupuesto propuesto
+                        <div className={context.size ? "team-postulation-budget-reduce" : "team-postulation-budget"}>
+                            {formatter.format(data.estimated_budget)}
+                            <div className="usd">
+                                USD
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="team-postulation-description">
+                <div className={context.size ? "descriptionContainerReduce" : "descriptionContainer"}>
                     Descripción
-                    <div className="team-postulation-description-data">
-                        {data.proposal_description}
+                    <div className="description-modal">
+                        {showMore ? data.proposal_description.substring(0, data.proposal_description.length) : data.proposal_description.substring(0, 600)}
+                        {showMore || data.proposal_description.length < 600 ? "" : "..."}
+                    </div>
+                    <div className={"seeMore"} onClick={seeMore}>
+                        {data.proposal_description.length < 600 ? null : !showMore ?
+                            "Ver Más" : "Ver Menos"}
                     </div>
                 </div>
-
             </div>
         )
     }
@@ -107,7 +121,7 @@ export default function PostulationsModal(params) {
             )
         } else {
             return (
-                <CloseCircle size="48px" color="#CD5B45" variant="Bold" onClick={() => {
+                <CloseCircle className={"button"} size="48px" color="#CD5B45" variant="Bold" onClick={() => {
                     postulationButton("REJECTED")
                 }}/>
             )
@@ -122,7 +136,7 @@ export default function PostulationsModal(params) {
             )
         } else {
             return (
-                <TickCircle size="48" color="#014751" variant="Bold" onClick={() => {
+                <TickCircle size="48" className={"button"} color="#014751" variant="Bold" onClick={() => {
                     postulationButton("ACCEPTED")
                 }}/>
             )
@@ -130,16 +144,14 @@ export default function PostulationsModal(params) {
     }
 
     return (
-        <div className="modal-container">
-            <div className="form-text">
-                Postulaciones
-            </div>
+        <div className={"user-team-container"}>
             <div className="postulation-view-modal">
                 {postulationView(params.postulations[index])}
             </div>
             <div className="postulations-buttons">
                 <ArrowCircleLeft
                     size="24"
+                    className={"button"}
                     color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
                     onClick={() => {
                         if (index !== 0) {
@@ -153,6 +165,7 @@ export default function PostulationsModal(params) {
                 </div>
                 <ArrowCircleRight
                     size="24"
+                    className={"button"}
                     color={params.postulations.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
                     onClick={() => {
                         if (params.postulations.length - 1 !== index) {
@@ -161,7 +174,6 @@ export default function PostulationsModal(params) {
                     }}
                 />
             </div>
-            <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
         </div>
     )
 

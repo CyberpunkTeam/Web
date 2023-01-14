@@ -5,7 +5,6 @@ import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {useState} from "react";
 import moment from "moment/moment";
-import {ArrowCircleDown, ArrowCircleUp} from "iconsax-react";
 
 export default function TeamPostulationView(params) {
 

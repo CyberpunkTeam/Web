@@ -30,6 +30,7 @@
     position: absolute;
     bottom: 0px;
     right: 0px;
+    cursor: pointer;
 }
 
 .custom-file-upload-mobile {
@@ -73,6 +74,7 @@ input[type="file"] {
     position: absolute;
     bottom: -8px;
     right: 8px;
+    cursor: pointer;
 }
 
 .images {

@@ -16,6 +16,7 @@ export default function ProjectsScreen() {
 
     useEffect(() => {
         getProjects().then((response) => {
+            console.log(response)
             setProjects(response);
             setLoading(false)
         }).catch((error) => {
