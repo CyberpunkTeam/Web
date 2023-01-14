@@ -226,6 +226,14 @@
     color: #FAFAFA;
 }
 
+.teamInfoMobile {
+    position: relative;
+    margin: 32px;
+    width: 100%;
+    justify-content: space-between;
+    color: #FAFAFA;
+}
+
 .user-info-mobile {
     margin: 32px;
     display: flex;
@@ -270,20 +278,23 @@
     color: #FAFAFA;
 }
 
+.teamDataInfoReduce {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #FAFAFA;
+}
+
 .teamDataInfoMobile {
     font-size: 30px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30%;
-    align-items: flex-start;
+    align-items: center;
     font-weight: 700;
     color: #FAFAFA;
 }
 
 .teamTags {
     position: relative;
-    background: #CD5B45;
     width: 70%;
     height: 100%;
     display: flex;
@@ -300,7 +311,6 @@
 }
 
 .teamTagsMobile {
-    width: 65%;
     align-items: center;
     font-weight: 700;
     color: #222222;
@@ -333,7 +343,7 @@
 
 .rank-mobile {
     font-size: 30px;
-    margin: 8px;
+    padding-left: 16px;
     font-weight: 300;
     display: flex;
     align-items: center;
