@@ -27,7 +27,7 @@ export default function UserTeamsComponent(params) {
     const teamTags = (data) => {
 
         return (
-            <div className={isMobile ? "teamTagsMobile" : "teamTags"}>
+            <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
                 <div className="teamTagContainer">
                     {data.technologies.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
@@ -46,7 +46,7 @@ export default function UserTeamsComponent(params) {
         const team_link = "/team/" + data.tid;
 
         return (
-            <div key={data.tid} className={isMobile ? "teamDataInfoMobile" : "teamDataInfo"}>
+            <div key={data.tid} className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
                 <Link to={team_link} className="teamLinkName">
                     {data.name}
                 </Link>
@@ -70,7 +70,7 @@ export default function UserTeamsComponent(params) {
 
         return (
             <div className={isMobile ? "teamContainerMobile" : "teamContainer"}>
-                <div className="teamInfo">
+                <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfo"}>
                     {teamView(data)}
                     {teamTags(data)}
                 </div>

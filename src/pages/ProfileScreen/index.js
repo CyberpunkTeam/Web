@@ -161,9 +161,7 @@ function ProfileScreen() {
             )
         } else {
             return (
-                <div className={isMobile ? "column-mobile" : "column"}>
-                    <UserProjectComponent userData={userData}/>
-                </div>
+                <UserProjectComponent userData={userData}/>
             )
         }
     }
