@@ -160,8 +160,8 @@ function SideBar() {
 
         if (watchNotifications) {
             return (
-                <div className="notifications-container">
-                    <div id="notifications" className="notifications">
+                <div className={context.size ? "notifications-container-reduce" : "notifications-container"}>
+                    <div id="notifications" className={context.size ? "notifications-reduce" : "notifications"}>
                         <div className="notification-title">
                             Notificaciones
                         </div>
@@ -237,34 +237,40 @@ function SideBar() {
     }
     const mobileView = () => {
         return (
-            <div className={ context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
-                <div className={ context.size ? "navbar-web" : "navbar-mobile"}>
-                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
-                        navigate("/projects")
-                    }}>
-                        <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={context.size ? 28: 60}/>
-                        Proyectos
-                    </div>
-                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                        <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
-                        Articulos
-                    </div>
-                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                        <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
-                        Inicio
-                    </div>
-                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                        <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
-                        Notificaciones
-                    </div>
-                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
-                        navigate("/me")
-                    }}>
-                        {user_image_mobile()}
-                        Perfil
+            <>
+                {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
+                {notificationHover()}
+                <div className={ context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
+                    <div className={ context.size ? "navbar-web" : "navbar-mobile"}>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
+                            navigate("/projects")
+                        }}>
+                            <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={context.size ? 28: 60}/>
+                            Proyectos
+                        </div>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
+                            <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                            Articulos
+                        </div>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
+                            <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                            Inicio
+                        </div>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={context.size ? closeNotification : null}>
+                            <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                            {unreadNotifications.length !== 0 ?
+                                <span className="notification-numbers-mobile"></span> : null}
+                            Notificaciones
+                        </div>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
+                            navigate("/me")
+                        }}>
+                            {user_image_mobile()}
+                            Perfil
+                        </div>
                     </div>
                 </div>
-            </div>
+            </>
         )
     }
 

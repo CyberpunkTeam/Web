@@ -156,6 +156,7 @@
 
 .settings-mobile{
     cursor: pointer;
+    position: relative;
 }
 
 .notification-numbers {
@@ -169,6 +170,15 @@
     width: 20px;
     height: 20px;
     border-radius: 15px;
+    background: #CD5B45;
+}
+
+.notification-numbers-mobile {
+    position: absolute;
+    margin-left: 80px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
     background: #CD5B45;
 }
 
@@ -207,12 +217,34 @@
     width: 340px;
 }
 
+.notifications-reduce{
+    font-size: 24px;
+    border-radius: 16px;
+    font-weight: 700;
+    color: #222222;
+    height: 83%;
+    margin: 36px 16px;
+    backdrop-filter: blur(120px);
+    background: rgba(1, 71, 81, 0.1);
+    width: 340px;
+}
+
 .notifications-container{
     position: fixed;
     left: 106px;
     top: 0;
     height: 100vh;
     min-height: 540px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.notifications-container-reduce{
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -237,7 +269,7 @@
     font-size: 24px;
     font-weight: 700;
     width: 300px;
-    height: 89%;
+    height: 88%;
 }
 
 .bottom {

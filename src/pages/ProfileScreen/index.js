@@ -34,7 +34,7 @@ function ProfileScreen() {
         }).catch((error) => {
             console.log(error)
         });
-    }, [id, context]);
+    }, [id]);
 
     const user_image = () => {
         if (userData.user.profile_image === "default") {

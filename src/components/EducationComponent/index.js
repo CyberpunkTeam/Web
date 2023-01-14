@@ -42,7 +42,7 @@ export default function EducationComponent(params) {
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`Ver más (+${params.userData.user.education.length - 1})`}
+                    {`Ver Más (+${params.userData.user.education.length - 1})`}
                 </div>
             )
         }
@@ -116,7 +116,7 @@ export default function EducationComponent(params) {
     }
 
     return (
-        <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
+        <div className={isMobile ? length === 1 ? "user-info-container-mobile-condensed" : "user-info-container-mobile" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
                 <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
