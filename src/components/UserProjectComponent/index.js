@@ -1,70 +1,50 @@
 import {AddCircle, LampCharge} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {useContext, useState} from "react";
-import Modal from "react-modal";
+import {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
-import ProjectsModal from "../ProjectsModal";
 import {isMobile} from "react-device-detect";
 
 export default function UserProjectComponent(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
-    const [modalIsOpen, setIsOpen] = useState(false);
 
     if (Object.keys(params.userData).length === 0) {
         return;
     }
 
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-
-    const openModal = () => {
-        setIsOpen(true)
-    }
-
     const createProject = () => {
         navigate("/projects/new")
     }
-    const viewMore = () => {
-        return (
-            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openModal}>
-                {params.userData.projects.length > 1 ? `Ver más (+${params.userData.projects.length - 1})` : ""}
-            </div>
-        )
-    }
 
-    const projectView = () => {
-        if (params.userData.projects.length === 0) {
-            return;
-        }
-
-        const projects_link = "/projects/" + params.userData.projects[0].pid;
+    const projectView = (data) => {
+        const projects_link = "/projects/" + data.pid;
 
         return (
-            <div className={isMobile ? "data-info-mobile" : "data-info"}>
+            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info"}>
                 <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
-                    {params.userData.projects[0].name}
+                    {data.name}
                 </Link>
-                <div className="tags-project">
-                    {params.userData.projects[0].technologies.map((data) => {
-                        return <TechnologyTag key={data} technology={data}/>
-                    })}
-                    {params.userData.projects[0].idioms.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
+                <div className={isMobile ? "coverProjectMobile" : "coverProject"}>
+                    <div className={isMobile ? "statusMobile" : "status"}>
+                        {data.state}
+                    </div>
+                    <div className="tags-project">
+                        {data.technologies.map((technology) => {
+                            return <TechnologyTag key={technology} technology={technology}/>
+                        })}
+                    </div>
+                    <div className="tags-project">
+                        {data.idioms.map((preference) => {
+                            return <PreferenceTag key={preference} preference={preference}/>
+                        })}
+                    </div>
+                </div>
+                <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
+                    {data.description.substring(0, 120)}
                 </div>
             </div>
-        )
-    }
-
-    const modal = () => {
-        return (
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <ProjectsModal projects={params.userData.projects} closeModal={closeModal}/>
-            </Modal>
         )
     }
 
@@ -80,43 +60,81 @@ export default function UserProjectComponent(params) {
                     Crear Proyecto
                 </div>
                 <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={createProject}/>
-                {modal()}
             </div>
         )
     }
 
+    const addButton = () => {
+        if (params.userData.user.uid !== context.user.uid) {
+            return
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={createProject}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="createTeamButton" onClick={createProject}>
+                <AddCircle color="#FAFAFA" variant="Bold" size={40} className="icon"/>
+                Crear Proyecto
+            </button>
+        )
+    }
+
+    const formatProjects = (projects) => {
+        const listProjects = [];
+        let list = []
+        let index = 0
+        while (index < projects.length) {
+            if (index % 2 === 0 && index !== 0) {
+                listProjects.push(list);
+                list = []
+            }
+            list.push(projects[index])
+            index++;
+        }
+        listProjects.push(list);
+
+        return listProjects;
+    }
+
+    const projects = () => {
+        if (isMobile || context.size) {
+            return (params.userData.projects.map((data) => {
+                    return projectView(data)
+                })
+            )
+        }
+
+        return (
+            formatProjects(params.userData.projects).map((value, index) => {
+                    if (value.length === 1) {
+                        return (
+                            <div className={"row"}>
+                                {projectView(value[0])}
+                            </div>
+                        )
+                    }
+                    return (
+                        <div className={"row"}>
+                            {projectView(value[0])}
+                            {projectView(value[1])}
+                        </div>
+                    )
+                }
+            )
+        )
+    }
+
+
     return (
-        <div className={isMobile ? "team-info-container-mobile" : "user-info-container"}>
-            {params.userData.user.uid !== context.user.uid ? null :
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" className="add-button" onClick={createProject}/>}
-            <div className={isMobile ? "user-info-mobile" : "user-info"}>
-                <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                    <LampCharge size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
-                    Proyectos
-                </div>
-                {projectView()}
-                {viewMore()}
-            </div>
-            {modal()}
+        <div className={"user-team-container"}>
+            {addButton()}
+            {projects()}
         </div>
     )
-}
-
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        fontFamily: "Inter",
-        padding: '0',
-        borderWidth: 0,
-        borderRadius: '10px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0px 4px 10px #666666",
-    },
 }

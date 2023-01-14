@@ -18,8 +18,6 @@ export default function RecoveryPassword() {
     }
 
     const forgotPassword = () => {
-        const user = context.auth.currentUser;
-        console.log(user)
         setButtonDisabled(true)
         sendPasswordResetEmail(context.auth, email)
             .then((r) => {

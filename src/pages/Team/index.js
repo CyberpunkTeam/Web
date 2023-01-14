@@ -18,6 +18,7 @@ import {getTeamPostulations} from "../../services/projectService";
 import TeamProjectPostulations from "../../components/TeamProjectPostulations";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
+import {isMobile} from "react-device-detect";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -181,7 +182,7 @@ export default function TeamScreen() {
         )
     } else {
         return (
-            <div className="team-screen">
+            <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
                 <div className="team-container">
                     <TeamInvitation tid={teamData.tid} owner={teamData.members[0]}/>
                     {cover()}
