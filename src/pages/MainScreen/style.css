@@ -53,17 +53,28 @@
 
 .input {
     font-family: "Inter", sans-serif;
-    width: 100%;
-    border-radius: 20px;
-    border-color: #E3E3E3;
-    border-width: 0px;
+    width: 97%;
+    padding: 0 5px;
+    border-radius: 16px;
+    border: none;
     outline: none;
     height: 40px;
     color: #222222;
     background: #E3E3E3;
     font-size: 16px;
-    padding-left: 10px;
-    padding-right: 10px;
+}
+
+.input-double {
+    font-family: "Inter", sans-serif;
+    width: 93.5%;
+    padding: 0 5px;
+    border-radius: 16px;
+    border: none;
+    outline: none;
+    height: 40px;
+    color: #222222;
+    background: #E3E3E3;
+    font-size: 16px;
 }
 
 .input-mobile {
@@ -121,24 +132,26 @@
 .password-button {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -2px;
     padding: 12px;
 }
 .password-button-mobile {
     position: absolute;
     border-radius: 50%;
     top: -2px;
-    right: 0;
+    right: -20px;
     padding: 20px;
 }
 
 .label {
+    position: relative;
     font-size: 12px;
     color: #222222;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 }
 
 .label-mobile {
+    position: relative;
     font-size: 28px;
     color: #222222;
     padding-bottom: 20px;
@@ -180,7 +193,7 @@
 
 .loading-style {
     width: 55%;
-    border-radius: 10px;
+    border-radius: 16px;
     text-decoration: inherit;
     display: flex;
     flex-direction: column;
@@ -330,7 +343,7 @@
 
 .form-container-mobile {
     align-self: center;
-    border-radius: 10px;
+    border-radius: 32px;
     box-shadow: 0px 4px 10px #D1D1D1;
     width: 90%;
     height: 900px;

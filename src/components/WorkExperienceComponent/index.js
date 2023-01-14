@@ -9,14 +9,13 @@ import {isMobile} from "react-device-detect";
 export default function WorkExperienceComponent(params) {
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [viewAll, setViewAll] = useState(false);
+    const [length, setLength] = useState(1);
 
     if (Object.keys(params.userData).length === 0) {
         return;
     }
 
     const closeModal = () => {
-        setViewAll(false);
         setIsOpen(false)
     }
 
@@ -24,30 +23,43 @@ export default function WorkExperienceComponent(params) {
         setIsOpen(true)
     }
 
-    const openViewAll = () => {
-        setViewAll(true)
-        setIsOpen(true)
-    }
-    const viewMore = () => {
-        return (
-            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
-                {params.userData.user.work_experience.length > 1 ? `Ver más (+${params.userData.user.work_experience.length - 1})` : ""}
-            </div>
-        )
+    const less = () => {
+        setLength(1)
     }
 
-    const experienceView = () => {
-        if (params.userData.user.work_experience.length === 0) {
-            return;
+    const more = () => {
+        setLength(params.userData.user.work_experience.length)
+    }
+
+    const viewMore = () => {
+        if (params.userData.user.work_experience.length <= 1) {
+            return (<div className={isMobile ? "view-more-mobile" : "view-more"}/>)
+        }
+
+        if (length === 1) {
+            return (
+                <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
+                    {`Ver Más (+${params.userData.user.work_experience.length - 1})`}
+                </div>
+            )
         }
 
         return (
+            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
+                Ver Menos
+            </div>
+        )
+
+    }
+
+    const experienceView = (data) => {
+        return (
             <div className={isMobile ? "data-info-mobile" : "data-info"}>
-                {params.userData.user.work_experience[0].position}
+                {data.position}
                 <div className={isMobile ? "education-info-mobile" : "education-info"}>
-                    {params.userData.user.work_experience[0].company}
+                    {data.company}
                     <div>
-                        {params.userData.user.work_experience[0].start_date.split('-')[0]} - {params.userData.user.work_experience[0].current_job ? params.userData.user.work_experience[0].finish_date.split('-')[0] : "Actual"}
+                        {data.start_date.split('-')[0]} - {data.current_job ? data.finish_date.split('-')[0] : "Actual"}
                     </div>
                 </div>
             </div>
@@ -57,8 +69,7 @@ export default function WorkExperienceComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ? <WorkExperienceModal works={params.userData.user.work_experience} closeModal={closeModal}/> :
-                    <AddExperienceModal closeModal={closeModal}/>}
+                <AddExperienceModal closeModal={closeModal}/>
             </Modal>
         )
     }
@@ -87,18 +98,18 @@ export default function WorkExperienceComponent(params) {
 
         return (
             <div className="experience-empty-container">
-                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <Briefcase size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
+                    <Briefcase size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
                     Agregar Experiencia
                 </div>
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
                 {modal()}
             </div>
         )
     }
 
     return (
-        <div className={isMobile ? "user-info-container-mobile" : "user-info-container"}>
+        <div className={isMobile ? length === 1 ? "user-info-container-mobile-condensed" : "user-info-container-mobile" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null : isMobile ? null :
                 <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
@@ -106,7 +117,9 @@ export default function WorkExperienceComponent(params) {
                     <Briefcase size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
                     Experiencia
                 </div>
-                {experienceView()}
+                {params.userData.user.work_experience.slice(0, length).map((data) => {
+                    return experienceView(data)
+                })}
                 {viewMore()}
             </div>
             {modal()}

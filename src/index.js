@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
@@ -29,12 +29,27 @@ function App() {
 
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
     const [search, setSearch] = useState(undefined);
+    const [size, setSize] = useState(undefined);
+
+    useEffect(() => {
+        window.addEventListener("resize", handleResize)
+    })
+
+    const handleResize = () => {
+        if (window.innerWidth < 960) {
+            setSize(true)
+        } else {
+            setSize(false)
+        }
+    }
+
     const data = {
         user,
         setUser,
         search,
         setSearch,
         auth,
+        size,
         app
     }
 
@@ -57,7 +72,7 @@ function App() {
 
     return (
         <AppContext.Provider value={data}>
-            <div className={isMobile ? "App-mobile" : "App"}>
+            <div className={isMobile || size ? "App-mobile" : "App"}>
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
