@@ -46,7 +46,6 @@
 }
 
 .button-members {
-    width: 30%;
     border-width: 0;
     color: #222222;
     margin: 0 8px;
@@ -56,7 +55,6 @@
 }
 
 .button-members-selected {
-    width: 30%;
     margin: 0 8px;
     border-width: 0;
     background: #2E9999FF;

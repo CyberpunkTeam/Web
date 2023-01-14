@@ -5,6 +5,7 @@ import AppContext from "../../utils/AppContext";
 import {updateUser} from "../../services/userService";
 import {CloseCircle, GalleryImport, User} from "iconsax-react";
 import {savePhoto} from "../../services/firebaseStorage";
+import {isMobile} from "react-device-detect";
 
 export default function EditProfileModal(params) {
     let context = useContext(AppContext);
@@ -118,6 +119,103 @@ export default function EditProfileModal(params) {
                     <GalleryImport size="24" color="#014751"/>
                 </label>
                 {coverImage()}
+            </div>
+        )
+    }
+
+    const profileImageMobile = () => {
+
+        const image = () => {
+            if (profileImg === undefined || profileImg === "default") {
+                return (
+                    <div className="user-svg-mobile">
+                        <User color="#FAFAFA" size="50px" variant="Bold"/>
+                    </div>
+                )
+            }
+
+            let url;
+            try {
+                url = URL.createObjectURL(profileImg);
+            } catch (e) {
+                url = profileImg;
+            }
+
+            return <img src={url} alt={'user'} className="user-svg-mobile"/>
+
+        }
+
+        const coverImage = () => {
+            if (coverImg === undefined || coverImg === "default") {
+                return (
+                    <div className="cover-user-container-mobile"/>
+                )
+            }
+
+            let url;
+            try {
+                url = URL.createObjectURL(coverImg);
+            } catch (e) {
+                url = coverImg;
+            }
+
+            return <img src={url} className="image-container-mobile" alt=""/>
+        }
+
+
+        return (
+            <div className="profile-container-edit">
+                <div className="user-cover-edit-container-mobile">
+                    <label className="custom-file-upload-mobile">
+                        <input type="file" onChange={handleChange}/>
+                        <GalleryImport size="48" color="#014751"/>
+                    </label>
+                    {image()}
+                </div>
+                <label className="custom-cover-file-upload-mobile">
+                    <input type="file" onChange={handleCoverChange}/>
+                    <GalleryImport size="48" color="#014751"/>
+                </label>
+                {coverImage()}
+            </div>
+        )
+    }
+
+    if (isMobile) {
+        return (
+            <div className={"profile-container"}>
+                {profileImageMobile()}
+                <form className="edit-form-mobile">
+                    <label className="label-mobile">
+                        Nombre
+                        <div className="modal-form-input">
+                            <input type="text" value={name} className="input-mobile" onChange={setNameHandler}/>
+                        </div>
+                    </label>
+                    <label className="label-mobile">
+                        Apellido
+                        <div className="modal-form-input">
+                            <input type="text" value={lastname} className="input-mobile" onChange={setLastnameHandler}/>
+                        </div>
+                    </label>
+                    <label className="label-mobile">
+                        Ubicación
+                        <div className="modal-form-input">
+                            <input type="text" value={city} className="input-mobile" onChange={setCityHandler}/>
+                        </div>
+                    </label>
+                </form>
+                <div className="container-button-mobile">
+                    <button className="cancel-edit-button-mobile-style" onClick={params.closeModal}>
+                        Volver
+                    </button>
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}
+                            onClick={updateProfileButton}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {buttonDisabled ? "" : "Guardar"}
+                    </button>
+                </div>
             </div>
         )
     }
