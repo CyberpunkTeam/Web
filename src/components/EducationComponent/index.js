@@ -11,14 +11,13 @@ export default function EducationComponent(params) {
 
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
-    const [viewAll, setViewAll] = useState(false);
+    const [length, setLength] = useState(1);
 
     if (Object.keys(params.userData).length === 0) {
         return;
     }
 
     const closeModal = () => {
-        setViewAll(false);
         setIsOpen(false)
     }
 
@@ -26,30 +25,48 @@ export default function EducationComponent(params) {
         setIsOpen(true)
     }
 
-    const openViewAll = () => {
-        setViewAll(true)
-        setIsOpen(true)
-    }
-    const viewMore = () => {
-        return (
-            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={openViewAll}>
-                {params.userData.user.education.length > 1 ? `Ver más (+${params.userData.user.education.length - 1})` : ""}
-            </div>
-        )
+    const less = () => {
+        setLength(1)
     }
 
-    const experienceView = () => {
+    const more = () => {
+        setLength(params.userData.user.education.length)
+    }
+
+
+    const viewMore = () => {
+        if (params.userData.user.education.length <= 1) {
+            return (<div className={isMobile ? "view-more-mobile" : "view-more"}/>)
+        }
+
+        if (length === 1) {
+            return (
+                <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
+                    {`Ver más (+${params.userData.user.education.length - 1})`}
+                </div>
+            )
+        }
+
+        return (
+            <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
+                Ver Menos
+            </div>
+        )
+
+    }
+
+    const experienceView = (data) => {
         if (params.userData.user.education.length === 0) {
             return;
         }
 
         return (
             <div className={isMobile ? "data-info-mobile" : "data-info"}>
-                {params.userData.user.education[0].title}
+                {data.title}
                 <div className={isMobile ? "education-info-mobile" : "education-info"}>
-                    {params.userData.user.education[0].institution}
+                    {data.institution}
                     <div>
-                        {params.userData.user.education[0].start_date.split('-')[0]} - {params.userData.user.education[0].finished ? params.userData.user.education[0].finish_date.split('-')[0] : "Actual"}
+                        {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "Actual"}
                     </div>
                 </div>
             </div>
@@ -59,7 +76,7 @@ export default function EducationComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {viewAll ? <UserEducationsModal educations={params.userData.user.education} closeModal={closeModal}/> : <AddEducationModal closeModal={closeModal}/>}
+                {<AddEducationModal closeModal={closeModal}/>}
             </Modal>
         )
     }
@@ -88,11 +105,11 @@ export default function EducationComponent(params) {
 
         return (
             <div className="experience-empty-container">
-                <div className="experience-empty-title">
-                    <Teacher size="32" color="#014751" className={"icon"}/>
+                <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
+                    <Teacher size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
                     Agregar Título o Certificación
                 </div>
-                <AddCircle size="24" color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
                 {modal()}
             </div>
         )
@@ -107,7 +124,9 @@ export default function EducationComponent(params) {
                     <Teacher size={isMobile ? "80" : "32"} color="#014751" className={"icon"}/>
                     Títulos y Certificaciones
                 </div>
-                {experienceView()}
+                {params.userData.user.education.slice(0, length).map((data) => {
+                    return experienceView(data)
+                })}
                 {viewMore()}
             </div>
             {modal()}
@@ -123,7 +142,7 @@ const modalStyle = {
         fontFamily: "Inter",
         padding: '0',
         borderWidth: 0,
-        borderRadius: '10px',
+        borderRadius: '16px',
         top: '50%',
         left: '50%',
         right: 'auto',

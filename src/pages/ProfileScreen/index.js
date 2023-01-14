@@ -180,7 +180,7 @@ function ProfileScreen() {
         return (
             <div className="profile-screen-mobile">
                 <div className="profile-container">
-                    {isMobile ? coverMobile() : cover()}
+                    {coverMobile()}
                 </div>
                 <div className="tagsFilterContainer">
                     <div className={tagSelect === "profile" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
@@ -214,7 +214,7 @@ function ProfileScreen() {
         return (
             <div className="profile-screen">
                 <div className="profile-container">
-                    {isMobile ? coverMobile() : cover()}
+                    {cover()}
                 </div>
                 <div className="tagsFilterContainer">
                     <div className={tagSelect === "profile" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {

@@ -82,12 +82,12 @@ function SideBar() {
     const user_image_mobile = () => {
         if (context.user.profile_image === "default") {
             return (
-                <div className="user-sidebar-mobile">
+                <div className={context.size ? "user-sidebar-web" : "user-sidebar-mobile"}>
                     <User color="#FAFAFA" size="20px" variant="Bold"/>
                 </div>
             )
         } else {
-            return <img src={context.user.profile_image} alt='' className="user-sidebar-mobile"/>
+            return <img src={context.user.profile_image} alt='' className={context.size ? "user-sidebar-web" : "user-sidebar-mobile"}/>
         }
     }
 
@@ -237,27 +237,27 @@ function SideBar() {
     }
     const mobileView = () => {
         return (
-            <div className="navbar-mobile-container">
-                <div className="navbar-mobile">
-                    <div className="navbar-mobile-icon" onClick={() => {
+            <div className={ context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
+                <div className={ context.size ? "navbar-web" : "navbar-mobile"}>
+                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
                         navigate("/projects")
                     }}>
-                        <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={60}/>
+                        <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={context.size ? 28: 60}/>
                         Proyectos
                     </div>
-                    <div className="navbar-mobile-icon">
-                        <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline" size={60}/>
+                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
+                        <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
                         Articulos
                     </div>
-                    <div className="navbar-mobile-icon">
-                        <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline" size={60}/>
+                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
+                        <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
                         Inicio
                     </div>
-                    <div className="navbar-mobile-icon">
-                        <Notification className="settings-mobile" color="#FAFAFA" variant="Outline" size={60}/>
+                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
+                        <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
                         Notificaciones
                     </div>
-                    <div className="navbar-mobile-icon" onClick={() => {
+                    <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
                         navigate("/me")
                     }}>
                         {user_image_mobile()}
@@ -268,7 +268,7 @@ function SideBar() {
         )
     }
 
-    return isMobile ? mobileView() : browserView()
+    return isMobile || context.size ? mobileView() : browserView()
 }
 
 export default SideBar;

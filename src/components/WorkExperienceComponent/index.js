@@ -1,4 +1,4 @@
-import {AddCircle, Briefcase} from "iconsax-react";
+import {AddCircle, Briefcase, Teacher} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import Modal from "react-modal";
@@ -87,11 +87,11 @@ export default function WorkExperienceComponent(params) {
 
         return (
             <div className="experience-empty-container">
-                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <Briefcase size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
+                <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
+                    <Briefcase size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
                     Agregar Experiencia
                 </div>
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={openModal}/>
+                <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
                 {modal()}
             </div>
         )

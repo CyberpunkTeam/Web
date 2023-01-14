@@ -51,7 +51,7 @@ export default function UserTeamsComponent(params) {
                     {data.name}
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>
-                    <Star1 size={isMobile ? "40" : "16"} color="#2E9999" variant="Bold" className={"icon"}/>
+                    <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Bold" className={"icon"}/>
                     5.0
                 </div>
             </div>

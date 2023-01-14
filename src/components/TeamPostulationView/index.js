@@ -60,7 +60,7 @@ export default function TeamPostulationView(params) {
                         {showMore || params.data.proposal_description.length < 600 ? "" : "..."}
                     </div>
                     {params.data.proposal_description.length < 600 ? null : !showMore ?
-                        <ArrowCircleDown color="#B1B1B1" size={24} onClick={seeMore} className={"seeMore"}/> :
+                        <ArrowCircleDown color="#B1B1B1" size={24} className={"seeMore"} onClick={seeMore}/> :
                         <ArrowCircleUp color="#B1B1B1" size={24} className={"seeMore"} onClick={seeMore}/>
                     }
                     <div className="date-project">
