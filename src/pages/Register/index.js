@@ -72,34 +72,28 @@ function Register(params) {
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Nombre
-                        <div className="form-input">
-                            <input type="text"
-                                   value={name}
-                                   className={isMobile ? "input-mobile" : "input"}
-                                   onChange={setNameHandler}/>
-                        </div>
+                        <input type="text"
+                               value={name}
+                               className={isMobile ? "input-mobile" : "input"}
+                               onChange={setNameHandler}/>
                     </label>
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Apellido
-                        <div className="form-input">
-                            <input type="text"
-                                   value={lastName}
-                                   className={isMobile ? "input-mobile" : "input"}
-                                   onChange={setLastNameHandler}/>
-                        </div>
+                        <input type="text"
+                               value={lastName}
+                               className={isMobile ? "input-mobile" : "input"}
+                               onChange={setLastNameHandler}/>
                     </label>
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Ciudad
-                        <div className="form-input">
-                            <input type="text"
-                                   value={city}
-                                   className={isMobile ? "input-mobile" : "input"}
-                                   onChange={setCityHandler}/>
-                        </div>
+                        <input type="text"
+                               value={city}
+                               className={isMobile ? "input-mobile" : "input"}
+                               onChange={setCityHandler}/>
                     </label>
                 </div>
             </>

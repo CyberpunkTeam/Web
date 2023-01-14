@@ -104,10 +104,8 @@ function MainScreen() {
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
                         Email
-                        <div className="form-input">
-                            <input type="text" value={email} className={isMobile ? "input-mobile" : "input"}
-                                   onChange={setEmailHandler}/>
-                        </div>
+                        <input type="text" value={email} className={isMobile ? "input-mobile" : "input"}
+                               onChange={setEmailHandler}/>
                     </label>
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>

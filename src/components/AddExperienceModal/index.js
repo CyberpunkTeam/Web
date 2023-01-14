@@ -65,32 +65,30 @@ export default function AddExperienceModal(params) {
             <div className="label">
                 <label>
                     Posición
-                    <div className="modal-form-input">
-                        <input type="text" value={position} className="input" onChange={setPositionHandler}/>
-                    </div>
+                    <input type="text" value={position} className="input" onChange={setPositionHandler}/>
                 </label>
             </div>
             <div className="label">
                 <label>
                     Compania
-                    <div className="modal-form-input">
-                        <input type="text" value={company} className="input" onChange={setCompanyHandler}/>
-                    </div>
+                    <input type="text" value={company} className="input" onChange={setCompanyHandler}/>
                 </label>
             </div>
             <div className="label-double">
-                <label>
-                    Inicio
-                    <div className="modal-form-input">
-                        <input type="date" value={startDate} placeholder="dd-mm-yyyy" min="1990-01-01" max="2030-12-31" className="input" onChange={setStartDateHandler}/>
-                    </div>
-                </label>
-                <label>
-                    Fin
-                    <div className="modal-form-input">
-                        <input type="date" value={finishDate} placeholder="dd-mm-yyyy" min="1990-01-01" max="2030-12-31" className="input" onChange={setFinishDateHandler}/>
-                    </div>
-                </label>
+                <div className="label-double-column">
+                    <label>
+                        Inicio
+                        <input type="date" value={startDate} placeholder="dd-mm-yyyy" min="1900-01-01"
+                               max="2030-12-31" className="input-double" onChange={setStartDateHandler}/>
+                    </label>
+                </div>
+                <div className="label-double-column">
+                    <label>
+                        Fin
+                        <input type="date" value={finishDate} placeholder="dd-mm-yyyy" min="1900-01-01"
+                               max="2030-12-31" className="input-double" onChange={setFinishDateHandler}/>
+                    </label>
+                </div>
             </div>
         </form>
         <div className="container-button-modal">

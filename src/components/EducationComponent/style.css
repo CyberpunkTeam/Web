@@ -1,6 +1,7 @@
 .experience-empty-container {
     margin-bottom: 16px;
     position: relative;
+    min-height: 60px;
     background: #F1F1F1;
     border-radius: 10px;
     padding: 20px;
@@ -14,6 +15,19 @@
 .experience-empty-title {
     padding: 0 20px;
     display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #014751;
+}
+
+.icon-button {
+    cursor: pointer;
+}
+
+.experience-empty-title-reduce {
+    display: flex;
+    font-size: 14px;
+    width: 80%;
     align-items: center;
     font-weight: 700;
     color: #014751;
