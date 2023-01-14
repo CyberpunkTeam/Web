@@ -12,26 +12,46 @@
     justify-content: center;
 }
 .project-data-container {
-    margin: 20px 0 0 0;
+    width: 100%;
+    margin: 20px 0;
     display: flex;
     justify-content: space-between;
 }
+
+.project-data-container-reduce {
+    width: 100%;
+    margin: 20px 0;
+}
+
 .project-information-container {
     font-size: 24px;
     font-weight: 700;
     position: relative;
-    width: 40%;
+    width: 49%;
     background: #F1F1F1;
-    height: 420px;
-    border-radius: 10px;
+    border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
+
+.project-information-container-reduce {
+    font-size: 24px;
+    font-weight: 700;
+    position: relative;
+    width: 100%;
+    background: #F1F1F1;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
 .project-information-card {
-    margin: 40px;
-    height: 340px;
+    font-size: 16px;
+    padding: 32px;
 }
 .project-description-card {
-    padding: 8px 16px;
+    background: #E3E3E3;
+    margin: 16px 0;
+    border-radius: 16px;
+    padding: 16px 16px;
     font-size: 16px;
     font-weight: 400;
 }
