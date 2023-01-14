@@ -25,7 +25,7 @@ export default function UserProjectComponent(params) {
         }
 
         return (
-            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info"} onClick={goTo}>
+            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info-with-shadow"} onClick={goTo}>
                 <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                     {data.name}
                 </Link>
