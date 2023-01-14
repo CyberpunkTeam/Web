@@ -162,7 +162,7 @@
     margin-bottom: 16px;
     color: #FAFAFA;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+    background-image: linear-gradient(122.17deg, #005299 0%, #014751 100%);
 }
 
 .teamContainerMobile {
@@ -174,7 +174,7 @@
     margin-bottom: 32px;
     color: #FAFAFA;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+    background-image: linear-gradient(122.17deg, #005299 0%, #014751 100%);
 }
 
 .user-info-container-mobile {
@@ -340,7 +340,7 @@
     justify-content: flex-end;
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
-    background: linear-gradient(122.17deg, #2E68BD 0%, #0F2830 100%);
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
 }
 
 .coverProjectMobile {
@@ -352,7 +352,7 @@
     padding: 16px;
     border-top-right-radius: 32px;
     border-top-left-radius: 32px;
-    background: linear-gradient(122.17deg, #2E68BD 0%, #0F2830 100%);
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
 }
 
 .row {

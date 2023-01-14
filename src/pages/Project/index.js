@@ -38,6 +38,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.creator.uid !== context.user.uid) {
                 getOwnerTeams(context.user.uid).then((teams) => {
                     setUserTeam(teams);
