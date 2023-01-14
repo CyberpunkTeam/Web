@@ -183,10 +183,7 @@ export default function ProjectScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {project.creator.uid === context.user.uid ?
-                    <PostulationsModal postulations={postulations} closeModal={closeModal}
-                                       changePostulations={changePostulations}/> :
-                    <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
+                <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>
             </Modal>
         )
     }
@@ -196,6 +193,25 @@ export default function ProjectScreen() {
             return (
                 <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
                     {information()}
+                </div>
+            )
+        } else if (tagSelect === "postulations") {
+            return (
+                <div className="project-data-container-reduce">
+                    <PostulationsModal postulations={postulations} closeModal={closeModal}
+                                       changePostulations={changePostulations}/>
+                </div>
+            )
+        }
+    }
+
+    const teamsPostulations = () => {
+        if (project.creator.uid === context.user.uid) {
+            return (
+                <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                    setTagSelect("postulations")
+                }}>
+                    Postulaciones
                 </div>
             )
         }
@@ -221,11 +237,7 @@ export default function ProjectScreen() {
                 }}>
                     Historial
                 </div>
-                <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                    setTagSelect("postulations")
-                }}>
-                    Postulaciones
-                </div>
+                {teamsPostulations()}
             </div>
             {tagInfo()}
             {modal()}
