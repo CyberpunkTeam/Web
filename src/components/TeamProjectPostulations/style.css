@@ -50,7 +50,11 @@
 }
 
 .seeMore {
-    padding-top: 16px;
+    font-size: 12px;
+    font-weight: 400;
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
     align-self: center;
 }
 

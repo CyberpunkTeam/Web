@@ -218,6 +218,7 @@
 }
 
 .teamInfo {
+    position: relative;
     margin: 32px;
     width: 100%;
     display: flex;
@@ -281,6 +282,8 @@
 }
 
 .teamTags {
+    position: relative;
+    background: #CD5B45;
     width: 70%;
     height: 100%;
     display: flex;

@@ -54,17 +54,15 @@ export default function RecoveryPassword() {
     const recoveryForm = () => {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
-                <div className="form-text">
+                <div className={isMobile ? "form-text-mobile" : "form-text"}>
                     Recupera tu cuenta
                 </div>
-                <form className="form">
-                    <div className="label">
+                <form className={isMobile ? "form-mobile" : "form"}>
+                    <div className={isMobile ? "label-mobile" : "label"}>
                         <label>
                             Email
-                            <div className="form-input">
-                                <input type="text" value={email} className="input"
-                                       onChange={setEmailHandler}/>
-                            </div>
+                            <input type="text" value={email} className={isMobile ? "input-mobile" : "input"}
+                                   onChange={setEmailHandler}/>
                         </label>
                     </div>
                     <div className="login-user-not-found">
@@ -73,7 +71,7 @@ export default function RecoveryPassword() {
                 </form>
                 <div className="button-container">
                     <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "button-style-disabled" : "button-style"}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={forgotPassword}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         {buttonDisabled ? "" : "Enviar"}
