@@ -220,6 +220,7 @@
     margin-right: 16px;
     background: #014751;
     border: 0;
+    cursor: pointer;
 }
 
 .tagSelector {

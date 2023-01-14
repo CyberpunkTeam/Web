@@ -22,6 +22,7 @@
 
 .create-project-button {
     padding: 00px 8px;
+    cursor: pointer;
 }
 
 .projects-container {

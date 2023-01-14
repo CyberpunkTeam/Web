@@ -5,8 +5,8 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject} from "../../services/projectService";
-import {AddCircle, Edit, People, User} from "iconsax-react";
+import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
+import {AddCircle, CloseCircle, Edit, People, Trash, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
@@ -81,6 +81,10 @@ export default function ProjectScreen() {
             return
         }
 
+        if (project.state !== "PENDING") {
+            return
+        }
+
         if (isMobile) {
             return (
                 <button className="createTeamButtonMobile" onClick={openModal}>
@@ -91,8 +95,42 @@ export default function ProjectScreen() {
 
         return (
             <button className="postulate-button" onClick={openModal}>
-                <People color="#FAFAFA" variant="Bold" size={36} className="icon"/>
+                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                 Postular Equipo
+            </button>
+        )
+    }
+
+    const cancelProject = () => {
+        if (project.creator.uid !== context.user.uid) {
+            return
+        }
+
+        if (project.state !== "PENDING") {
+            return
+        }
+
+        const cancel = () => {
+            const body = {
+                "state": "CANCELLED"
+            }
+            updateProject(project.pid, body).then((r) => {
+                navigate("/projects/" + r.pid)
+            })
+        }
+
+        if (isMobile) {
+            return (
+                <button className="cancelButtonMobile" onClick={cancel}>
+                    <CloseCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="cancel-project-button" onClick={cancel}>
+                <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Cancelar Proyecto
             </button>
         )
     }
@@ -133,6 +171,10 @@ export default function ProjectScreen() {
     const cover = () => {
         const editButton = () => {
             if (project.creator.uid === context.user.uid) {
+
+                if (project.state !== "PENDING") {
+                    return
+                }
                 const edit = () => {
                     navigate(`/projects/${project.pid}/edit`, {state: {project}})
                 }
@@ -226,6 +268,7 @@ export default function ProjectScreen() {
             <div className="project-buttons-container">
                 {owner(project.creator)}
                 {postulate()}
+                {cancelProject()}
             </div>
             <div className="tagsFilterContainer">
                 <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
