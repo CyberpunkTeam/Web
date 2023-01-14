@@ -263,11 +263,105 @@
 }
 
 .data-info {
-    margin: 20px 40px 0px 40px;
+    background: #F1F1F1;
+    border-radius: 16px;
+    width: 45%;
+    margin-bottom: 16px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     font-weight: 700;
     color: #222222;
+}
+
+.data-info-reduce {
+    background: #F1F1F1;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    color: #222222;
+}
+
+.coverProject {
+    position: relative;
+    height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
+    background: linear-gradient(122.17deg, #2E68BD 0%, #0F2830 100%);
+}
+
+.coverProjectMobile {
+    position: relative;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 16px;
+    border-top-right-radius: 32px;
+    border-top-left-radius: 32px;
+    background: linear-gradient(122.17deg, #2E68BD 0%, #0F2830 100%);
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.status {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    padding: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(227, 227, 227, 0.7);
+    height: 24px;
+    font-weight: 400;
+    font-size: 12px;
+    border-radius: 8px;
+}
+
+.statusMobile {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(227, 227, 227, 0.7);
+    height: 24px;
+    font-weight: 400;
+    font-size: 28px;
+    border-radius: 16px;
+}
+
+.projectDescription {
+    padding: 8px;
+    font-size: 12px;
+    font-weight: 400;
+    background: #E3E3E3;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    height: 60px;
+}
+
+.projectDescriptionMobile {
+    padding: 16px;
+    font-size: 24px;
+    font-weight: 400;
+    background: #E3E3E3;
+    border-bottom-right-radius: 32px;
+    border-bottom-left-radius: 32px;
+    height: 100px;
 }
 
 .teamDataInfo {
@@ -317,12 +411,24 @@
 }
 
 .data-info-mobile {
-    padding: 16px 40px;
     font-size: 32px;
     display: flex;
     flex-direction: column;
     font-weight: 700;
     color: #222222;
+    padding: 28px;
+}
+
+.project-info-mobile {
+    font-size: 32px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    color: #222222;
+    background: #F1F1F1;
+    border-radius: 32px;
+    margin-bottom: 32px;
+    padding: 32px;
 }
 
 .icon {
@@ -472,6 +578,7 @@
 
 .team-link {
     text-decoration: inherit;
+    padding-bottom: 16px;
     font-weight: 700;
     color: #222222;
 }
@@ -484,6 +591,7 @@
 
 .team-link-mobile {
     font-size: 40px;
+    padding-bottom: 32px;
     text-decoration: inherit;
     font-weight: 700;
     color: #222222;
