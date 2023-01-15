@@ -6,11 +6,11 @@ import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
-import {AddCircle, CloseCircle, Edit, People, Trash, User} from "iconsax-react";
+import {AddCircle, CloseCircle, Edit, People, TickCircle, Trash, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams} from "../../services/teamService";
+import {getOwnerTeams, getTeam} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -22,6 +22,7 @@ export default function ProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
+    const [team, setTeam] = useState(undefined)
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -39,23 +40,26 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
-            if (response.state === "WIP") {
+            if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
                         setUserTeam(teams);
-                    }).catch((error) => {
-                        console.log(error)
-                    });
+                        setLoading(false);
+                    })
                 } else {
                     getProjectPostulations(params.id).then((response) => {
-                        setPostulations(response)
+                        setPostulations(response);
+                        setLoading(false);
                     })
                 }
+            } else {
+                getTeam(response.team_assigned).then((r) => {
+                    setTeam(r);
+                    setLoading(false);
+                })
             }
         }).catch((error) => {
             console.log(error)
-        }).finally(() => {
-            setLoading(false);
         })
     }, [params.id, context.user.uid]);
 
@@ -108,7 +112,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.state !== "PENDING") {
+        if (project.state !== "PENDING" && project.state !== "WIP") {
             return
         }
 
@@ -133,6 +137,40 @@ export default function ProjectScreen() {
             <button className="cancel-project-button" onClick={cancel}>
                 <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                 Cancelar Proyecto
+            </button>
+        )
+    }
+
+    const finishProject = () => {
+        if (project.creator.uid !== context.user.uid) {
+            return
+        }
+
+        if (project.state !== "WIP") {
+            return
+        }
+
+        const cancel = () => {
+            const body = {
+                "state": "FINISHED"
+            }
+            updateProject(project.pid, body).then((r) => {
+                navigate("/projects/" + r.pid)
+            })
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={cancel}>
+                    <TickCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="postulate-button" onClick={cancel}>
+                <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Finalizar Proyecto
             </button>
         )
     }
@@ -164,6 +202,30 @@ export default function ProjectScreen() {
                         <div className="owner">
                             Owner
                         </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    const teamAssigned = (data) => {
+
+        if (project.team_assigned === null) {
+            return
+        }
+        const userNavigate = () => {
+            const user_link = '/team/' + data.tid;
+            navigate(user_link);
+        }
+
+        return (
+            <div className="members-info-container">
+                <div className="members-info">
+                    <div className="member-photo">
+                        <People color="#FAFAFA" size="24px" variant="Bold"/>
+                    </div>
+                    <div className="member-name" onClick={userNavigate}>
+                        {data.name}
                     </div>
                 </div>
             </div>
@@ -288,8 +350,10 @@ export default function ProjectScreen() {
             </div>
             <div className="project-buttons-container">
                 {owner(project.creator)}
+                {teamAssigned(team)}
                 {postulate()}
                 {cancelProject()}
+                {finishProject()}
             </div>
             <div className="tagsFilterContainer">
                 <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
