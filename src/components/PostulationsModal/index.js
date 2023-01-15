@@ -34,6 +34,7 @@ export default function PostulationsModal(params) {
         updateTeamPostulation(body).then((r) => {
             if (status === "ACCEPTED") {
                 params.changePostulations([])
+                window.location.reload()
             } else {
                 let post = [...params.postulations]
                 post.splice(index, 1);

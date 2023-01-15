@@ -96,14 +96,17 @@ function SideBar() {
         const buttonNavigation = (id, notification_type) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
+                    console.log(invitation)
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })
-            } else if (notification_type === "TEAM_POSTULATION") {
+            } else if (notification_type === "TEAM_POSTULATION" || notification_type === "TEAM_POSTULATION_RESPONSE") {
                 getPostulation(id).then((postulation) => {
                     const link = "/projects/" + postulation.pid
                     navigate(link);
                 })
+            } else if (notification_type === "NEW_TEAM_MEMBERS") {
+                navigate("/user/" + id);
             }
         }
 

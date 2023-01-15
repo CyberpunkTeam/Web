@@ -5,8 +5,8 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
-import {AddCircle, CloseCircle, Edit, People, TickCircle, Trash, User} from "iconsax-react";
+import {getProjectPostulations, getProject, updateProject, abandonProject} from "../../services/projectService";
+import {AddCircle, CloseCircle, Edit, LogoutCurve, People, TickCircle, Trash, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
@@ -16,6 +16,7 @@ import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
+import {requestFinishProject} from "../../services/notificationService";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -23,10 +24,13 @@ export default function ProjectScreen() {
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
     const [team, setTeam] = useState(undefined)
+    //const [teams, setTeams] = useState(undefined)
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [disabledFinishButton, setDisableFinishButton] = useState(false);
+    const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
 
     const closeModal = () => {
@@ -46,12 +50,19 @@ export default function ProjectScreen() {
                         setUserTeam(teams);
                         setLoading(false);
                     })
-                } else {
-                    getProjectPostulations(params.id).then((response) => {
-                        setPostulations(response);
-                        setLoading(false);
-                    })
                 }
+                getProjectPostulations(params.id).then((response) => {
+                    setPostulations(response);
+                    /*let postulateTeams = []
+                    response.map((value) => {
+                        if (value.state === "PENDING") {
+                            postulateTeams.push(value.team.tid)
+                        }
+                    })
+                    setTeams(postulateTeams)*/
+                    setLoading(false);
+                })
+
             } else {
                 getTeam(response.team_assigned).then((r) => {
                     setTeam(r);
@@ -91,6 +102,17 @@ export default function ProjectScreen() {
             return
         }
 
+        /*let teamsList = []
+        userTeams.map((value) => {
+            teamsList.push(value.tid)
+        })
+
+        const intersection = teamsList.filter(element => teams.includes(element));
+
+        if (intersection.length === teamsList.length) {
+            return
+        }*/
+
         if (isMobile) {
             return (
                 <button className="createTeamButtonMobile" onClick={openModal}>
@@ -117,11 +139,14 @@ export default function ProjectScreen() {
         }
 
         const cancel = () => {
+            setDisableCancelButton(true);
             const body = {
                 "state": "CANCELLED"
             }
             updateProject(project.pid, body).then((r) => {
-                navigate("/projects/" + r.pid)
+                console.log(r)
+                window.location.reload()
+                setDisableCancelButton(false);
             })
         }
 
@@ -134,9 +159,44 @@ export default function ProjectScreen() {
         }
 
         return (
+            <button disabled={disabledCancelButton} className="cancel-project-button" onClick={cancel}>
+                {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
+                {disabledCancelButton ? "" : "Cancelar Proyecto"}
+            </button>
+        )
+    }
+
+    const abandonProjectButton = () => {
+        if (project.state !== "WIP") {
+            return
+        }
+
+        if (team.owner !== context.user.uid) {
+            return
+        }
+
+        const cancel = () => {
+            setDisableCancelButton(true)
+            abandonProject(team.tid, project.pid).then((r) => {
+                console.log(r)
+                setDisableCancelButton(false)
+            })
+        }
+
+        if (isMobile) {
+            return (
+                <button className="cancelButtonMobile" onClick={cancel}>
+                    <LogoutCurve color="#FAFAFA" size={48}/>
+                </button>
+            )
+        }
+
+        return (
             <button className="cancel-project-button" onClick={cancel}>
-                <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Cancelar Proyecto
+                {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    <LogoutCurve color="#FAFAFA" size={24} className="icon"/>}
+                {disabledCancelButton ? "" : "Abandonar Proyecto"}
             </button>
         )
     }
@@ -151,11 +211,14 @@ export default function ProjectScreen() {
         }
 
         const cancel = () => {
+            setDisableFinishButton(true);
             const body = {
-                "state": "FINISHED"
+                "pid": project.pid,
+                "tid": project.team_assigned
             }
-            updateProject(project.pid, body).then((r) => {
-                navigate("/projects/" + r.pid)
+            requestFinishProject(body).then((r) => {
+                console.log(r);
+                setDisableFinishButton(false);
             })
         }
 
@@ -168,9 +231,10 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button className="postulate-button" onClick={cancel}>
-                <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Finalizar Proyecto
+            <button disabled={disabledFinishButton} className="postulate-button" onClick={cancel}>
+                {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
+                {disabledFinishButton ? "" : "Finalizar Proyecto"}
             </button>
         )
     }
@@ -353,6 +417,7 @@ export default function ProjectScreen() {
                 {teamAssigned(team)}
                 {postulate()}
                 {cancelProject()}
+                {abandonProjectButton()}
                 {finishProject()}
             </div>
             <div className="tagsFilterContainer">

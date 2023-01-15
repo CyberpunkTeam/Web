@@ -21,3 +21,7 @@ export const sendTeamPostulation = (body) => {
 export const updateTeamPostulation = (body) => {
     return post(endpoint + "team_postulation_response/", body)
 }
+
+export const requestFinishProject = (body) => {
+    return post(endpoint + "project_finished_requests/", body)
+}

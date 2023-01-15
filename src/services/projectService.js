@@ -27,5 +27,9 @@ export const getProjectPostulations = (pid) => {
 }
 
 export const getTeamPostulations = (tid) => {
-    return get(endpoint +  `postulations/?tid=${tid}`)
+    return get(endpoint + `postulations/?tid=${tid}`)
+}
+
+export const abandonProject = (tid, pid) => {
+    return get(endpoint + `project_abandons_requests/?tid=${tid}&pid=${pid}`)
 }

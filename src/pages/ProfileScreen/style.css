@@ -253,6 +253,7 @@
 }
 
 .postulate-button {
+    min-width: 200px;
     background: #014751;
     border-width: 0;
     margin-right: 16px;
@@ -269,6 +270,7 @@
 
 .cancel-project-button {
     background: #CD5B45;
+    min-width: 200px;
     border-width: 0;
     margin-right: 16px;
     display: flex;
