@@ -25,3 +25,15 @@ export const updateTeamPostulation = (body) => {
 export const requestFinishProject = (body) => {
     return post(endpoint + "project_finished_requests/", body)
 }
+
+export const getFinishProject = (id) => {
+    return get(`/project_finished_requests/${id}`)
+}
+
+export const getRequestFinishProject = (tid, pid) => {
+    return get(`/project_finished_requests/?tid=${tid}&pid=${pid}`)
+}
+
+export const finishProject = (body) => {
+    return post(endpoint + "project_finished/", body)
+}

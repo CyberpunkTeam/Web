@@ -15,7 +15,7 @@ import {
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {getNotifications, viewNotifications} from "../../services/notificationService";
+import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
 import 'moment/locale/es';
 import {getPostulation} from "../../services/projectService";
@@ -107,6 +107,11 @@ function SideBar() {
                 })
             } else if (notification_type === "NEW_TEAM_MEMBERS") {
                 navigate("/user/" + id);
+            } else if (notification_type === "PROJECT_FINISHED_REQUEST") {
+                getFinishProject(id).then((r) => {
+                    console.log(r)
+                    navigate("/projects/" + r.pid);
+                })
             }
         }
 
@@ -122,8 +127,6 @@ function SideBar() {
             }
         }
         const notificationLi = (data) => {
-            console.log(data)
-
             return (
                 <li key={data.nid} onClick={() => {
                     buttonNavigation(data.resource_id, data.notification_type)

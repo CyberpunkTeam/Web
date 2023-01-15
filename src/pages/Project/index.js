@@ -17,6 +17,7 @@ import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 import {requestFinishProject} from "../../services/notificationService";
+import ProjectFinish from "../../components/ProjectFinish";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -36,7 +37,6 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
-            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -399,6 +399,7 @@ export default function ProjectScreen() {
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
+                <ProjectFinish pid={project.pid} team={project.team_assigned} owner={project.creator}/>
                 {cover()}
             </div>
             <div className="project-buttons-container">
