@@ -122,6 +122,8 @@ function SideBar() {
             }
         }
         const notificationLi = (data) => {
+            console.log(data)
+
             return (
                 <li key={data.nid} onClick={() => {
                     buttonNavigation(data.resource_id, data.notification_type)

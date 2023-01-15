@@ -33,17 +33,10 @@ export default function ProjectScreen() {
     const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
 
-    const closeModal = () => {
-        setIsOpen(false);
-    }
-
-    const openModal = () => {
-        setIsOpen(true);
-    }
-
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -53,22 +46,10 @@ export default function ProjectScreen() {
                 }
                 getProjectPostulations(params.id).then((response) => {
                     setPostulations(response);
-                    /*let postulateTeams = []
-                    response.map((value) => {
-                        if (value.state === "PENDING") {
-                            postulateTeams.push(value.team.tid)
-                        }
-                    })
-                    setTeams(postulateTeams)*/
-                    setLoading(false);
-                })
-
-            } else {
-                getTeam(response.team_assigned).then((r) => {
-                    setTeam(r);
                     setLoading(false);
                 })
             }
+            setLoading(false);
         }).catch((error) => {
             console.log(error)
         })
@@ -76,6 +57,14 @@ export default function ProjectScreen() {
 
     if (loading) {
         return <Loading/>
+    }
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
     }
 
     if (project.pid === undefined) {
@@ -274,7 +263,7 @@ export default function ProjectScreen() {
 
     const teamAssigned = (data) => {
 
-        if (project.team_assigned === null) {
+        if (data === null) {
             return
         }
         const userNavigate = () => {
@@ -386,8 +375,8 @@ export default function ProjectScreen() {
             )
         } else {
             return (
-                <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
-                    {project.activities_record.map((info) => {
+                <div>
+                    {project.activities_record.reverse().map((info) => {
                         return activity(info)
                     })}
                 </div>
@@ -414,10 +403,9 @@ export default function ProjectScreen() {
             </div>
             <div className="project-buttons-container">
                 {owner(project.creator)}
-                {teamAssigned(team)}
+                {teamAssigned(project.team_assigned)}
                 {postulate()}
                 {cancelProject()}
-                {abandonProjectButton()}
                 {finishProject()}
             </div>
             <div className="tagsFilterContainer">
