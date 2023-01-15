@@ -1,15 +1,42 @@
 .experience-empty-container {
     margin-bottom: 16px;
     position: relative;
-    min-height: 60px;
     background: #F1F1F1;
-    border-radius: 10px;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.experience-empty-info-container {
+    position: relative;
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    color: #014751;
+    justify-content: space-between;
+}
+
+.experience-empty-info-container-reduce {
+    position: relative;
+    width: 90%;
     padding: 20px;
     display: flex;
     align-items: center;
     font-weight: 700;
     color: #014751;
     justify-content: space-between;
+}
+
+
+.experience-empty-container-reduce {
+    width: 48%;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #F1F1F1;
+    border-radius: 16px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 

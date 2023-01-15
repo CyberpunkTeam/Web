@@ -131,7 +131,13 @@
 }
 
 .user-data {
-    padding: 0px 40px 0px 40px;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+}
+
+.user-data-reduce {
+    padding: 0 8px;
     display: flex;
     align-items: center;
 }
@@ -142,6 +148,25 @@
 }
 
 .user-info-container {
+    margin-bottom: 16px;
+    position: relative;
+    background: #F1F1F1;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.user-info-container-reduce {
+    width: 48%;
+    margin-bottom: 16px;
+    position: relative;
+    background: #F1F1F1;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    height: 300px;
+}
+
+.user-info-container-reduce-full {
+    width: 48%;
     margin-bottom: 16px;
     position: relative;
     background: #F1F1F1;
@@ -200,7 +225,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding-bottom: 80px;
+    padding: 40px 0;
 }
 
 .team-info-container-mobile {
@@ -310,6 +335,15 @@
     font-weight: 700;
     font-size: 36px;
     color: #014751;
+}
+
+.experience-title-mobile {
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 36px;
+    color: #014751;
+    padding: 20px 0;
 }
 
 .data-info {

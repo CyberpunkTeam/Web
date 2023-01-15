@@ -109,7 +109,7 @@ function ProfileScreen() {
         return (
             <div className="cover-container">
                 <div className="user-cover-container">
-                    <div className="user-data">
+                    <div className={context.size ? "user-data-reduce" : "user-data"}>
                         {user_image()}
                         {user_data()}
                     </div>
@@ -155,7 +155,7 @@ function ProfileScreen() {
     const showUserInfo = () => {
         if (tagSelect === "profile") {
             return (
-                <div className={isMobile ? "column-mobile" : "column"}>
+                <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
                     <EducationComponent userData={userData}/>
                     <WorkExperienceComponent userData={userData}/>
                 </div>

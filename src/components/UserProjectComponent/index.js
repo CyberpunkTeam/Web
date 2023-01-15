@@ -1,4 +1,4 @@
-import {AddCircle, LampCharge} from "iconsax-react";
+import {AddCircle} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
@@ -25,7 +25,7 @@ export default function UserProjectComponent(params) {
         }
 
         return (
-            <div className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info-with-shadow"} onClick={goTo}>
+            <div key={data.pid} className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info-with-shadow"} onClick={goTo}>
                 <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                     {data.name}
                 </Link>
@@ -47,22 +47,6 @@ export default function UserProjectComponent(params) {
                 <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
                     {data.description.substring(0, 120)}
                 </div>
-            </div>
-        )
-    }
-
-    if (params.userData.projects.length === 0) {
-        if (params.userData.user.uid !== context.user.uid) {
-            return
-        }
-
-        return (
-            <div className="experience-empty-container">
-                <div className={isMobile ? "experience-empty-title-mobile" : "experience-empty-title"}>
-                    <LampCharge size={isMobile ? "56" : "32"} color="#014751" className={"icon"}/>
-                    Crear Proyecto
-                </div>
-                <AddCircle size={isMobile ? "56" : "24"} color="#B1B1B1" onClick={createProject}/>
             </div>
         )
     }
@@ -113,17 +97,23 @@ export default function UserProjectComponent(params) {
             )
         }
 
+        const projectFormatted = formatProjects(params.userData.projects)
+
+        if ( projectFormatted[0].length === 0) {
+            return
+        }
+
         return (
-            formatProjects(params.userData.projects).map((value, index) => {
+            projectFormatted.map((value, index) => {
                     if (value.length === 1) {
                         return (
-                            <div className={"row"}>
+                            <div key={value} className={"row"}>
                                 {projectView(value[0])}
                             </div>
                         )
                     }
                     return (
-                        <div className={"row"}>
+                        <div key={value} className={"row"}>
                             {projectView(value[0])}
                             {projectView(value[1])}
                         </div>
