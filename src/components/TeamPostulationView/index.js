@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {useState} from "react";
-import moment from "moment/moment";
+import {formatDate} from "../../utils/dateFormat";
 
 export default function TeamPostulationView(params) {
 
@@ -17,11 +17,6 @@ export default function TeamPostulationView(params) {
 
     const seeMore = () => {
         setShowMore(!showMore)
-    }
-
-    const formatDate = (date) => {
-        const d = date.replace(/:/, ' ');
-        return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').fromNow();
     }
 
     if (params.data.state !== params.filter) {

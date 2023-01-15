@@ -140,7 +140,7 @@ export default function TeamScreen() {
         }
 
         return (
-            <div className="members-info-container">
+            <div key={data.uid} className="members-info-container">
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>

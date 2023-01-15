@@ -15,6 +15,7 @@ import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
+import {formatDate} from "../../utils/dateFormat";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -38,23 +39,24 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
-            console.log(response)
-            if (response.creator.uid !== context.user.uid) {
-                getOwnerTeams(context.user.uid).then((teams) => {
-                    setUserTeam(teams);
-                    setLoading(false);
-                }).catch((error) => {
-                    console.log(error)
-                });
-            } else {
-                getProjectPostulations(params.id).then((response) => {
-                    setPostulations(response)
-                    setLoading(false);
-                })
+            if (response.state === "WIP") {
+                if (response.creator.uid !== context.user.uid) {
+                    getOwnerTeams(context.user.uid).then((teams) => {
+                        setUserTeam(teams);
+                    }).catch((error) => {
+                        console.log(error)
+                    });
+                } else {
+                    getProjectPostulations(params.id).then((response) => {
+                        setPostulations(response)
+                    })
+                }
             }
         }).catch((error) => {
             console.log(error)
-        });
+        }).finally(() => {
+            setLoading(false);
+        })
     }, [params.id, context.user.uid]);
 
     if (loading) {
@@ -231,6 +233,17 @@ export default function ProjectScreen() {
         )
     }
 
+    const activity = (data) => {
+        return (
+            <div key={data.description} className={"history"}>
+                {data.description}
+                <div>
+                    {formatDate(data.created_date)}
+                </div>
+            </div>
+        )
+    }
+
     const tagInfo = () => {
         if (tagSelect === "info") {
             return (
@@ -245,11 +258,19 @@ export default function ProjectScreen() {
                                        changePostulations={changePostulations}/>
                 </div>
             )
+        } else {
+            return (
+                <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
+                    {project.activities_record.map((info) => {
+                        return activity(info)
+                    })}
+                </div>
+            )
         }
     }
 
     const teamsPostulations = () => {
-        if (project.creator.uid === context.user.uid) {
+        if (project.creator.uid === context.user.uid && project.state === "PENDING") {
             return (
                 <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                     setTagSelect("postulations")

@@ -74,7 +74,7 @@ export default function UserTeamsComponent(params) {
         }
 
         return (
-            <div className={isMobile ? "teamContainerMobile" : "teamContainer"} onClick={goTo}>
+            <div key={data.tid} className={isMobile ? "teamContainerMobile" : "teamContainer"} onClick={goTo}>
                 <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfo"}>
                     {teamView(data)}
                     {teamTags(data)}
