@@ -11,6 +11,7 @@
     align-items: flex-start;
     justify-content: center;
 }
+
 .project-data-container {
     width: 100%;
     margin: 20px 0;
@@ -47,6 +48,7 @@
     font-size: 16px;
     padding: 32px;
 }
+
 .project-description-card {
     background: #E3E3E3;
     margin: 16px 0;
@@ -55,6 +57,7 @@
     font-size: 16px;
     font-weight: 400;
 }
+
 .postulation-button {
     display: flex;
     justify-content: center;
@@ -100,4 +103,17 @@
     width: 44px;
     border-radius: 50%;
     cursor: pointer;
+}
+
+.history {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3)
+}
+
+.history:last-child {
+    border-bottom: none
 }

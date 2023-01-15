@@ -17,10 +17,10 @@ import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
-import moment from "moment/moment";
 import 'moment/locale/es';
 import {getPostulation} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
+import {formatDate} from "../../utils/dateFormat";
 
 function SideBar() {
     let context = useContext(AppContext);
@@ -105,11 +105,6 @@ function SideBar() {
                     navigate(link);
                 })
             }
-        }
-
-        const formatDate = (date) => {
-            const d = date.replace(/:/, ' ');
-            return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').fromNow();
         }
 
         const icon = (notification_type) => {
