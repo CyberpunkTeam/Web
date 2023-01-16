@@ -19,6 +19,7 @@ import ProjectScreen from "./pages/Project";
 import SearchResults from "./pages/searchResults";
 import RecoveryPassword from "./pages/RecoveryPassword";
 import EditProfile from "./pages/EditProfile";
+import ReviewScreen from "./pages/ReviewScreen";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -66,6 +67,7 @@ function App() {
                     <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
                     <Route path="/projects/new" element={<CreateProjectScreen/>}/>
                     <Route path="/search" element={<SearchResults/>}/>
+                    <Route path="/review" element={<ReviewScreen/>}/>
                 </>
             )
         }

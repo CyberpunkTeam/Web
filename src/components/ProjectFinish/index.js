@@ -4,22 +4,24 @@ import {useContext, useEffect, useState} from "react";
 import {CloseCircle, TickCircle} from "iconsax-react";
 import {finishProject, getRequestFinishProject} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
+import {useNavigate} from "react-router-dom";
 
 export default function ProjectFinish(params) {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [finish, setFinish] = useState(undefined);
 
     useEffect(() => {
-        if (params.team === null) {
+        if (params.project.team_assigned === null) {
             return
         }
 
-        if (params.team.owner !== context.user.uid) {
+        if (params.project.team_assigned.owner !== context.user.uid) {
             return;
         }
 
-        getRequestFinishProject(params.team.tid, params.pid).then((r) => {
+        getRequestFinishProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
             if (r.length !== 0) {
                 if (r[0].state === "PENDING") {
                     setFinish(r[0])
@@ -28,14 +30,15 @@ export default function ProjectFinish(params) {
         }).catch((error) => {
             console.log(error)
         });
-    }, [params.pid]);
+    }, [context.user.uid, params.project.pid]);
 
-    const finishButton = (status) => {
+    const finishRejectButton = () => {
         setLoading(true)
         const body = {
-            "state": status,
+            "state": "REJECTED",
             "pid": params.pid,
-            "tid": params.team.tid
+            "tid": params.project.team_assigned.tid,
+            "request_id": finish.pfr_id
         }
 
         finishProject(body).then(() => {
@@ -56,9 +59,7 @@ export default function ProjectFinish(params) {
             )
         } else {
             return (
-                <CloseCircle size="48px" color="#CD5B45" variant="Bold" className={"icon-button"} onClick={() => {
-                    finishButton("REJECTED")
-                }}/>
+                <CloseCircle size="48px" color="#CD5B45" variant="Bold" className={"icon-button"} onClick={finishRejectButton}/>
             )
         }
     }
@@ -72,8 +73,7 @@ export default function ProjectFinish(params) {
         } else {
             return (
                 <TickCircle size="48" color="#014751" variant="Bold" className={"icon-button"} onClick={() => {
-                    finishButton("ACCEPTED")
-                }}/>
+                    navigate("/review", {state: {project: params.project, isProject: true, request: finish}})}} />
             )
         }
     }
@@ -83,7 +83,7 @@ export default function ProjectFinish(params) {
             <div className="invitation-container">
                 <div className="invitation">
                     <div>
-                        <b>{params.owner.name} {params.owner.lastname}</b> solícito la finalización del proyecto
+                        <b>{params.project.creator.name} {params.project.creator.lastname}</b> solícito la finalización del proyecto
                     </div>
                     <div className="postulations-buttons-container">
                         {rejectButton()}

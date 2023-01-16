@@ -10,7 +10,7 @@ import {AddCircle, CloseCircle, Edit, LogoutCurve, People, TickCircle, Trash, Us
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams, getTeam} from "../../services/teamService";
+import {getOwnerTeams} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -24,7 +24,6 @@ export default function ProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
-    const [team, setTeam] = useState(undefined)
     //const [teams, setTeams] = useState(undefined)
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
@@ -37,6 +36,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -161,13 +161,13 @@ export default function ProjectScreen() {
             return
         }
 
-        if (team.owner !== context.user.uid) {
+        if (project.team_assigned.owner !== context.user.uid) {
             return
         }
 
         const cancel = () => {
             setDisableCancelButton(true)
-            abandonProject(team.tid, project.pid).then((r) => {
+            abandonProject(project.team_assigned.tid, project.pid).then((r) => {
                 console.log(r)
                 setDisableCancelButton(false)
             })
@@ -208,6 +208,7 @@ export default function ProjectScreen() {
             requestFinishProject(body).then((r) => {
                 console.log(r);
                 setDisableFinishButton(false);
+                window.alert("Se envió la petición de finalización del proyecto")
             })
         }
 
@@ -399,7 +400,7 @@ export default function ProjectScreen() {
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
-                <ProjectFinish pid={project.pid} team={project.team_assigned} owner={project.creator}/>
+                <ProjectFinish project={project}/>
                 {cover()}
             </div>
             <div className="project-buttons-container">

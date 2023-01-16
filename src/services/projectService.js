@@ -33,3 +33,7 @@ export const getTeamPostulations = (tid) => {
 export const abandonProject = (tid, pid) => {
     return get(endpoint + `project_abandons_requests/?tid=${tid}&pid=${pid}`)
 }
+
+export const projectReview = (body) => {
+    return post(endpoint + `projects_reviews/`, body)
+}
