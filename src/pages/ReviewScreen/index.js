@@ -6,6 +6,7 @@ import {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Star1} from "iconsax-react";
 import {projectReview} from "../../services/projectService";
+import {teamReview} from "../../services/teamService";
 
 export default function ReviewScreen() {
     const navigate = useNavigate();
@@ -29,20 +30,28 @@ export default function ReviewScreen() {
             "tid": state.project.team_assigned.tid
         }
         if (state.isProject) {
-            projectReview(rateBody).then((r) => {
+            projectReview(rateBody).then(() => {
                 const body = {
                     "state": "ACCEPTED",
                     "pid": state.project.pid,
                     "tid": state.project.team_assigned.tid,
                     "request_id": state.request.pfr_id
                 }
-                finishProject(body).then((r) => {
+                finishProject(body).then(() => {
                     setLoading(false)
                     goBack();
                 }).catch((e) => {
                     console.log(e)
                     setLoading(false)
                 })
+            }).catch((e) => {
+                console.log(e)
+                setLoading(false)
+            })
+        } else {
+            teamReview(rateBody).then(() => {
+                setLoading(false)
+                goBack();
             }).catch((e) => {
                 console.log(e)
                 setLoading(false)

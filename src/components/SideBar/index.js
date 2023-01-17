@@ -18,7 +18,7 @@ import AppContext from "../../utils/AppContext";
 import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
 import 'moment/locale/es';
-import {getPostulation} from "../../services/projectService";
+import {getPostulation, getProject} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 
@@ -112,6 +112,10 @@ function SideBar() {
                     console.log(r)
                     navigate("/projects/" + r.pid);
                 })
+            } else if (notification_type === "PROJECT_FINISHED") {
+                getProject(id).then((response) => {
+                    navigate("/review", {state: {project: response, isProject: false}})
+                });
             }
         }
 

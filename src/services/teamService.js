@@ -21,3 +21,8 @@ export const addMember = (tid, uid) => {
 export const updateTeam = (tid, body) => {
     return put(endpoint + tid, body)
 }
+
+
+export const teamReview = (body) => {
+    return post(endpoint + "teams_reviews/", body)
+}
