@@ -17,7 +17,7 @@ export default function CreateProjectScreen() {
     const [name, setName] = useState(state === null ? "" : state.project.name)
     const [description, setDescription] = useState(state === null ? "" : state.project.description)
     const [tech, setTech] = useState("")
-    const [language, setLanguage] = useState(state === null ? "" : state.project.idioms[0])
+    const [language, setLanguage] = useState(state === null ? "Alemán" : state.project.idioms[0])
     const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies]);
 
     const projectButton = () => {
@@ -108,7 +108,7 @@ export default function CreateProjectScreen() {
                             Idioma
                             <div className="create-project-input">
                                 <select value={language} className="select" onChange={setLanguageHandler}>
-                                    <option value="Aleman">Aleman</option>
+                                    <option value="Alemán">Alemán</option>
                                     <option value="Chino">Chino</option>
                                     <option value="Español">Español</option>
                                     <option value="Frances">Frances</option>

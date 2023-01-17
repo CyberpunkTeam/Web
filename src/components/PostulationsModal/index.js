@@ -34,6 +34,7 @@ export default function PostulationsModal(params) {
         updateTeamPostulation(body).then((r) => {
             if (status === "ACCEPTED") {
                 params.changePostulations([])
+                window.location.reload()
             } else {
                 let post = [...params.postulations]
                 post.splice(index, 1);
@@ -69,7 +70,7 @@ export default function PostulationsModal(params) {
                     <div className="team-postulation-name">
                         {data.team.name}
                         <div className="team-postulation-star">
-                            <Star1 size="16" color="#ECA95A" variant="Bold" className={"icon"}/>
+                            <Star1 size="16" color="#ECA95A" variant="Linear" className={"star"}/>
                             5.0
                         </div>
                     </div>

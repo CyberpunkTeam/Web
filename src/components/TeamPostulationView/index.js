@@ -3,12 +3,14 @@ import './style.css'
 import {Link} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {formatDate} from "../../utils/dateFormat";
+import AppContext from "../../utils/AppContext";
 
 export default function TeamPostulationView(params) {
 
     const [showMore, setShowMore] = useState(false);
+    let context = useContext(AppContext);
 
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -26,8 +28,8 @@ export default function TeamPostulationView(params) {
     const project = "/projects/" + params.data.project.pid
     return (
         <div key={params.data.ppid} className="teamPostulationContainer">
-            <div className="teamPostulationInfo">
-                <div className="postulationInfo">
+            <div className={context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
+                <div className={context.size ? "postulationInfoReduce" : "postulationInfo"}>
                     <div className="title-and-budget">
                         <Link to={project} className="projectTitle">
                             {params.data.project.name}
@@ -47,7 +49,7 @@ export default function TeamPostulationView(params) {
                         })}
                     </div>
                 </div>
-                <div className="descriptionContainer">
+                <div className={context.size ? "descriptionContainerReduced" : "descriptionContainer"}>
                     Descripción enviada
                     <div className="description-modal">
                         {showMore ? params.data.proposal_description.substring(0, params.data.proposal_description.length) : params.data.proposal_description.substring(0, 600)}
