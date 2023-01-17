@@ -15,6 +15,7 @@ import WorkExperienceComponent from "../../components/WorkExperienceComponent";
 import UserTeamsComponent from "../../components/UserTeamsComponent";
 import UserProjectComponent from "../../components/UserProjectComponent";
 import {isMobile} from "react-device-detect";
+import UserProjectMobileComponent from "../../components/UserProjectMobileComponent";
 
 function ProfileScreen() {
     const params = useParams();
@@ -165,9 +166,8 @@ function ProfileScreen() {
                 <UserTeamsComponent userData={userData}/>
             )
         } else {
-            return (
+            return context.size || isMobile ? <UserProjectMobileComponent userData={userData}/> :
                 <UserProjectComponent userData={userData}/>
-            )
         }
     }
 
