@@ -29,6 +29,9 @@ export default function ReviewScreen() {
             "pid": state.project.pid,
             "tid": state.project.team_assigned.tid
         }
+
+        console.log(rateBody)
+
         if (state.isProject) {
             projectReview(rateBody).then(() => {
                 const body = {

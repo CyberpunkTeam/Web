@@ -36,7 +36,6 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
-            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -203,8 +202,11 @@ export default function ProjectScreen() {
             setDisableFinishButton(true);
             const body = {
                 "pid": project.pid,
-                "tid": project.team_assigned
+                "tid": project.team_assigned.tid
             }
+
+            console.log(body)
+
             requestFinishProject(body).then((r) => {
                 console.log(r);
                 setDisableFinishButton(false);

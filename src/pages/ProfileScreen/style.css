@@ -538,6 +538,11 @@
     padding-right: 8px;
 }
 
+.star {
+    padding-right: 8px;
+    fill: #ECA95A;
+}
+
 .icon-reduce {
     padding-right: 8px;
     width: 60px;

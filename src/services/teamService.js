@@ -24,5 +24,5 @@ export const updateTeam = (tid, body) => {
 
 
 export const teamReview = (body) => {
-    return post(endpoint + "teams_reviews/", body)
+    return post("/teams_reviews/", body)
 }

@@ -23,8 +23,11 @@ export default function ProjectFinish(params) {
 
         getRequestFinishProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
             if (r.length !== 0) {
-                if (r[0].state === "PENDING") {
-                    setFinish(r[0])
+                for (let i = 0; i < r.length; i++) {
+                    if (r[i].state === "PENDING") {
+                        setFinish(r[i])
+                        return
+                    }
                 }
             }
         }).catch((error) => {
@@ -36,7 +39,7 @@ export default function ProjectFinish(params) {
         setLoading(true)
         const body = {
             "state": "REJECTED",
-            "pid": params.pid,
+            "pid": params.project.pid,
             "tid": params.project.team_assigned.tid,
             "request_id": finish.pfr_id
         }

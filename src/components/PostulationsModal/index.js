@@ -70,7 +70,7 @@ export default function PostulationsModal(params) {
                     <div className="team-postulation-name">
                         {data.team.name}
                         <div className="team-postulation-star">
-                            <Star1 size="16" color="#ECA95A" variant="Bold" className={"icon"}/>
+                            <Star1 size="16" color="#ECA95A" variant="Linear" className={"star"}/>
                             5.0
                         </div>
                     </div>

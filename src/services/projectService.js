@@ -35,5 +35,5 @@ export const abandonProject = (tid, pid) => {
 }
 
 export const projectReview = (body) => {
-    return post(endpoint + `projects_reviews/`, body)
+    return post(`/projects_reviews/`, body)
 }

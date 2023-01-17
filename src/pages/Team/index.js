@@ -100,7 +100,7 @@ export default function TeamScreen() {
                     <div className="team-name">
                         {teamData.name}
                         <div className="team-rating">
-                            <Star1 size="24" color="#ECA95A" variant="Bold" className={"icon"}/>
+                            <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
                             5.0
                         </div>
                     </div>

@@ -96,7 +96,6 @@ function SideBar() {
         const buttonNavigation = (id, notification_type) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
-                    console.log(invitation)
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })
