@@ -23,9 +23,9 @@ export const updateTeam = (tid, body) => {
 }
 
 export const teamReview = (body) => {
-    return post("/teams_reviews/", body)
+    return post("teams_reviews/", body)
 }
 
 export const getTeamReview = (pid, tid) => {
-    return post(`/teams_reviews/?pid=${pid}&tid=${tid}`)
+    return post(`teams_reviews/?pid=${pid}&tid=${tid}`)
 }
