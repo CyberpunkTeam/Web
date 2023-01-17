@@ -27,5 +27,5 @@ export const teamReview = (body) => {
 }
 
 export const getTeamReview = (pid, tid) => {
-    return post(`teams_reviews/?pid=${pid}&tid=${tid}`)
+    return get(`teams_reviews/?pid=${pid}&tid=${tid}`)
 }
