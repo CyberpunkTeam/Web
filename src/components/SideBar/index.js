@@ -93,7 +93,7 @@ function SideBar() {
 
     const notificationHover = () => {
 
-        const buttonNavigation = (id, notification_type) => {
+        const buttonNavigation = (id, notification_type, message) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
@@ -113,7 +113,11 @@ function SideBar() {
                 })
             } else if (notification_type === "PROJECT_FINISHED") {
                 getProject(id).then((response) => {
-                    navigate("/review", {state: {project: response, isProject: false}})
+                    if (message.includes("rechazada")) {
+                        navigate("/projects/" + response.pid)
+                    } else {
+                        navigate("/review", {state: {project: response, isProject: false}})
+                    }
                 });
             }
         }
@@ -132,7 +136,7 @@ function SideBar() {
         const notificationLi = (data) => {
             return (
                 <li key={data.nid} onClick={() => {
-                    buttonNavigation(data.resource_id, data.notification_type)
+                    buttonNavigation(data.resource_id, data.notification_type, data.content)
                 }}>
                     <div className="notification-list-data">
                         <div className="user-notification">
@@ -185,7 +189,6 @@ function SideBar() {
             localStorage.removeItem("user");
             navigate("/")
         }
-
 
         if (watchSettings) {
             return (

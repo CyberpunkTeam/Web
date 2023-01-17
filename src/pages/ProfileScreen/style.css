@@ -448,7 +448,7 @@
 
 .projectDescription {
     padding: 8px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 400;
     background: #E3E3E3;
     border-bottom-right-radius: 16px;
@@ -458,7 +458,7 @@
 
 .projectDescriptionMobile {
     padding: 16px;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 400;
     background: #E3E3E3;
     border-bottom-right-radius: 32px;
