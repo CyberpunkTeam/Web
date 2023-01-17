@@ -13,7 +13,7 @@ export default function TeamsModal(params) {
                     {data.name}
                 </Link>
                 <div className="rank-team-view">
-                    <Star1 size="16" color="#2E9999" variant="Bold" className={"icon"}/>
+                    <Star1 size="16" color="#2E9999" variant="linear" className={"star"}/>
                     5.0
                 </div>
                 <div className="line">

@@ -15,10 +15,10 @@ import {
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {getNotifications, viewNotifications} from "../../services/notificationService";
+import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
 import 'moment/locale/es';
-import {getPostulation} from "../../services/projectService";
+import {getPostulation, getProject} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 
@@ -93,17 +93,32 @@ function SideBar() {
 
     const notificationHover = () => {
 
-        const buttonNavigation = (id, notification_type) => {
+        const buttonNavigation = (id, notification_type, message) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })
-            } else if (notification_type === "TEAM_POSTULATION") {
+            } else if (notification_type === "TEAM_POSTULATION" || notification_type === "TEAM_POSTULATION_RESPONSE") {
                 getPostulation(id).then((postulation) => {
                     const link = "/projects/" + postulation.pid
                     navigate(link);
                 })
+            } else if (notification_type === "NEW_TEAM_MEMBERS") {
+                navigate("/user/" + id);
+            } else if (notification_type === "PROJECT_FINISHED_REQUEST") {
+                getFinishProject(id).then((r) => {
+                    console.log(r)
+                    navigate("/projects/" + r.pid);
+                })
+            } else if (notification_type === "PROJECT_FINISHED") {
+                getProject(id).then((response) => {
+                    if (message.includes("rechazada")) {
+                        navigate("/projects/" + response.pid)
+                    } else {
+                        navigate("/review", {state: {project: response, isProject: false}})
+                    }
+                });
             }
         }
 
@@ -121,7 +136,7 @@ function SideBar() {
         const notificationLi = (data) => {
             return (
                 <li key={data.nid} onClick={() => {
-                    buttonNavigation(data.resource_id, data.notification_type)
+                    buttonNavigation(data.resource_id, data.notification_type, data.content)
                 }}>
                     <div className="notification-list-data">
                         <div className="user-notification">
@@ -174,7 +189,6 @@ function SideBar() {
             localStorage.removeItem("user");
             navigate("/")
         }
-
 
         if (watchSettings) {
             return (

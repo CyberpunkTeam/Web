@@ -14,12 +14,24 @@
     justify-content: space-between;
 }
 
+.teamPostulationInfoReduce {
+    width: 100%;
+}
+
 .postulationInfo {
     height: 200px;
     border-radius: 16px;
     padding: 16px;
     width: 33%;
-    background: linear-gradient(122.17deg, #4953b9 0%, #0F2830 100%)
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+}
+
+.postulationInfoReduce {
+    height: 120px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    padding: 16px;
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
 }
 
 .projectTitle {

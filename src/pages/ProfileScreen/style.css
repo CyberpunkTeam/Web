@@ -248,9 +248,12 @@
     margin-top: 20px;
     width: 100%;
     display: flex;
+    overflow-y: hidden;
+    overflow-x: auto;
 }
 
 .postulate-button {
+    min-width: 200px;
     background: #014751;
     border-width: 0;
     margin-right: 16px;
@@ -267,6 +270,7 @@
 
 .cancel-project-button {
     background: #CD5B45;
+    min-width: 200px;
     border-width: 0;
     margin-right: 16px;
     display: flex;
@@ -444,7 +448,7 @@
 
 .projectDescription {
     padding: 8px;
-    font-size: 12px;
+    font-size: 16px;
     font-weight: 400;
     background: #E3E3E3;
     border-bottom-right-radius: 16px;
@@ -454,7 +458,7 @@
 
 .projectDescriptionMobile {
     padding: 16px;
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 400;
     background: #E3E3E3;
     border-bottom-right-radius: 32px;
@@ -532,6 +536,11 @@
 
 .icon {
     padding-right: 8px;
+}
+
+.star {
+    padding-right: 8px;
+    fill: #ECA95A;
 }
 
 .icon-reduce {

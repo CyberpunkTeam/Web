@@ -1,0 +1,39 @@
+.accept-invitation {
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    margin-left: 8px;
+    width: 120px;
+    height: 40px;
+    background: #014751;
+    color: #F1F1F1;
+    border-radius: 10px;
+    border-width: 0;
+}
+.deny-invitation {
+    font-size: 14px;
+    font-family: "Inter", sans-serif;
+    margin-right: 8px;
+    width: 120px;
+    height: 40px;
+    color: #F1F1F1;
+    background: #CD5B45;
+    border-radius: 10px;
+    border-width: 0;
+}
+.invitation {
+    display: flex;
+    width: 95%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.invitation-container {
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+    border-radius: 10px;
+    background: #F1F1F1;
+    width: 100%;
+}
