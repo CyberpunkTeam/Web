@@ -37,3 +37,7 @@ export const abandonProject = (tid, pid) => {
 export const projectReview = (body) => {
     return post(`/projects_reviews/`, body)
 }
+
+export const getProjectReview = (pid, tid) => {
+    return get(`/projects_reviews/?pid=${pid}&tid=${tid}`)
+}

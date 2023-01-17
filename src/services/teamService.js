@@ -22,7 +22,10 @@ export const updateTeam = (tid, body) => {
     return put(endpoint + tid, body)
 }
 
-
 export const teamReview = (body) => {
     return post("/teams_reviews/", body)
+}
+
+export const getTeamReview = (pid, tid) => {
+    return post(`/teams_reviews//?pid=${pid}&tid=${tid}`)
 }

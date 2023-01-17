@@ -2,17 +2,30 @@ import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import {finishProject} from "../../services/notificationService";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Star1} from "iconsax-react";
-import {projectReview} from "../../services/projectService";
-import {teamReview} from "../../services/teamService";
+import {getProjectReview, projectReview} from "../../services/projectService";
+import {getTeamReview, teamReview} from "../../services/teamService";
 
 export default function ReviewScreen() {
     const navigate = useNavigate();
     const {state} = useLocation();
+    const [review, setReview] = useState(false)
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0)
+
+    useEffect(() => {
+        if (state.isProject) {
+            getProjectReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
+                setReview(r)
+            })
+        } else {
+            getTeamReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
+                setReview(r)
+            })
+        }
+    }, [state.isProject, state.project.pid, state.project.team_assigned.tid]);
 
     const changeRate = (value) => {
         setRate(value)
@@ -29,8 +42,6 @@ export default function ReviewScreen() {
             "pid": state.project.pid,
             "tid": state.project.team_assigned.tid
         }
-
-        console.log(rateBody)
 
         if (state.isProject) {
             projectReview(rateBody).then(() => {
@@ -72,6 +83,18 @@ export default function ReviewScreen() {
                        changeRate(value)
                    }
                    }/>
+        )
+    }
+
+    if (review.length !== 0) {
+        return (
+            <div className="profile-screen">
+                <div className={"reviewCompleteContainer"}>
+                    {state.isProject ? "Ya realizaste la review de este proyecto" : "Ya realizaste la review de este equipo"}
+                </div>
+                <SearchBar/>
+                <SideBar/>
+            </div>
         )
     }
 
