@@ -6,7 +6,7 @@ import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {isMobile} from "react-device-detect";
 
-export default function UserProjectComponent(params) {
+export default function UserProjectMobileComponent(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
@@ -70,54 +70,13 @@ export default function UserProjectComponent(params) {
         )
     }
 
-    const formatProjects = (projects) => {
-        const listProjects = [];
-        let list = []
-        let index = 0
-        while (index < projects.length) {
-            if (index % 2 === 0 && index !== 0) {
-                listProjects.push(list);
-                list = []
-            }
-            list.push(projects[index])
-            index++;
-        }
-        listProjects.push(list);
-
-        return listProjects;
-    }
-
-    const projects = () => {
-        const projectFormatted = formatProjects(params.userData.projects)
-
-        if (projectFormatted[0].length === 0) {
-            return
-        }
-
-        return (
-            projectFormatted.map((value, index) => {
-                    if (value.length === 1) {
-                        return (
-                            <div key={value} className={"row"}>
-                                {projectView(value[0])}
-                            </div>
-                        )
-                    }
-                    return (
-                        <div key={value} className={"row"}>
-                            {projectView(value[0])}
-                            {projectView(value[1])}
-                        </div>
-                    )
-                }
-            )
-        )
-    }
 
     return (
         <div className={"user-team-container"}>
             {addButton()}
-            {projects()}
+            {params.userData.projects.map((data) => {
+                return projectView(data)
+            })}
         </div>
     )
 
