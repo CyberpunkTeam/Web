@@ -41,3 +41,7 @@ export const getProjectReview = (pid, tid) => {
 export const getRequestAbandonProject = (tid, pid) => {
     return get(`/project_abandons_requests/?tid=${tid}&pid=${pid}`)
 }
+
+export const getRequestAbandonProjectWithID = (par_id) => {
+    return get(`/project_abandons_requests/${par_id}`)
+}

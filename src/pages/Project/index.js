@@ -142,7 +142,6 @@ export default function ProjectScreen() {
                 "state": "CANCELLED"
             }
             updateProject(project.pid, body).then((r) => {
-                console.log(r)
                 window.location.reload()
                 setDisableCancelButton(false);
             })
@@ -212,7 +211,6 @@ export default function ProjectScreen() {
             console.log(body)
 
             requestFinishProject(body).then((r) => {
-                console.log(r);
                 setDisableFinishButton(false);
                 window.alert("Se envió la petición de finalización del proyecto")
             })

@@ -45,7 +45,6 @@ export default function LeaveProject(params) {
         }
 
         abandonProject(body).then((r) => {
-            console.log(r)
             setLoading(false)
             setRequest(undefined)
             window.location.reload()
