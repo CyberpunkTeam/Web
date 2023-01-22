@@ -21,7 +21,6 @@ export default function RecoveryPassword() {
         setButtonDisabled(true)
         sendPasswordResetEmail(context.auth, email)
             .then((r) => {
-                console.log(r)
                 setSendIt(true)
             })
             .catch((error) => {

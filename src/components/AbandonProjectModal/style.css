@@ -1,0 +1,33 @@
+.abandonModal {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 360px;
+    width: 500px;
+    background: #F1F1F1;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.leave-project-button-style {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #CD5B45;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.leave-project-button-style-disabled {
+    width: 49%;
+    border-radius: 10px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: rgba(205, 91, 69, 0.5);
+    font-size: 16px;
+    cursor: pointer;
+}

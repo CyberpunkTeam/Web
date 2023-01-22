@@ -18,7 +18,7 @@ import AppContext from "../../utils/AppContext";
 import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
 import 'moment/locale/es';
-import {getPostulation, getProject} from "../../services/projectService";
+import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 
@@ -108,7 +108,6 @@ function SideBar() {
                 navigate("/user/" + id);
             } else if (notification_type === "PROJECT_FINISHED_REQUEST") {
                 getFinishProject(id).then((r) => {
-                    console.log(r)
                     navigate("/projects/" + r.pid);
                 })
             } else if (notification_type === "PROJECT_FINISHED") {
@@ -119,6 +118,12 @@ function SideBar() {
                         navigate("/review", {state: {project: response, isProject: false}})
                     }
                 });
+            } else if (notification_type === "PROJECT_ABANDONS_REQUEST") {
+                getRequestAbandonProjectWithID(id).then((response) => {
+                    navigate("/projects/" + response.pid)
+                })
+            } else if (notification_type === "ABANDONED_PROJECT") {
+                navigate("/projects/" + id)
             }
         }
 
