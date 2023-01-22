@@ -5,7 +5,7 @@ import {abandonProject} from "../../services/notificationService";
 
 export function AbandonProjectModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [reason, setReason] = useState("Alemán")
+    const [reason, setReason] = useState("The owner did not carry out the payments")
 
     const setReasonHandler = (event) => {
         setReason(event.target.value);
@@ -37,10 +37,18 @@ export function AbandonProjectModal(params) {
                     What is the reason you want to leave?
                     <div className="create-project-input">
                         <select value={reason} className="select" onChange={setReasonHandler}>
-                            <option value="The owner did not carry put with payments">The owner did not carry out the payments</option>
-                            <option value="Disagreements with the owner">Disagreements with the owner</option>
-                            <option value="The owner never answered our messages">The owner never answered our messages</option>
-                            <option value="The owner discontinued project">The owner discontinued project</option>
+                            <option value="The owner did not carry put with payments">
+                                The owner did not carry out the payments
+                            </option>
+                            <option value="Disagreements with the owner">
+                                Disagreements with the owner
+                            </option>
+                            <option value="The owner never answered our messages">
+                                The owner never answered our messages
+                            </option>
+                            <option value="The owner discontinued project">
+                                The owner discontinued project
+                            </option>
                         </select>
                         <ArrowDown2 className="from-button" color="#B1B1B1" variant="Outline" size={20}/>
                     </div>
