@@ -37,3 +37,11 @@ export const getRequestFinishProject = (tid, pid) => {
 export const finishProject = (body) => {
     return post(endpoint + "project_finished/", body)
 }
+
+export const abandonProject = (body) => {
+    return post(endpoint + "project_abandonment/", body)
+}
+
+export const abandonProjectRequest = (body) => {
+    return post(endpoint + "project_abandons_requests/", body)
+}

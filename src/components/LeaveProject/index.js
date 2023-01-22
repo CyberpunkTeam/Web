@@ -1,19 +1,17 @@
-import './style.css'
 
 import {useContext, useEffect, useState} from "react";
 import {CloseCircle, TickCircle} from "iconsax-react";
-import {finishProject, getRequestFinishProject} from "../../services/notificationService";
+import {abandonProject} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
-import {useNavigate} from "react-router-dom";
+import {getRequestAbandonProject} from "../../services/projectService";
 
-export default function ProjectFinish(params) {
+export default function LeaveProject(params) {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
-    const [finish, setFinish] = useState(undefined);
+    const [request, setRequest] = useState(undefined);
 
     useEffect(() => {
-        if (params.project.team_assigned === null) {
+        if (params.project.state !== "ABANDONS_REQUEST") {
             return
         }
 
@@ -21,11 +19,11 @@ export default function ProjectFinish(params) {
             return;
         }
 
-        getRequestFinishProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
+        getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
             if (r.length !== 0) {
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].state === "PENDING") {
-                        setFinish(r[i])
+                        setRequest(r[i])
                         return
                     }
                 }
@@ -35,18 +33,21 @@ export default function ProjectFinish(params) {
         });
     }, [context.user.uid, params.project.pid, params.project.team_assigned]);
 
-    const finishRejectButton = () => {
+    const leaveRejectButton = (state) => {
         setLoading(true)
+
         const body = {
-            "state": "REJECTED",
+            "state": state,
+            "request_id": request.par_id,
             "pid": params.project.pid,
             "tid": params.project.team_assigned.tid,
-            "request_id": finish.pfr_id
+            "reasons" : request.reasons
         }
 
-        finishProject(body).then(() => {
+        abandonProject(body).then((r) => {
             setLoading(false)
-            setFinish(undefined)
+            setRequest(undefined)
+            window.location.reload()
         }).catch((e) => {
             console.log(e)
             setLoading(false)
@@ -54,6 +55,10 @@ export default function ProjectFinish(params) {
     }
 
     const rejectButton = () => {
+        const reject = () => {
+            leaveRejectButton("REJECTED")
+        }
+
         if (loading) {
             return (
                 <div className="loading-button-reject">
@@ -62,11 +67,15 @@ export default function ProjectFinish(params) {
             )
         } else {
             return (
-                <CloseCircle size="48px" color="#CD5B45" variant="Bold" className={"icon-button"} onClick={finishRejectButton}/>
+                <CloseCircle size="48px" color="#CD5B45" variant="Bold" className={"icon-button"} onClick={reject}/>
             )
         }
     }
     const acceptButton = () => {
+        const accept = () => {
+            leaveRejectButton("ACCEPTED")
+        }
+
         if (loading) {
             return (
                 <div className="loading-button">
@@ -75,18 +84,17 @@ export default function ProjectFinish(params) {
             )
         } else {
             return (
-                <TickCircle size="48" color="#014751" variant="Bold" className={"icon-button"} onClick={() => {
-                    navigate("/review", {state: {project: params.project, isProject: true, request: finish}})}} />
+                <TickCircle size="48" color="#014751" variant="Bold" className={"icon-button"} onClick={accept} />
             )
         }
     }
 
-    if (finish !== undefined) {
+    if (request !== undefined) {
         return (
             <div className="invitation-container">
                 <div className="invitation">
                     <div>
-                        <b>{params.project.creator.name} {params.project.creator.lastname}</b> solícito la finalización del proyecto
+                        Do you agree to abandon this project because: <b>{request.reasons[0]}</b>
                     </div>
                     <div className="postulations-buttons-container">
                         {rejectButton()}

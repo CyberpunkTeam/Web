@@ -5,7 +5,7 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject, updateProject, abandonProject} from "../../services/projectService";
+import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
 import {AddCircle, CloseCircle, Edit, LogoutCurve, People, TickCircle, Trash, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -18,6 +18,8 @@ import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 import {requestFinishProject} from "../../services/notificationService";
 import ProjectFinish from "../../components/ProjectFinish";
+import {AbandonProjectModal} from "../../components/AbandonProjectModal";
+import LeaveProject from "../../components/LeaveProject";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -29,6 +31,7 @@ export default function ProjectScreen() {
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [isCancelProject, setIsCancelProject] = useState(false)
     const [disabledFinishButton, setDisableFinishButton] = useState(false);
     const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
@@ -36,6 +39,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -63,6 +67,12 @@ export default function ProjectScreen() {
     }
 
     const openModal = () => {
+        setIsCancelProject(false);
+        setIsOpen(true);
+    }
+
+    const openModalIfCancelProject = () => {
+        setIsCancelProject(true);
         setIsOpen(true);
     }
 
@@ -122,7 +132,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.state !== "PENDING" && project.state !== "WIP") {
+        if (project.state !== "PENDING") {
             return
         }
 
@@ -132,7 +142,6 @@ export default function ProjectScreen() {
                 "state": "CANCELLED"
             }
             updateProject(project.pid, body).then((r) => {
-                console.log(r)
                 window.location.reload()
                 setDisableCancelButton(false);
             })
@@ -160,31 +169,25 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.team_assigned.owner !== context.user.uid) {
+        if (project.team_assigned.owner !== context.user.uid && project.creator.uid !== context.user.uid) {
             return
-        }
-
-        const cancel = () => {
-            setDisableCancelButton(true)
-            abandonProject(project.team_assigned.tid, project.pid).then((r) => {
-                console.log(r)
-                setDisableCancelButton(false)
-            })
         }
 
         if (isMobile) {
             return (
-                <button className="cancelButtonMobile" onClick={cancel}>
+                <button className="cancelButtonMobile" onClick={openModalIfCancelProject}>
                     <LogoutCurve color="#FAFAFA" size={48}/>
                 </button>
             )
         }
 
+        const condition = project.creator.uid !== context.user.uid
+
         return (
-            <button className="cancel-project-button" onClick={cancel}>
+            <button className="cancel-project-button" onClick={openModalIfCancelProject}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <LogoutCurve color="#FAFAFA" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : "Abandonar Proyecto"}
+                {disabledCancelButton ? "" : condition ? "Abandonar Proyecto" : "Solicitar Abandono"}
             </button>
         )
     }
@@ -198,7 +201,7 @@ export default function ProjectScreen() {
             return
         }
 
-        const cancel = () => {
+        const finish = () => {
             setDisableFinishButton(true);
             const body = {
                 "pid": project.pid,
@@ -208,7 +211,6 @@ export default function ProjectScreen() {
             console.log(body)
 
             requestFinishProject(body).then((r) => {
-                console.log(r);
                 setDisableFinishButton(false);
                 window.alert("Se envió la petición de finalización del proyecto")
             })
@@ -216,14 +218,14 @@ export default function ProjectScreen() {
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={cancel}>
+                <button className="createTeamButtonMobile" onClick={finish}>
                     <TickCircle color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }
 
         return (
-            <button disabled={disabledFinishButton} className="postulate-button" onClick={cancel}>
+            <button disabled={disabledFinishButton} className="finish-button" onClick={finish}>
                 {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
                 {disabledFinishButton ? "" : "Finalizar Proyecto"}
@@ -266,7 +268,7 @@ export default function ProjectScreen() {
 
     const teamAssigned = (data) => {
 
-        if (data === null) {
+        if (project.state === "CANCELLED" || project.state === "PENDING") {
             return
         }
         const userNavigate = () => {
@@ -346,7 +348,8 @@ export default function ProjectScreen() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>
+                {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
+                    <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
             </Modal>
         )
     }
@@ -403,14 +406,20 @@ export default function ProjectScreen() {
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
                 <ProjectFinish project={project}/>
+                <LeaveProject project={project}/>
                 {cover()}
             </div>
             <div className="project-buttons-container">
-                {owner(project.creator)}
-                {teamAssigned(project.team_assigned)}
-                {postulate()}
-                {cancelProject()}
-                {finishProject()}
+                <div className={"projectButtonContainer"}>
+                    {owner(project.creator)}
+                    {teamAssigned(project.team_assigned)}
+                    {postulate()}
+                </div>
+                <div className={"projectButtonContainer"}>
+                    {cancelProject()}
+                    {abandonProjectButton()}
+                    {finishProject()}
+                </div>
             </div>
             <div className="tagsFilterContainer">
                 <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
@@ -441,7 +450,7 @@ const modalStyle = {
         fontFamily: "Inter",
         padding: '0',
         borderWidth: 0,
-        borderRadius: '10px',
+        borderRadius: '16px',
         top: '50%',
         left: '50%',
         right: 'auto',
