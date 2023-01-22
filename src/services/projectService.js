@@ -37,3 +37,7 @@ export const projectReview = (body) => {
 export const getProjectReview = (pid, tid) => {
     return get(`/projects_reviews/?pid=${pid}&tid=${tid}`)
 }
+
+export const getRequestAbandonProject = (tid, pid) => {
+    return get(`/project_abandons_requests/?tid=${tid}&pid=${pid}`)
+}

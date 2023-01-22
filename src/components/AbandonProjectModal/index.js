@@ -26,6 +26,7 @@ export function AbandonProjectModal(params) {
             abandonProject(body).then((r) => {
                 setButtonDisabled(false)
                 params.closeModal()
+                window.location.reload()
             })
         } else {
             abandonProjectRequest(body).then((r) => {

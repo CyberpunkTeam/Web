@@ -19,6 +19,7 @@ import {formatDate} from "../../utils/dateFormat";
 import {requestFinishProject} from "../../services/notificationService";
 import ProjectFinish from "../../components/ProjectFinish";
 import {AbandonProjectModal} from "../../components/AbandonProjectModal";
+import LeaveProject from "../../components/LeaveProject";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -38,6 +39,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -268,7 +270,7 @@ export default function ProjectScreen() {
 
     const teamAssigned = (data) => {
 
-        if (project.state !== "WIP" && project.state !== "FINISH") {
+        if (project.state === "CANCELLED" || project.state === "PENDING") {
             return
         }
         const userNavigate = () => {
@@ -406,6 +408,7 @@ export default function ProjectScreen() {
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
                 <ProjectFinish project={project}/>
+                <LeaveProject project={project}/>
                 {cover()}
             </div>
             <div className="project-buttons-container">
