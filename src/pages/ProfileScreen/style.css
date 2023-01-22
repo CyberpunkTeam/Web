@@ -568,8 +568,22 @@
     overflow-y: hidden;
     overflow-x: hidden;
     flex-direction: column;
-    height: 620px;
+    height: 556px;
     width: 500px;
+    padding: 32px 0;
+    background: #F1F1F1;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-container-reduced {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 556px;
+    width: 420px;
+    padding: 32px 0;
     background: #F1F1F1;
     align-items: center;
     justify-content: space-between;

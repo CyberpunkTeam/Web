@@ -33,7 +33,7 @@ export default function ProjectFinish(params) {
         }).catch((error) => {
             console.log(error)
         });
-    }, [context.user.uid, params.project.pid]);
+    }, [context.user.uid, params.project.pid, params.project.team_assigned]);
 
     const finishRejectButton = () => {
         setLoading(true)

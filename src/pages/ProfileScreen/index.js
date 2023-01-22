@@ -254,7 +254,7 @@ const modalStyle = {
         fontFamily: "Inter",
         padding: '0',
         borderWidth: 0,
-        borderRadius: '10px',
+        borderRadius: '16px',
         top: '50%',
         left: '50%',
         right: 'auto',
