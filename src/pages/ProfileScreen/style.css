@@ -249,6 +249,7 @@
     width: 100%;
     display: flex;
     overflow-y: hidden;
+    justify-content: space-between;
     overflow-x: auto;
 }
 
@@ -268,11 +269,27 @@
     cursor: pointer;
 }
 
+.finish-button {
+    min-width: 200px;
+    background: #014751;
+    border-width: 0;
+    margin-left: 16px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+    cursor: pointer;
+}
+
 .cancel-project-button {
     background: #CD5B45;
     min-width: 200px;
     border-width: 0;
-    margin-right: 16px;
+    margin-left: 16px;
     display: flex;
     padding: 0 16px;
     font-size: 16px;

@@ -168,7 +168,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.team_assigned.owner !== context.user.uid) {
+        if (project.team_assigned.owner !== context.user.uid && project.creator.uid !== context.user.uid) {
             return
         }
 
@@ -180,11 +180,13 @@ export default function ProjectScreen() {
             )
         }
 
+        const condition = project.creator.uid !== context.user.uid
+
         return (
             <button className="cancel-project-button" onClick={openModalIfCancelProject}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <LogoutCurve color="#FAFAFA" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : "Abandonar Proyecto"}
+                {disabledCancelButton ? "" : condition ? "Abandonar Proyecto" : "Solicitar Abandono"}
             </button>
         )
     }
@@ -223,7 +225,7 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button disabled={disabledFinishButton} className="postulate-button" onClick={finish}>
+            <button disabled={disabledFinishButton} className="finish-button" onClick={finish}>
                 {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
                 {disabledFinishButton ? "" : "Finalizar Proyecto"}
@@ -266,7 +268,7 @@ export default function ProjectScreen() {
 
     const teamAssigned = (data) => {
 
-        if (data === null) {
+        if (project.state !== "WIP" && project.state !== "FINISH") {
             return
         }
         const userNavigate = () => {
@@ -407,12 +409,16 @@ export default function ProjectScreen() {
                 {cover()}
             </div>
             <div className="project-buttons-container">
-                {owner(project.creator)}
-                {teamAssigned(project.team_assigned)}
-                {postulate()}
-                {cancelProject()}
-                {abandonProjectButton()}
-                {finishProject()}
+                <div className={"projectButtonContainer"}>
+                    {owner(project.creator)}
+                    {teamAssigned(project.team_assigned)}
+                    {postulate()}
+                </div>
+                <div className={"projectButtonContainer"}>
+                    {cancelProject()}
+                    {abandonProjectButton()}
+                    {finishProject()}
+                </div>
             </div>
             <div className="tagsFilterContainer">
                 <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {

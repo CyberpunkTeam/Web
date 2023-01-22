@@ -1,11 +1,14 @@
 import './style.css'
 import {ArrowDown2, CloseCircle} from "iconsax-react";
-import {useState} from "react";
-import {abandonProject} from "../../services/notificationService";
+import {useContext, useState} from "react";
+import {abandonProject, abandonProjectRequest} from "../../services/notificationService";
+import AppContext from "../../utils/AppContext";
 
 export function AbandonProjectModal(params) {
+    let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [reason, setReason] = useState("The owner did not carry out the payments")
+    const condition = params.project.creator.uid !== context.user.uid;
+    const [reason, setReason] = useState(condition ? "The owner did not carry out the payments" : "I don't want to do this project")
 
     const setReasonHandler = (event) => {
         setReason(event.target.value);
@@ -19,36 +22,66 @@ export function AbandonProjectModal(params) {
             "reasons": [reason]
         }
 
-        console.log(body)
+        if (condition) {
+            abandonProject(body).then((r) => {
+                setButtonDisabled(false)
+                params.closeModal()
+            })
+        } else {
+            abandonProjectRequest(body).then((r) => {
+                setButtonDisabled(false);
+                params.closeModal();
+            })
+        }
+    }
 
-        abandonProject(body).then((r) => {
-            console.log(r)
-            setButtonDisabled(false)
-        })
+    const options = () => {
+        if (condition) {
+            return (
+                <>
+                    <option value="The owner did not carry put with payments">
+                        The owner did not carry out the payments
+                    </option>
+                    <option value="Disagreements with the owner">
+                        Disagreements with the owner
+                    </option>
+                    <option value="The owner never answered our messages">
+                        The owner never answered our messages
+                    </option>
+                    <option value="The owner discontinued project">
+                        The owner discontinued project
+                    </option>
+                </>
+            )
+        }
+
+        return (
+            <>
+                <option value="I don't want to do this project">
+                    I don't want to do this project
+                </option>
+                <option value="Disagreements with the team">
+                    Disagreements with the team
+                </option>
+                <option value="The team never answered my messages">
+                    The team never answered my messages
+                </option>
+            </>
+        )
     }
 
     return (
         <div className={"abandonModal"}>
             <div className="form-text">
-                Are you sure you want to leave the project?
+                {condition ? "Are you sure you want to leave this project?" : "Are you sure you want the team leaves this project?"}
             </div>
             <form className="modal-form">
                 <label className="create-project-label">
-                    What is the reason you want to leave?
+                    {condition ?
+                        "What is the reason you want to leave?" : "What is the reason?"}
                     <div className="create-project-input">
                         <select value={reason} className="select" onChange={setReasonHandler}>
-                            <option value="The owner did not carry put with payments">
-                                The owner did not carry out the payments
-                            </option>
-                            <option value="Disagreements with the owner">
-                                Disagreements with the owner
-                            </option>
-                            <option value="The owner never answered our messages">
-                                The owner never answered our messages
-                            </option>
-                            <option value="The owner discontinued project">
-                                The owner discontinued project
-                            </option>
+                            {options()}
                         </select>
                         <ArrowDown2 className="from-button" color="#B1B1B1" variant="Outline" size={20}/>
                     </div>
@@ -60,9 +93,9 @@ export function AbandonProjectModal(params) {
                 </button>
                 <button disabled={buttonDisabled}
                         onClick={abandon}
-                        className={buttonDisabled ? "leave-project-button-style-disabled" : "leave-project-button-style"}>
+                        className={buttonDisabled ? condition ? "leave-project-button-style-disabled" : "save-edit-button-style-disabled" : condition ? "leave-project-button-style" : "save-edit-button-style"}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Leave"}
+                    {buttonDisabled ? "" : condition ? "Leave" : "Send"}
                 </button>
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>

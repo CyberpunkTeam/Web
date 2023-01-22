@@ -117,3 +117,8 @@
 .history:last-child {
     border-bottom: none
 }
+
+.projectButtonContainer {
+    display: flex;
+    flex-direction: row;
+}

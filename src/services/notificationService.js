@@ -41,3 +41,7 @@ export const finishProject = (body) => {
 export const abandonProject = (body) => {
     return post(endpoint + "project_abandonment/", body)
 }
+
+export const abandonProjectRequest = (body) => {
+    return post(endpoint + "project_abandons_requests/", body)
+}
