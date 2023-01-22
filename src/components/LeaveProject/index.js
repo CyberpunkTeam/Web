@@ -31,7 +31,7 @@ export default function LeaveProject(params) {
         }).catch((error) => {
             console.log(error)
         });
-    }, [context.user.uid, params.project.pid, params.project.team_assigned]);
+    }, [context.user.uid, params.project.pid, params.project.team_assigned, params.project.state]);
 
     const leaveRejectButton = (state) => {
         setLoading(true)
