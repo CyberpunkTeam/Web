@@ -51,9 +51,9 @@ function Register(params) {
             "location": city,
             "uid": params.uid
         }
-        createUser(userLogin).then(() => {
+        createUser(userLogin).then((r) => {
             context.setUser(userLogin);
-            localStorage.setItem("user", JSON.stringify(userLogin))
+            localStorage.setItem("user", JSON.stringify(r))
             setButtonDisabled(false);
             navigate('/me')
         }).catch((error) => {
