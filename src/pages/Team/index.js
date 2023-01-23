@@ -123,7 +123,7 @@ export default function TeamScreen() {
 
     const member = (data) => {
         const userNavigate = () => {
-            const user_link = data.uid === teamData.owner ? '/me' : '/user/' + data.uid;
+            const user_link = data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
             navigate(user_link);
         }
 
