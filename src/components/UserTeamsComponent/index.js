@@ -54,7 +54,7 @@ export default function UserTeamsComponent(params) {
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>
                     <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
-                    5.0
+                    {data.overall_rating}
                 </div>
             </div>
         )

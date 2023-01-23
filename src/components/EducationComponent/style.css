@@ -3,7 +3,7 @@
     position: relative;
     background: #F1F1F1;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .experience-empty-info-container {
@@ -37,7 +37,7 @@
     justify-content: center;
     background: #F1F1F1;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .experience-empty-title {

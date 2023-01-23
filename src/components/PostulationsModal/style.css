@@ -22,7 +22,7 @@
     padding: 32px;
     font-size: 16px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .postulation-team-view-reduce {
@@ -32,7 +32,7 @@
     padding: 32px;
     font-size: 16px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .team-postulation-info {
