@@ -26,7 +26,6 @@ export default function ProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
-    //const [teams, setTeams] = useState(undefined)
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -39,7 +38,6 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
-            console.log(response)
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -96,20 +94,18 @@ export default function ProjectScreen() {
             return
         }
 
+
         if (project.state !== "PENDING") {
             return
         }
 
-        /*let teamsList = []
-        userTeams.map((value) => {
-            teamsList.push(value.tid)
-        })
-
-        const intersection = teamsList.filter(element => teams.includes(element));
-
-        if (intersection.length === teamsList.length) {
+        if (userTeams === undefined) {
             return
-        }*/
+        }
+
+        if (userTeams.length === 0) {
+            return
+        }
 
         if (isMobile) {
             return (

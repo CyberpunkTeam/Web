@@ -207,6 +207,9 @@
 
 .notifications{
     font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-radius: 16px;
     font-weight: 700;
     color: #222222;

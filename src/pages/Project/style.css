@@ -31,7 +31,7 @@
     width: 49%;
     background: #F1F1F1;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .project-information-container-reduce {
@@ -41,7 +41,7 @@
     width: 100%;
     background: #F1F1F1;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .project-information-card {

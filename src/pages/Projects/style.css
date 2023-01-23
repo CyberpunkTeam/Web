@@ -38,7 +38,7 @@
     background: #F1F1F1;
     height: 208px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .project-card-container:first-child {
@@ -88,7 +88,7 @@
     background: #014751;
     height: 420px;
     border-radius: 16px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .popular-card {
