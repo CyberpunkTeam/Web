@@ -15,6 +15,13 @@ export default function TeamReview() {
     const [review, setReview] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
+    const [reviews, setReviews] = useState({})
+
+    const updateReviews = (newReviews) => {
+        console.log(reviews);
+        console.log(newReviews);
+        setReviews(newReviews)
+    }
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -29,7 +36,7 @@ export default function TeamReview() {
 
 
     if (isLoading) {
-        return <Loading />
+        return <Loading/>
     }
 
     if (review.length !== 0) {
@@ -47,18 +54,19 @@ export default function TeamReview() {
     return (
         <div className="profile-screen">
             <div className={"reviewContainer"}>
-                Complete the team review for the project
+                Complete the team's members review for the project
                 <br/>
                 {team.members.map((value) => {
-                    return <MemberReview key={value.uid} user={value} />
+                    return <MemberReview key={value.uid} user={value} updateReviews={updateReviews} reviews={reviews}/>
                 })}
                 <div className="review-buttons">
                     <button disabled={loading} className={"review-red-button"}>
-                        Cancelar
+                        Cancel
                     </button>
-                    <button disabled={loading} className={loading  ? "review-green-button-disabled" : "review-green-button"}>
+                    <button disabled={loading}
+                            className={loading ? "review-green-button-disabled" : "review-green-button"}>
                         {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {loading ? "" : "Finalizar"}
+                        {loading ? "" : "Send Reviews"}
                     </button>
                 </div>
             </div>

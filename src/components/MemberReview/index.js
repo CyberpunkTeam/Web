@@ -1,11 +1,11 @@
 import './style.css'
-import {ArrowDown2, Star1} from "iconsax-react";
+import {ArrowDown2, Star1, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 
 export default function MemberReview(params) {
     let context = useContext(AppContext);
-    const [rate, setRate] = useState(0)
+    const [rate, setRate] = useState(1)
     const [participate, setParticipate] = useState("No")
 
     if (params.user.uid === context.user.uid) {
@@ -13,10 +13,31 @@ export default function MemberReview(params) {
     }
     const changeRate = (value) => {
         setRate(value)
+        params.reviews[params.user.uid] = value;
+        params.updateReviews(params.reviews)
+    }
+
+    const user_image = (data) => {
+        if (data.profile_image === "default") {
+            return (
+                <div className="member-photo">
+                    <User color="#FAFAFA" size="16px" variant="Bold"/>
+                </div>
+            )
+        } else {
+            return <img src={data.profile_image} alt='' className="user-sidebar"/>
+        }
     }
 
     const setLanguageHandler = (event) => {
         setParticipate(event.target.value);
+        if (event.target.value === "No") {
+            delete  params.reviews[params.user.uid];
+            setRate(1)
+        } else {
+            params.reviews[params.user.uid] = rate;
+        }
+        params.updateReviews(params.reviews)
     }
     const star = (value) => {
         return (
@@ -50,7 +71,10 @@ export default function MemberReview(params) {
         <div className="reviewRating">
             <div className="reviewRatingData">
                 <div className={"membersReviewContainer"}>
-                    {params.user.name} {params.user.lastname}
+                    {user_image(params.user)}
+                    <div className={"membersNameReviewContainer"}>
+                        {params.user.name} {params.user.lastname}
+                    </div>
                 </div>
                 Participated in the project?
                 <label className="participation-label">
