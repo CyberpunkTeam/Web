@@ -7,22 +7,26 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {Star1} from "iconsax-react";
 import {getProjectReview, projectReview} from "../../services/projectService";
 import {getTeamReview, teamReview} from "../../services/teamService";
+import Loading from "../../components/loading";
 
 export default function ReviewScreen() {
     const navigate = useNavigate();
     const {state} = useLocation();
-    const [review, setReview] = useState(false)
+    const [review, setReview] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0)
 
     useEffect(() => {
         if (state.isProject) {
             getProjectReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
-                setReview(r)
+                setReview(r);
+                setIsLoading(false);
             })
         } else {
             getTeamReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
-                setReview(r)
+                setReview(r);
+                setIsLoading(false);
             })
         }
     }, [state.isProject, state.project.pid, state.project.team_assigned.tid]);
@@ -84,6 +88,10 @@ export default function ReviewScreen() {
                    }
                    }/>
         )
+    }
+
+    if (isLoading) {
+        return <Loading />
     }
 
     if (review.length !== 0) {

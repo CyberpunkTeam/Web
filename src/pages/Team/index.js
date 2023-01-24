@@ -101,7 +101,7 @@ export default function TeamScreen() {
                         {teamData.name}
                         <div className="team-rating">
                             <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
-                            {teamData.overall_rating}
+                            {teamData.overall_rating.toFixed(1)}
                         </div>
                     </div>
                     <div className="tags-container">

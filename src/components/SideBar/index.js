@@ -124,6 +124,8 @@ function SideBar() {
                 })
             } else if (notification_type === "ABANDONED_PROJECT") {
                 navigate("/projects/" + id)
+            } else if (notification_type === "TEAM_REVIEW") {
+                navigate("/team/review/" + id)
             }
         }
 
@@ -139,6 +141,7 @@ function SideBar() {
             }
         }
         const notificationLi = (data) => {
+            console.log(data)
             return (
                 <li key={data.nid} onClick={() => {
                     buttonNavigation(data.resource_id, data.notification_type, data.content)
