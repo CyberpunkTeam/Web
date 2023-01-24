@@ -18,7 +18,7 @@ function MainScreen() {
     const [loginError, setLoginError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
+    const [errorMessage, setErrorMessage] = useState("The email is already registered");
     const [passwordShown, setPasswordShown] = useState(false);
     const setEmailHandler = (event) => {
         setLoginError(false);
@@ -38,12 +38,12 @@ function MainScreen() {
         if (passwordError) {
             return (
                 <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
-                    La Contraseña debe contener:
+                    The Password must contain:
                     <ul>
-                        <li>Una Mayúscula</li>
-                        <li>Una Minúscula</li>
-                        <li>Un Número</li>
-                        <li>Al menos 8 caracteres</li>
+                        <li>An Uppercase</li>
+                        <li>A Lowercase</li>
+                        <li>A Number</li>
+                        <li>At least 8 characters</li>
                     </ul>
                 </div>
             )
@@ -59,7 +59,7 @@ function MainScreen() {
     const registerButton = () => {
         if (email.length === 0 || password.length === 0) {
             setLoginError(true);
-            setErrorMessage("Completar los campos requeridos")
+            setErrorMessage("Complete the required fields")
             return
         }
 
@@ -80,9 +80,9 @@ function MainScreen() {
             })
             .catch((error) => {
                 if (error.code.includes("invalid-email")) {
-                    setErrorMessage("El mail es invalido")
+                    setErrorMessage("The email is invalid")
                 } else {
-                    setErrorMessage("El email ya se encuentra registado")
+                    setErrorMessage("The email is already registered")
                 }
                 setLoginError(true);
                 console.log(error.code);
@@ -110,7 +110,7 @@ function MainScreen() {
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        Contraseña
+                        Password
                         <div className="form-input">
                             <input type={passwordShown ? "text" : "password"} value={password}
                                    className={isMobile ? "input-mobile" : "input"}
@@ -137,9 +137,9 @@ function MainScreen() {
     const loginButton = () => {
         return (
             <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
-                ¿Ya tienes una cuenta?
+                Do you already have an account?
                 <Link to="/login" className={isMobile ? "login-mobile" : "login"}>
-                    Inicia Sesión
+                    Sign In
                 </Link>
             </div>
         )
@@ -149,13 +149,13 @@ function MainScreen() {
         return (
             <div className="verify-message">
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Verifica tu cuenta
+                    Verify your account
                 </div>
                 <div className={isMobile ? "verify-text-mobile" : "verify-text"}>
                     <div>
-                        Enviamos un correo a <b>{email}</b>,
+                        We send an email to <b>{email}</b>,
                     </div>
-                    por favor veríficalo para continuar
+                    please verify your email box to continue
                 </div>
             </div>
         )
@@ -165,7 +165,7 @@ function MainScreen() {
         return (
             <>
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Únete y forma parte de nuestra comunidad
+                    Join and be part of our community
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     {emailData()}
@@ -175,7 +175,7 @@ function MainScreen() {
                     <button disabled={loginError || loading}
                             className={loading ? isMobile ? "loading-style-mobile" : "loading-style" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={registerButton}>
-                        Unirse
+                        Join
                     </button>
                     {loginButton()}
                 </div>
@@ -189,7 +189,7 @@ function MainScreen() {
                 <Logo/>
                 <div className="mobile-register-container">
                     <div className="title-style-mobile">
-                        Encuentra tu equipo ideal de manera sencilla y rápida
+                        Find your ideal team easily and quickly
                     </div>
                     <div className="form-container-mobile">
                         {register ? verifyMessage() : registerForm()}
@@ -207,7 +207,7 @@ function MainScreen() {
                 <div className="container-login">
                     <div className="pana-container">
                         <div className="title-style">
-                            Encuentra tu equipo ideal de manera sencilla y rápida
+                            Find your ideal team easily and quickly
                         </div>
                         <img src={pana} className="pana-style" alt="logo"/>
                     </div>

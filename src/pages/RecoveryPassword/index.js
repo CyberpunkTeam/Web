@@ -25,7 +25,7 @@ export default function RecoveryPassword() {
             })
             .catch((error) => {
                 if (error.code === "auth/user-not-found") {
-                    setUserError("Usuario no encontrado")
+                    setUserError("User Not Found")
                 }
             }).finally(() => {
             setButtonDisabled(false);
@@ -36,13 +36,13 @@ export default function RecoveryPassword() {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className="form-text">
-                    Restablece tu contraseña
+                    Recover your Password
                 </div>
                 <div className="verify-text">
                     <div>
-                        Enviamos un correo a <b>{email}</b>,
+                        We send an email to <b>{email}</b>,
                     </div>
-                    por favor veríficalo para continuar
+                    please verify your email box to continue
                 </div>
             </div>
         )
@@ -52,7 +52,7 @@ export default function RecoveryPassword() {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Recupera tu cuenta
+                    Recover Account
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     <div className={isMobile ? "label-mobile" : "label"}>
@@ -71,7 +71,7 @@ export default function RecoveryPassword() {
                             className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={forgotPassword}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : "Enviar"}
+                        {buttonDisabled ? "" : "Send"}
                     </button>
                 </div>
             </div>

@@ -27,7 +27,7 @@ function Login() {
     const [passwordShown, setPasswordShown] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [userError, setUserError] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("Usuario no encontrado");
+    const [errorMessage, setErrorMessage] = useState("User Not Found");
     const setEmailHandler = (event) => {
         setEmail(event.target.value);
         setUserError(false);
@@ -46,12 +46,12 @@ function Login() {
         if (passwordError) {
             return (
                 <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
-                    La Contraseña debe contener:
+                    The Password must contain:
                     <ul>
-                        <li>Una Mayúscula</li>
-                        <li>Una Minúscula</li>
-                        <li>Un Número</li>
-                        <li>Al menos 8 caracteres</li>
+                        <li>An Uppercase</li>
+                        <li>A Lowercase</li>
+                        <li>A Number</li>
+                        <li>At least 8 characters</li>
                     </ul>
                 </div>
             )
@@ -67,7 +67,7 @@ function Login() {
     const changePassword = () => {
         if (email.length === 0 || password.length === 0) {
             setUserError(true);
-            setErrorMessage("Completar los campos requeridos")
+            setErrorMessage("Complete the required fields")
             return
         }
 
@@ -88,7 +88,7 @@ function Login() {
                 loginButton()
             } else {
                 setUserError(true);
-                setErrorMessage("La solicitud para restablecer tu contraseña caducó o ya se usó el vínculo")
+                setErrorMessage("Your request to reset your password has expired or the link has already been used")
             }
         }).finally(() => {
             setButtonDisabled(false)
@@ -112,7 +112,7 @@ function Login() {
                 return
             }
             setUserError(true);
-            setErrorMessage("se produjo un error inesperado, intente más tarde")
+            setErrorMessage("An unexpected error occurred, please try again later")
             setButtonDisabled(false)
         });
     }
@@ -120,7 +120,7 @@ function Login() {
     const loginButton = () => {
         if (email.length === 0 || password.length === 0) {
             setUserError(true);
-            setErrorMessage("Completar los campos requeridos")
+            setErrorMessage("Complete the required fields")
             return
         }
         setButtonDisabled(true)
@@ -138,11 +138,11 @@ function Login() {
             })
             .catch((error) => {
                 if (error.code.includes("wrong-password")) {
-                    setErrorMessage("Contraseña incorrecta")
+                    setErrorMessage("Wrong password")
                 } else if (error.code.includes("auth/user-not-found")) {
-                    setErrorMessage("Usuario no encontrado")
+                    setErrorMessage("User Not Found")
                 } else {
-                    setErrorMessage("Hubo un error con su usuario")
+                    setErrorMessage("There was an error with your username")
                 }
                 setUserError(true);
                 setButtonDisabled(false)
@@ -153,9 +153,9 @@ function Login() {
         if (!emailRegister) {
             return (
                 <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
-                    ¿No tienes una cuenta?
+                    You do not have an account?
                     <Link to="/" className={isMobile ? "login-mobile" : "login"}>
-                        Únete ahora
+                        Join
                     </Link>
                 </div>
             )
@@ -171,7 +171,7 @@ function Login() {
             return (
                 <div className="forgot-container">
                     <Link to="/recovery" className={isMobile ? "forgot-mobile" : "forgot"}>
-                        ¿Has olvidado tu contraseña?
+                        Forgot Password?
                     </Link>
                 </div>
             )
@@ -188,7 +188,7 @@ function Login() {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    {recoveryPasswordMode ? "Recuperar Cuenta" : "Iniciar Sesión"}
+                    {recoveryPasswordMode ? "Recover Account" : "Sign In"}
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     <div className={isMobile ? "label-mobile" : "label"}>
@@ -203,7 +203,7 @@ function Login() {
                     </div>
                     <div className={isMobile ? "label-mobile" : "label"}>
                         <label>
-                            Contraseña
+                            Password
                             <div className="form-input">
                                 <input type={passwordShown ? "text" : "password"}
                                        value={password}
@@ -233,7 +233,7 @@ function Login() {
                             className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={recoveryPasswordMode ? changePassword : loginButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : recoveryPasswordMode ? "Recuperar" : "Iniciar Sesión"}
+                        {buttonDisabled ? "" : recoveryPasswordMode ? "Recovery" : "Sign In"}
                     </button>
                     {joinButton()}
                 </div>
