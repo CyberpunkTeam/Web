@@ -50,14 +50,14 @@ export default function TeamPostulationView(params) {
                     </div>
                 </div>
                 <div className={context.size ? "descriptionContainerReduced" : "descriptionContainer"}>
-                    Descripción enviada
+                    Description Sent
                     <div className="description-modal">
                         {showMore ? params.data.proposal_description.substring(0, params.data.proposal_description.length) : params.data.proposal_description.substring(0, 600)}
                         {showMore || params.data.proposal_description.length < 600 ? "" : "..."}
                     </div>
                     <div className={"seeMore"} onClick={seeMore}>
                         {params.data.proposal_description.length < 600 ? null : !showMore ?
-                            "Ver Más" : "Ver Menos"}
+                            "Show More" : "Show Less"}
                     </div>
                     <div className="date-project">
                         {formatDate(params.data.created_date)}

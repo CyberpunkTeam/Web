@@ -17,7 +17,6 @@ import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
-import 'moment/locale/es';
 import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
@@ -93,7 +92,7 @@ function SideBar() {
 
     const notificationHover = () => {
 
-        const buttonNavigation = (id, notification_type, message) => {
+        const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
@@ -124,6 +123,8 @@ function SideBar() {
                 })
             } else if (notification_type === "ABANDONED_PROJECT") {
                 navigate("/projects/" + id)
+            } else if (notification_type === "TEAM_REVIEW") {
+                navigate("/team/review/" + id, {state: metadata})
             }
         }
 
@@ -141,7 +142,7 @@ function SideBar() {
         const notificationLi = (data) => {
             return (
                 <li key={data.nid} onClick={() => {
-                    buttonNavigation(data.resource_id, data.notification_type, data.content)
+                    buttonNavigation(data.resource_id, data.notification_type, data.content, data.metadata)
                 }}>
                     <div className="notification-list-data">
                         <div className="user-notification">
@@ -163,7 +164,7 @@ function SideBar() {
                 return (
                     <div className="without">
                         <EmojiHappy size="48" color="rgb(46, 153, 153)" variant="Bold"/>
-                        Sin Notificaciones
+                        Without Notifications
                     </div>
                 )
             } else {
@@ -178,7 +179,7 @@ function SideBar() {
                 <div className={context.size ? "notifications-container-reduce" : "notifications-container"}>
                     <div id="notifications" className={context.size ? "notifications-reduce" : "notifications"}>
                         <div className="notification-title">
-                            Notificaciones
+                            Notifications
                         </div>
                         <div className="notification-list">
                             {showNotifications()}
@@ -200,12 +201,12 @@ function SideBar() {
                 <div className="notifications-container">
                     <div id="notifications" className="notifications">
                         <div className="notification-title">
-                            Configuración
+                            Settings
                         </div>
                         <div className="logout" onClick={logout}>
                             <div className="logout-info">
                                 <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
-                                Cerrar Sesión
+                                Log Out
                             </div>
                         </div>
                     </div>
@@ -260,27 +261,27 @@ function SideBar() {
                             navigate("/projects")
                         }}>
                             <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={context.size ? 28: 60}/>
-                            Proyectos
+                            Projects
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
                             <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
-                            Articulos
+                            Articles
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
                             <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
-                            Inicio
+                            Home
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={context.size ? closeNotification : null}>
                             <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
                             {unreadNotifications.length !== 0 ?
                                 <span className="notification-numbers-mobile"></span> : null}
-                            Notificaciones
+                            Notifications
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
                             navigate("/me")
                         }}>
                             {user_image_mobile()}
-                            Perfil
+                            Profile
                         </div>
                     </div>
                 </div>

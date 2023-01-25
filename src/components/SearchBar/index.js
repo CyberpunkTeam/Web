@@ -118,7 +118,7 @@ export default function SearchBar() {
             }
             return (
                 <div className="see-more" onClick={viewResults}>
-                    Ver todo
+                    Show All
                 </div>
             )
         }
@@ -126,12 +126,12 @@ export default function SearchBar() {
         return (
             <div className="search-result" onBlur={clearSearch}>
                 <div className="search-result-container">
-                    {result.users.length !== 0 ? "Usuarios" : ""}
+                    {result.users.length !== 0 ? "Users" : ""}
                     {result.users.slice(0, 5).map((user) => {
                         return memberView(user)
                     })}
                     <div className="teams-search">
-                        {result.teams.length !== 0 ? "Equipos" : ""}
+                        {result.teams.length !== 0 ? "Teams" : ""}
                         {result.teams.slice(0, 5).map((team) => {
                             return teamView(team)
                         })}

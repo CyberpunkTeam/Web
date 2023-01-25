@@ -37,7 +37,7 @@ export default function ProjectsScreen() {
                         </div>
                         <div className="project-info">
                             <div className="titles">
-                                Creador:
+                                Creator:
                                 <div className="creator" onClick={() => {
                                     navigate(link_to)
                                 }}>
@@ -46,7 +46,7 @@ export default function ProjectsScreen() {
                             </div>
                             <div className="project-tech-info">
                                 <div className="titles">
-                                    Tecnologías:
+                                    Technologies:
                                 </div>
                                 {data.technologies.map((info) => {
                                     return <TechnologyTag key={info} technology={info}/>
@@ -54,7 +54,7 @@ export default function ProjectsScreen() {
                             </div>
                             <div className="project-tech-info">
                                 <div className="titles">
-                                    Idiomas:
+                                    Languages:
                                 </div>
                                 {data.idioms.map((info) => {
                                     return <PreferenceTag key={info} preference={info}/>
@@ -79,7 +79,7 @@ export default function ProjectsScreen() {
             return (
                 <div className="most-popular-card-container">
                     <div className="popular-card">
-                        Más Populares
+                        Most Popular
                         <>
                         </>
                     </div>
@@ -95,7 +95,7 @@ export default function ProjectsScreen() {
             <div>
                 <div className="projects-screen">
                     <div className="projects-header">
-                        Proyectos
+                        Projects
                         <AddCircle size="24" color="#B1B1B1" className="create-project-button" onClick={() => {
                             navigate(("/projects/new"))
                         }}/>

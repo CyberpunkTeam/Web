@@ -39,7 +39,7 @@ function Register(params) {
 
     const registerButton = () => {
         if (name.length === 0 || lastName.length === 0 || city.length === 0) {
-            setErrorMessage("Completar los campos requeridos")
+            setErrorMessage("Complete the required fields")
             return
         }
         setButtonDisabled(true);
@@ -71,7 +71,7 @@ function Register(params) {
             <>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        Nombre
+                        Name
                         <input type="text"
                                value={name}
                                className={isMobile ? "input-mobile" : "input"}
@@ -80,7 +80,7 @@ function Register(params) {
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        Apellido
+                        Surname
                         <input type="text"
                                value={lastName}
                                className={isMobile ? "input-mobile" : "input"}
@@ -89,7 +89,7 @@ function Register(params) {
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        Ciudad
+                        Location
                         <input type="text"
                                value={city}
                                className={isMobile ? "input-mobile" : "input"}
@@ -103,7 +103,7 @@ function Register(params) {
     return (
         <div className={isMobile ? "form-container-mobile" : "form-container"}>
             <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                Completa tus datos para poder continuar
+                Complete your personal information
             </div>
             <form className={isMobile ? "form-mobile" : "form"}>
                 {userData()}
@@ -114,7 +114,7 @@ function Register(params) {
                         className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
                         onClick={registerButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Finalizar"}
+                    {buttonDisabled ? "" : "Complete"}
                 </button>
             </div>
         </div>

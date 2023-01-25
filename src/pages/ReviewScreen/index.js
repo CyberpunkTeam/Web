@@ -7,22 +7,26 @@ import {useLocation, useNavigate} from "react-router-dom";
 import {Star1} from "iconsax-react";
 import {getProjectReview, projectReview} from "../../services/projectService";
 import {getTeamReview, teamReview} from "../../services/teamService";
+import Loading from "../../components/loading";
 
 export default function ReviewScreen() {
     const navigate = useNavigate();
     const {state} = useLocation();
-    const [review, setReview] = useState(false)
+    const [review, setReview] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0)
 
     useEffect(() => {
         if (state.isProject) {
             getProjectReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
-                setReview(r)
+                setReview(r);
+                setIsLoading(false);
             })
         } else {
             getTeamReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
-                setReview(r)
+                setReview(r);
+                setIsLoading(false);
             })
         }
     }, [state.isProject, state.project.pid, state.project.team_assigned.tid]);
@@ -86,11 +90,15 @@ export default function ReviewScreen() {
         )
     }
 
+    if (isLoading) {
+        return <Loading />
+    }
+
     if (review.length !== 0) {
         return (
             <div className="profile-screen">
                 <div className={"reviewCompleteContainer"}>
-                    {state.isProject ? "Ya realizaste la review de este proyecto" : "Ya realizaste la review de este equipo"}
+                    {state.isProject ? "You already reviewed this project" : "You already reviewed this team"}
                 </div>
                 <SearchBar/>
                 <SideBar/>
@@ -101,10 +109,10 @@ export default function ReviewScreen() {
     return (
         <div className="profile-screen">
             <div className={"reviewContainer"}>
-                {state.isProject ? state.project.name : state.project.team_assigned.name}
+                Review the {state.isProject ?  "Project: " + state.project.name : "Team: " + state.project.team_assigned.name}
                 <div className="reviewRating">
                     <div className="reviewRatingData">
-                        {state.isProject ? "Calificación del Proyecto" : "Calificación del Equipo"}
+                        How would you rate it?
                         <div className={"stars"}>
                             {[1, 2, 3, 4, 5].map((value) => {
                                 return star(value);
@@ -114,13 +122,13 @@ export default function ReviewScreen() {
                 </div>
                 <div className="review-buttons">
                     <button disabled={loading} className={"review-red-button"} onClick={goBack}>
-                        Cancelar
+                        Cancel
                     </button>
                     <button disabled={loading || rate === 0}
                             className={loading || rate === 0 ? "review-green-button-disabled" : "review-green-button"}
                             onClick={finishButton}>
                         {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {loading ? "" : "Finalizar"}
+                        {loading ? "" : "Send Review"}
                     </button>
                 </div>
             </div>

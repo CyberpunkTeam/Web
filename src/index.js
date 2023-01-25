@@ -20,6 +20,7 @@ import SearchResults from "./pages/searchResults";
 import RecoveryPassword from "./pages/RecoveryPassword";
 import EditProfile from "./pages/EditProfile";
 import ReviewScreen from "./pages/ReviewScreen";
+import TeamReview from "./pages/TeamReview";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -68,6 +69,7 @@ function App() {
                     <Route path="/projects/new" element={<CreateProjectScreen/>}/>
                     <Route path="/search" element={<SearchResults/>}/>
                     <Route path="/review" element={<ReviewScreen/>}/>
+                    <Route path="/team/review/:id" element={<TeamReview/>}/>
                 </>
             )
         }

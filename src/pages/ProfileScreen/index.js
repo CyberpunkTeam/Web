@@ -190,19 +190,19 @@ function ProfileScreen() {
                          onClick={() => {
                              setTagSelect("profile")
                          }}>
-                        Perfil
+                        Profile
                     </div>
                     <div className={tagSelect === "teams" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
                          onClick={() => {
                              setTagSelect("teams")
                          }}>
-                        Equipos
+                        Teams
                     </div>
                     <div className={tagSelect === "projects" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
                          onClick={() => {
                              setTagSelect("projects")
                          }}>
-                        Proyectos
+                        Projects
                     </div>
                 </div>
                 <div className="profile-data-container-mobile">
@@ -222,17 +222,17 @@ function ProfileScreen() {
                     <div className={tagSelect === "profile" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("profile")
                     }}>
-                        Perfil
+                        Profile
                     </div>
                     <div className={tagSelect === "teams" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("teams")
                     }}>
-                        Equipos
+                        Teams
                     </div>
                     <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("projects")
                     }}>
-                        Proyectos
+                        Projects
                     </div>
                 </div>
                 <div className="profile-data-container">

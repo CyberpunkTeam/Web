@@ -81,7 +81,7 @@ export default function AddMemberModal(params) {
     return (
         <div className="modal-container">
             <div className="form-text">
-                Agregar Miembro
+                Add Member
             </div>
             <div className="search-member-input">
                 <input type="text" value={search}
@@ -93,12 +93,12 @@ export default function AddMemberModal(params) {
                 <button className={allUsers ? "button-members-selected" : "button-members"} onClick={() => {
                     setAllUsers(true)
                 }}>
-                    Todos
+                    All
                 </button>
                 <button className={allUsers ? "button-members" : "button-members-selected"} onClick={() => {
                     setAllUsers(false)
                 }}>
-                    Invitados
+                    Invited
                 </button>
             </div>
             <div className="memberDiv">
