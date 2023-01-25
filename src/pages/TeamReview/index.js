@@ -24,7 +24,7 @@ export default function TeamReview() {
     }
 
     useEffect(() => {
-        getMembersTeamReview(state.pid, params.id).then((response) => {
+        getMembersTeamReview(state.pid, params.id, context.user.uid).then((response) => {
             setReview(response)
             if (response.length === 0) {
                 getTeam(params.id).then((response) => {
