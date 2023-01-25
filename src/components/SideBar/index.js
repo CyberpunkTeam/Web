@@ -202,7 +202,7 @@ function SideBar() {
                 <div className="notifications-container">
                     <div id="notifications" className="notifications">
                         <div className="notification-title">
-                            Configurations
+                            Settings
                         </div>
                         <div className="logout" onClick={logout}>
                             <div className="logout-info">
@@ -276,7 +276,7 @@ function SideBar() {
                             <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
                             {unreadNotifications.length !== 0 ?
                                 <span className="notification-numbers-mobile"></span> : null}
-                            Notification
+                            Notifications
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
                             navigate("/me")

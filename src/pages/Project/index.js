@@ -224,7 +224,7 @@ export default function ProjectScreen() {
             <button disabled={disabledFinishButton} className="finish-button" onClick={finish}>
                 {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
-                {disabledFinishButton ? "" : "Finish Project"}
+                {disabledFinishButton ? "" : "Completion Request"}
             </button>
         )
     }
@@ -426,7 +426,7 @@ export default function ProjectScreen() {
                 <div className={tagSelect === "history" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                     setTagSelect("history")
                 }}>
-                    Records
+                    History
                 </div>
                 {teamsPostulations()}
             </div>

@@ -41,14 +41,14 @@ export default function EducationComponent(params) {
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`See More (+${params.userData.user.education.length - 1})`}
+                    {`Show More (+${params.userData.user.education.length - 1})`}
                 </div>
             )
         }
 
         return (
             <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
-                See Less
+                Show Less
             </div>
         )
 

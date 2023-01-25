@@ -40,8 +40,8 @@ function MainScreen() {
                 <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
                     The Password must contain:
                     <ul>
-                        <li>An Uppercase</li>
-                        <li>A Lowercase</li>
+                        <li>An Uppercase Letter</li>
+                        <li>A Lowercase Letter</li>
                         <li>A Number</li>
                         <li>At least 8 characters</li>
                     </ul>
@@ -137,7 +137,7 @@ function MainScreen() {
     const loginButton = () => {
         return (
             <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
-                Do you already have an account?
+                You already have an account?
                 <Link to="/login" className={isMobile ? "login-mobile" : "login"}>
                     Sign In
                 </Link>
@@ -153,9 +153,9 @@ function MainScreen() {
                 </div>
                 <div className={isMobile ? "verify-text-mobile" : "verify-text"}>
                     <div>
-                        We send an email to <b>{email}</b>,
+                        We sent you an email to <b>{email}</b>,
                     </div>
-                    please verify your email box to continue
+                    please verify your email inbox to continue
                 </div>
             </div>
         )
@@ -165,7 +165,7 @@ function MainScreen() {
         return (
             <>
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Join and be part of our community
+                    Join to be part of our community
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     {emailData()}
@@ -207,7 +207,7 @@ function MainScreen() {
                 <div className="container-login">
                     <div className="pana-container">
                         <div className="title-style">
-                            Find your ideal team easily and quickly
+                            Find your ideal team fast and simple
                         </div>
                         <img src={pana} className="pana-style" alt="logo"/>
                     </div>

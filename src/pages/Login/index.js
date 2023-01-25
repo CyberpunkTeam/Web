@@ -48,8 +48,8 @@ function Login() {
                 <div className={isMobile ? "login-message-error-list-mobile" : "login-message-error-list"}>
                     The Password must contain:
                     <ul>
-                        <li>An Uppercase</li>
-                        <li>A Lowercase</li>
+                        <li>An Uppercase Letter</li>
+                        <li>A Lowercase Letter</li>
                         <li>A Number</li>
                         <li>At least 8 characters</li>
                     </ul>
@@ -153,7 +153,7 @@ function Login() {
         if (!emailRegister) {
             return (
                 <div className={isMobile ? "container-button-login-mobile" : "container-button-login"}>
-                    You do not have an account?
+                    Don't have an account?
                     <Link to="/" className={isMobile ? "login-mobile" : "login"}>
                         Join
                     </Link>

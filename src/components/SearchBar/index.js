@@ -118,7 +118,7 @@ export default function SearchBar() {
             }
             return (
                 <div className="see-more" onClick={viewResults}>
-                    See All
+                    Show All
                 </div>
             )
         }

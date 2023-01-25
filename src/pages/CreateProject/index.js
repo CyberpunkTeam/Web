@@ -74,11 +74,10 @@ export default function CreateProjectScreen() {
             <div className="projects-card-container">
                 <div className="information-container">
                     <div className="information-form">
-                        Extended Information
+                        Extra Information
                         <div className="text-area-label">
                             Description
-                            <textarea value={description} onChange={setDescriptionHandler} name="Text1" cols="40"
-                                      rows="5"/>
+                                <textarea value={description} onChange={setDescriptionHandler} name="Text1" cols="40" rows="5"/>
                         </div>
                     </div>
                 </div>

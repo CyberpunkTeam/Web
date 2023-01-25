@@ -187,19 +187,19 @@ export default function EditProfileModal(params) {
                 {profileImageMobile()}
                 <form className="edit-form-mobile">
                     <label className="label-mobile">
-                        Nombre
+                        Name
                         <div className="modal-form-input">
                             <input type="text" value={name} className="input-mobile" onChange={setNameHandler}/>
                         </div>
                     </label>
                     <label className="label-mobile">
-                        Apellido
+                        Surname
                         <div className="modal-form-input">
                             <input type="text" value={lastname} className="input-mobile" onChange={setLastnameHandler}/>
                         </div>
                     </label>
                     <label className="label-mobile">
-                        Ubicación
+                        Location
                         <div className="modal-form-input">
                             <input type="text" value={city} className="input-mobile" onChange={setCityHandler}/>
                         </div>
@@ -207,13 +207,13 @@ export default function EditProfileModal(params) {
                 </form>
                 <div className="container-button-mobile">
                     <button className="cancel-edit-button-mobile-style" onClick={params.closeModal}>
-                        Volver
+                        Back
                     </button>
                     <button disabled={buttonDisabled}
                             className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}
                             onClick={updateProfileButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : "Guardar"}
+                        {buttonDisabled ? "" : "Save"}
                     </button>
                 </div>
             </div>
@@ -234,13 +234,13 @@ export default function EditProfileModal(params) {
                     </div>
                 </label>
                 <label className="label">
-                    Lastname
+                    Surname
                     <div className="modal-form-input">
                         <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
                     </div>
                 </label>
                 <label className="label">
-                    City
+                    Location
                     <div className="modal-form-input">
                         <input type="text" value={city} className="input" onChange={setCityHandler}/>
                     </div>

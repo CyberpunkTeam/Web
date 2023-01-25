@@ -89,7 +89,7 @@ export default function PostulationsModal(params) {
                         </div>
                     </div>
                     <div className="team-postulation-data">
-                        Proposed Budget
+                        Budget
                         <div className={context.size ? "team-postulation-budget-reduce" : "team-postulation-budget"}>
                             {formatter.format(data.estimated_budget)}
                             <div className="usd">
@@ -106,7 +106,7 @@ export default function PostulationsModal(params) {
                     </div>
                     <div className={"seeMore"} onClick={seeMore}>
                         {data.proposal_description.length < 600 ? null : !showMore ?
-                            "See More" : "See Less"}
+                            "Show More" : "Show Less"}
                     </div>
                 </div>
             </div>

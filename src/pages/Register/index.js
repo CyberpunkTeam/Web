@@ -80,7 +80,7 @@ function Register(params) {
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        Lastname
+                        Surname
                         <input type="text"
                                value={lastName}
                                className={isMobile ? "input-mobile" : "input"}
@@ -89,7 +89,7 @@ function Register(params) {
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
                     <label>
-                        City
+                        Location
                         <input type="text"
                                value={city}
                                className={isMobile ? "input-mobile" : "input"}

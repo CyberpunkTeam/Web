@@ -38,14 +38,14 @@ export default function WorkExperienceComponent(params) {
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`See More (+${params.userData.user.work_experience.length - 1})`}
+                    {`Show More (+${params.userData.user.work_experience.length - 1})`}
                 </div>
             )
         }
 
         return (
             <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
-                See Less
+                Show Less
             </div>
         )
 
@@ -58,7 +58,7 @@ export default function WorkExperienceComponent(params) {
                 <div className={isMobile ? "education-info-mobile" : "education-info"}>
                     {data.company}
                     <div>
-                        {data.start_date.split('-')[0]} - {data.current_job ? data.finish_date.split('-')[0] : "Actual"}
+                        {data.start_date.split('-')[0]} - {data.current_job ? data.finish_date.split('-')[0] : "Present"}
                     </div>
                 </div>
             </div>

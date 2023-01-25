@@ -40,9 +40,9 @@ export default function RecoveryPassword() {
                 </div>
                 <div className="verify-text">
                     <div>
-                        We send an email to <b>{email}</b>,
+                        We sent you an email to <b>{email}</b>,
                     </div>
-                    please verify your email box to continue
+                    please verify your email inbox to continue
                 </div>
             </div>
         )
@@ -52,7 +52,7 @@ export default function RecoveryPassword() {
         return (
             <div className={isMobile ? "form-container-mobile" : "form-container"}>
                 <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Recover Account
+                    Reset Password
                 </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     <div className={isMobile ? "label-mobile" : "label"}>

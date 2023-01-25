@@ -86,7 +86,7 @@ export default function ProjectFinish(params) {
             <div className="invitation-container">
                 <div className="invitation">
                     <div>
-                        <b>{params.project.creator.name} {params.project.creator.lastname}</b> solícito la finalización del proyecto
+                        <b>{params.project.creator.name} {params.project.creator.lastname}</b> requested the completion of this project
                     </div>
                     <div className="postulations-buttons-container">
                         {rejectButton()}

@@ -57,7 +57,7 @@ export default function TeamPostulationView(params) {
                     </div>
                     <div className={"seeMore"} onClick={seeMore}>
                         {params.data.proposal_description.length < 600 ? null : !showMore ?
-                            "See More" : "See Less"}
+                            "Show More" : "Show Less"}
                     </div>
                     <div className="date-project">
                         {formatDate(params.data.created_date)}
