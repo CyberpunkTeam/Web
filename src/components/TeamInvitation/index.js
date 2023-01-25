@@ -73,7 +73,7 @@ export default function TeamInvitation(params) {
             <div className="invitation-container">
                 <div className="invitation">
                     <div>
-                        <b>{params.owner.name} {params.owner.lastname}</b> te invitó a unirte a este equipo
+                        <b>{params.owner.name} {params.owner.lastname}</b> invited you to join this team
                     </div>
                     <div className="postulations-buttons-container">
                         {rejectButton()}

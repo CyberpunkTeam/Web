@@ -118,7 +118,7 @@ export default function ProjectScreen() {
         return (
             <button className="postulate-button" onClick={openModal}>
                 <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Postular Equipo
+                Postulate Team
             </button>
         )
     }
@@ -155,7 +155,7 @@ export default function ProjectScreen() {
             <button disabled={disabledCancelButton} className="cancel-project-button" onClick={cancel}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : "Cancelar Proyecto"}
+                {disabledCancelButton ? "" : "Delete Project"}
             </button>
         )
     }
@@ -183,7 +183,7 @@ export default function ProjectScreen() {
             <button className="cancel-project-button" onClick={openModalIfCancelProject}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <LogoutCurve color="#FAFAFA" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : condition ? "Abandonar Proyecto" : "Solicitar Abandono"}
+                {disabledCancelButton ? "" : condition ? "Leave Project" : "Request Abandonment"}
             </button>
         )
     }
@@ -208,7 +208,7 @@ export default function ProjectScreen() {
 
             requestFinishProject(body).then((r) => {
                 setDisableFinishButton(false);
-                window.alert("Se envió la petición de finalización del proyecto")
+                window.alert("The project completion request was sent")
             })
         }
 
@@ -224,7 +224,7 @@ export default function ProjectScreen() {
             <button disabled={disabledFinishButton} className="finish-button" onClick={finish}>
                 {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
-                {disabledFinishButton ? "" : "Finalizar Proyecto"}
+                {disabledFinishButton ? "" : "Completion Request"}
             </button>
         )
     }
@@ -332,7 +332,7 @@ export default function ProjectScreen() {
         return (
             <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
                 <div className="project-information-card">
-                    Descripción
+                    Description
                     <div className="project-description-card">
                         {project.description}
                     </div>
@@ -392,7 +392,7 @@ export default function ProjectScreen() {
                 <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                     setTagSelect("postulations")
                 }}>
-                    Postulaciones
+                    Postulations
                 </div>
             )
         }
@@ -421,12 +421,12 @@ export default function ProjectScreen() {
                 <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                     setTagSelect("info")
                 }}>
-                    Información del Proyecto
+                    Information
                 </div>
                 <div className={tagSelect === "history" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                     setTagSelect("history")
                 }}>
-                    Historial
+                    History
                 </div>
                 {teamsPostulations()}
             </div>

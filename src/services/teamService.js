@@ -29,3 +29,11 @@ export const teamReview = (body) => {
 export const getTeamReview = (pid, tid) => {
     return get(`teams_reviews/?pid=${pid}&tid=${tid}`)
 }
+
+export const getMembersTeamReview = (pid, tid) => {
+    return get(`team_members_reviews/?pid=${pid}&tid=${tid}`)
+}
+
+export const createMembersTeamReview = (body) => {
+    return post(`team_members_reviews/`, body)
+}

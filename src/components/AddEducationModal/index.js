@@ -61,32 +61,32 @@ export default function AddEducationModal(params) {
     return (
         <div className={context.size ? "modal-container-reduce" : "modal-container"}>
             <div className="form-text">
-                Agregar Títulos y Certificaciones
+                Add Title or Certification
             </div>
             <form className="modal-form">
                 <div className="label">
                     <label>
-                        Titulo
+                        Title
                         <input type="text" value={title} className="input" onChange={setTitleHandler}/>
                     </label>
                 </div>
                 <div className="label">
                     <label>
-                        Institución
+                        Institution
                         <input type="text" value={institution} className="input" onChange={setInstitutionHandler}/>
                     </label>
                 </div>
                 <div className="label-double">
                     <div className="label-double-column">
                         <label>
-                            Inicio
+                            Start Date
                             <input type="date" value={startDate} placeholder="dd-mm-yyyy" min="1900-01-01"
                                    max="2030-12-31" className="input-double" onChange={setStartDateHandler}/>
                         </label>
                     </div>
                     <div className="label-double-column">
                         <label>
-                            Fin
+                            End Date
                             <input type="date" value={finishDate} placeholder="dd-mm-yyyy" min="1900-01-01"
                                    max="2030-12-31" className="input-double" onChange={setFinishDateHandler}/>
                         </label>
@@ -95,12 +95,12 @@ export default function AddEducationModal(params) {
             </form>
             <div className="container-button-modal">
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
-                    Cancelar
+                    Cancel
                 </button>
                 <button disabled={buttonDisabled}
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={createEducationButton}>
-                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Agregar"}
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Add"}
                 </button>
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>

@@ -41,14 +41,14 @@ export default function EducationComponent(params) {
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`Ver Más (+${params.userData.user.education.length - 1})`}
+                    {`Show More (+${params.userData.user.education.length - 1})`}
                 </div>
             )
         }
 
         return (
             <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
-                Ver Menos
+                Show Less
             </div>
         )
 
@@ -91,7 +91,7 @@ export default function EducationComponent(params) {
                     <div className="user-info-mobile">
                         <div className="data-title-mobile">
                             <Teacher size="80" color="#014751" className={"icon"}/>
-                            Agregar Título o Certificación
+                            Add Title or Certification
                         </div>
                         <div className="button-center">
                             <AddCircle size="80" color="#B1B1B1" onClick={openModal}/>
@@ -107,7 +107,7 @@ export default function EducationComponent(params) {
                 <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
                     <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
                         <Teacher size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
-                        Agregar Título o Certificación
+                        Add Title or Certification
                     </div>
                     <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
                 </div>
@@ -122,7 +122,7 @@ export default function EducationComponent(params) {
                 <div className="user-info-mobile">
                     <div className="data-title-mobile">
                         <Teacher size="80" color="#014751" className="icon"/>
-                        Títulos y Certificaciones
+                        Titles and Certification
                     </div>
                     {params.userData.user.education.slice(0, length).map((data) => {
                         return experienceView(data)
@@ -142,7 +142,7 @@ export default function EducationComponent(params) {
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
                     <Teacher size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
-                    Títulos y Certificaciones
+                    Titles and Certification
                 </div>
                 {params.userData.user.education.slice(0, length).map((data) => {
                     return experienceView(data)

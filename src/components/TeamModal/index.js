@@ -87,12 +87,12 @@ export default function TeamModal(params) {
             return (
                 <>
                     <button className="cancel-edit-button-style" onClick={params.closeModal}>
-                        Cancelar
+                        Cancel
                     </button>
                     <button disabled={buttonDisabled}
                             className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                             onClick={updateTeamButton}>
-                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Guardar"}
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Save"}
                     </button>
                 </>
             )
@@ -100,12 +100,12 @@ export default function TeamModal(params) {
         return (
             <>
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
-                    Cancelar
+                    Cancel
                 </button>
                 <button disabled={buttonDisabled}
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={createTeamButton}>
-                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Crear"}
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Create"}
                 </button>
             </>
         )
@@ -114,18 +114,18 @@ export default function TeamModal(params) {
     return (
         <div className="modal-container">
             <div className="form-text">
-                {params.team !== undefined ? "Editar equipo" : "Crea un nuevo equipo"}
+                {params.team !== undefined ? "Edit Team" : "Create a New Team"}
             </div>
             <form className="modal-form">
                 <div className="label">
                     <label>
-                        Nombre
+                        Name
                         <div className="modal-form-input">
                             <input type="text" value={teamName} className="input" onChange={setTeamHandler}/>
                         </div>
                     </label>
                     <label>
-                        Tecnologías
+                        Technologies
                         <div className="modal-form-input-with-tags">
                             <input type="text" value={tech} className="input" onChange={setTechHandler}
                                    onKeyUp={addTechTag}/>
@@ -137,7 +137,7 @@ export default function TeamModal(params) {
                         </div>
                     </label>
                     <label>
-                        Preferencias de Proyecto
+                        Project Preferences
                         <div className="modal-form-input-with-tags">
                             <input type="text" value={pref} className="input" onChange={setPrefHandler}
                                    onKeyUp={addPrefsTag}/>
