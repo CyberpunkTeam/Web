@@ -92,7 +92,7 @@ function SideBar() {
 
     const notificationHover = () => {
 
-        const buttonNavigation = (id, notification_type, message) => {
+        const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
@@ -124,7 +124,7 @@ function SideBar() {
             } else if (notification_type === "ABANDONED_PROJECT") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
-                navigate("/team/review/" + id)
+                navigate("/team/review/" + id, {state: metadata})
             }
         }
 
@@ -140,10 +140,9 @@ function SideBar() {
             }
         }
         const notificationLi = (data) => {
-            console.log(data)
             return (
                 <li key={data.nid} onClick={() => {
-                    buttonNavigation(data.resource_id, data.notification_type, data.content)
+                    buttonNavigation(data.resource_id, data.notification_type, data.content, data.metadata)
                 }}>
                     <div className="notification-list-data">
                         <div className="user-notification">

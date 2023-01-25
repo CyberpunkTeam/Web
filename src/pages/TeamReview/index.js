@@ -1,16 +1,18 @@
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {Star1} from "iconsax-react";
 
 import Loading from "../../components/loading";
-import {getTeam} from "../../services/teamService";
+import {createMembersTeamReview, getMembersTeamReview, getTeam} from "../../services/teamService";
 import MemberReview from "../../components/MemberReview";
+import AppContext from "../../utils/AppContext";
 
 export default function TeamReview() {
     const params = useParams();
     const navigate = useNavigate();
+    let context = useContext(AppContext);
+    const {state} = useLocation();
     const [team, setTeam] = useState(undefined)
     const [review, setReview] = useState([])
     const [isLoading, setIsLoading] = useState(true)
@@ -18,21 +20,28 @@ export default function TeamReview() {
     const [reviews, setReviews] = useState({})
 
     const updateReviews = (newReviews) => {
-        console.log(reviews);
-        console.log(newReviews);
         setReviews(newReviews)
     }
 
     useEffect(() => {
-        getTeam(params.id).then((response) => {
-            setTeam(response)
-            console.log(response)
-            setIsLoading(false)
+        getMembersTeamReview(state.pid, params.id).then((response) => {
+            setReview(response)
+            if (response.length === 0) {
+                getTeam(params.id).then((response) => {
+                    setTeam(response)
+                    setIsLoading(false)
+                }).catch((error) => {
+                    console.log(error)
+                    navigate("/*")
+                });
+            } else {
+                setIsLoading(false)
+            }
         }).catch((error) => {
             console.log(error)
             navigate("/*")
         });
-    }, [params.id]);
+    }, [params.id, state.pid, navigate]);
 
 
     if (isLoading) {
@@ -43,12 +52,28 @@ export default function TeamReview() {
         return (
             <div className="profile-screen">
                 <div className={"reviewCompleteContainer"}>
-                    Ya realizaste la review
+                    You already reviewed the team
                 </div>
                 <SearchBar/>
                 <SideBar/>
             </div>
         )
+    }
+
+    const sendReviews = () => {
+        setLoading(true);
+        Object.keys(reviews).map((value) => {
+            const body = {
+                pid: state.pid,
+                tid: params.id,
+                rating: reviews[value],
+                member_reviewed: value,
+                member_reviewer: context.user.uid
+            }
+            return createMembersTeamReview(body).then()
+        })
+        navigate("/team/" + params.id)
+        setLoading(false);
     }
 
     return (
@@ -63,8 +88,10 @@ export default function TeamReview() {
                     <button disabled={loading} className={"review-red-button"}>
                         Cancel
                     </button>
-                    <button disabled={loading}
-                            className={loading ? "review-green-button-disabled" : "review-green-button"}>
+                    <button disabled={loading || Object.keys(reviews).length === 0}
+                            className={loading || Object.keys(reviews).length === 0 ? "review-green-button-disabled" : "review-green-button"}
+                            onClick={sendReviews}
+                    >
                         {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         {loading ? "" : "Send Reviews"}
                     </button>

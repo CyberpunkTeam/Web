@@ -13,8 +13,9 @@ export default function MemberReview(params) {
     }
     const changeRate = (value) => {
         setRate(value)
-        params.reviews[params.user.uid] = value;
-        params.updateReviews(params.reviews)
+        let newReview = Object.assign({}, params.reviews)
+        newReview[params.user.uid] = value;
+        params.updateReviews(newReview)
     }
 
     const user_image = (data) => {
@@ -32,12 +33,15 @@ export default function MemberReview(params) {
     const setLanguageHandler = (event) => {
         setParticipate(event.target.value);
         if (event.target.value === "No") {
-            delete  params.reviews[params.user.uid];
+            let newReview =  Object.assign({}, params.reviews)
+            delete newReview[params.user.uid];
+            params.updateReviews(newReview)
             setRate(1)
         } else {
-            params.reviews[params.user.uid] = rate;
+            let newReview = Object.assign({}, params.reviews)
+            newReview[params.user.uid] = rate;
+            params.updateReviews(newReview)
         }
-        params.updateReviews(params.reviews)
     }
     const star = (value) => {
         return (

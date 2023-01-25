@@ -13,7 +13,7 @@ import {updatePassword} from "../../services/recoveryService";
 import {isMobile} from "react-device-detect";
 
 function Login() {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams, _] = useSearchParams();
     const emailRegister = searchParams.get("email") !== null
     const recoveryPasswordMode = searchParams.get("mode") === "resetPassword";
     let context = useContext(AppContext);
