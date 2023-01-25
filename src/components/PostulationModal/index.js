@@ -68,11 +68,11 @@ export default function PostulationModal(params) {
     return (
         <div className="modal-container">
             <div className="form-text">
-                Postulación
+                Postulation
             </div>
             <form className="modal-form">
                 <label className="label">
-                    Elige un equipo
+                    Select a Team
                     <div className="modal-form-input">
                         <select value={teamName} className="select-team" onChange={setTeamHandler}>
                             {params.teams.map((e, index) => {
@@ -88,7 +88,7 @@ export default function PostulationModal(params) {
                     </div>
                 </label>
                 <label className="label">
-                    Presupuesto
+                    Budget
                     <div className="budget-input-container">
                         <input type="number" value={estimatedBudget} className="budget-input"
                                onChange={setEstimatedBudgetHandler}/>
@@ -98,7 +98,7 @@ export default function PostulationModal(params) {
                     </div>
                 </label>
                 <div className="text-area-postulation-label">
-                    Descripción
+                    Description
                     <textarea className="description" value={description} onChange={setDescriptionHandler} name="Text1"
                               cols="40"
                               rows="5"/>
@@ -106,14 +106,14 @@ export default function PostulationModal(params) {
             </form>
             <div className="container-button-modal">
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
-                    Cancelar
+                    Cancel
                 </button>
                 <button disabled={buttonDisabled}
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={sendTeamPostulationButton}
                 >
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Enviar"}
+                    {buttonDisabled ? "" : "Send"}
                 </button>
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>

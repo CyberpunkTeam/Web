@@ -14,13 +14,13 @@ export default function TeamProjectPostulations(params) {
                             onClick={() => {
                                 setFilter("PENDING")
                             }}>
-                        Pendientes
+                        Pending
                     </button>
                     <button className={filter === "PENDING" ? "button-members" : "button-members-selected"}
                             onClick={() => {
                                 setFilter("REJECTED")
                             }}>
-                        Rechazadas
+                        Rejected
                     </button>
                 </div>
             </div>

@@ -17,7 +17,7 @@ export default function CreateProjectScreen() {
     const [name, setName] = useState(state === null ? "" : state.project.name)
     const [description, setDescription] = useState(state === null ? "" : state.project.description)
     const [tech, setTech] = useState("")
-    const [language, setLanguage] = useState(state === null ? "Alemán" : state.project.idioms[0])
+    const [language, setLanguage] = useState(state === null ? "English" : state.project.idioms[0])
     const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies]);
 
     const projectButton = () => {
@@ -74,9 +74,9 @@ export default function CreateProjectScreen() {
             <div className="projects-card-container">
                 <div className="information-container">
                     <div className="information-form">
-                        Información
+                        Extended Information
                         <div className="text-area-label">
-                            Descripción
+                            Description
                             <textarea value={description} onChange={setDescriptionHandler} name="Text1" cols="40"
                                       rows="5"/>
                         </div>
@@ -85,7 +85,7 @@ export default function CreateProjectScreen() {
                 <div className="create-project-buttons">
                     <button disabled={buttonDisabled} className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"} onClick={projectButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : state === null ? "Crear" : "Guardar"}
+                        {buttonDisabled ? "" : state === null ? "Create" : "Save"}
                     </button>
                 </div>
             </div>
@@ -96,30 +96,30 @@ export default function CreateProjectScreen() {
         return (
             <div className="create-project-info-container">
                 <div className="create-project-info">
-                    Información Básica
+                    Basic Information
                     <form className="create-project-form">
                         <label className="create-project-label">
-                            Nombre
+                            Name
                             <div className="create-project-input">
                                 <input type="text" value={name} className="input" onChange={setNameHandler}/>
                             </div>
                         </label>
                         <label className="create-project-label">
-                            Idioma
+                            Language
                             <div className="create-project-input">
                                 <select value={language} className="select" onChange={setLanguageHandler}>
-                                    <option value="Alemán">Alemán</option>
-                                    <option value="Chino">Chino</option>
-                                    <option value="Español">Español</option>
-                                    <option value="Frances">Frances</option>
-                                    <option value="Inglés">Inglés</option>
-                                    <option value="Portugues">Portugues</option>
+                                    <option value="English">English</option>
+                                    <option value="Chinese">Chinese</option>
+                                    <option value="Spanish">Spanish</option>
+                                    <option value="French">French</option>
+                                    <option value="German">German</option>
+                                    <option value="Portuguese">Portuguese</option>
                                 </select>
                                 <ArrowDown2 className="from-button" color="#B1B1B1" variant="Outline" size={20}/>
                             </div>
                         </label>
                         <label className="create-project-label">
-                            Tecnologías
+                            Technologies
                             <div className="create-project-input">
                                 <input type="text" value={tech} className="input" onChange={setTechHandler}
                                        onKeyUp={addTechTag}/>
@@ -140,7 +140,7 @@ export default function CreateProjectScreen() {
         <div>
             <div className="projects-screen">
                 <div className="projects-header">
-                    {state === null ? "Nuevo Proyecto" : "Editar Proyecto"}
+                    {state === null ? "New Project" : "Edit Project"}
                 </div>
                 <div className="projects-container">
                     {BasicInfo()}

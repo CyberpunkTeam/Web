@@ -17,7 +17,6 @@ import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
-import 'moment/locale/es';
 import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";

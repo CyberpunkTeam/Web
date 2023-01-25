@@ -38,14 +38,14 @@ export default function WorkExperienceComponent(params) {
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`Ver Más (+${params.userData.user.work_experience.length - 1})`}
+                    {`See More (+${params.userData.user.work_experience.length - 1})`}
                 </div>
             )
         }
 
         return (
             <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={less}>
-                Ver Menos
+                See Less
             </div>
         )
 
@@ -84,7 +84,7 @@ export default function WorkExperienceComponent(params) {
                     <div className="user-info-mobile">
                         <div className="data-title-mobile">
                             <Briefcase size="56" color="#014751" className={"icon"}/>
-                            Agregar Experiencia
+                            Add Job Experience
                         </div>
                         <div className="button-center">
                             <AddCircle size="80" color="#B1B1B1" onClick={openModal}/>
@@ -100,7 +100,7 @@ export default function WorkExperienceComponent(params) {
                 <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
                     <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
                         <Briefcase size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
-                        Agregar Experiencia
+                        Add Job Experience
                     </div>
                     <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
 
@@ -116,7 +116,7 @@ export default function WorkExperienceComponent(params) {
                 <div className="user-info-mobile">
                     <div className="experience-title-mobile">
                         <Briefcase size="56" color="#014751" className={"icon"}/>
-                        Experiencia
+                        Job Experiences
                     </div>
                     {params.userData.user.work_experience.slice(0, length).map((data) => {
                         return experienceView(data)
@@ -135,7 +135,7 @@ export default function WorkExperienceComponent(params) {
             <div className="user-info">
                 <div className="data-title">
                     <Briefcase size="32" color="#014751" className={"icon"}/>
-                    Experiencia
+                    Job Experiences
                 </div>
                 {params.userData.user.work_experience.slice(0, length).map((data) => {
                     return experienceView(data)

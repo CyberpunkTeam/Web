@@ -223,24 +223,24 @@ export default function EditProfileModal(params) {
     return (
         <div className="modal-container">
             <div className="form-text">
-                Editar Perfil
+                Edit Profile
             </div>
             {profileImage()}
             <form className="modal-form">
                 <label className="label">
-                    Nombre
+                    Name
                     <div className="modal-form-input">
                         <input type="text" value={name} className="input" onChange={setNameHandler}/>
                     </div>
                 </label>
                 <label className="label">
-                    Apellido
+                    Lastname
                     <div className="modal-form-input">
                         <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
                     </div>
                 </label>
                 <label className="label">
-                    Ubicación
+                    City
                     <div className="modal-form-input">
                         <input type="text" value={city} className="input" onChange={setCityHandler}/>
                     </div>
@@ -248,13 +248,13 @@ export default function EditProfileModal(params) {
             </form>
             <div className="container-button-modal">
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
-                    Cancelar
+                    Cancel
                 </button>
                 <button disabled={buttonDisabled}
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={updateProfileButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Guardar"}
+                    {buttonDisabled ? "" : "Save"}
                 </button>
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>

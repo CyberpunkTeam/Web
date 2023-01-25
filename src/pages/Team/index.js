@@ -146,7 +146,7 @@ export default function TeamScreen() {
                     <div className="member-name" onClick={userNavigate}>
                         {data.name} {data.lastname}
                         <div className="owner">
-                            {data.uid === teamData.owner ? 'Dueño' : ''}
+                            {data.uid === teamData.owner ? 'Owner' : ''}
                         </div>
                     </div>
                 </div>
@@ -200,17 +200,17 @@ export default function TeamScreen() {
                     <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("info")
                     }}>
-                        Información del Equipo
+                        Information
                     </div>
                     <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("members")
                     }}>
-                        Postulaciones de Miembros
+                        Member Postulations
                     </div>
                     <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("projects")
                     }}>
-                        Postulaciones de Proyectos
+                        Projects Postulations
                     </div>
                 </div>
                 {tagSelect === "projects" ? <TeamProjectPostulations postulations={postulations}/> : null}

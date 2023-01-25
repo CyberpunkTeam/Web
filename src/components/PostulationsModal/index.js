@@ -64,6 +64,7 @@ export default function PostulationsModal(params) {
         }
     }
     const postulationView = (data) => {
+        console.log(data)
         return (
             <div className={context.size ? "postulation-team-view-reduce" : "postulation-team-view"}>
                 <div className={context.size ? "team-postulation-info-reduce" : "team-postulation-info"}>
@@ -71,7 +72,7 @@ export default function PostulationsModal(params) {
                         {data.team.name}
                         <div className="team-postulation-star">
                             <Star1 size="16" color="#ECA95A" variant="Linear" className={"star"}/>
-                            {data.overall_rating}
+                            {data.team.overall_rating.toFixed(1)}
                         </div>
                     </div>
                     <div className="members-postulation">
@@ -80,7 +81,7 @@ export default function PostulationsModal(params) {
                         })}
                     </div>
                     <div className="team-postulation-data">
-                        Herramientas
+                        Tools
                         <div className="tags-modal">
                             {data.team.technologies.map((data) => {
                                 return <TechnologyTag key={data + "-modal"} technology={data}/>
@@ -88,7 +89,7 @@ export default function PostulationsModal(params) {
                         </div>
                     </div>
                     <div className="team-postulation-data">
-                        Presupuesto propuesto
+                        Proposed Budget
                         <div className={context.size ? "team-postulation-budget-reduce" : "team-postulation-budget"}>
                             {formatter.format(data.estimated_budget)}
                             <div className="usd">
@@ -98,14 +99,14 @@ export default function PostulationsModal(params) {
                     </div>
                 </div>
                 <div className={context.size ? "descriptionContainerReduce" : "descriptionContainer"}>
-                    Descripción
+                    Description
                     <div className="description-modal">
                         {showMore ? data.proposal_description.substring(0, data.proposal_description.length) : data.proposal_description.substring(0, 600)}
                         {showMore || data.proposal_description.length < 600 ? "" : "..."}
                     </div>
                     <div className={"seeMore"} onClick={seeMore}>
                         {data.proposal_description.length < 600 ? null : !showMore ?
-                            "Ver Más" : "Ver Menos"}
+                            "See More" : "See Less"}
                     </div>
                 </div>
             </div>

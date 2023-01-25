@@ -54,7 +54,7 @@ export default function UserTeamsComponent(params) {
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>
                     <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
-                    {data.overall_rating}
+                    {data.overall_rating.toFixed(1)}
                 </div>
             </div>
         )
@@ -99,7 +99,7 @@ export default function UserTeamsComponent(params) {
         return (
             <button className="createTeamButton" onClick={openModal}>
                 <AddCircle color="#FAFAFA" variant="Bold" size={40} className="icon"/>
-                Crear Equipo
+                New Team
             </button>
         )
     }

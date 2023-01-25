@@ -99,12 +99,12 @@ export default function SearchResults() {
                         <button className={filter === "users" ? "button-members-selected" : "button-members"} onClick={() => {
                             setFilter("users")
                         }}>
-                            Usuarios
+                            Users
                         </button>
                         <button className={filter === "users" ? "button-members" : "button-members-selected"} onClick={() => {
                             setFilter("teams")
                         }}>
-                            Equipos
+                            Teams
                         </button>
                     </div>
                 </div>

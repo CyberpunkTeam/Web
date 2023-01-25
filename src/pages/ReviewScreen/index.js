@@ -98,7 +98,7 @@ export default function ReviewScreen() {
         return (
             <div className="profile-screen">
                 <div className={"reviewCompleteContainer"}>
-                    {state.isProject ? "Ya realizaste la review de este proyecto" : "Ya realizaste la review de este equipo"}
+                    {state.isProject ? "You already reviewed this project" : "You already reviewed this team"}
                 </div>
                 <SearchBar/>
                 <SideBar/>
@@ -112,7 +112,7 @@ export default function ReviewScreen() {
                 {state.isProject ? state.project.name : state.project.team_assigned.name}
                 <div className="reviewRating">
                     <div className="reviewRatingData">
-                        {state.isProject ? "Calificación del Proyecto" : "Calificación del Equipo"}
+                        {state.isProject ? "Project Score" : "Team Score"}
                         <div className={"stars"}>
                             {[1, 2, 3, 4, 5].map((value) => {
                                 return star(value);
@@ -122,13 +122,13 @@ export default function ReviewScreen() {
                 </div>
                 <div className="review-buttons">
                     <button disabled={loading} className={"review-red-button"} onClick={goBack}>
-                        Cancelar
+                        Cancel
                     </button>
                     <button disabled={loading || rate === 0}
                             className={loading || rate === 0 ? "review-green-button-disabled" : "review-green-button"}
                             onClick={finishButton}>
                         {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {loading ? "" : "Finalizar"}
+                        {loading ? "" : "Finish"}
                     </button>
                 </div>
             </div>
