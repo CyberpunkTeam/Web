@@ -49,3 +49,7 @@ export const createTeamVacant = (body) => {
 export const getTeamVacants = (tid) => {
     return get(`teams_positions/?tid=${tid}&state=OPEN`)
 }
+
+export const teamPostulate = (tpid, uid) => {
+    return post(`teams_positions/${tpid}/candidates/${uid}`)
+}

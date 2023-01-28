@@ -3,6 +3,7 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {UserCirlceAdd} from "iconsax-react";
+import {teamPostulate} from "../../services/teamService";
 
 export default function MemberPostulationView(params) {
     const [showMore, setShowMore] = useState(false);
@@ -11,9 +12,21 @@ export default function MemberPostulationView(params) {
         setShowMore(!showMore)
     }
 
+    console.log(params.data)
+
+    const postulate = () => {
+        teamPostulate(params.data.tpid, context.user.uid).then((r) => {
+            console.log(r)
+        })
+    }
+
+
     if (params.owner !== context.user.uid) {
+        if (params.data.candidates.includes(context.user.uid)) {
+            return
+        }
         return (
-            <div key={params.data.ppid} className="vacantPostulationContainer">
+            <div key={params.data.tpid} className="vacantPostulationContainer">
                 <div className={isMobile || context.size ? "vacantDataMobile" : "vacantData"}>
                     <div className={isMobile || context.size ? "vacantInfoContainerReduced" : "vacantInfoContainer"}>
                         <div className="vacantPostulationsTitle">
@@ -31,7 +44,7 @@ export default function MemberPostulationView(params) {
                             </div>
                         </div>
                     </div>
-                    <button className="postulateVacantButton">
+                    <button className="postulateVacantButton" onClick={postulate}>
                         <UserCirlceAdd color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                         Postulate
                     </button>
@@ -41,7 +54,7 @@ export default function MemberPostulationView(params) {
     }
 
     return (
-        <div key={params.data.ppid} className="teamPostulationContainer">
+        <div key={params.data.tpid} className="teamPostulationContainer">
             <div className={context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
                 <div className={context.size ? "vacantInfoReduce" : "vacantInfo"}>
                     <div className="vacantTitle">
@@ -60,7 +73,7 @@ export default function MemberPostulationView(params) {
                     </div>
                 </div>
                 <div className={context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
-                    {params.owner === context.user.uid ? "No Postulations" : "postulate"}
+                    "No Postulations"
                 </div>
             </div>
         </div>

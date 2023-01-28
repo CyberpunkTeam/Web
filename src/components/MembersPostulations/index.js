@@ -70,7 +70,7 @@ export default function MembersPostulations(params) {
     }
 
     return (
-        <div className="profile-data-container-mobile">
+        <div className="profile-data-container">
             <div className={"user-team-container"}>
                 {addButton()}
                 {showPostulations()}

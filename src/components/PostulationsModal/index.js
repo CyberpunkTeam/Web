@@ -64,7 +64,6 @@ export default function PostulationsModal(params) {
         }
     }
     const postulationView = (data) => {
-        console.log(data)
         return (
             <div className={context.size ? "postulation-team-view-reduce" : "postulation-team-view"}>
                 <div className={context.size ? "team-postulation-info-reduce" : "team-postulation-info"}>
