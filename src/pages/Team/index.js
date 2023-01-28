@@ -19,6 +19,7 @@ import TeamProjectPostulations from "../../components/TeamProjectPostulations";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
+import MembersPostulations from "../../components/MembersPostulations";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -69,6 +70,10 @@ export default function TeamScreen() {
     const closeModal = () => {
         setIsOpen(false);
         setIsEditData(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
     }
 
     if (loading) {
@@ -158,8 +163,8 @@ export default function TeamScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isEditData ? <TeamModal team={teamData} setTeamData={setTeamData} closeModal={closeModal}/> :
-                        <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
-                                        setInvitations={setInvitations} closeModal={closeModal}/>}
+                    <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
+                                    setInvitations={setInvitations} closeModal={closeModal}/>}
             </Modal>
         )
     }
@@ -175,6 +180,48 @@ export default function TeamScreen() {
             )
         }
     }
+
+    const postulate = () => {
+        if (!membersList.includes(context.user.uid)) {
+            return (
+                <button className="postulate-button" onClick={openModal}>
+                    <UserCirlceAdd color="#FAFAFA" variant="Bold" size={32} className="icon"/>
+                    Postulate
+                </button>
+            )
+        }
+    }
+
+    const tagsInfo = () => {
+        if (tagSelect === "projects") {
+            return <TeamProjectPostulations postulations={postulations}/>
+        }
+
+        if (tagSelect === "members") {
+            return <MembersPostulations owner={teamData.owner} tid={teamData.tid}/>
+        }
+    }
+
+    const ownerTags = () => {
+        if (context.user.uid === teamData.owner) {
+            return (
+                <>
+                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("members")
+                    }}>
+                        Member Postulations
+                    </div>
+                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("projects")
+                    }}>
+                        Projects Postulations
+                    </div>
+                </>
+            )
+        }
+
+    }
+
 
     if (teamData.tid === undefined) {
         return (
@@ -202,18 +249,9 @@ export default function TeamScreen() {
                     }}>
                         Information
                     </div>
-                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("members")
-                    }}>
-                        Member Postulations
-                    </div>
-                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("projects")
-                    }}>
-                        Projects Postulations
-                    </div>
+                    {ownerTags()}
                 </div>
-                {tagSelect === "projects" ? <TeamProjectPostulations postulations={postulations}/> : null}
+                {tagsInfo()}
                 {modal()}
                 <SearchBar/>
                 <SideBar/>

@@ -64,7 +64,7 @@ export default function UserProjectComponent(params) {
 
         return (
             <button className="createTeamButton" onClick={createProject}>
-                <AddCircle color="#FAFAFA" variant="Bold" size={40} className="icon"/>
+                <AddCircle color="#FAFAFA" variant="Bold" size={32} className="icon"/>
                 New Project
             </button>
         )
