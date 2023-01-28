@@ -9,14 +9,22 @@ import MemberPostulationView from "../MemberPostulationView";
 export default function MembersPostulations(params) {
     let context = useContext(AppContext);
 
-    const [vacants, setVacant] = useState(undefined)
+    const [vacants, setVacants] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         getTeamVacants(params.tid).then((response) => {
-            setVacant(response)
+            setVacants(response)
         })
     }, [params.tid])
+
+    const changeApplications = (applications) => {
+        if (applications.length === 0) {
+            setVacants([])
+        } else {
+            setVacants(applications)
+        }
+    }
 
     const closeModal = () => {
         setIsOpen(false)
@@ -60,10 +68,15 @@ export default function MembersPostulations(params) {
         if (vacants === undefined) {
             return;
         }
+
+        if (params.members.includes(context.user.uid)) {
+            return
+        }
+
         return (
             <div>
                 {vacants.map((data) => {
-                    return <MemberPostulationView key={data.tpid} data={data} owner={params.owner}/>
+                    return <MemberPostulationView key={data.tpid} data={data} owner={params.owner} changeApplications={changeApplications}/>
                 })}
             </div>
         )

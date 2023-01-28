@@ -1,4 +1,4 @@
-import {post, put, get} from "./baseService";
+import {post, put, get, erase} from "./baseService";
 
 const endpoint = "teams/"
 
@@ -52,4 +52,12 @@ export const getTeamVacants = (tid) => {
 
 export const teamPostulate = (tpid, uid) => {
     return post(`teams_positions/${tpid}/candidates/${uid}`)
+}
+
+export const rejectCandidate = (tpid, uid) => {
+    return erase(`teams_positions/${tpid}/candidates/${uid}`)
+}
+
+export const acceptCandidate = (tid, tpid, uid) => {
+    return post(`/teams/${tid}/teams_positions/${tpid}/candidates/${uid}`)
 }

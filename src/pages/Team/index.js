@@ -181,40 +181,51 @@ export default function TeamScreen() {
         }
     }
 
-    const postulate = () => {
-        if (!membersList.includes(context.user.uid)) {
-            return (
-                <button className="postulate-button" onClick={openModal}>
-                    <UserCirlceAdd color="#FAFAFA" variant="Bold" size={32} className="icon"/>
-                    Postulate
-                </button>
-            )
-        }
-    }
-
     const tagsInfo = () => {
         if (tagSelect === "projects") {
             return <TeamProjectPostulations postulations={postulations}/>
         }
 
         if (tagSelect === "members") {
-            return <MembersPostulations owner={teamData.owner} tid={teamData.tid}/>
+            return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
         }
     }
 
-    const ownerTags = () => {
+    const postulationsTag = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <>
-                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("projects")
-                    }}>
-                        Projects Postulations
-                    </div>
-                </>
+                <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("projects")
+                     }}>
+                    Projects Postulations
+                </div>
+            )
+        }
+    }
+
+    const membersTag = () => {
+        if (context.user.uid === teamData.owner) {
+            return (
+                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("members")
+                     }}>
+                    Member Postulations
+                </div>
             )
         }
 
+        if (!membersList.includes(context.user.uid)) {
+            return (
+                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("members")
+                     }}>
+                    Vacancies
+                </div>
+            )
+        }
     }
 
 
@@ -244,12 +255,8 @@ export default function TeamScreen() {
                     }}>
                         Information
                     </div>
-                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("members")
-                    }}>
-                        {context.user.uid === teamData.owner ? "Member Postulations" : "Vacancies"}
-                    </div>
-                    {ownerTags()}
+                    {membersTag()}
+                    {postulationsTag()}
                 </div>
                 {tagsInfo()}
                 {modal()}

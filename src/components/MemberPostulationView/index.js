@@ -2,21 +2,22 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
-import {UserCirlceAdd} from "iconsax-react";
-import {teamPostulate} from "../../services/teamService";
+import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, UserCirlceAdd} from "iconsax-react";
+import {acceptCandidate, rejectCandidate, teamPostulate} from "../../services/teamService";
 
 export default function MemberPostulationView(params) {
-    const [showMore, setShowMore] = useState(false);
+
     let context = useContext(AppContext);
+    const [showMore, setShowMore] = useState(false);
+    const [index, setIndex] = useState(0)
+    const [loading, setLoading] = useState(false)
     const seeMore = () => {
         setShowMore(!showMore)
     }
 
-    console.log(params.data)
-
     const postulate = () => {
         teamPostulate(params.data.tpid, context.user.uid).then((r) => {
-            console.log(r)
+            window.location.reload()
         })
     }
 
@@ -52,6 +53,83 @@ export default function MemberPostulationView(params) {
             </div>
         )
     }
+    const rejectButton = () => {
+        const reject = () => {
+            setLoading(true)
+            rejectCandidate(params.data.tpid, params.data.candidates[index]).then(() => {
+                let candidates = [...params.data.candidates]
+                candidates.splice(index, 1);
+                params.changeApplications(candidates)
+                setLoading(false)
+            })
+        }
+
+        if (loading) {
+            return (
+                <div className="loading-button-reject">
+                    <i className="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+            )
+        } else {
+            return (
+                <CloseCircle className={"button"} size="48px" color="#CD5B45" variant="Bold" onClick={reject}/>
+            )
+        }
+    }
+    const acceptButton = () => {
+
+        const accept = () => {
+            setLoading(true)
+            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index]).then(() => {
+                params.changeApplications([])
+                window.location.reload()
+            })
+            setLoading(false)
+        }
+        if (loading) {
+            return (
+                <div className="loading-button">
+                    <i className="fa fa-circle-o-notch fa-spin"></i>
+                </div>
+            )
+        } else {
+            return (
+                <TickCircle size="48" className={"button"} color="#014751" variant="Bold" onClick={accept}/>
+            )
+        }
+    }
+
+
+    const applications = () => {
+        if (params.data.candidates.length === 0) {
+            return (
+                <div className={"withoutApplications"}>
+                    No Applications
+                </div>
+            )
+        }
+        return (
+            <div className="applications">
+                <ArrowCircleLeft
+                    size="24"
+                    className={"button"}
+                    color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
+                />
+                <div className={"applicationsInformation"}>
+                    {params.data.candidates[index]}
+                    <div className="postulations-buttons-container">
+                        {rejectButton()}
+                        {acceptButton()}
+                    </div>
+                </div>
+                <ArrowCircleRight
+                    size="24"
+                    className={"button"}
+                    color={params.data.candidates.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
+                />
+            </div>
+        )
+    }
 
     return (
         <div key={params.data.tpid} className="teamPostulationContainer">
@@ -73,7 +151,7 @@ export default function MemberPostulationView(params) {
                     </div>
                 </div>
                 <div className={context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
-                    "No Postulations"
+                    {applications()}
                 </div>
             </div>
         </div>

@@ -153,7 +153,7 @@ export default function PostulationsModal(params) {
                 <ArrowCircleLeft
                     size="24"
                     className={"button"}
-                    color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
+                    color={index !== 0 ? "#AAAAAA" : "#FAFAFA"}
                     onClick={() => {
                         if (index !== 0) {
                             setIndex(index - 1)
@@ -167,7 +167,7 @@ export default function PostulationsModal(params) {
                 <ArrowCircleRight
                     size="24"
                     className={"button"}
-                    color={params.postulations.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
+                    color={params.postulations.length - 1 !== index ? "#AAAAAA" : "#FAFAFA"}
                     onClick={() => {
                         if (params.postulations.length - 1 !== index) {
                             setIndex(index + 1)
