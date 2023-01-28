@@ -206,11 +206,6 @@ export default function TeamScreen() {
         if (context.user.uid === teamData.owner) {
             return (
                 <>
-                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("members")
-                    }}>
-                        Member Postulations
-                    </div>
                     <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("projects")
                     }}>
@@ -248,6 +243,11 @@ export default function TeamScreen() {
                         setTagSelect("info")
                     }}>
                         Information
+                    </div>
+                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("members")
+                    }}>
+                        {context.user.uid === teamData.owner ? "Member Postulations" : "Vacancies"}
                     </div>
                     {ownerTags()}
                 </div>

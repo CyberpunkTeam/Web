@@ -1,14 +1,23 @@
 import {UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Modal from "react-modal";
 import {isMobile} from "react-device-detect";
 import NewMemberVacant from "../NewMemberVacant";
-
+import {getTeamVacants} from "../../services/teamService";
+import MemberPostulationView from "../MemberPostulationView";
 export default function MembersPostulations(params) {
     let context = useContext(AppContext);
 
+    const [vacants, setVacant] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    useEffect(() => {
+        getTeamVacants(params.tid).then((response) => {
+            setVacant(response)
+        })
+    }, [params.tid])
+
     const closeModal = () => {
         setIsOpen(false)
     }
@@ -47,10 +56,24 @@ export default function MembersPostulations(params) {
         )
     }
 
+    const showPostulations = () => {
+        if (vacants === undefined) {
+            return;
+        }
+        return (
+            <div>
+                {vacants.map((data) => {
+                    return <MemberPostulationView key={data.tpid} data={data} owner={params.owner}/>
+                })}
+            </div>
+        )
+    }
+
     return (
         <div className="profile-data-container-mobile">
             <div className={"user-team-container"}>
                 {addButton()}
+                {showPostulations()}
                 {modal()}
             </div>
         </div>

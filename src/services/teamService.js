@@ -45,3 +45,7 @@ export const createMembersTeamReview = (body) => {
 export const createTeamVacant = (body) => {
     return post("teams_positions/", body)
 }
+
+export const getTeamVacants = (tid) => {
+    return get(`teams_positions/?tid=${tid}&state=OPEN`)
+}
