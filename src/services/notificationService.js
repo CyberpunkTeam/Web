@@ -45,3 +45,7 @@ export const abandonProject = (body) => {
 export const abandonProjectRequest = (body) => {
     return post(endpoint + "project_abandons_requests/", body)
 }
+
+export const getTeamPosition = (tpid) => {
+    return get(`teams_positions/${tpid}`)
+}
