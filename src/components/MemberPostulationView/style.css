@@ -74,11 +74,11 @@
     position: relative;
     width: calc(100% - 32px);
     display: flex;
-    padding: 16px;
     flex-direction: column;
+    padding: 16px;
     align-items: center;
-    border-radius: 32px;
-    margin-bottom: 32px;
+    border-radius: 16px;
+    margin-bottom: 16px;
     color: #FAFAFA;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     background-image: linear-gradient(122.17deg, #66232a 0%, #014751 100%);
@@ -95,7 +95,7 @@
 }
 
 .vacantDescription {
-    width: 60%;
+    margin-top: 24px;
 }
 
 .postulateVacantButton {
@@ -112,10 +112,20 @@
     border-radius: 16px;
     width: available;
     cursor: pointer;
+    align-self: flex-end;
 }
 
 .vacantPostulationDescription {
     padding-top: 8px;
     font-weight: 400;
     font-size: 14px;
+}
+
+.vacantInfoContainer {
+    width: 70%;
+}
+
+.vacantInfoContainerReduced {
+    width: 100%;
+    margin-bottom: 24px;
 }

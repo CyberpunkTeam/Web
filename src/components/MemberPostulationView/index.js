@@ -14,25 +14,27 @@ export default function MemberPostulationView(params) {
     if (params.owner !== context.user.uid) {
         return (
             <div key={params.data.ppid} className="vacantPostulationContainer">
-                <div className={isMobile ? "vacantDataMobile" : "vacantData"}>
-                    <div className="vacantPostulationsTitle">
-                        {params.data.title}
-                        <button className="postulateVacantButton">
-                            <UserCirlceAdd color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                            Postulate
-                        </button>
-                    </div>
-                    <div className="vacantDescription">
-                        Description
-                        <div className="vacantPostulationDescription">
-                            {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
-                            {showMore || params.data.description.length < 600 ? "" : "..."}
+                <div className={isMobile || context.size ? "vacantDataMobile" : "vacantData"}>
+                    <div className={isMobile || context.size ? "vacantInfoContainerReduced" : "vacantInfoContainer"}>
+                        <div className="vacantPostulationsTitle">
+                            {params.data.title}
                         </div>
-                        <div className={"seeMore"} onClick={seeMore}>
-                            {params.data.description.length < 600 ? null : !showMore ?
-                                "Show More" : "Show Less"}
+                        <div className="vacantDescription">
+                            Description
+                            <div className="vacantPostulationDescription">
+                                {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
+                                {showMore || params.data.description.length < 600 ? "" : "..."}
+                            </div>
+                            <div className={"seeMore"} onClick={seeMore}>
+                                {params.data.description.length < 600 ? null : !showMore ?
+                                    "Show More" : "Show Less"}
+                            </div>
                         </div>
                     </div>
+                    <button className="postulateVacantButton">
+                        <UserCirlceAdd color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                        Postulate
+                    </button>
                 </div>
             </div>
         )
