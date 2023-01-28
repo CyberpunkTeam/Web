@@ -132,7 +132,6 @@ function SideBar() {
                 navigate("/team/review/" + id, {state: metadata})
             } else if (notification_type === "NEW_TEAM_CANDIDATE") {
                 getTeamPosition(id).then((response) => {
-                    console.log(response)
                     navigate("/team/" + response.team.tid)
                 })
             } else if (notification_type === "TEAM_POSITION_ACCEPTED") {

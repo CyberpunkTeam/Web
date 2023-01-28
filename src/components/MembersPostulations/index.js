@@ -69,7 +69,7 @@ export default function MembersPostulations(params) {
             return;
         }
 
-        if (params.members.includes(context.user.uid)) {
+        if (params.members.includes(context.user.uid) && context.user.uid !== params.owner) {
             return
         }
 
