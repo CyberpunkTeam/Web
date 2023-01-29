@@ -61,3 +61,7 @@ export const rejectCandidate = (tpid, uid) => {
 export const acceptCandidate = (tid, tpid, uid) => {
     return post(`/teams/${tid}/teams_positions/${tpid}/candidates/${uid}`)
 }
+
+export const deleteVacant = (tpid, body) => {
+    return put("teams_positions/" + tpid, body)
+}

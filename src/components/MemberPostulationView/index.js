@@ -2,8 +2,8 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
-import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, User, UserCirlceAdd} from "iconsax-react";
-import {acceptCandidate, rejectCandidate, teamPostulate} from "../../services/teamService";
+import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, Trash, User, UserCirlceAdd} from "iconsax-react";
+import {acceptCandidate, deleteVacant, rejectCandidate, teamPostulate} from "../../services/teamService";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
@@ -16,6 +16,12 @@ export default function MemberPostulationView(params) {
 
     const postulate = () => {
         teamPostulate(params.data.tpid, context.user.uid).then((r) => {
+            window.location.reload()
+        })
+    }
+
+    const deletePosition = () => {
+        deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
             window.location.reload()
         })
     }
@@ -117,7 +123,6 @@ export default function MemberPostulationView(params) {
         }
     }
 
-
     const applications = () => {
         if (params.data.candidates.length === 0) {
             return (
@@ -176,15 +181,19 @@ export default function MemberPostulationView(params) {
                     </div>
                     <div>
                         Description
-                        <div className="description-modal">
+                        <div className="descriptionApplication">
                             {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
                             {showMore || params.data.description.length < 600 ? "" : "..."}
                         </div>
-                        <div className={"seeMore"} onClick={seeMore}>
+                        <div className={"seeMoreApplication"} onClick={seeMore}>
                             {params.data.description.length < 600 ? null : !showMore ?
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
+                    <button className="postulateVacantButton" onClick={deletePosition}>
+                        <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                        Delete Position
+                    </button>
                 </div>
                 <div className={context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
                     {applications()}
