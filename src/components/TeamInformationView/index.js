@@ -11,7 +11,7 @@ export default function TeamInformationView(params) {
         <div className="profile-data-container">
             <div className={context.size ? "teamInformationContainerReduced" : "teamInformationContainer"}>
                 <ReviewComponent />
-                <TeamProjectInProgress />
+                <TeamProjectInProgress projects={params.postulations}/>
             </div>
         </div>
     )
