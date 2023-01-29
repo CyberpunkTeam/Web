@@ -54,6 +54,7 @@ export default function AddExperienceModal(params) {
             localStorage.setItem("user", JSON.stringify(response))
             setButtonDisabled(false)
             params.closeModal()
+            window.location.reload()
         })
     }
 

@@ -91,7 +91,7 @@ export default function EducationComponent(params) {
                     <div className="user-info-mobile">
                         <div className="data-title-mobile">
                             <Teacher size="80" color="#014751" className={"icon"}/>
-                            Add Title or Certification
+                            Add Degree or Certification
                         </div>
                         <div className="button-center">
                             <AddCircle size="80" color="#B1B1B1" onClick={openModal}/>
@@ -107,7 +107,7 @@ export default function EducationComponent(params) {
                 <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
                     <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
                         <Teacher size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
-                        Add Title or Certification
+                        Add Degree or Certification
                     </div>
                     <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
                 </div>
