@@ -242,6 +242,7 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 64px;
 }
 
 .project-buttons-container {
@@ -368,9 +369,6 @@
 }
 
 .data-info {
-    background: #F1F1F1;
-    border-radius: 16px;
-    width: 45%;
     margin-bottom: 16px;
     padding: 20px;
     display: flex;
@@ -396,6 +394,18 @@
     background: #F1F1F1;
     border-radius: 16px;
     margin-bottom: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    color: #222222;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.data-info-reduce-project {
+    background: #F1F1F1;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    margin-left: 8px;
     padding: 20px;
     display: flex;
     flex-direction: column;
@@ -464,9 +474,9 @@
 }
 
 .projectDescription {
-    padding: 8px;
+    padding: 8px 24px;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 300;
     background: #E3E3E3;
     border-bottom-right-radius: 16px;
     border-bottom-left-radius: 16px;

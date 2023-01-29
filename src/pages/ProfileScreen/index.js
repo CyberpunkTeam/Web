@@ -222,7 +222,7 @@ function ProfileScreen() {
                     <div className={tagSelect === "profile" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("profile")
                     }}>
-                        Profile
+                        Information
                     </div>
                     <div className={tagSelect === "teams" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
                         setTagSelect("teams")

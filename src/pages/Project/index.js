@@ -204,8 +204,6 @@ export default function ProjectScreen() {
                 "tid": project.team_assigned.tid
             }
 
-            console.log(body)
-
             requestFinishProject(body).then((r) => {
                 setDisableFinishButton(false);
                 window.alert("The project completion request was sent")
@@ -231,7 +229,7 @@ export default function ProjectScreen() {
 
     const owner = (data) => {
         const userNavigate = () => {
-            const user_link = data.uid === project.creator.uid ? '/me' : '/user/' + data.uid;
+            const user_link = data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
             navigate(user_link);
         }
 

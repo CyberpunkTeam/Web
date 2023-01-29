@@ -1,0 +1,12 @@
+.teamInformationContainer{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.teamInformationContainerReduced{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}

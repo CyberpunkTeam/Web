@@ -22,7 +22,8 @@
     height: 200px;
     border-radius: 16px;
     padding: 16px;
-    width: 33%;
+    width: 40%;
+    margin-right: 8px;
     background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
 }
 

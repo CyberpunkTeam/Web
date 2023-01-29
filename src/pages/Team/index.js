@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
-import {getTeam} from "../../services/teamService";
+import {getTeam, getTeamReviews} from "../../services/teamService";
 import {Edit, Star1, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
@@ -19,6 +19,8 @@ import TeamProjectPostulations from "../../components/TeamProjectPostulations";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
+import MembersPostulations from "../../components/MembersPostulations";
+import TeamInformationView from "../../components/TeamInformationView";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -27,6 +29,7 @@ export default function TeamScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
     const [users, setUsers] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [invitations, setInvitations] = useState([]);
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
@@ -36,28 +39,31 @@ export default function TeamScreen() {
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
-            setTeamData(response)
-            const list = []
-            response.members.forEach((data) => {
-                list.push(data.uid)
-            })
-            setMembersList(list)
-            getUsers().then((users) => {
-                setUsers(users)
-            })
-            getTeamInvitations(params.id).then((invitations) => {
-                if (invitations.length !== 0) {
-                    const usersInvited = []
-                    invitations.forEach((data) => {
-                        if (data.state === "PENDING") {
-                            usersInvited.push(data.metadata.user.uid)
-                        }
+            setTeamData(response);
+            getTeamReviews(params.id).then((reviews) => {
+                setReviews(reviews)
+                const list = []
+                response.members.forEach((data) => {
+                    list.push(data.uid)
+                })
+                setMembersList(list)
+                getUsers().then((users) => {
+                    setUsers(users)
+                })
+                getTeamInvitations(params.id).then((invitations) => {
+                    if (invitations.length !== 0) {
+                        const usersInvited = []
+                        invitations.forEach((data) => {
+                            if (data.state === "PENDING") {
+                                usersInvited.push(data.metadata.user.uid)
+                            }
+                        })
+                        setInvitations(usersInvited);
+                    }
+                    getTeamPostulations(params.id).then((response) => {
+                        setPostulations(response)
+                        setLoading(false);
                     })
-                    setInvitations(usersInvited);
-                }
-                getTeamPostulations(params.id).then((response) => {
-                    setPostulations(response)
-                    setLoading(false);
                 })
             })
         }).catch((error) => {
@@ -69,6 +75,10 @@ export default function TeamScreen() {
     const closeModal = () => {
         setIsOpen(false);
         setIsEditData(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
     }
 
     if (loading) {
@@ -158,8 +168,8 @@ export default function TeamScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isEditData ? <TeamModal team={teamData} setTeamData={setTeamData} closeModal={closeModal}/> :
-                        <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
-                                        setInvitations={setInvitations} closeModal={closeModal}/>}
+                    <AddMemberModal members={membersList} tid={teamData.tid} users={users} invitations={invitations}
+                                    setInvitations={setInvitations} closeModal={closeModal}/>}
             </Modal>
         )
     }
@@ -167,14 +177,65 @@ export default function TeamScreen() {
     const addButton = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <button className="addMemberButton" onClick={() => {
-                    setIsOpen(true)
-                }}>
+                <button className="addMemberButton" onClick={openModal}>
                     <UserCirlceAdd color="#FAFAFA" variant="Bold" size={40}/>
                 </button>
             )
         }
     }
+
+    const tagsInfo = () => {
+        if (tagSelect === "projects") {
+            return <TeamProjectPostulations postulations={postulations}/>
+        }
+
+        if (tagSelect === "members") {
+            return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
+        }
+
+        if (tagSelect === "info") {
+            return <TeamInformationView postulations={postulations} reviews={reviews}/>
+        }
+
+    }
+
+    const postulationsTag = () => {
+        if (context.user.uid === teamData.owner) {
+            return (
+                <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("projects")
+                     }}>
+                    Projects Postulations
+                </div>
+            )
+        }
+    }
+
+    const membersTag = () => {
+        if (context.user.uid === teamData.owner) {
+            return (
+                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("members")
+                     }}>
+                    Member Postulations
+                </div>
+            )
+        }
+
+        if (!membersList.includes(context.user.uid)) {
+            return (
+                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                     onClick={() => {
+                         setTagSelect("members")
+                     }}>
+                    Vacancies
+                </div>
+            )
+        }
+    }
+
 
     if (teamData.tid === undefined) {
         return (
@@ -202,18 +263,10 @@ export default function TeamScreen() {
                     }}>
                         Information
                     </div>
-                    <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("members")
-                    }}>
-                        Member Postulations
-                    </div>
-                    <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                        setTagSelect("projects")
-                    }}>
-                        Projects Postulations
-                    </div>
+                    {membersTag()}
+                    {postulationsTag()}
                 </div>
-                {tagSelect === "projects" ? <TeamProjectPostulations postulations={postulations}/> : null}
+                {tagsInfo()}
                 {modal()}
                 <SearchBar/>
                 <SideBar/>
