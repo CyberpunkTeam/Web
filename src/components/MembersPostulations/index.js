@@ -19,11 +19,7 @@ export default function MembersPostulations(params) {
     }, [params.tid])
 
     const changeApplications = (applications) => {
-        if (applications.length === 0) {
-            setVacants([])
-        } else {
-            setVacants(applications)
-        }
+        setVacants(applications)
     }
 
     const closeModal = () => {

@@ -2,11 +2,10 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
-import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, UserCirlceAdd} from "iconsax-react";
+import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, User, UserCirlceAdd} from "iconsax-react";
 import {acceptCandidate, rejectCandidate, teamPostulate} from "../../services/teamService";
 
 export default function MemberPostulationView(params) {
-
     let context = useContext(AppContext);
     const [showMore, setShowMore] = useState(false);
     const [index, setIndex] = useState(0)
@@ -23,9 +22,16 @@ export default function MemberPostulationView(params) {
 
 
     if (params.owner !== context.user.uid) {
-        if (params.data.candidates.includes(context.user.uid)) {
+        let list = []
+        params.data.candidates.map((user) => {
+            list.push(user.uid)
+            return
+        })
+
+        if (list.includes(context.user.uid)) {
             return
         }
+
         return (
             <div key={params.data.tpid} className="vacantPostulationContainer">
                 <div className={isMobile || context.size ? "vacantDataMobile" : "vacantData"}>
@@ -56,10 +62,11 @@ export default function MemberPostulationView(params) {
     const rejectButton = () => {
         const reject = () => {
             setLoading(true)
-            rejectCandidate(params.data.tpid, params.data.candidates[index]).then(() => {
+            rejectCandidate(params.data.tpid, params.data.candidates[index].uid).then(() => {
                 let candidates = [...params.data.candidates]
                 candidates.splice(index, 1);
-                params.changeApplications(candidates)
+                setIndex(0)
+                params.data.candidates =  candidates
                 setLoading(false)
             })
         }
@@ -80,8 +87,7 @@ export default function MemberPostulationView(params) {
 
         const accept = () => {
             setLoading(true)
-            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index]).then(() => {
-                params.changeApplications([])
+            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index].uid).then(() => {
                 window.location.reload()
             })
             setLoading(false)
@@ -96,6 +102,18 @@ export default function MemberPostulationView(params) {
             return (
                 <TickCircle size="48" className={"button"} color="#014751" variant="Bold" onClick={accept}/>
             )
+        }
+    }
+
+    const userImage = (data) => {
+        if (data.profile_image === "default") {
+            return (
+                <div className="applicationsUserImage">
+                    <User color="#FAFAFA" size="30" variant="Bold"/>
+                </div>
+            )
+        } else {
+            return <img src={data.profile_image} alt='' className="applicationsUserImage"/>
         }
     }
 
@@ -116,7 +134,7 @@ export default function MemberPostulationView(params) {
         }
 
         const next = () => {
-            if (params.postulations.length - 1 !== index) {
+            if (params.data.candidates.length - 1 !== index) {
                 setIndex(index + 1)
             }
         }
@@ -130,7 +148,10 @@ export default function MemberPostulationView(params) {
                     color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
                 />
                 <div className={"applicationsInformation"}>
-                    {params.data.candidates[index]}
+                    <div className={"applicationsUserInformation"}>
+                        {userImage(params.data.candidates[index])}
+                        {params.data.candidates[index].name} {params.data.candidates[index].lastname}
+                    </div>
                     <div className="postulations-buttons-container">
                         {rejectButton()}
                         {acceptButton()}

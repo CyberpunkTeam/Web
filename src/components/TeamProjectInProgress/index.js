@@ -22,7 +22,7 @@ export default function TeamProjectInProgress(params) {
             </div>
             {params.projects.map((value) => {
                 if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
-                    return <TeamProjectTileComponent data={value}/>
+                    return <TeamProjectTileComponent key={value} data={value}/>
                 }
             })}
         </div>
