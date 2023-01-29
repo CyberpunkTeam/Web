@@ -41,7 +41,7 @@ export default function TeamReview() {
             console.log(error)
             navigate("/*")
         });
-    }, [params.id, state.pid, navigate]);
+    }, [params.id, state.pid, navigate, context.user.uid]);
 
 
     if (isLoading) {

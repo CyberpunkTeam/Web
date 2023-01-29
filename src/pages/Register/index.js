@@ -114,7 +114,7 @@ function Register(params) {
                         className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "button-style-disabled" : isMobile ? "button-style-mobile" : "button-style"}
                         onClick={registerButton}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Complete"}
+                    {buttonDisabled ? "" : "Finish"}
                 </button>
             </div>
         </div>

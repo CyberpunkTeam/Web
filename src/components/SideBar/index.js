@@ -15,7 +15,12 @@ import {
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {getFinishProject, getNotifications, viewNotifications} from "../../services/notificationService";
+import {
+    getFinishProject,
+    getNotifications,
+    getTeamPosition,
+    viewNotifications
+} from "../../services/notificationService";
 import {getInvitation} from "../../services/invitationService";
 import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
@@ -86,12 +91,12 @@ function SideBar() {
                 </div>
             )
         } else {
-            return <img src={context.user.profile_image} alt='' className={context.size ? "user-sidebar-web" : "user-sidebar-mobile"}/>
+            return <img src={context.user.profile_image} alt=''
+                        className={context.size ? "user-sidebar-web" : "user-sidebar-mobile"}/>
         }
     }
 
     const notificationHover = () => {
-
         const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
@@ -125,11 +130,17 @@ function SideBar() {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
+            } else if (notification_type === "NEW_TEAM_CANDIDATE") {
+                getTeamPosition(id).then((response) => {
+                    navigate("/team/" + response.team.tid)
+                })
+            } else if (notification_type === "TEAM_POSITION_ACCEPTED") {
+                navigate("/team/" + id)
             }
         }
 
         const icon = (notification_type) => {
-            if (notification_type === "TEAM_INVITATION") {
+            if (notification_type === "TEAM_INVITATION" || notification_type === "NEW_TEAM_CANDIDATE" || notification_type === "TEAM_POSITION_ACCEPTED") {
                 return (
                     <People color="#FAFAFA" size="20px" variant="Bold"/>
                 )
@@ -255,24 +266,29 @@ function SideBar() {
             <>
                 {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
                 {notificationHover()}
-                <div className={ context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
-                    <div className={ context.size ? "navbar-web" : "navbar-mobile"}>
+                <div className={context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
+                    <div className={context.size ? "navbar-web" : "navbar-mobile"}>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
                             navigate("/projects")
                         }}>
-                            <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline" size={context.size ? 28: 60}/>
+                            <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline"
+                                        size={context.size ? 28 : 60}/>
                             Projects
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                            <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                            <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"
+                                      size={context.size ? 28 : 60}/>
                             Articles
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                            <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                            <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"
+                                   size={context.size ? 28 : 60}/>
                             Home
                         </div>
-                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={context.size ? closeNotification : null}>
-                            <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"  size={context.size ? 28: 60}/>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}
+                             onClick={context.size ? closeNotification : null}>
+                            <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"
+                                          size={context.size ? 28 : 60}/>
                             {unreadNotifications.length !== 0 ?
                                 <span className="notification-numbers-mobile"></span> : null}
                             Notifications

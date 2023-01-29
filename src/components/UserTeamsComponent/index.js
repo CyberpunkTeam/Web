@@ -98,7 +98,7 @@ export default function UserTeamsComponent(params) {
 
         return (
             <button className="createTeamButton" onClick={openModal}>
-                <AddCircle color="#FAFAFA" variant="Bold" size={40} className="icon"/>
+                <AddCircle color="#FAFAFA" variant="Bold" size={32} className="icon"/>
                 New Team
             </button>
         )
