@@ -122,7 +122,7 @@ export default function EducationComponent(params) {
                 <div className="user-info-mobile">
                     <div className="data-title-mobile">
                         <Teacher size="80" color="#014751" className="icon"/>
-                        Titles and Certification
+                        Degree and Certification
                     </div>
                     {params.userData.user.education.slice(0, length).map((data) => {
                         return experienceView(data)
@@ -142,7 +142,7 @@ export default function EducationComponent(params) {
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
                     <Teacher size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
-                    Titles and Certification
+                    Degree and Certification
                 </div>
                 {params.userData.user.education.slice(0, length).map((data) => {
                     return experienceView(data)
