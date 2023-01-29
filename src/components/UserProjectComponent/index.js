@@ -63,14 +63,14 @@ export default function UserProjectComponent(params) {
                     if (value.length === 1) {
                         return (
                             <div key={value} className={"row"}>
-                                <ProjectTileComponent data={value[0]} />
+                                <ProjectTileComponent data={value[0]}  position={"left"}/>
                             </div>
                         )
                     }
                     return (
                         <div key={value} className={"row"}>
-                            <ProjectTileComponent data={value[0]} />
-                            <ProjectTileComponent data={value[1]} />
+                            <ProjectTileComponent data={value[0]} position={"left"}/>
+                            <ProjectTileComponent data={value[1]} position={"right"}/>
                         </div>
                     )
                 }
