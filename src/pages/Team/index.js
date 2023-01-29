@@ -20,6 +20,7 @@ import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
 import MembersPostulations from "../../components/MembersPostulations";
+import TeamInformationView from "../../components/TeamInformationView";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -172,9 +173,7 @@ export default function TeamScreen() {
     const addButton = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <button className="addMemberButton" onClick={() => {
-                    setIsOpen(true)
-                }}>
+                <button className="addMemberButton" onClick={openModal}>
                     <UserCirlceAdd color="#FAFAFA" variant="Bold" size={40}/>
                 </button>
             )
@@ -189,6 +188,8 @@ export default function TeamScreen() {
         if (tagSelect === "members") {
             return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
         }
+
+        return <TeamInformationView postulations={postulations}/>
     }
 
     const postulationsTag = () => {
