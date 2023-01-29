@@ -230,7 +230,7 @@ export default function TeamScreen() {
                      onClick={() => {
                          setTagSelect("members")
                      }}>
-                    Vacancies
+                    Opportunities
                 </div>
             )
         }
