@@ -1,9 +1,7 @@
 import {AddCircle} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import TechnologyTag from "../TechnologyTag";
-import PreferenceTag from "../PreferenceTag";
+import {useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import ProjectTileComponent from "../ProjectTileComponent";
 

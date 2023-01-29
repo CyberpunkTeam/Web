@@ -31,7 +31,7 @@ export default function MemberPostulationView(params) {
         let list = []
         params.data.candidates.map((user) => {
             list.push(user.uid)
-            return
+            return null
         })
 
         if (list.includes(context.user.uid)) {

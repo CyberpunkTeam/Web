@@ -24,6 +24,7 @@ export default function TeamProjectInProgress(params) {
                 if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
                     return <TeamProjectTileComponent key={value} data={value}/>
                 }
+                return null
             })}
         </div>
     )
