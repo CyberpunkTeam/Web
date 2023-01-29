@@ -369,9 +369,6 @@
 }
 
 .data-info {
-    background: #F1F1F1;
-    border-radius: 16px;
-    width: 45%;
     margin-bottom: 16px;
     padding: 20px;
     display: flex;

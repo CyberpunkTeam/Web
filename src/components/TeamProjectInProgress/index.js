@@ -7,7 +7,6 @@ import TeamProjectTileComponent from "../TeamProjectTileComponent";
 
 export default function TeamProjectInProgress(params) {
     let context = useContext(AppContext);
-    console.log(params.projects)
 
     return (
         <div

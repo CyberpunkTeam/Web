@@ -1,35 +1,30 @@
 import './style.css'
-import {Ranking} from "iconsax-react";
+import {LampCharge, Ranking, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import {isMobile} from "react-device-detect";
+import {Link} from "react-router-dom";
 
 export default function ReviewComponent(params) {
     let context = useContext(AppContext);
     const [length, setLength] = useState(1);
-
-    /*if (Object.keys(params.userData).length === 0) {
-        return;
-    }
-
     const less = () => {
         setLength(1)
     }
 
     const more = () => {
-        setLength(params.userData.user.education.length)
+        setLength(params.reviews.length)
     }
 
-
     const viewMore = () => {
-        if (params.userData.user.education.length <= 1) {
+        if (params.reviews.length <= 1) {
             return (<div className={isMobile ? "view-more-mobile" : "view-more"}/>)
         }
 
         if (length === 1) {
             return (
                 <div className={isMobile ? "view-more-mobile" : "view-more"} onClick={more}>
-                    {`Show More (+${params.userData.user.education.length - 1})`}
+                    {`Show More (+${params.reviews.length - 1})`}
                 </div>
             )
         }
@@ -42,23 +37,36 @@ export default function ReviewComponent(params) {
 
     }
 
-    const experienceView = (data) => {
-        if (params.userData.user.education.length === 0) {
+    const reviewView = (data) => {
+        if (params.reviews.length === 0) {
             return;
         }
 
         return (
-            <div key={data.title} className={isMobile ? "data-info-mobile" : "data-info"}>
-                {data.title}
-                <div className={isMobile ? "education-info-mobile" : "education-info"}>
-                    {data.institution}
-                    <div>
-                        {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "Actual"}
+            <div key={data.pid} className={isMobile ? "data-info-mobile" : "data-info"}>
+                <Link to={"/projects/" + data.pid} className={isMobile ? "team-link-mobile" : "team-link"}>
+                    {data.project.name}
+                </Link>
+                <div className={isMobile ? "reviewRatingMobile" : "reviewRatingInfo"}>
+                    <Star1 size="20" color="#ECA95A" variant="Linear" className={"star"}/>
+                    {data.rating}
+                </div>
+            </div>
+        )
+    }
+
+    if (params.reviews.length === 0) {
+        return (
+            <div className={context.size ? "teamWithoutReviewsContainerReduced" : "teamWithoutReviewsContainer"}>
+                <div className={isMobile ? "user-info-mobile" : "user-info"}>
+                    <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                        <Ranking size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                        Without Reviews
                     </div>
                 </div>
             </div>
         )
-    }*/
+    }
 
     if (isMobile) {
         return (
@@ -74,13 +82,16 @@ export default function ReviewComponent(params) {
     }
 
     return (
-        <div className={context.size ? "teamReviewsContainerReduced" : "teamReviewsContainer"}>
+        <div className={context.size ? "teamReviewsContainerReduced" : length === 1 ? "teamReviewsContainer" : "teamReviewsAllContainer"}>
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
                 <div className={isMobile ? "data-title-mobile" : "data-title"}>
                     <Ranking size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
                     Reviews
                 </div>
-                Aaa
+                {params.reviews.slice(0, length).map((data) => {
+                    return reviewView(data)
+                })}
+                {viewMore()}
             </div>
         </div>
     )

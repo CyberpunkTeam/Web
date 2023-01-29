@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
-import {getTeam} from "../../services/teamService";
+import {getTeam, getTeamReviews} from "../../services/teamService";
 import {Edit, Star1, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
@@ -29,6 +29,7 @@ export default function TeamScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [isEditData, setIsEditData] = useState(false);
     const [users, setUsers] = useState([]);
+    const [reviews, setReviews] = useState([]);
     const [invitations, setInvitations] = useState([]);
     const [membersList, setMembersList] = useState([]);
     const [teamData, setTeamData] = useState(undefined)
@@ -38,28 +39,31 @@ export default function TeamScreen() {
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
-            setTeamData(response)
-            const list = []
-            response.members.forEach((data) => {
-                list.push(data.uid)
-            })
-            setMembersList(list)
-            getUsers().then((users) => {
-                setUsers(users)
-            })
-            getTeamInvitations(params.id).then((invitations) => {
-                if (invitations.length !== 0) {
-                    const usersInvited = []
-                    invitations.forEach((data) => {
-                        if (data.state === "PENDING") {
-                            usersInvited.push(data.metadata.user.uid)
-                        }
+            setTeamData(response);
+            getTeamReviews(params.id).then((reviews) => {
+                setReviews(reviews)
+                const list = []
+                response.members.forEach((data) => {
+                    list.push(data.uid)
+                })
+                setMembersList(list)
+                getUsers().then((users) => {
+                    setUsers(users)
+                })
+                getTeamInvitations(params.id).then((invitations) => {
+                    if (invitations.length !== 0) {
+                        const usersInvited = []
+                        invitations.forEach((data) => {
+                            if (data.state === "PENDING") {
+                                usersInvited.push(data.metadata.user.uid)
+                            }
+                        })
+                        setInvitations(usersInvited);
+                    }
+                    getTeamPostulations(params.id).then((response) => {
+                        setPostulations(response)
+                        setLoading(false);
                     })
-                    setInvitations(usersInvited);
-                }
-                getTeamPostulations(params.id).then((response) => {
-                    setPostulations(response)
-                    setLoading(false);
                 })
             })
         }).catch((error) => {
@@ -189,7 +193,10 @@ export default function TeamScreen() {
             return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
         }
 
-        return <TeamInformationView postulations={postulations}/>
+        if (tagSelect === "info") {
+            return <TeamInformationView postulations={postulations} reviews={reviews}/>
+        }
+
     }
 
     const postulationsTag = () => {

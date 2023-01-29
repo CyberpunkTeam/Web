@@ -204,8 +204,6 @@ export default function ProjectScreen() {
                 "tid": project.team_assigned.tid
             }
 
-            console.log(body)
-
             requestFinishProject(body).then((r) => {
                 setDisableFinishButton(false);
                 window.alert("The project completion request was sent")
