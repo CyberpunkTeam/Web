@@ -54,6 +54,7 @@ export default function AddEducationModal(params) {
             localStorage.setItem("user", JSON.stringify(response))
             setButtonDisabled(false)
             params.closeModal()
+            window.location.reload()
         })
 
     }
@@ -61,7 +62,7 @@ export default function AddEducationModal(params) {
     return (
         <div className={context.size ? "modal-container-reduce" : "modal-container"}>
             <div className="form-text">
-                Add Title or Certification
+                Add Degree or Certification
             </div>
             <form className="modal-form">
                 <div className="label">
