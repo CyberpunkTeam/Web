@@ -16,7 +16,7 @@ export default function ProjectTileComponent(params) {
 
     return (
         <div key={data.pid}
-             className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info-with-shadow"}
+             className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : params.position === "left" ? "data-info-with-shadow-left" : "data-info-with-shadow-right"}
              onClick={goTo}>
             <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                 {data.name}

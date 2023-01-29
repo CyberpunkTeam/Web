@@ -26,6 +26,7 @@ export default function NewMemberVacant(params) {
         createTeamVacant(body).then(() => {
             setButtonDisabled(true);
             params.closeModal()
+            window.location.reload()
         })
     }
 
@@ -37,7 +38,7 @@ export default function NewMemberVacant(params) {
             <form className="modal-form">
                 <div className={"label"}>
                     <label>
-                        Vacant Title
+                        Title
                         <input type="text"
                                value={vacant}
                                className={isMobile ? "input-mobile" : "input"}

@@ -206,7 +206,7 @@ export default function TeamScreen() {
                      onClick={() => {
                          setTagSelect("projects")
                      }}>
-                    Projects Postulations
+                    Project Postulations
                 </div>
             )
         }
@@ -230,7 +230,7 @@ export default function TeamScreen() {
                      onClick={() => {
                          setTagSelect("members")
                      }}>
-                    Vacancies
+                    Opportunities
                 </div>
             )
         }

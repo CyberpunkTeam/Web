@@ -1,9 +1,7 @@
 import {AddCircle} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
-import {Link, useNavigate} from "react-router-dom";
-import TechnologyTag from "../TechnologyTag";
-import PreferenceTag from "../PreferenceTag";
+import {useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import ProjectTileComponent from "../ProjectTileComponent";
 
@@ -65,14 +63,14 @@ export default function UserProjectComponent(params) {
                     if (value.length === 1) {
                         return (
                             <div key={value} className={"row"}>
-                                <ProjectTileComponent data={value[0]} />
+                                <ProjectTileComponent data={value[0]}  position={"left"}/>
                             </div>
                         )
                     }
                     return (
                         <div key={value} className={"row"}>
-                            <ProjectTileComponent data={value[0]} />
-                            <ProjectTileComponent data={value[1]} />
+                            <ProjectTileComponent data={value[0]} position={"left"}/>
+                            <ProjectTileComponent data={value[1]} position={"right"}/>
                         </div>
                     )
                 }

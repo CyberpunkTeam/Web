@@ -1,5 +1,5 @@
 import './style.css'
-import {LampCharge, Ranking, Star1} from "iconsax-react";
+import {Ranking, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
 import {isMobile} from "react-device-detect";
