@@ -5,7 +5,7 @@
     min-height: 200px;
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 65%;
     margin-right: 8px;
     color: #FAFAFA;
     background-image: linear-gradient(122.17deg, #79386a 0%, #014751 100%);
@@ -26,7 +26,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 35%;
     margin-left: 8px;
     padding: 16px;
     background: #F1F1F1;
@@ -41,7 +41,7 @@
     padding: 16px;
     min-height: 100px;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background: #F1F1F1;
     border-bottom-left-radius: 16px;
     border-bottom-right-radius: 16px;
@@ -150,6 +150,7 @@
 
 .applications {
     display: flex;
+    width: 100%;
     height: 100%;
     justify-content: space-between;
     align-items: center;
