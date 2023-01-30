@@ -5,7 +5,6 @@
     min-height: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     width: 50%;
     margin-right: 8px;
     color: #FAFAFA;
@@ -19,7 +18,6 @@
     padding: 16px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     color: #FAFAFA;
     background-image: linear-gradient(122.17deg, #79386a 0%, #014751 100%);
 }
@@ -52,7 +50,7 @@
 }
 
 .vacantTitle{
-    height: 30px;
+    margin-bottom: 16px;
     font-size: 20px;
     font-weight: 700;
     align-items: center;
@@ -191,7 +189,7 @@
 }
 
 .descriptionApplication {
-    padding-top: 8px;
+    padding: 8px;
     font-weight: 400;
     font-size: 14px;
 }
