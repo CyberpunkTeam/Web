@@ -207,7 +207,9 @@ function MainScreen() {
                 <div className="container-login">
                     <div className="pana-container">
                         <div className="title-style">
-                            Find your ideal team fast and simple
+                            Find your ideal team
+                            <br/>
+                            Make your ideas come true
                         </div>
                         <img src={pana} className="pana-style" alt="logo"/>
                     </div>
