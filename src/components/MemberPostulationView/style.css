@@ -205,3 +205,19 @@
     justify-content: center;
     align-self: center;
 }
+
+.deleteVacantButton {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    background: #CD5B45;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-self: flex-end;
+}

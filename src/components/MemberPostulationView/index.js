@@ -190,9 +190,8 @@ export default function MemberPostulationView(params) {
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
-                    <button className="postulateVacantButton" onClick={deletePosition}>
-                        <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                        Delete Position
+                    <button className="deleteVacantButton" onClick={deletePosition}>
+                        <Trash color="#FAFAFA" variant="Bold" size={24}/>
                     </button>
                 </div>
                 <div className={context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
