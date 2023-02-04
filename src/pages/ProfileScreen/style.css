@@ -156,8 +156,20 @@
 }
 
 .user-info-container-reduce {
-    width: 48%;
+    width: calc(50% - 8px);
     margin-bottom: 16px;
+    margin-left: 8px;
+    position: relative;
+    background: #F1F1F1;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    height: 300px;
+}
+
+.user-info-container-reduce-left {
+    width: calc(50% - 8px);
+    margin-bottom: 16px;
+    margin-right: 8px;
     position: relative;
     background: #F1F1F1;
     border-radius: 16px;
@@ -166,8 +178,18 @@
 }
 
 .user-info-container-reduce-full {
-    width: 48%;
+    width: calc(50% - 8px);
     margin-bottom: 16px;
+    position: relative;
+    margin-left: 8px;
+    background: #F1F1F1;
+    border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+.user-info-container-reduce-full-left {
+    width: calc(50% - 8px);
+    margin-bottom: 16px;
+    margin-right: 8px;
     position: relative;
     background: #F1F1F1;
     border-radius: 16px;

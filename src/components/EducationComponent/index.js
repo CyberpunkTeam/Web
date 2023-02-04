@@ -136,7 +136,7 @@ export default function EducationComponent(params) {
 
     return (
         <div
-            className={context.size ? length === 1 ? "user-info-container-reduce" : "user-info-container-reduce-full" : "user-info-container"}>
+            className={context.size ? length === 1 ? "user-info-container-reduce-left" : "user-info-container-reduce-full-left" : "user-info-container"}>
             {params.userData.user.uid !== context.user.uid ? null :
                 <AddCircle size="24" color="#B1B1B1" className="add-button" onClick={openModal}/>}
             <div className={isMobile ? "user-info-mobile" : "user-info"}>
