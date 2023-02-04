@@ -80,7 +80,7 @@ export default function TeamScreen() {
                 clearInterval(interval);
             };
         }
-    }, []);
+    }, [loading]);
 
     const closeModal = () => {
         setIsOpen(false);

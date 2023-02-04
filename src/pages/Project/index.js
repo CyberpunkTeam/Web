@@ -74,7 +74,7 @@ export default function ProjectScreen() {
                 clearInterval(interval);
             };
         }
-    }, []);
+    }, [loading]);
 
     if (loading) {
         return <Loading/>
