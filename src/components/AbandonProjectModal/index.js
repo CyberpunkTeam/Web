@@ -74,7 +74,7 @@ export function AbandonProjectModal(params) {
     return (
         <div className={"abandonModal"}>
             <div className="form-text">
-                {condition ? "Are you sure you want to leave this project?" : "Are you sure you want the team leaves this project?"}
+                {condition ? "Are you sure you want to leave this project?" : "Are you sure you want the team to leave this project?"}
             </div>
             <form className="modal-form">
                 <label className="create-project-label">

@@ -36,6 +36,7 @@ export default function TeamScreen() {
     const [loading, setLoading] = useState(true);
     const [postulations, setPostulations] = useState([])
     const [tagSelect, setTagSelect] = useState("info")
+    const [time, setTime] = useState(Date.now());
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
@@ -70,7 +71,16 @@ export default function TeamScreen() {
             console.log(error)
             navigate("/*")
         });
-    }, [params.id, navigate]);
+    }, [params.id, navigate, time]);
+
+    useEffect(() => {
+        if (!loading) {
+            const interval = setInterval(() => setTime(Date.now()), 10000);
+            return () => {
+                clearInterval(interval);
+            };
+        }
+    }, [loading]);
 
     const closeModal = () => {
         setIsOpen(false);

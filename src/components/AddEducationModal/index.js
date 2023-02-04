@@ -54,7 +54,6 @@ export default function AddEducationModal(params) {
             localStorage.setItem("user", JSON.stringify(response))
             setButtonDisabled(false)
             params.closeModal()
-            window.location.reload()
         })
 
     }

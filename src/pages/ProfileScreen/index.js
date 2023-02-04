@@ -22,6 +22,7 @@ function ProfileScreen() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [time, setTime] = useState(Date.now());
     const [modalIsOpen, setIsOpen] = useState(false);
     const [tagSelect, setTagSelect] = useState("profile")
     const id = params.id ? params.id : context.user.uid
@@ -29,14 +30,20 @@ function ProfileScreen() {
     const [userData, setUserData] = useState({})
 
     useEffect(() => {
-        setLoading(true);
         getProfile(id).then((response) => {
             setUserData(response);
             setLoading(false)
         }).catch((error) => {
             console.log(error)
         });
-    }, [id]);
+    }, [id, time]);
+
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 2000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
 
     const user_image = () => {
         if (userData.user.profile_image === "default") {

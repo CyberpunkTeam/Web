@@ -16,13 +16,11 @@ export default function MemberPostulationView(params) {
 
     const postulate = () => {
         teamPostulate(params.data.tpid, context.user.uid).then((r) => {
-            window.location.reload()
         })
     }
 
     const deletePosition = () => {
         deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
-            window.location.reload()
         })
     }
 
