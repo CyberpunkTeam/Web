@@ -44,6 +44,7 @@ export default function ProjectScreen() {
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
+    const [time, setTime] = useState(Date.now());
 
     useEffect(() => {
         getProject(params.id).then((response) => {
@@ -64,7 +65,16 @@ export default function ProjectScreen() {
         }).catch((error) => {
             console.log(error)
         })
-    }, [params.id, context.user.uid]);
+    }, [params.id, context.user.uid, time]);
+
+    useEffect(() => {
+        if (!loading) {
+            const interval = setInterval(() => setTime(Date.now()), 10000);
+            return () => {
+                clearInterval(interval);
+            };
+        }
+    }, []);
 
     if (loading) {
         return <Loading/>

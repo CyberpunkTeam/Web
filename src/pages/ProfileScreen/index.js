@@ -39,7 +39,7 @@ function ProfileScreen() {
     }, [id, time]);
 
     useEffect(() => {
-        const interval = setInterval(() => setTime(Date.now()), 5000);
+        const interval = setInterval(() => setTime(Date.now()), 2000);
         return () => {
             clearInterval(interval);
         };

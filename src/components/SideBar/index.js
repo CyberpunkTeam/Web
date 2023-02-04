@@ -51,7 +51,7 @@ function SideBar() {
     }, [context.user.uid, time]);
 
     useEffect(() => {
-        const interval = setInterval(() => setTime(Date.now()), 60000);
+        const interval = setInterval(() => setTime(Date.now()), 30000);
         return () => {
             clearInterval(interval);
         };

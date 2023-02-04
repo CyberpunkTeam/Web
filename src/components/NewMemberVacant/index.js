@@ -26,7 +26,6 @@ export default function NewMemberVacant(params) {
         createTeamVacant(body).then(() => {
             setButtonDisabled(true);
             params.closeModal()
-            window.location.reload()
         })
     }
 

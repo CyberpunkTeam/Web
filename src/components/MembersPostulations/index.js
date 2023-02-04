@@ -11,12 +11,20 @@ export default function MembersPostulations(params) {
 
     const [vacants, setVacants] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [time, setTime] = useState(Date.now());
 
     useEffect(() => {
         getTeamVacants(params.tid).then((response) => {
             setVacants(response)
         })
-    }, [params.tid])
+    }, [params.tid, time])
+
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 10000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
 
     const changeApplications = (applications) => {
         setVacants(applications)
