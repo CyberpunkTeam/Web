@@ -215,18 +215,18 @@ export default function ProjectScreen() {
 
         return (
             <div className="dropdown">
-                <button className="dropbtn">
-                    Request
-                    <ArrowCircleDown className="chevron" color="#FAFAFA" variant="Outline" size={24}/>
+                <button className={context.size ? "dropbtnReduced" : "dropbtn"}>
+                    {context.size ? "" : "Request"}
+                    <ArrowCircleDown className={context.size ? null : "chevron"} color="#FAFAFA" variant="Outline" size={24}/>
                 </button>
                 <div className="dropdown-content">
                     <div onClick={openModalIfCancelProject}>
-                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={16} className="icon"/>
-                        Abandonment
+                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={context.size ? 32 : 24} className={context.size ? null : "icon"}/>
+                        {context.size ? "" : "Abandonment"}
                     </div>
                     <div onClick={openModalIfFinishProject}>
-                        <TickCircle color="#014751" variant="Bold" size={16} className="icon"/>
-                        Completion
+                        <TickCircle color="#014751" variant="Bold" size={context.size ? 32 : 24} className={context.size ? null : "icon"}/>
+                        {context.size ? "" : "Completion"}
                     </div>
                 </div>
             </div>
@@ -253,7 +253,7 @@ export default function ProjectScreen() {
         }
 
         return (
-            <div className="members-info-container">
+            <div className={context.size ? "members-info-container-reduced" : "members-info-container"}>
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>
@@ -411,7 +411,7 @@ export default function ProjectScreen() {
                 <LeaveProject project={project}/>
                 {cover()}
             </div>
-            <div className="project-buttons-container2">
+            <div className={context.size ? "projectButtonsContainerReduced" : "projectButtonsContainer"}>
                 <div className={"projectButtonContainer"}>
                     {owner(project.creator)}
                     {teamAssigned(project.team_assigned)}
