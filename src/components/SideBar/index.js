@@ -30,6 +30,7 @@ function SideBar() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
+    const [time, setTime] = useState(Date.now());
     const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
     const [watchSettings, setWatchSettings] = useState(false)
@@ -47,7 +48,15 @@ function SideBar() {
         }).catch((error) => {
             console.log(error)
         });
-    }, [context.user.uid]);
+    }, [context.user.uid, time]);
+
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 60000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
+
 
     const closeAll = () => {
         setWatchNotifications(false);
