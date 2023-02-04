@@ -98,6 +98,14 @@
     border-radius: 16px;
     width: available;
 }
+.members-info-container-reduced {
+    background: #F1F1F1;
+    margin-right: 8px;
+    display: flex;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+}
 
 .members {
     padding: 10px 00px;
