@@ -6,7 +6,17 @@ import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
-import {AddCircle, CloseCircle, Edit, LogoutCurve, People, TickCircle, Trash, User} from "iconsax-react";
+import {
+    AddCircle,
+    ArrowCircleDown,
+    CloseCircle,
+    Edit,
+    LogoutCurve,
+    People,
+    TickCircle,
+    Trash,
+    User
+} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
@@ -16,10 +26,10 @@ import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
-import {requestFinishProject} from "../../services/notificationService";
 import ProjectFinish from "../../components/ProjectFinish";
 import {AbandonProjectModal} from "../../components/AbandonProjectModal";
 import LeaveProject from "../../components/LeaveProject";
+import {CompleteProjectModal} from "../../components/CompleteProjectModal";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -31,7 +41,7 @@ export default function ProjectScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [isCancelProject, setIsCancelProject] = useState(false)
-    const [disabledFinishButton, setDisableFinishButton] = useState(false);
+    const [isFinishProject, setIsFinishProject] = useState(false)
     const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
 
@@ -65,12 +75,20 @@ export default function ProjectScreen() {
     }
 
     const openModal = () => {
+        setIsFinishProject(false);
         setIsCancelProject(false);
         setIsOpen(true);
     }
 
     const openModalIfCancelProject = () => {
+        setIsFinishProject(false);
         setIsCancelProject(true);
+        setIsOpen(true);
+    }
+
+    const openModalIfFinishProject = () => {
+        setIsCancelProject(false);
+        setIsFinishProject(true);
         setIsOpen(true);
     }
 
@@ -165,7 +183,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.team_assigned.owner !== context.user.uid && project.creator.uid !== context.user.uid) {
+        if (project.team_assigned.owner !== context.user.uid) {
             return
         }
 
@@ -177,18 +195,16 @@ export default function ProjectScreen() {
             )
         }
 
-        const condition = project.creator.uid !== context.user.uid
-
         return (
             <button className="cancel-project-button" onClick={openModalIfCancelProject}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <LogoutCurve color="#FAFAFA" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : condition ? "Leave Project" : "Request Abandonment"}
+                    <LogoutCurve color="#FAFAFA" variant="Bulk" size={24} className="icon"/>}
+                {disabledCancelButton ? "" : "Leave Project"}
             </button>
         )
     }
 
-    const finishProject = () => {
+    const actionsButton = () => {
         if (project.creator.uid !== context.user.uid) {
             return
         }
@@ -197,34 +213,25 @@ export default function ProjectScreen() {
             return
         }
 
-        const finish = () => {
-            setDisableFinishButton(true);
-            const body = {
-                "pid": project.pid,
-                "tid": project.team_assigned.tid
-            }
-
-            requestFinishProject(body).then((r) => {
-                setDisableFinishButton(false);
-                window.alert("The project completion request was sent")
-            })
-        }
-
-        if (isMobile) {
-            return (
-                <button className="createTeamButtonMobile" onClick={finish}>
-                    <TickCircle color="#FAFAFA" variant="Bold" size={48}/>
-                </button>
-            )
-        }
-
         return (
-            <button disabled={disabledFinishButton} className="finish-button" onClick={finish}>
-                {disabledFinishButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <TickCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
-                {disabledFinishButton ? "" : "Completion Request"}
-            </button>
+            <div className="dropdown">
+                <button className="dropbtn">
+                    Request
+                    <ArrowCircleDown className="chevron" color="#FAFAFA" variant="Outline" size={24}/>
+                </button>
+                <div className="dropdown-content">
+                    <div onClick={openModalIfCancelProject}>
+                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={16} className="icon"/>
+                        Abandonment
+                    </div>
+                    <div onClick={openModalIfFinishProject}>
+                        <TickCircle color="#014751" variant="Bold" size={16} className="icon"/>
+                        Completion
+                    </div>
+                </div>
+            </div>
         )
+
     }
 
     const owner = (data) => {
@@ -343,6 +350,7 @@ export default function ProjectScreen() {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
+                    isFinishProject ? <CompleteProjectModal closeModal={closeModal} project={project}/> :
                     <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
             </Modal>
         )
@@ -403,7 +411,7 @@ export default function ProjectScreen() {
                 <LeaveProject project={project}/>
                 {cover()}
             </div>
-            <div className="project-buttons-container">
+            <div className="project-buttons-container2">
                 <div className={"projectButtonContainer"}>
                     {owner(project.creator)}
                     {teamAssigned(project.team_assigned)}
@@ -412,7 +420,7 @@ export default function ProjectScreen() {
                 <div className={"projectButtonContainer"}>
                     {cancelProject()}
                     {abandonProjectButton()}
-                    {finishProject()}
+                    {actionsButton()}
                 </div>
             </div>
             <div className="tagsFilterContainer">
