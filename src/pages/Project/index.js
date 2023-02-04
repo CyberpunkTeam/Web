@@ -36,6 +36,7 @@ export default function ProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
+    const [logs, setLogs] = useState([])
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -49,6 +50,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             setProject(response)
+            setLogs([...response.activities_record.reverse()])
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
@@ -391,10 +393,10 @@ export default function ProjectScreen() {
                                        changePostulations={changePostulations}/>
                 </div>
             )
-        } else {
+        } else if (tagSelect === "history"){
             return (
                 <div>
-                    {project.activities_record.reverse().map((info) => {
+                    {logs.map((info) => {
                         return activity(info)
                     })}
                 </div>
