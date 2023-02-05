@@ -213,6 +213,39 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #B1B1B1;
+}
+
+.invited {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #2E9999;
+    background: rgba(46, 153, 153, 0.1);
+    border-radius: 16px;
+    padding: 4px;
+    width: 90px;
+    height: 24px;
+    border: 1px solid #2E9999;
+}
+
+.invite {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 400;
+    color: #B1B1B1;
+    cursor: pointer;
+    border-radius: 16px;
+    padding: 4px;
+    width: 90px;
+    height: 24px;
+    border: 1px solid #B1B1B1;
 }
 
 .members-container {
