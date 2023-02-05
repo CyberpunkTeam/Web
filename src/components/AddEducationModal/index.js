@@ -76,21 +76,19 @@ export default function AddEducationModal(params) {
                         <input type="text" value={institution} className="input" onChange={setInstitutionHandler}/>
                     </label>
                 </div>
-                <div className="label-double">
-                    <div className="label-double-column">
-                        <label>
-                            Start Date
-                            <input type="date" value={startDate} placeholder="dd-mm-yyyy" min="1900-01-01"
-                                   max="2030-12-31" className="input-double" onChange={setStartDateHandler}/>
-                        </label>
-                    </div>
-                    <div className="label-double-column">
-                        <label>
-                            End Date
-                            <input type="date" value={finishDate} placeholder="dd-mm-yyyy" min="1900-01-01"
-                                   max="2030-12-31" className="input-double" onChange={setFinishDateHandler}/>
-                        </label>
-                    </div>
+                <div className="label">
+                    <label>
+                        Start Date
+                        <input type="month" value={startDate} min="1900-01"
+                               max="2030-12" className="input" onChange={setStartDateHandler}/>
+                    </label>
+                </div>
+                <div className="label">
+                    <label>
+                        End Date
+                        <input type="month" value={finishDate} min="1900-01"
+                               max="2030-12" className="input" onChange={setFinishDateHandler}/>
+                    </label>
                 </div>
             </form>
             <div className="container-button-modal">
