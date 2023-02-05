@@ -92,7 +92,7 @@ export default function TeamReview() {
                             className={loading || Object.keys(reviews).length === 0 ? "review-green-button-disabled" : "review-green-button"}
                             onClick={sendReviews}
                     >
-                        {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {loading ? <i className="fa fa-circle-o-notch fa-spin"/> : null}
                         {loading ? "" : "Send Reviews"}
                     </button>
                 </div>

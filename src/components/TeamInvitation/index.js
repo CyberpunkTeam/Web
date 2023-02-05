@@ -8,6 +8,7 @@ import {CloseCircle, TickCircle} from "iconsax-react";
 export default function TeamInvitation(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
+    const [time, setTime] = useState(Date.now());
 
     const [invitation, setInvitation] = useState(undefined);
 
@@ -21,7 +22,16 @@ export default function TeamInvitation(params) {
         }).catch((error) => {
             console.log(error)
         });
-    }, [params.tid, context.user.uid]);
+    }, [params.tid, context.user.uid, time]);
+
+    useEffect(() => {
+        if (!loading) {
+            const interval = setInterval(() => setTime(Date.now()), 10000);
+            return () => {
+                clearInterval(interval);
+            };
+        }
+    }, []);
     const invitationButton = (status) => {
         setLoading(true)
         const body = {
