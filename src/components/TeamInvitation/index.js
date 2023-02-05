@@ -31,7 +31,7 @@ export default function TeamInvitation(params) {
                 clearInterval(interval);
             };
         }
-    }, []);
+    }, [loading]);
     const invitationButton = (status) => {
         setLoading(true)
         const body = {
