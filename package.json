@@ -12,6 +12,7 @@
     "image-conversion": "^2.1.1",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react-datepicker": "^4.10.0",
     "react-device-detect": "^2.2.2",
     "react-dom": "^18.2.0",
     "react-modal": "^3.16.1",

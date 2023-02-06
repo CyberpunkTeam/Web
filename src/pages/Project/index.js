@@ -30,6 +30,7 @@ import ProjectFinish from "../../components/ProjectFinish";
 import {AbandonProjectModal} from "../../components/AbandonProjectModal";
 import LeaveProject from "../../components/LeaveProject";
 import {CompleteProjectModal} from "../../components/CompleteProjectModal";
+import {DeleteProjectModal} from "../../components/DeleteProjectModal";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -43,6 +44,7 @@ export default function ProjectScreen() {
     const [loading, setLoading] = useState(true);
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
+    const [isDeleteProject, setIsDeleteProject] = useState(false)
     const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
@@ -89,17 +91,27 @@ export default function ProjectScreen() {
     const openModal = () => {
         setIsFinishProject(false);
         setIsCancelProject(false);
+        setIsDeleteProject(false)
         setIsOpen(true);
     }
 
     const openModalIfCancelProject = () => {
         setIsFinishProject(false);
+        setIsDeleteProject(false)
         setIsCancelProject(true);
+        setIsOpen(true);
+    }
+
+    const openModalIfDeleteProject = () => {
+        setIsFinishProject(false);
+        setIsCancelProject(false);
+        setIsDeleteProject(true)
         setIsOpen(true);
     }
 
     const openModalIfFinishProject = () => {
         setIsCancelProject(false);
+        setIsDeleteProject(false)
         setIsFinishProject(true);
         setIsOpen(true);
     }
@@ -162,27 +174,16 @@ export default function ProjectScreen() {
             return
         }
 
-        const cancel = () => {
-            setDisableCancelButton(true);
-            const body = {
-                "state": "CANCELLED"
-            }
-            updateProject(project.pid, body).then((r) => {
-                window.location.reload()
-                setDisableCancelButton(false);
-            })
-        }
-
         if (isMobile) {
             return (
-                <button className="cancelButtonMobile" onClick={cancel}>
+                <button className="cancelButtonMobile" onClick={openModalIfDeleteProject}>
                     <CloseCircle color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }
 
         return (
-            <button disabled={disabledCancelButton} className="cancel-project-button" onClick={cancel}>
+            <button disabled={disabledCancelButton} className="cancel-project-button" onClick={openModalIfDeleteProject}>
                 {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
                 {disabledCancelButton ? "" : "Delete Project"}
@@ -229,15 +230,18 @@ export default function ProjectScreen() {
             <div className="dropdown">
                 <button className={context.size ? "dropbtnReduced" : "dropbtn"}>
                     {context.size ? "" : "Request"}
-                    <ArrowCircleDown className={context.size ? null : "chevron"} color="#FAFAFA" variant="Outline" size={24}/>
+                    <ArrowCircleDown className={context.size ? null : "chevron"} color="#FAFAFA" variant="Outline"
+                                     size={24}/>
                 </button>
                 <div className="dropdown-content">
                     <div onClick={openModalIfCancelProject}>
-                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={context.size ? 32 : 24} className={context.size ? null : "icon"}/>
+                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={context.size ? 32 : 24}
+                                     className={context.size ? null : "icon"}/>
                         {context.size ? "" : "Abandonment"}
                     </div>
                     <div onClick={openModalIfFinishProject}>
-                        <TickCircle color="#014751" variant="Bold" size={context.size ? 32 : 24} className={context.size ? null : "icon"}/>
+                        <TickCircle color="#014751" variant="Bold" size={context.size ? 32 : 24}
+                                    className={context.size ? null : "icon"}/>
                         {context.size ? "" : "Completion"}
                     </div>
                 </div>
@@ -363,7 +367,8 @@ export default function ProjectScreen() {
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
                     isFinishProject ? <CompleteProjectModal closeModal={closeModal} project={project}/> :
-                    <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
+                        isDeleteProject ? <DeleteProjectModal closeModal={closeModal} project={project}/> :
+                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
             </Modal>
         )
     }
@@ -393,7 +398,7 @@ export default function ProjectScreen() {
                                        changePostulations={changePostulations}/>
                 </div>
             )
-        } else if (tagSelect === "history"){
+        } else if (tagSelect === "history") {
             return (
                 <div>
                     {logs.map((info) => {

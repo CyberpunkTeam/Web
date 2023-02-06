@@ -3,7 +3,10 @@ import './style.css'
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {updateUser} from "../../services/userService";
-import {CloseCircle} from "iconsax-react";
+import {CloseCircle, TickCircle} from "iconsax-react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 export default function AddEducationModal(params) {
     let context = useContext(AppContext);
@@ -11,8 +14,13 @@ export default function AddEducationModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [title, setTitle] = useState("");
     const [institution, setInstitution] = useState("");
-    const [startDate, setStartDate] = useState("");
-    const [finishDate, setFinishDate] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [finishDate, setFinishDate] = useState(new Date());
+    const [actualDate, setActualDate] = useState(false);
+
+    const ActualJob = () => {
+        setActualDate(!actualDate)
+    }
 
     const setTitleHandler = (event) => {
         setTitle(event.target.value);
@@ -22,12 +30,12 @@ export default function AddEducationModal(params) {
         setInstitution(event.target.value);
     }
 
-    const setStartDateHandler = (event) => {
-        setStartDate(event.target.value);
+    const setStartDateHandler = (date) => {
+        setStartDate(date);
     }
 
-    const setFinishDateHandler = (event) => {
-        setFinishDate(event.target.value);
+    const setFinishDateHandler = (date) => {
+        setFinishDate(date);
     }
 
 
@@ -38,9 +46,9 @@ export default function AddEducationModal(params) {
             {
                 "title": title,
                 "institution": institution,
-                "start_date": startDate,
-                "finish_date": finishDate,
-                "finished": finishDate !== ""
+                "start_date": `${startDate.getFullYear()}-${parseInt(startDate.getMonth().toString()) + 1}-${startDate.getDate()}`,
+                "finish_date": actualDate ? "" : `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
+                "finished": actualDate
             }
 
         educations.push(newEducation)
@@ -76,20 +84,23 @@ export default function AddEducationModal(params) {
                         <input type="text" value={institution} className="input" onChange={setInstitutionHandler}/>
                     </label>
                 </div>
-                <div className="label-double">
-                    <div className="label-double-column">
-                        <label>
-                            Start Date
-                            <input type="date" value={startDate} placeholder="dd-mm-yyyy" min="1900-01-01"
-                                   max="2030-12-31" className="input-double" onChange={setStartDateHandler}/>
-                        </label>
+                <div className="labelPadding">
+                    Start Date
+                    <DatePicker selected={startDate} showMonthYearPicker dateFormat="MM/yyyy" className="input"
+                                onChange={setStartDateHandler}/>
+                </div>
+                <div className={"checkRow"}>
+                    <div className={"checkRowButton"} onClick={ActualJob}>
+                        {actualDate ? <TickCircle size="20" variant="Bold" color="#014751"/> : null}
                     </div>
-                    <div className="label-double-column">
-                        <label>
-                            End Date
-                            <input type="date" value={finishDate} placeholder="dd-mm-yyyy" min="1900-01-01"
-                                   max="2030-12-31" className="input-double" onChange={setFinishDateHandler}/>
-                        </label>
+                    In Progress
+                </div>
+                <div className={actualDate ? "labelDisable" : "label"}>
+                    <div>
+                        End Date
+                        <DatePicker selected={actualDate ? "" : finishDate} readOnly={actualDate} showMonthYearPicker
+                                    dateFormat="MM/yyyy" className={actualDate ? "inputDisable" : "input"}
+                                    onChange={setFinishDateHandler}/>
                     </div>
                 </div>
             </form>

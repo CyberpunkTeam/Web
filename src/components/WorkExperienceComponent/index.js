@@ -58,7 +58,7 @@ export default function WorkExperienceComponent(params) {
                 <div className={isMobile ? "education-info-mobile" : "education-info"}>
                     {data.company}
                     <div>
-                        {data.start_date.split('-')[0]} - {data.current_job ? data.finish_date.split('-')[0] : "Present"}
+                        {data.start_date.split('-')[0]} - {data.current_job ? "Present" : data.finish_date.split('-')[0]}
                     </div>
                 </div>
             </div>

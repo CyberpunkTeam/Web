@@ -3,27 +3,45 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, Trash, User, UserCirlceAdd} from "iconsax-react";
-import {acceptCandidate, deleteVacant, rejectCandidate, teamPostulate} from "../../services/teamService";
+import {acceptCandidate, rejectCandidate} from "../../services/teamService";
+import Modal from "react-modal";
+import {DeleteVacantModal} from "../DeleteVacantModal";
+import {PostulateInTeamModal} from "../PostulateInTeamModal";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
     const [showMore, setShowMore] = useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [postulate, setPostulate] = useState(false);
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const openModal = () => {
+        setPostulate(false)
+        setIsOpen(true);
+    }
+
+    const openModalPostulations = () => {
+        setPostulate(true)
+        setIsOpen(true);
+    }
+
     const seeMore = () => {
         setShowMore(!showMore)
     }
 
-    const postulate = () => {
-        teamPostulate(params.data.tpid, context.user.uid).then((r) => {
-        })
+    const modal = () => {
+        return (
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
+                {!postulate ? <DeleteVacantModal data={params.data} closeModal={closeModal}/> :
+                    <PostulateInTeamModal data={params.data} closeModal={closeModal}/>}
+            </Modal>
+        )
     }
-
-    const deletePosition = () => {
-        deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
-        })
-    }
-
 
     if (params.owner !== context.user.uid) {
         let list = []
@@ -55,11 +73,12 @@ export default function MemberPostulationView(params) {
                             </div>
                         </div>
                     </div>
-                    <button className="postulateVacantButton" onClick={postulate}>
+                    <button className="postulateVacantButton" onClick={openModalPostulations}>
                         <UserCirlceAdd color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                         Postulate
                     </button>
                 </div>
+                {modal()}
             </div>
         )
     }
@@ -70,7 +89,7 @@ export default function MemberPostulationView(params) {
                 let candidates = [...params.data.candidates]
                 candidates.splice(index, 1);
                 setIndex(0)
-                params.data.candidates =  candidates
+                params.data.candidates = candidates
                 setLoading(false)
             })
         }
@@ -188,7 +207,7 @@ export default function MemberPostulationView(params) {
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
-                    <button className="deleteVacantButton" onClick={deletePosition}>
+                    <button className="deleteVacantButton" onClick={openModal}>
                         <Trash color="#FAFAFA" variant="Bold" size={24}/>
                     </button>
                 </div>
@@ -196,6 +215,26 @@ export default function MemberPostulationView(params) {
                     {applications()}
                 </div>
             </div>
+            {modal()}
         </div>
     )
+}
+
+const modalStyle = {
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    content: {
+        fontFamily: "Inter",
+        padding: '0',
+        borderWidth: 0,
+        borderRadius: '16px',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        boxShadow: "0px 4px 10px #666666",
+    },
 }
