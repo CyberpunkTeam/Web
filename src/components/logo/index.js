@@ -1,6 +1,6 @@
 import './style.css';
 import logo from "../../assests/logo-complete.svg";
-import {BrowserView, isMobile, MobileView} from "react-device-detect";
+import { isMobile,} from "react-device-detect";
 
 function Logo() {
     return (
