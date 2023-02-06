@@ -2,29 +2,50 @@ import './style.css';
 import SideBar from "../../components/SideBar";
 import {useLocation, useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import {ArrowDown2} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {createProject, updateProject} from "../../services/projectService";
-import TechnologyTag from "../../components/TechnologyTag";
+import Select from "react-select";
+import {optionsIdioms, optionsLanguages} from "../../config/dictonary";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
     const navigate = useNavigate();
     let context = useContext(AppContext);
 
+    const techValuesSelected = () => {
+        let list = []
+        if (state !== null) {
+            state.project.technologies.forEach((value) => {
+                list.push({value: value, label: value})
+            })
+        }
+        return list
+    }
+
+    const lengValuesSelected = () => {
+        let list = []
+        if (state !== null) {
+            state.project.idioms.forEach((value) => {
+                list.push({value: value, label: value})
+            })
+        }
+        return list
+    }
+
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [name, setName] = useState(state === null ? "" : state.project.name)
+    const defaultValues = techValuesSelected()
+    const IdiomsDefaultValues = lengValuesSelected()
     const [description, setDescription] = useState(state === null ? "" : state.project.description)
-    const [tech, setTech] = useState("")
-    const [language, setLanguage] = useState(state === null ? "English" : state.project.idioms[0])
+    const [languages, setLanguages] = useState(state === null ? [] : [...state.project.idioms])
     const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies]);
 
     const projectButton = () => {
         setButtonDisabled(true)
         const body = {
             "name": name,
-            "idioms": [language],
+            "idioms": languages,
             "description": description,
             "technologies": techs,
             "creator_uid": context.user.uid
@@ -40,7 +61,6 @@ export default function CreateProjectScreen() {
                 navigate("/projects/" + r.pid)
             })
         }
-
     }
 
     const setNameHandler = (event) => {
@@ -48,24 +68,23 @@ export default function CreateProjectScreen() {
     }
 
     const setLanguageHandler = (event) => {
-        setLanguage(event.target.value);
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setLanguages(list);
     }
 
     const setTechHandler = (event) => {
-        setTech(event.target.value);
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setTechs(list)
     }
 
     const setDescriptionHandler = (event) => {
         setDescription(event.target.value);
-    }
-
-    const addTechTag = (event) => {
-        if (event.key === "Enter") {
-            let actualTech = techs;
-            actualTech.push(tech)
-            setTechs(actualTech)
-            setTech("")
-        }
     }
 
     const details = () => {
@@ -105,28 +124,96 @@ export default function CreateProjectScreen() {
                         </label>
                         <label className="create-project-label">
                             Language
-                            <div className="create-project-input">
-                                <select value={language} className="select" onChange={setLanguageHandler}>
-                                    <option value="English">English</option>
-                                    <option value="Chinese">Chinese</option>
-                                    <option value="Spanish">Spanish</option>
-                                    <option value="French">French</option>
-                                    <option value="German">German</option>
-                                    <option value="Portuguese">Portuguese</option>
-                                </select>
-                                <ArrowDown2 className="from-button" color="#B1B1B1" variant="Outline" size={20}/>
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    defaultValue={IdiomsDefaultValues}
+                                    options={optionsIdioms}
+                                    onChange={(choice) => setLanguageHandler(choice)}
+                                    name="Technologies"
+                                    styles={{
+                                        control: () => ({
+                                            display: "flex",
+                                            minHeight: "32px",
+                                            padding: "4px 0",
+                                            borderRadius: "16px",
+                                            background: "#E3E3E3",
+                                            border: "none"
+                                        }),
+                                        multiValueLabel: () => ({
+                                                background: "#089BAD",
+                                                color: "#FAFAFA",
+                                                padding: "4px 0 4px 8px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                borderTopLeftRadius: "8px",
+                                                borderBottomLeftRadius: "8px"
+                                            }
+                                        ),
+                                        multiValueRemove: (theme, state) => ({
+                                            background: "#089BAD",
+                                            color: "#FAFAFA",
+                                            display: "flex",
+                                            padding: "4px",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            borderTopRightRadius: "8px",
+                                            borderBottomRightRadius: "8px",
+                                            cursor: "pointer",
+                                            ':hover': {
+                                                backgroundColor: "#CD5B45"
+                                            },
+                                        })
+                                    }}
+                                />
                             </div>
                         </label>
                         <label className="create-project-label">
                             Technologies
-                            <div className="create-project-input">
-                                <input type="text" value={tech} className="input" onChange={setTechHandler}
-                                       onKeyUp={addTechTag}/>
-                                <div className="modal-tags-container">
-                                    {techs.map((value) => {
-                                        return <TechnologyTag key={value} technology={value}/>
-                                    })}
-                                </div>
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    defaultValue={defaultValues}
+                                    options={optionsLanguages}
+                                    onChange={(choice) => setTechHandler(choice)}
+                                    name="Technologies"
+                                    styles={{
+                                        control: () => ({
+                                            display: "flex",
+                                            minHeight: "32px",
+                                            padding: "4px 0",
+                                            borderRadius: "16px",
+                                            background: "#E3E3E3",
+                                            border: "none"
+                                        }),
+                                        multiValueLabel: () => ({
+                                                background: "#8D64CC",
+                                                color: "#FAFAFA",
+                                                padding: "4px 0 4px 8px",
+                                                display: "flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                borderTopLeftRadius: "8px",
+                                                borderBottomLeftRadius: "8px"
+                                            }
+                                        ),
+                                        multiValueRemove: (theme, state) => ({
+                                            background: "#8D64CC",
+                                            color: "#FAFAFA",
+                                            display: "flex",
+                                            padding: "4px",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            borderTopRightRadius: "8px",
+                                            borderBottomRightRadius: "8px",
+                                            cursor: "pointer",
+                                            ':hover': {
+                                                backgroundColor: "#CD5B45"
+                                            },
+                                        })
+                                    }}
+                                />
                             </div>
                         </label>
                     </form>

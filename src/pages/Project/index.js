@@ -5,7 +5,7 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject, updateProject} from "../../services/projectService";
+import {getProjectPostulations, getProject} from "../../services/projectService";
 import {
     AddCircle,
     ArrowCircleDown,
@@ -45,7 +45,6 @@ export default function ProjectScreen() {
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
-    const [disabledCancelButton, setDisableCancelButton] = useState(false);
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
 
@@ -183,10 +182,9 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button disabled={disabledCancelButton} className="cancel-project-button" onClick={openModalIfDeleteProject}>
-                {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : "Delete Project"}
+            <button className="cancel-project-button" onClick={openModalIfDeleteProject}>
+                <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Delete Project
             </button>
         )
     }
@@ -210,9 +208,8 @@ export default function ProjectScreen() {
 
         return (
             <button className="cancel-project-button" onClick={openModalIfCancelProject}>
-                {disabledCancelButton ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <LogoutCurve color="#FAFAFA" variant="Bulk" size={24} className="icon"/>}
-                {disabledCancelButton ? "" : "Leave Project"}
+                <LogoutCurve color="#FAFAFA" variant="Bulk" size={24} className="icon"/>
+                Leave Project
             </button>
         )
     }
