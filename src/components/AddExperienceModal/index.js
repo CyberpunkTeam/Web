@@ -45,7 +45,7 @@ export default function AddExperienceModal(params) {
                 "position": position,
                 "company": company,
                 "start_date": `${startDate.getFullYear()}-${parseInt(startDate.getMonth().toString()) + 1}-${startDate.getDate()}`,
-                "finish_date": actualDate ? "" : `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
+                "finish_date": `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
                 "current_job": actualDate
             }
 

@@ -10,7 +10,7 @@ export default function WorkExperienceModal(params) {
                     <div className="education-info">
                         {data.company}
                         <div>
-                            {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "Actual"}
+                            {data.start_date.split('-')[0]} - {data.current_job ? data.finish_date.split('-')[0] : "Actual"}
                         </div>
                     </div>
                 </div>
