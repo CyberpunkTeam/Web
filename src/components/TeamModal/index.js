@@ -80,11 +80,6 @@ export default function TeamModal(params) {
         }
 
         updateTeam(params.team.tid, body).then((response) => {
-            setTeamName(response.name);
-            setTechs([...response.technologies]);
-            setPrefs([...response.project_preferences]);
-            response["members"] = params.team.members;
-            params.setTeamData(response)
             setButtonDisabled(false)
             params.closeModal()
         })
