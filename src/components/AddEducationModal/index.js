@@ -47,11 +47,9 @@ export default function AddEducationModal(params) {
                 "title": title,
                 "institution": institution,
                 "start_date": `${startDate.getFullYear()}-${parseInt(startDate.getMonth().toString()) + 1}-${startDate.getDate()}`,
-                "finish_date": `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
+                "finish_date": actualDate ? "" : `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
                 "finished": actualDate
             }
-
-            console.log(newEducation)
 
         educations.push(newEducation)
 
@@ -97,10 +95,11 @@ export default function AddEducationModal(params) {
                     </div>
                     In Progress
                 </div>
-                <div className={actualDate ? "labelDisable": "label"}>
+                <div className={actualDate ? "labelDisable" : "label"}>
                     <div>
                         End Date
-                        <DatePicker selected={actualDate ? "" : finishDate} readOnly={actualDate} showMonthYearPicker dateFormat="MM/yyyy" className={actualDate ? "inputDisable" : "input"}
+                        <DatePicker selected={actualDate ? "" : finishDate} readOnly={actualDate} showMonthYearPicker
+                                    dateFormat="MM/yyyy" className={actualDate ? "inputDisable" : "input"}
                                     onChange={setFinishDateHandler}/>
                     </div>
                 </div>
