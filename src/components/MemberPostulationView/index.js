@@ -3,7 +3,7 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, Trash, User, UserCirlceAdd} from "iconsax-react";
-import {acceptCandidate, deleteVacant, rejectCandidate, teamPostulate} from "../../services/teamService";
+import {acceptCandidate, rejectCandidate, teamPostulate} from "../../services/teamService";
 import Modal from "react-modal";
 import {DeleteVacantModal} from "../DeleteVacantModal";
 

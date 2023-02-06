@@ -1,29 +1,32 @@
 import {CloseCircle} from "iconsax-react";
 import {useState} from "react";
-import {deleteVacant} from "../../services/teamService";
+import {updateProject} from "../../services/projectService";
 
-export function DeleteVacantModal(params) {
+export function DeleteProjectModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
-    const deletePosition = () => {
+    const deleteProjectButton = () => {
         setButtonDisabled(true);
-        deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
+        const body = {
+            "state": "CANCELLED"
+        }
+        updateProject(params.project.pid, body).then((r) => {
+            window.location.reload()
             setButtonDisabled(false);
-            params.closeModal()
         })
     }
 
     return (
         <div className={"abandonModal"}>
             <div className="form-text">
-                Are you sure you want to delete this vacant?
+                Are you sure you want to delete this project?
             </div>
             <div className="container-button-modal">
                 <button className="cancel-edit-button-style" onClick={params.closeModal}>
                     Cancel
                 </button>
                 <button disabled={buttonDisabled}
-                        onClick={deletePosition}
+                        onClick={deleteProjectButton}
                         className={buttonDisabled ?  "save-edit-button-style-disabled-red" : "save-edit-button-style-red"}>
                     {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                     {buttonDisabled ? "" : "Delete"}
