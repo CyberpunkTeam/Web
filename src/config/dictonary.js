@@ -110,6 +110,24 @@ export const optionsLanguages = [
     {'value': 'Pascal', 'label': 'Pascal'}
 ]
 
+export const optionsProjects = [
+    {'value': 'Web', 'label': 'Web'},
+    {'value': 'Mobile', 'label': 'Mobile'},
+    {'value': 'Crypto', 'label': 'Crypto'},
+    {'value': 'Backend', 'label': 'Backend'},
+    {'value': 'Data Science', 'label': 'Data Science'},
+    {'value': 'Data Analytics', 'label': 'Data Analytics'},
+    {'value': ' Data Engineering', 'label': ' Data Engineering'}
+]
+
+export const optionsIdioms = [
+    {'value': 'English', 'label': 'English'},
+    {'value': 'Chinese', 'label': 'Chinese'},
+    {'value': 'Spanish', 'label': 'Spanish'},
+    {'value': 'French', 'label': 'French'},
+    {'value': 'German', 'label': 'German'},
+    {'value': 'Portuguese', 'label': 'Portuguese'}
+]
 
 const frameworks = {
     "Java": ["Spring"],
