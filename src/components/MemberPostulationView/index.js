@@ -4,12 +4,23 @@ import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, TickCircle, Trash, User, UserCirlceAdd} from "iconsax-react";
 import {acceptCandidate, deleteVacant, rejectCandidate, teamPostulate} from "../../services/teamService";
+import Modal from "react-modal";
+import {DeleteVacantModal} from "../DeleteVacantModal";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
     const [showMore, setShowMore] = useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+    const openModal = () => {
+        setIsOpen(true);
+    }
     const seeMore = () => {
         setShowMore(!showMore)
     }
@@ -18,12 +29,6 @@ export default function MemberPostulationView(params) {
         teamPostulate(params.data.tpid, context.user.uid).then((r) => {
         })
     }
-
-    const deletePosition = () => {
-        deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
-        })
-    }
-
 
     if (params.owner !== context.user.uid) {
         let list = []
@@ -170,6 +175,14 @@ export default function MemberPostulationView(params) {
         )
     }
 
+    const modal = () => {
+        return (
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
+                <DeleteVacantModal data={params.data} closeModal={closeModal}/>
+            </Modal>
+        )
+    }
+
     return (
         <div key={params.data.tpid} className="teamPostulationContainer">
             <div className={context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
@@ -188,7 +201,7 @@ export default function MemberPostulationView(params) {
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
-                    <button className="deleteVacantButton" onClick={deletePosition}>
+                    <button className="deleteVacantButton" onClick={openModal}>
                         <Trash color="#FAFAFA" variant="Bold" size={24}/>
                     </button>
                 </div>
@@ -196,6 +209,26 @@ export default function MemberPostulationView(params) {
                     {applications()}
                 </div>
             </div>
+            {modal()}
         </div>
     )
+}
+
+const modalStyle = {
+    overlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+    },
+    content: {
+        fontFamily: "Inter",
+        padding: '0',
+        borderWidth: 0,
+        borderRadius: '16px',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        boxShadow: "0px 4px 10px #666666",
+    },
 }
