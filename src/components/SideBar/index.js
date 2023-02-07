@@ -125,7 +125,7 @@ function SideBar() {
                 })
             } else if (notification_type === "PROJECT_FINISHED") {
                 getProject(id).then((response) => {
-                    if (message.includes("rechazada")) {
+                    if (message.includes("rechazada") || message.includes("rejected")) {
                         navigate("/projects/" + response.pid)
                     } else {
                         navigate("/review", {state: {project: response, isProject: false}})
