@@ -125,7 +125,7 @@ export default function TeamScreen() {
                         </div>
                     </div>
                     <div className="tags-container">
-                        {teamData.technologies.map((data) => {
+                        {teamData.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data} technology={data}/>
                         })}
                     </div>

@@ -31,7 +31,7 @@ export default function TeamProjectTileComponent(params) {
                     {formatter.format(params.data.estimated_budget)} USD
                 </div>
                 <div className="tags-project">
-                    {data.technologies.map((technology) => {
+                    {data.technologies.programming_language.map((technology) => {
                         return <TechnologyTag key={technology} technology={technology}/>
                     })}
                 </div>

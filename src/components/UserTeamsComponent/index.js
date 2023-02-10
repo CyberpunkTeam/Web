@@ -31,7 +31,7 @@ export default function UserTeamsComponent(params) {
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
                 <div className="teamTagContainer">
-                    {data.technologies.map((data) => {
+                    {data.technologies.programming_language.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
                     })}
                 </div>

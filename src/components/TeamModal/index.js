@@ -13,7 +13,7 @@ export default function TeamModal(params) {
     const techValuesSelected = () => {
         let list = []
         if (params.team !== undefined) {
-            params.team.technologies.forEach((value) => {
+            params.team.technologies.programming_language.forEach((value) => {
                 list.push({value: value, label: value})
             })
         }
@@ -34,7 +34,7 @@ export default function TeamModal(params) {
     const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
     const defaultValues = techValuesSelected()
     const preferencesValues = prefValuesSelected()
-    const [techs, setTechs] = useState(params.team !== undefined ? [...params.team.technologies] : []);
+    const [techs, setTechs] = useState(params.team !== undefined ? [...params.team.technologies.programming_language] : []);
     const [prefs, setPrefs] = useState(params.team !== undefined ? [...params.team.project_preferences] : []);
 
     const setTeamHandler = (event) => {
@@ -61,7 +61,13 @@ export default function TeamModal(params) {
         setButtonDisabled(true)
         const body = {
             name: teamName,
-            technologies: techs,
+            technologies: {
+                programming_language: techs,
+                frameworks: [],
+                platforms: []
+            },
+            methodologies: [],
+            idioms: [],
             project_preferences: prefs,
             owner: context.user.uid
         }
@@ -77,8 +83,14 @@ export default function TeamModal(params) {
         setButtonDisabled(true)
         const body = {
             name: teamName,
-            technologies: techs,
-            project_preferences: prefs
+            technologies: {
+                programming_language: techs,
+                frameworks: [],
+                platforms: []
+            },
+            methodologies: [],
+            idioms: [],
+            project_preferences: prefs,
         }
 
         updateTeam(params.team.tid, body).then((response) => {

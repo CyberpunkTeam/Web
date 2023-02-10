@@ -29,7 +29,7 @@ export default function SearchResults() {
                         </Link>
                         <div className="search-result-view-data-location">
                             <div className="tags-modal">
-                                {data.technologies.map((data) => {
+                                {data.technologies.programming_language.map((data) => {
                                     return <TechnologyTag key={data + "-modal"} technology={data}/>
                                 })}
                             </div>
