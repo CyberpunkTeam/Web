@@ -1,16 +1,20 @@
 import './style.css';
+import logo from '../../assests/projects-pana.svg';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import {AddCircle} from "iconsax-react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getProjects} from "../../services/projectService";
 import Loading from "../../components/loading";
-import PreferenceTag from "../../components/PreferenceTag";
-import TechnologyTag from "../../components/TechnologyTag";
+import ProjectTileComponent from "../../components/ProjectTileComponent";
+import {isMobile} from "react-device-detect";
+import AppContext from "../../utils/AppContext";
+import ProjectTileMobileComponent from "../../components/ProjectTileMobileComponent";
 
 export default function ProjectsScreen() {
     const navigate = useNavigate();
+    let context = useContext(AppContext);
     const [projects, setProjects] = useState();
     const [loading, setLoading] = useState(true);
 
@@ -23,91 +27,87 @@ export default function ProjectsScreen() {
         });
     }, []);
 
-    const projectsView = () => {
-        const projectCard = (data) => {
-            const link_to = "/user/" + data.creator.uid
-            const project_link = "/projects/" + data.pid
-            return (
-                <div key={data.pid} className="project-card-container">
-                    <div className="project-card">
-                        <div onClick={() => {
-                            navigate(project_link)
-                        }}>
-                            {data.name}
-                        </div>
-                        <div className="project-info">
-                            <div className="titles">
-                                Creator:
-                                <div className="creator" onClick={() => {
-                                    navigate(link_to)
-                                }}>
-                                    {data.creator.name} {data.creator.lastname}
-                                </div>
-                            </div>
-                            <div className="project-tech-info">
-                                <div className="titles">
-                                    Technologies:
-                                </div>
-                                {data.technologies.programming_language.map((info) => {
-                                    return <TechnologyTag key={info} technology={info}/>
-                                })}
-                            </div>
-                            <div className="project-tech-info">
-                                <div className="titles">
-                                    Languages:
-                                </div>
-                                {data.idioms.map((info) => {
-                                    return <PreferenceTag key={info} preference={info}/>
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+    if (loading) {
+        return <Loading/>
+    }
 
-            return (
-                <div className="projects-card-container">
-                    {projects.map((data) => {
-                        return projectCard(data)
-                    })}
-                </div>
-            )
+    const formatProjects = (projects) => {
+        const listProjects = [];
+        let list = []
+        let index = 0
+        while (index < projects.length) {
+            if (index % 2 === 0 && index !== 0) {
+                listProjects.push(list);
+                list = []
+            }
+            list.push(projects[index])
+            index++;
         }
+        listProjects.push(list);
 
-        const mostPopular = () => {
-            return (
-                <div className="most-popular-card-container">
-                    <div className="popular-card">
-                        Most Popular
-                        <>
-                        </>
-                    </div>
-                </div>
+        return listProjects;
+    }
+
+    const projectsMobile = () => {
+        return (
+            projects.map((value) => {
+                    return <ProjectTileMobileComponent key={value} data={value}/>
+                }
             )
-        }
+        )
+    }
 
-        if(loading) {
-            return <Loading/>
+    const projectsMaps = () => {
+        const projectFormatted = formatProjects([...projects])
+
+        if (projectFormatted[0].length === 0) {
+            return
         }
 
         return (
-            <div>
-                <div className="projects-screen">
-                    <div className="projects-header">
-                        Projects
-                        <AddCircle size="24" color="#B1B1B1" className="create-project-button" onClick={() => {
-                            navigate(("/projects/new"))
-                        }}/>
-                    </div>
-                    <div className="projects-container">
-                        {mostPopular()}
-                        {projectsView()}
+            projectFormatted.map((value, index) => {
+                    if (value.length === 1) {
+                        return (
+                            <div key={value} className={"row"}>
+                                <ProjectTileComponent data={value[0]} position={"left"}/>
+                            </div>
+                        )
+                    }
+                    return (
+                        <div key={value} className={"row"}>
+                            <ProjectTileComponent data={value[0]} position={"left"}/>
+                            <ProjectTileComponent data={value[1]} position={"right"}/>
+                        </div>
+                    )
+                }
+            )
+        )
+    }
+
+    return (
+        <div>
+            <div className="projects-screen">
+                <div className="projects-header">
+                    <div className="projects-cover">
+                        <div className="projects-cover-title">
+                            Find the project you’ve been looking forward to work in
+                            <button className="createProjectButtonCover" onClick={() => {
+                                navigate(("/projects/new"))
+                            }}>
+                                <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                                Create Project
+                            </button>
+                        </div>
+                        <img src={logo} className="pana-projects-style" alt="logo"/>
                     </div>
                 </div>
-                <SearchBar/>
-                <SideBar/>
+                <div className="projects-container">
+                    {isMobile || context.size ? projectsMobile() : projectsMaps()}
+                </div>
             </div>
-        )
+            <SearchBar/>
+            <SideBar/>
+        </div>
+    )
 
-        }
+}

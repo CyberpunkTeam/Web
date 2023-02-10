@@ -104,7 +104,7 @@ export default function CreateProjectScreen() {
 
     const details = () => {
         return (
-            <div className="projects-card-container">
+            <div className="projects-cards-container">
                 <div className="information-container">
                     <div className="information-form">
                         Extra Information
@@ -239,10 +239,10 @@ export default function CreateProjectScreen() {
     return (
         <div>
             <div className="projects-screen">
-                <div className="projects-header">
+                <div className="create-projects-header">
                     {state === null ? "New Project" : "Edit Project"}
                 </div>
-                <div className="projects-container">
+                <div className="projects-cards">
                     {BasicInfo()}
                     {details()}
                 </div>

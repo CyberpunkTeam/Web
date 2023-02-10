@@ -2,7 +2,6 @@ import {AddCircle} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {useContext} from "react";
 import {useNavigate} from "react-router-dom";
-import {isMobile} from "react-device-detect";
 import ProjectTileComponent from "../ProjectTileComponent";
 
 export default function UserProjectComponent(params) {
@@ -16,14 +15,6 @@ export default function UserProjectComponent(params) {
     const addButton = () => {
         if (params.userData.user.uid !== context.user.uid) {
             return
-        }
-
-        if (isMobile) {
-            return (
-                <button className="createTeamButtonMobile" onClick={createProject}>
-                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
-                </button>
-            )
         }
 
         return (
