@@ -42,7 +42,7 @@ export default function TeamProjectTileComponent(params) {
                 </div>
             </div>
             <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
-                {data.description.substring(0, 120)}
+                {data.description.summary.substring(0, 120)}
             </div>
         </div>
     )

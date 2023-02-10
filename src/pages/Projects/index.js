@@ -48,7 +48,7 @@ export default function ProjectsScreen() {
                                 <div className="titles">
                                     Technologies:
                                 </div>
-                                {data.technologies.map((info) => {
+                                {data.technologies.programming_language.map((info) => {
                                     return <TechnologyTag key={info} technology={info}/>
                                 })}
                             </div>

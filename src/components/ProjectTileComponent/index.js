@@ -26,7 +26,7 @@ export default function ProjectTileComponent(params) {
                     {data.state}
                 </div>
                 <div className="tags-project">
-                    {data.technologies.map((technology) => {
+                    {data.technologies.programming_language.map((technology) => {
                         return <TechnologyTag key={technology} technology={technology}/>
                     })}
                 </div>
@@ -37,7 +37,7 @@ export default function ProjectTileComponent(params) {
                 </div>
             </div>
             <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
-                {data.description.substring(0, 120)}
+                {data.description.summary.substring(0, 120)}
             </div>
         </div>
     )

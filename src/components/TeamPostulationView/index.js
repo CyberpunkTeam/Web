@@ -39,7 +39,7 @@ export default function TeamPostulationView(params) {
                         </div>
                     </div>
                     <div className="tags-modal">
-                        {params.data.project.technologies.map((data) => {
+                        {params.data.project.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data + "-modal"} technology={data}/>
                         })}
                     </div>

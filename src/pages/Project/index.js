@@ -331,7 +331,7 @@ export default function ProjectScreen() {
                         {project.name}
                     </div>
                     <div className="tags-container">
-                        {project.technologies.map((data) => {
+                        {project.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data} technology={data}/>
                         })}
                     </div>
@@ -352,7 +352,7 @@ export default function ProjectScreen() {
                 <div className="project-information-card">
                     Description
                     <div className="project-description-card">
-                        {project.description}
+                        {project.description.summary}
                     </div>
                 </div>
             </div>

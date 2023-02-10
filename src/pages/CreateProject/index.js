@@ -16,7 +16,7 @@ export default function CreateProjectScreen() {
     const techValuesSelected = () => {
         let list = []
         if (state !== null) {
-            state.project.technologies.forEach((value) => {
+            state.project.technologies.programming_language.forEach((value) => {
                 list.push({value: value, label: value})
             })
         }
@@ -37,19 +37,34 @@ export default function CreateProjectScreen() {
     const [name, setName] = useState(state === null ? "" : state.project.name)
     const defaultValues = techValuesSelected()
     const IdiomsDefaultValues = lengValuesSelected()
-    const [description, setDescription] = useState(state === null ? "" : state.project.description)
+    const [description, setDescription] = useState(state === null ? "" : state.project.description.summary)
     const [languages, setLanguages] = useState(state === null ? [] : [...state.project.idioms])
-    const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies]);
+    const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies.programming_language]);
 
     const projectButton = () => {
         setButtonDisabled(true)
+
         const body = {
             "name": name,
             "idioms": languages,
-            "description": description,
-            "technologies": techs,
-            "creator_uid": context.user.uid
+            "creator_uid": context.user.uid,
+            "description": {
+                "files_attached": [],
+                "functional_requirements": [],
+                "non_function_requirements": [],
+                "summary": description
+            },
+            "technologies": {
+                "programming_language": techs,
+                "frameworks": [],
+                "platforms": []
+            },
+            "tentative_budget": 0,
+            "budget_currency": "DOLAR",
+            "tentative_duration": 0,
+            "unit_duration": "HOURS"
         }
+
         if (state === null) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
@@ -88,7 +103,6 @@ export default function CreateProjectScreen() {
     }
 
     const details = () => {
-
         return (
             <div className="projects-card-container">
                 <div className="information-container">
