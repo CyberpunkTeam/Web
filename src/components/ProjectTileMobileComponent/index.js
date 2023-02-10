@@ -2,12 +2,9 @@ import {isMobile} from "react-device-detect";
 import {Link, useNavigate} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
-import {useContext} from "react";
-import AppContext from "../../utils/AppContext";
 
 export default function ProjectTileMobileComponent(params) {
     const data = params.data
-    let context = useContext(AppContext);
     const navigate = useNavigate();
     const projects_link = "/projects/" + data.pid
     const goTo = () => {
@@ -16,7 +13,7 @@ export default function ProjectTileMobileComponent(params) {
 
     return (
         <div key={data.pid}
-             className={isMobile ? "project-info-mobile" : context.size ? "data-info-reduce" : "data-info-with-shadow"}
+             className={isMobile ? "project-info-mobile" : "data-info-reduce"}
              onClick={goTo}>
             <Link to={projects_link} className={isMobile ? "team-link-mobile" : "team-link"}>
                 {data.name}

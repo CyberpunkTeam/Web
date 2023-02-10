@@ -44,6 +44,11 @@
     width: 55%;
 }
 
+.pana-projects-style-reduced {
+    min-width: 300px;
+    width: 55%;
+}
+
 .pana-style-mobile {
     width: 60%;
     align-self: center;
