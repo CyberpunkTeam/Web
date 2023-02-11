@@ -334,6 +334,12 @@ export default function ProjectScreen() {
                         {project.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data} technology={data}/>
                         })}
+                        {project.technologies.frameworks.map((data) => {
+                            return <TechnologyTag key={data} technology={data}/>
+                        })}
+                        {project.technologies.platforms.map((data) => {
+                            return <TechnologyTag key={data} technology={data}/>
+                        })}
                     </div>
                     <div className="tags-container">
                         {project.idioms.map((data) => {

@@ -44,8 +44,8 @@
     appearance: none;
     font-family: "Inter", sans-serif;
     width: 20%;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    border-top-right-radius: 16px;
+    border-bottom-right-radius: 16px;
     border-color: #E3E3E3;
     border-width: 0px;
     outline: none;
@@ -57,7 +57,8 @@
 
 .budget-input-container {
     display: flex;
-    margin-top: 4px;
+    margin-top: 8px;
+    padding-bottom: 20px;
     justify-content: space-between;
     width: 100%;
 }
@@ -66,8 +67,8 @@
     font-family: "Inter", sans-serif;
     width: 80%;
     border-right: 2px solid #D1D1D1;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 16px;
+    border-bottom-left-radius: 16px;
     border-left: none;
     border-top: none;
     border-bottom: none;

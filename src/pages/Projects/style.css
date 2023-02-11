@@ -140,11 +140,13 @@
     width: 100%;
 }
 
-.projects-cards-container {
-    width: 49.5%;
+.projects-description-container {
+    width: 100%;
+    margin-top: 16px;
 }
 
 .projects-cards {
+    margin-top: 8px;
     justify-content: space-between;
     display: flex;
 }

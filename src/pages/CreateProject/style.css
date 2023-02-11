@@ -1,14 +1,12 @@
 .create-project-info {
     font-size: 18px;
     margin: 40px;
-    height: 120px;
 }
 .create-project-info-container {
     align-items: center;
     width: 49.5%;
     background: #F1F1F1;
-    height: 420px;
-    border-radius: 10px;
+    border-radius: 16px;
 }
 .create-project-form{
     font-weight: 400;
@@ -59,15 +57,13 @@
     flex-direction: column;
     display: flex;
     background: #F1F1F1;
-    height: 600px;
-    border-radius: 10px;
+    border-radius: 16px;
 }
 .information-form {
     display: flex;
     flex-direction: column;
     font-size: 18px;
-    margin: 40px;
-    height: 520px;
+    margin: 32px;
 }
 textarea {
     border-radius: 10px;
@@ -75,6 +71,7 @@ textarea {
     border-width: 0;
     background: #E3E3E3;
     resize: none;
+    margin-top: 8px;
     font-family: "Inter", sans-serif;
     height: 100px;
     outline: none;
@@ -85,7 +82,7 @@ textarea {
 }
 .text-area-label {
     align-self: center;
-    width: 60%;
+    width: 100%;
     font-weight: 400;
     font-size: 14px;
     display: flex;
