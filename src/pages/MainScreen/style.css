@@ -120,6 +120,17 @@
     padding-right: 50px;
 }
 
+.form-text-modal {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 150%;
+    text-align: center;
+    color: #014751;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
 .form-text-mobile {
     font-style: normal;
     font-weight: 700;

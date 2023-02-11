@@ -31,7 +31,7 @@ export default function NewMemberVacant(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Create Vacant
             </div>
             <form className="modal-form">

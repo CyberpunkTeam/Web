@@ -1,0 +1,21 @@
+.platform-tag {
+    font-size: 12px;
+    background: #a23c79;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 6px;
+}
+
+.platform-tag-mobile {
+    font-size: 30px;
+    background: #a23c79;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 10px;
+}

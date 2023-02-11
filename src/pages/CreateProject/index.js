@@ -181,7 +181,7 @@ export default function CreateProjectScreen() {
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Budget
                             <div className="budget-input-container">
-                                <input type="number" value={estimatedBudget} className="budget-input"
+                                <input type="number" min="0" value={estimatedBudget} className="budget-input"
                                        onChange={setEstimatedBudgetHandler}/>
                                 <select value={coin} className="select-coin" onChange={setCoinHandler}>
                                     <option value="DOLAR">USD</option>
@@ -191,7 +191,7 @@ export default function CreateProjectScreen() {
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Estimated Time
                             <div className="budget-input-container">
-                                <input type="number" value={timeValue} className="budget-input"
+                                <input type="number" min="0" value={timeValue} className="budget-input"
                                        onChange={setTimeValueHandler}/>
                                 <select value={time} className="select-coin" onChange={setTimeHandler}>
                                     <option value="Hours">Hours</option>
@@ -270,21 +270,19 @@ export default function CreateProjectScreen() {
     }
 
     return (
-        <div>
-            <div className="projects-screen">
-                <div className="create-projects-header">
-                    {state === null ? "New Project" : "Edit Project"}
-                </div>
-                <div>
-                    <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
-                        {BasicInfoLeft()}
-                        {BasicInfoRight()}
-                    </div>
-                    {details()}
-                </div>
-                <SearchBar/>
-                <SideBar/>
+        <div className="projects-screen">
+            <div className="create-projects-header">
+                {state === null ? "New Project" : "Edit Project"}
             </div>
+            <div>
+                <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
+                    {BasicInfoLeft()}
+                    {BasicInfoRight()}
+                </div>
+                {details()}
+            </div>
+            <SearchBar/>
+            <SideBar/>
         </div>
     )
 

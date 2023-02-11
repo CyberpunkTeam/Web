@@ -67,7 +67,7 @@ export default function PostulationModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Postulation
             </div>
             <form className="modal-form">
@@ -90,7 +90,7 @@ export default function PostulationModal(params) {
                 <label className="label">
                     Budget
                     <div className="budget-input-container">
-                        <input type="number" value={estimatedBudget} className="budget-input"
+                        <input type="number" min="0" value={estimatedBudget} className="budget-input"
                                onChange={setEstimatedBudgetHandler}/>
                         <select value={coin} className="select-coin" onChange={setCoinHandler}>
                             <option value="DOLAR">USD</option>

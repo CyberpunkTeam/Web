@@ -19,8 +19,8 @@ export function CompleteProjectModal(params) {
     }
 
     return (
-        <div className={"abandonModal"}>
-            <div className="form-text">
+        <div className={"abandonModalWithoutOptions"}>
+            <div className="form-text-modal">
                 Are you sure you want to submit the completion request for this project?
             </div>
             <div className="container-button-modal">

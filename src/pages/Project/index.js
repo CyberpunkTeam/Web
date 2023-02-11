@@ -31,6 +31,8 @@ import LeaveProject from "../../components/LeaveProject";
 import {CompleteProjectModal} from "../../components/CompleteProjectModal";
 import {DeleteProjectModal} from "../../components/DeleteProjectModal";
 import {modalStyle} from "../../styles/commonStyles";
+import PlatformTag from "../../components/PlatformTag";
+import FrameworkTag from "../../components/FrameworkTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -335,10 +337,12 @@ export default function ProjectScreen() {
                             return <TechnologyTag key={data} technology={data}/>
                         })}
                         {project.technologies.frameworks.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
+                            return <FrameworkTag key={data} framework={data}/>
                         })}
+                    </div>
+                    <div className="tags-container">
                         {project.technologies.platforms.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
+                            return <PlatformTag key={data} platform={data}/>
                         })}
                     </div>
                     <div className="tags-container">

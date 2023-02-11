@@ -2,6 +2,8 @@ import {isMobile} from "react-device-detect";
 import {Link, useNavigate} from "react-router-dom";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
+import FrameworkTag from "../FrameworkTag";
+import PlatformTag from "../PlatformTag";
 
 export default function ProjectTileMobileComponent(params) {
     const data = params.data
@@ -25,6 +27,14 @@ export default function ProjectTileMobileComponent(params) {
                 <div className="tags-project">
                     {data.technologies.programming_language.map((technology) => {
                         return <TechnologyTag key={technology} technology={technology}/>
+                    })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                </div>
+                <div className="tags-project">
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
                     })}
                 </div>
                 <div className="tags-project">

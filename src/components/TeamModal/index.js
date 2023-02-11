@@ -131,7 +131,7 @@ export default function TeamModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 {params.team !== undefined ? "Edit Team" : "Create a New Team"}
             </div>
             <form className="modal-form">

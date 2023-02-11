@@ -17,8 +17,8 @@ export function DeleteProjectModal(params) {
     }
 
     return (
-        <div className={"abandonModal"}>
-            <div className="form-text">
+        <div className={"abandonModalWithoutOptions"}>
+            <div className="form-text-modal">
                 Are you sure you want to delete this project?
             </div>
             <div className="container-button-modal">

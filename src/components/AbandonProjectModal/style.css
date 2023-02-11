@@ -10,6 +10,18 @@
     justify-content: space-around;
 }
 
+.abandonModalWithoutOptions {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 200px;
+    width: 600px;
+    background: #FAFAFA;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .leave-project-button-style {
     width: 49%;
     border-radius: 10px;
