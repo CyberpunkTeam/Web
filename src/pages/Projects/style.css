@@ -151,6 +151,10 @@
     display: flex;
 }
 
+.projects-cards-reduced {
+    margin-top: 8px;
+}
+
 .createProjectButtonCover {
     min-width: 200px;
     margin-top: 32px;

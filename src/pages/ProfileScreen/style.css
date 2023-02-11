@@ -311,6 +311,7 @@
 .cancel-project-button {
     background: #CD5B45;
     min-width: 200px;
+    height: 70px;
     border-width: 0;
     margin-left: 16px;
     display: flex;

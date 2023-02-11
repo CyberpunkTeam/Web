@@ -7,6 +7,7 @@ import {acceptCandidate, rejectCandidate} from "../../services/teamService";
 import Modal from "react-modal";
 import {DeleteVacantModal} from "../DeleteVacantModal";
 import {PostulateInTeamModal} from "../PostulateInTeamModal";
+import {modalStyle} from "../../styles/commonStyles";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
@@ -218,23 +219,4 @@ export default function MemberPostulationView(params) {
             {modal()}
         </div>
     )
-}
-
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        fontFamily: "Inter",
-        padding: '0',
-        borderWidth: 0,
-        borderRadius: '16px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0px 4px 10px #666666",
-    },
 }

@@ -7,6 +7,7 @@ import AppContext from "../../utils/AppContext";
 import {createProject, updateProject} from "../../services/projectService";
 import Select from "react-select";
 import {optionsIdioms, optionsLanguages, platformsOptions, frameworksOptionsData} from "../../config/dictonary";
+import {selectedGreenStyle, selectedViolet, selectedViolet2} from "../../styles/commonStyles";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -168,16 +169,16 @@ export default function CreateProjectScreen() {
 
     const BasicInfoLeft = () => {
         return (
-            <div className="create-project-info-container">
-                <div className="create-project-info">
+            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Name
                             <div className="create-project-input">
                                 <input type="text" value={name} className="input" onChange={setNameHandler}/>
                             </div>
                         </label>
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Budget
                             <div className="budget-input-container">
                                 <input type="number" value={estimatedBudget} className="budget-input"
@@ -187,7 +188,7 @@ export default function CreateProjectScreen() {
                                 </select>
                             </div>
                         </label>
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Estimated Time
                             <div className="budget-input-container">
                                 <input type="number" value={timeValue} className="budget-input"
@@ -196,11 +197,10 @@ export default function CreateProjectScreen() {
                                     <option value="Hours">Hours</option>
                                     <option value="Days">Days</option>
                                     <option value="Mounts">Mounts</option>
-                                    <option value="Years">Years</option>
                                 </select>
                             </div>
                         </label>
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Idioms
                             <div className="modal-form-input-select">
                                 <Select
@@ -209,41 +209,7 @@ export default function CreateProjectScreen() {
                                     options={optionsIdioms}
                                     onChange={(choice) => setLanguageHandler(choice)}
                                     name="Technologies"
-                                    styles={{
-                                        control: () => ({
-                                            display: "flex",
-                                            minHeight: "32px",
-                                            padding: "4px 0",
-                                            borderRadius: "16px",
-                                            background: "#E3E3E3",
-                                            border: "none"
-                                        }),
-                                        multiValueLabel: () => ({
-                                                background: "#089BAD",
-                                                color: "#FAFAFA",
-                                                padding: "4px 0 4px 8px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                borderTopLeftRadius: "8px",
-                                                borderBottomLeftRadius: "8px"
-                                            }
-                                        ),
-                                        multiValueRemove: (theme, state) => ({
-                                            background: "#089BAD",
-                                            color: "#FAFAFA",
-                                            display: "flex",
-                                            padding: "4px",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopRightRadius: "8px",
-                                            borderBottomRightRadius: "8px",
-                                            cursor: "pointer",
-                                            ':hover': {
-                                                backgroundColor: "#CD5B45"
-                                            },
-                                        })
-                                    }}
+                                    styles={selectedGreenStyle}
                                 />
                             </div>
                         </label>
@@ -255,10 +221,10 @@ export default function CreateProjectScreen() {
 
     const BasicInfoRight = () => {
         return (
-            <div className="create-project-info-container">
-                <div className="create-project-info">
+            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Technologies
                             <div className="modal-form-input-select">
                                 <Select
@@ -267,45 +233,11 @@ export default function CreateProjectScreen() {
                                     options={optionsLanguages}
                                     onChange={(choice) => setTechHandler(choice)}
                                     name="Technologies"
-                                    styles={{
-                                        control: () => ({
-                                            display: "flex",
-                                            minHeight: "32px",
-                                            padding: "4px 0",
-                                            borderRadius: "16px",
-                                            background: "#E3E3E3",
-                                            border: "none"
-                                        }),
-                                        multiValueLabel: () => ({
-                                                background: "#8D64CC",
-                                                color: "#FAFAFA",
-                                                padding: "4px 0 4px 8px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                borderTopLeftRadius: "8px",
-                                                borderBottomLeftRadius: "8px"
-                                            }
-                                        ),
-                                        multiValueRemove: (theme, state) => ({
-                                            background: "#8D64CC",
-                                            color: "#FAFAFA",
-                                            display: "flex",
-                                            padding: "4px",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopRightRadius: "8px",
-                                            borderBottomRightRadius: "8px",
-                                            cursor: "pointer",
-                                            ':hover': {
-                                                backgroundColor: "#CD5B45"
-                                            },
-                                        })
-                                    }}
+                                    styles={selectedViolet}
                                 />
                             </div>
                         </label>
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Frameworks
                             <div className="modal-form-input-select">
                                 <Select
@@ -314,45 +246,11 @@ export default function CreateProjectScreen() {
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
                                     name="Technologies"
-                                    styles={{
-                                        control: () => ({
-                                            display: "flex",
-                                            minHeight: "32px",
-                                            padding: "4px 0",
-                                            borderRadius: "16px",
-                                            background: "#E3E3E3",
-                                            border: "none"
-                                        }),
-                                        multiValueLabel: () => ({
-                                                background: "#8D64CC",
-                                                color: "#FAFAFA",
-                                                padding: "4px 0 4px 8px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                borderTopLeftRadius: "8px",
-                                                borderBottomLeftRadius: "8px"
-                                            }
-                                        ),
-                                        multiValueRemove: (theme, state) => ({
-                                            background: "#8D64CC",
-                                            color: "#FAFAFA",
-                                            display: "flex",
-                                            padding: "4px",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopRightRadius: "8px",
-                                            borderBottomRightRadius: "8px",
-                                            cursor: "pointer",
-                                            ':hover': {
-                                                backgroundColor: "#CD5B45"
-                                            },
-                                        })
-                                    }}
+                                    styles={selectedViolet}
                                 />
                             </div>
                         </label>
-                        <label className="create-project-label">
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Platforms
                             <div className="modal-form-input-select">
                                 <Select
@@ -361,41 +259,7 @@ export default function CreateProjectScreen() {
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                     name="Technologies"
-                                    styles={{
-                                        control: () => ({
-                                            display: "flex",
-                                            minHeight: "32px",
-                                            padding: "4px 0",
-                                            borderRadius: "16px",
-                                            background: "#E3E3E3",
-                                            border: "none"
-                                        }),
-                                        multiValueLabel: () => ({
-                                                background: "#a23c79",
-                                                color: "#FAFAFA",
-                                                padding: "4px 0 4px 8px",
-                                                display: "flex",
-                                                alignItems: "center",
-                                                justifyContent: "center",
-                                                borderTopLeftRadius: "8px",
-                                                borderBottomLeftRadius: "8px"
-                                            }
-                                        ),
-                                        multiValueRemove: (theme, state) => ({
-                                            background: "#a23c79",
-                                            color: "#FAFAFA",
-                                            display: "flex",
-                                            padding: "4px",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopRightRadius: "8px",
-                                            borderBottomRightRadius: "8px",
-                                            cursor: "pointer",
-                                            ':hover': {
-                                                backgroundColor: "#CD5B45"
-                                            },
-                                        })
-                                    }}
+                                    styles={selectedViolet2}
                                 />
                             </div>
                         </label>
@@ -412,7 +276,7 @@ export default function CreateProjectScreen() {
                     {state === null ? "New Project" : "Edit Project"}
                 </div>
                 <div>
-                    <div className="projects-cards">
+                    <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
                         {BasicInfoLeft()}
                         {BasicInfoRight()}
                     </div>

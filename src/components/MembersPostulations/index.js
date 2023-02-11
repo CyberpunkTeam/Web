@@ -6,6 +6,7 @@ import {isMobile} from "react-device-detect";
 import NewMemberVacant from "../NewMemberVacant";
 import {getTeamVacants} from "../../services/teamService";
 import MemberPostulationView from "../MemberPostulationView";
+import {modalStyle} from "../../styles/commonStyles";
 export default function MembersPostulations(params) {
     let context = useContext(AppContext);
 
@@ -95,23 +96,4 @@ export default function MembersPostulations(params) {
             </div>
         </div>
     )
-}
-
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        fontFamily: "Inter",
-        padding: '0',
-        borderWidth: 0,
-        borderRadius: '16px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0px 4px 10px #666666",
-    },
 }
