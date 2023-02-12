@@ -1,4 +1,4 @@
-import {AddCircle, Award, Teacher} from "iconsax-react";
+import {AddCircle, Award} from "iconsax-react";
 import {isMobile} from "react-device-detect";
 import AppContext from "../../utils/AppContext";
 import {useContext, useState} from "react";
