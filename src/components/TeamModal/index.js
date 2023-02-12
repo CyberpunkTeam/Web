@@ -4,7 +4,7 @@ import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {CloseCircle} from "iconsax-react";
 import {
-    CloudOptions, databasesOptions,
+    CloudOptions, databasesOptions, frameworksOptionsData,
     frameworksOptionsDataAll, MethodologiesOptions, optionsIdioms,
     optionsLanguages,
     optionsProjects,
@@ -34,6 +34,16 @@ export default function TeamModal(params) {
         return list
     }
 
+    const getFrameworksOptions = (data) => {
+        let list = []
+        data.forEach((value) => {
+            if (Object.keys(frameworksOptionsData).includes(value)) {
+                list = list.concat(frameworksOptionsData[value])
+            }
+        })
+        return list
+    }
+
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
     const languagesValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.programming_language)
@@ -49,6 +59,7 @@ export default function TeamModal(params) {
     const [idioms, setIdioms] = useState(params.team !== undefined ? [...params.team.idioms] : [])
     const [frameworks, setFrameworks] = useState(params.team !== undefined ? [...params.team.technologies.frameworks] : [])
     const [platforms, setPlatforms] = useState(params.team !== undefined ? [...params.team.technologies.platforms] : [])
+    const [frameworksOptions, setFrameworksOptions] = useState(params.team === undefined ? [] : getFrameworksOptions(params.team.technologies.programming_language));
 
     const goBack = () => {
         if (params.team !== undefined) {
@@ -63,6 +74,7 @@ export default function TeamModal(params) {
         event.forEach((value) => {
             list.push(value.value)
         })
+        setFrameworksOptions(getFrameworksOptions(list))
         setLanguages(list);
     }
 
@@ -241,7 +253,7 @@ export default function TeamModal(params) {
                                 <Select
                                     isMulti
                                     defaultValue={frameworksValues}
-                                    options={frameworksOptionsDataAll}
+                                    options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
                                     styles={selectedViolet3}
                                 />
