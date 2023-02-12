@@ -64,7 +64,7 @@ export default function AddExperienceModal(params) {
     }
 
     return (<div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Add Job Experience
             </div>
             <form className="modal-form">

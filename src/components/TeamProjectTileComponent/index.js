@@ -4,6 +4,8 @@ import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
+import FrameworkTag from "../FrameworkTag";
+import PlatformTag from "../PlatformTag";
 
 export default function TeamProjectTileComponent(params) {
     const data = params.data.project
@@ -31,8 +33,16 @@ export default function TeamProjectTileComponent(params) {
                     {formatter.format(params.data.estimated_budget)} USD
                 </div>
                 <div className="tags-project">
-                    {data.technologies.map((technology) => {
+                    {data.technologies.programming_language.map((technology) => {
                         return <TechnologyTag key={technology} technology={technology}/>
+                    })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                </div>
+                <div className="tags-project">
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
                     })}
                 </div>
                 <div className="tags-project">
@@ -42,7 +52,7 @@ export default function TeamProjectTileComponent(params) {
                 </div>
             </div>
             <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
-                {data.description.substring(0, 120)}
+                {data.description.summary.substring(0, 120)}
             </div>
         </div>
     )

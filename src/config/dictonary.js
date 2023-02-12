@@ -1,4 +1,4 @@
-export const languages = ["Python", "Java", "JavaScript", "C++", "Go", "TypeScript", "PHP", "Ruby", "C", "C#", "Shell",
+/*export const languages = ["Python", "Java", "JavaScript", "C++", "Go", "TypeScript", "PHP", "Ruby", "C", "C#", "Shell",
     "Nix", "HTML", "Scala", "Rust", "Kotlin", "Swift", "Jupyter Notebook", "Dart", "DM", "HCL", "Lua", "SystemVerilog",
     "CSS", "Perl", "Groovy", "Makefile", "Objective-C", "CodeQL", "SCSS", "Elixir", "OCaml", "Vue", "Haskell", "Starlark",
     "Lean", "Dockerfile", "Erlang", "Smarty", "Emacs Lisp", "Jinja", "PowerShell", "JSON", "Clojure", "Julia", "MLIR",
@@ -6,7 +6,7 @@ export const languages = ["Python", "Java", "JavaScript", "C++", "Go", "TypeScri
     "Bicep", "MATLAB", "BitBake", "Visual Basic .NET", "PLpgSQL", "YAML", "ANTLR", "hoon", "Markdown", "TeX", "Fortran",
     "Twig", "Cython", "ZAP", "Cuda", "SourcePawn", "ColdFusion", "GLSL", "Sass", "Nunjucks", "XSLT", "Mustache",
     "Common Lisp", "SWIG", "Smalltalk", "Less", "Elm", "Gherkin", "Coq", "Vala", "CMake", "PostScript",
-    "Haxe", "LLVM", "F*", "Stylus", "Crystal", "Raku", "Blade", "Batchfile", "Slim", "Handlebars", "Pascal"]
+    "Haxe", "LLVM", "F*", "Stylus", "Crystal", "Raku", "Blade", "Batchfile", "Slim", "Handlebars", "Pascal"]*/
 
 export const optionsLanguages = [
     {'value': 'Python', 'label': 'Python'},
@@ -54,8 +54,8 @@ export const optionsLanguages = [
     {'value': 'Clojure', 'label': 'Clojure'},
     {'value': 'Julia', 'label': 'Julia'},
     {'value': 'MLIR', 'label': 'MLIR'},
-    {'value': 'Verilog', 'label': 'Verilog'}, {
-    'value': 'Vim Script', 'label': 'Vim Script'},
+    {'value': 'Verilog', 'label': 'Verilog'},
+    {'value': 'Vim Script', 'label': 'Vim Script'},
     {'value': 'Roff', 'label': 'Roff'},
     {'value': 'CoffeeScript', 'label': 'CoffeeScript'},
     {'value': 'Assembly', 'label': 'Assembly'},
@@ -129,7 +129,7 @@ export const optionsIdioms = [
     {'value': 'Portuguese', 'label': 'Portuguese'}
 ]
 
-const frameworks = {
+/*const frameworks = {
     "Java": ["Spring"],
     "Python": ["Django", "Flask", "FastAPI"],
     "Ruby": ["Ruby on Rails"],
@@ -139,12 +139,132 @@ const frameworks = {
     "PHP": ["CakePHP", "Laravel"],
     "Go": ["Gin", "Beego", "Echo", "Fiber"],
     "Dart": ["Flutter"]
+}*/
+
+export const frameworksOptionsData = {
+    "Java": [
+        {'value': 'Spring', 'label': 'Spring'}
+    ],
+    "Python": [
+        {'value': 'Django', 'label': 'Django'},
+        {'value': 'Flask', 'label': 'Flask'},
+        {'value': 'FastAPI', 'label': 'FastAPI'}
+    ],
+    "Ruby": [
+        {'value': 'Ruby on Rails', 'label': 'Ruby on Rails'}
+    ],
+    "JavaScript": [
+        {'value': 'React JS', 'label': 'React JS'},
+        {'value': 'Node JS', 'label': 'Node JS'},
+        {'value': 'Vue JS', 'label': 'Vue JS'},
+        {'value': 'Express', 'label': 'Express'},
+        {'value': 'Ember JS', 'label': 'Ember JS'},
+        {'value': 'Meteor JS', 'label': 'Meteor JS'},
+        {'value': 'Expo', 'label': 'Expo'},
+        {'value': 'React Native', 'label': 'React Native'}
+    ],
+    "TypeScript": [
+        {'value': 'Next JS', 'label': 'Next JS'},
+        {'value': 'Angular', 'label': 'Angular'}
+    ],
+    "C#": [
+        {'value': 'ASP.NET', 'label': 'ASP.NET'}
+    ],
+    "PHP": [
+        {'value': 'CakePHP', 'label': 'CakePHP'},
+        {'value': 'Laravel', 'label': 'Laravel'}
+    ],
+    "Go": [
+        {'value': 'Gin', 'label': 'Gin'},
+        {'value': 'Beego', 'label': 'Beego'},
+        {'value': 'Echo', 'label': 'Echo'},
+        {'value': 'Fiber', 'label': 'Fiber'}
+    ],
+    "Dart": [
+        {'value': 'Flutter', 'label': 'Flutter'}
+    ]
 }
 
-const platforms = ["Wix", "Squarespace", "GoDaddy", "Weebly", "Zyro", "Jimdo Creator", "WordPress.com", "SITE123", "Strikingly", "1&1 IONOS 2"]
+export const frameworksOptionsDataAll = [
+    {'value': 'Spring', 'label': 'Spring'},
+    {'value': 'Django', 'label': 'Django'},
+    {'value': 'Flask', 'label': 'Flask'},
+    {'value': 'FastAPI', 'label': 'FastAPI'},
+    {'value': 'Ruby on Rails', 'label': 'Ruby on Rails'},
+    {'value': 'React JS', 'label': 'React JS'},
+    {'value': 'Node JS', 'label': 'Node JS'},
+    {'value': 'Vue JS', 'label': 'Vue JS'},
+    {'value': 'Express', 'label': 'Express'},
+    {'value': 'Ember JS', 'label': 'Ember JS'},
+    {'value': 'Meteor JS', 'label': 'Meteor JS'},
+    {'value': 'Expo', 'label': 'Expo'},
+    {'value': 'React Native', 'label': 'React Native'},
+    {'value': 'Next JS', 'label': 'Next JS'},
+    {'value': 'Angular', 'label': 'Angular'},
+    {'value': 'ASP.NET', 'label': 'ASP.NET'},
+    {'value': 'CakePHP', 'label': 'CakePHP'},
+    {'value': 'Laravel', 'label': 'Laravel'},
+    {'value': 'Gin', 'label': 'Gin'},
+    {'value': 'Beego', 'label': 'Beego'},
+    {'value': 'Echo', 'label': 'Echo'},
+    {'value': 'Fiber', 'label': 'Fiber'},
+    {'value': 'Flutter', 'label': 'Flutter'}
+]
 
-const cloudProviders = ["AWS", "Microsoft Azure", "GCP", "Alibaba Cloud", "Oracle Cloud", "IBM Cloud", "Tencent Cloud", "OVHcloud", "DigitalOcean", "Linode", "Salesforce", "SAP"]
+export const platformsOptions = [
+    {'value': 'Wix', 'label': 'Wix'},
+    {'value': 'Squarespace', 'label': 'Squarespace'},
+    {'value': 'GoDaddy', 'label': 'GoDaddy'},
+    {'value': 'Weebly', 'label': 'Weebly'},
+    {'value': 'Zyro', 'label': 'Zyro'},
+    {'value': 'WordPress', 'label': 'WordPress'},
+    {'value': 'SITE123', 'label': 'SITE123'},
+    {'value': 'Strikingly', 'label': 'Strikingly'},
+    {'value': '1&1 IONOS 2', 'label': '1&1 IONOS 2'},
+    {'value': 'Jimdo Creator', 'label': 'Jimdo Creator'}
+]
 
-const dataBases = ["Oracle", "MySQL", "Microsoft SQL Server", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "SQLite", "Cassandra", "Splunk", "MariaDB", "Teradata", "Hive", "Solr", "HBase", "Amazon DynamoDB", "Neo4j", "Couchbase", "Memcached", "Microsoft Azure SQL Database"]
+export const CloudOptions = [
+    {'value': 'AWS', 'label': 'AWS'},
+    {'value': 'Microsoft Azure', 'label': 'Microsoft Azure'},
+    {'value': 'GCP', 'label': 'GCP'},
+    {'value': 'Alibaba Cloud', 'label': 'Alibaba Cloud'},
+    {'value': 'Oracle Cloud', 'label': 'Oracle Cloud'},
+    {'value': 'IBM Cloud', 'label': 'IBM Cloud'},
+    {'value': 'Tencent Cloud', 'label': 'Tencent Cloud'},
+    {'value': 'OVHcloud', 'label': 'OVHcloud'},
+    {'value': 'DigitalOcean', 'label': 'DigitalOcean'},
+    {'value': 'Linode', 'label': 'Linode'},
+    {'value': 'Salesforce', 'label': 'Salesforce'},
+    {'value': 'SAP', 'label': 'SAP'}
+]
+
+export const databasesOptions = [
+    {'value': 'Oracle', 'label': 'Oracle'},
+    {'value': 'MySQL', 'label': 'MySQL'},
+    {'value': 'Microsoft SQL Server', 'label': 'Microsoft SQL Server'},
+    {'value': 'PostgreSQL', 'label': 'PostgreSQL'},
+    {'value': 'MongoDB', 'label': 'MongoDB'},
+    {'value': 'Redis', 'label': 'Redis'},
+    {'value': 'Elasticsearch', 'label': 'Elasticsearch'},
+    {'value': 'SQLite', 'label': 'SQLite'},
+    {'value': 'Cassandra', 'label': 'Cassandra'},
+    {'value': 'Splunk', 'label': 'Splunk'},
+    {'value': 'MariaDB', 'label': 'MariaDB'},
+    {'value': 'Teradata', 'label': 'Teradata'},
+    {'value': 'Hive', 'label': 'Hive'},
+    {'value': 'Solr', 'label': 'Solr'},
+    {'value': 'HBase', 'label': 'HBase'},
+    {'value': 'Amazon DynamoDB', 'label': 'Amazon DynamoDB'},
+    {'value': 'Neo4j', 'label': 'Neo4j'},
+    {'value': 'Couchbase', 'label': 'Couchbase'},
+    {'value': 'Memcached', 'label': 'Memcached'},
+    {'value': 'Microsoft Azure SQL Database', 'label': 'Microsoft Azure SQL Database'}
+]
+
+/*
+const dataBases = ["Oracle", "MySQL", "Microsoft SQL Server", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "SQLite",
+ "Cassandra", "Splunk", "MariaDB", "Teradata", "Hive", "Solr", "HBase", "Amazon DynamoDB", "Neo4j", "Couchbase", "Memcached", "Microsoft Azure SQL Database"]
 
 const methodologies = ["Agile Software Development", "Scrum", "FDD", "Lean Development", "XP", "Waterfall Model", "Prototype Model", "RAD", "Dynamic Systems Development Model", "Spiral Model", "JAD", "Rational Unified Process", "DevOps Methodology", "Adaptive Software Development", "BDD"]
+*/

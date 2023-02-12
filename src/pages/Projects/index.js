@@ -1,113 +1,80 @@
 import './style.css';
+import logo from '../../assests/projects-pana.svg';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import {AddCircle} from "iconsax-react";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {getProjects} from "../../services/projectService";
 import Loading from "../../components/loading";
-import PreferenceTag from "../../components/PreferenceTag";
-import TechnologyTag from "../../components/TechnologyTag";
+import {isMobile} from "react-device-detect";
+import AppContext from "../../utils/AppContext";
+import ProjectTileMobileComponent from "../../components/ProjectTileMobileComponent";
 
 export default function ProjectsScreen() {
     const navigate = useNavigate();
-    const [projects, setProjects] = useState();
+    let context = useContext(AppContext);
+    const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         getProjects().then((response) => {
-            setProjects(response);
+            setProjects([...response]);
             setLoading(false)
         }).catch((error) => {
             console.log(error)
         });
     }, []);
 
-    const projectsView = () => {
-        const projectCard = (data) => {
-            const link_to = "/user/" + data.creator.uid
-            const project_link = "/projects/" + data.pid
-            return (
-                <div key={data.pid} className="project-card-container">
-                    <div className="project-card">
-                        <div onClick={() => {
-                            navigate(project_link)
-                        }}>
-                            {data.name}
-                        </div>
-                        <div className="project-info">
-                            <div className="titles">
-                                Creator:
-                                <div className="creator" onClick={() => {
-                                    navigate(link_to)
-                                }}>
-                                    {data.creator.name} {data.creator.lastname}
-                                </div>
-                            </div>
-                            <div className="project-tech-info">
-                                <div className="titles">
-                                    Technologies:
-                                </div>
-                                {data.technologies.map((info) => {
-                                    return <TechnologyTag key={info} technology={info}/>
-                                })}
-                            </div>
-                            <div className="project-tech-info">
-                                <div className="titles">
-                                    Languages:
-                                </div>
-                                {data.idioms.map((info) => {
-                                    return <PreferenceTag key={info} preference={info}/>
-                                })}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            )
-        }
+    if (loading) {
+        return <Loading/>
+    }
 
-            return (
-                <div className="projects-card-container">
-                    {projects.map((data) => {
-                        return projectCard(data)
+    const coverMobile = () => {
+        return (<div className="projects-header">
+            <div className="projects-cover-reduced">
+                <div className="projects-cover-title-reduced">
+                    Find the project you’ve been looking forward to work in
+                </div>
+                <img src={logo} className="pana-projects-style-reduced" alt="logo"/>
+                <button className="createProjectButtonCover" onClick={() => {
+                    navigate(("/projects/new"))
+                }}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                    Create Project
+                </button>
+            </div>
+        </div>)
+    }
+    const cover = () => {
+        return (<div className="projects-header">
+            <div className="projects-cover">
+                <div className="projects-cover-title">
+                    Find the project you’ve been looking forward to work in
+                    <button className="createProjectButtonCover" onClick={() => {
+                        navigate(("/projects/new"))
+                    }}>
+                        <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                        Create Project
+                    </button>
+                </div>
+                <img src={logo} className="pana-projects-style" alt="logo"/>
+            </div>
+        </div>)
+    }
+
+    return (
+        <div>
+            <div className="projects-screen">
+                {isMobile || context.size ? coverMobile() : cover()}
+                <div className="projects-container">
+                    {projects.map((value) => {
+                        return <ProjectTileMobileComponent key={value.pid} data={value}/>
                     })}
                 </div>
-            )
-        }
-
-        const mostPopular = () => {
-            return (
-                <div className="most-popular-card-container">
-                    <div className="popular-card">
-                        Most Popular
-                        <>
-                        </>
-                    </div>
-                </div>
-            )
-        }
-
-        if(loading) {
-            return <Loading/>
-        }
-
-        return (
-            <div>
-                <div className="projects-screen">
-                    <div className="projects-header">
-                        Projects
-                        <AddCircle size="24" color="#B1B1B1" className="create-project-button" onClick={() => {
-                            navigate(("/projects/new"))
-                        }}/>
-                    </div>
-                    <div className="projects-container">
-                        {mostPopular()}
-                        {projectsView()}
-                    </div>
-                </div>
-                <SearchBar/>
-                <SideBar/>
             </div>
-        )
-
-        }
+            <SearchBar/>
+            <SideBar/>
+        </div>
+    )
+}

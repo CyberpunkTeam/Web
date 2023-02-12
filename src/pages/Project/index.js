@@ -9,7 +9,6 @@ import {getProjectPostulations, getProject} from "../../services/projectService"
 import {
     AddCircle,
     ArrowCircleDown,
-    CloseCircle,
     Edit,
     LogoutCurve,
     People,
@@ -31,6 +30,9 @@ import {AbandonProjectModal} from "../../components/AbandonProjectModal";
 import LeaveProject from "../../components/LeaveProject";
 import {CompleteProjectModal} from "../../components/CompleteProjectModal";
 import {DeleteProjectModal} from "../../components/DeleteProjectModal";
+import {modalStyle} from "../../styles/commonStyles";
+import PlatformTag from "../../components/PlatformTag";
+import FrameworkTag from "../../components/FrameworkTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -176,7 +178,7 @@ export default function ProjectScreen() {
         if (isMobile) {
             return (
                 <button className="cancelButtonMobile" onClick={openModalIfDeleteProject}>
-                    <CloseCircle color="#FAFAFA" variant="Bold" size={48}/>
+                    <Trash color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }
@@ -331,8 +333,16 @@ export default function ProjectScreen() {
                         {project.name}
                     </div>
                     <div className="tags-container">
-                        {project.technologies.map((data) => {
+                        {project.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data} technology={data}/>
+                        })}
+                        {project.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data} framework={data}/>
+                        })}
+                    </div>
+                    <div className="tags-container">
+                        {project.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data} platform={data}/>
                         })}
                     </div>
                     <div className="tags-container">
@@ -352,7 +362,7 @@ export default function ProjectScreen() {
                 <div className="project-information-card">
                     Description
                     <div className="project-description-card">
-                        {project.description}
+                        {project.description.summary}
                     </div>
                 </div>
             </div>
@@ -457,22 +467,3 @@ export default function ProjectScreen() {
         </div>
     )
 }
-
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        fontFamily: "Inter",
-        padding: '0',
-        borderWidth: 0,
-        borderRadius: '16px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0px 4px 10px #666666",
-    },
-};

@@ -222,7 +222,7 @@ export default function EditProfileModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Edit Profile
             </div>
             {profileImage()}

@@ -20,7 +20,7 @@ export default function UserEducationsModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Títulos y Certificaciones
             </div>
             <div className="scrollDiv">

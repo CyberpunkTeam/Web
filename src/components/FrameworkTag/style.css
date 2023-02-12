@@ -1,0 +1,21 @@
+.framework-tag {
+    font-size: 12px;
+    background: #9850A3;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 6px;
+}
+
+.framework-tag-mobile {
+    font-size: 30px;
+    background: #9850A3;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 10px;
+}

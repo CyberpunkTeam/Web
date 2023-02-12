@@ -81,7 +81,7 @@ export default function PostulationsModal(params) {
                     <div className="team-postulation-data">
                         Tools
                         <div className="tags-modal">
-                            {data.team.technologies.map((data) => {
+                            {data.team.technologies.programming_language.map((data) => {
                                 return <TechnologyTag key={data + "-modal"} technology={data}/>
                             })}
                         </div>
