@@ -227,5 +227,4 @@ export default function NewMemberVacant(params) {
             <SideBar/>
         </div>
     )
-
 }

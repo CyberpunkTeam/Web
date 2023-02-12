@@ -13,18 +13,11 @@ export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-
     if (Object.keys(params.userData).length === 0) {
         return;
     }
-
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-
-    const openModal = () => {
-        setIsOpen(true)
+    const create = () => {
+        navigate("/team/new")
     }
 
     const teamTags = (data) => {
@@ -61,14 +54,6 @@ export default function UserTeamsComponent(params) {
         )
     }
 
-    const modal = () => {
-        return (
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <TeamModal closeModal={closeModal}/>
-            </Modal>
-        )
-    }
-
     const team = (data) => {
         const goTo = () => {
             navigate("/team/" + data.tid)
@@ -91,14 +76,14 @@ export default function UserTeamsComponent(params) {
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={openModal}>
+                <button className="createTeamButtonMobile" onClick={create}>
                     <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }
 
         return (
-            <button className="createTeamButton" onClick={openModal}>
+            <button className="createTeamButton" onClick={create}>
                 <AddCircle color="#FAFAFA" variant="Bold" size={32} className="icon"/>
                 New Team
             </button>
@@ -111,7 +96,6 @@ export default function UserTeamsComponent(params) {
             {params.userData.teams.map((data) => {
                 return team(data)
             })}
-            {modal()}
         </div>
     )
 }
