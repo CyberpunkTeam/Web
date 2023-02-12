@@ -32,20 +32,20 @@ export default function AddSkillModal(params) {
         return list
     }
 
-    const languagesDefault = valuesSelected(params.userData.user.skills.programming_language)
-    const frameworksDefault = valuesSelected(params.userData.user.skills.frameworks)
-    const platformsDefault = valuesSelected(params.userData.user.skills.platforms)
-    const cloudProvidersDefault = valuesSelected(params.userData.user.skills.cloud_providers)
-    const databasesDefault = valuesSelected(params.userData.user.skills.databases)
-    const methDefault = valuesSelected(params.userData.user.skills.methodologies)
+    const languagesDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.programming_language)
+    const frameworksDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.frameworks)
+    const platformsDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.platforms)
+    const cloudProvidersDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.cloud_providers)
+    const databasesDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.databases)
+    const methDefault = params.userData.user.skills === null ? [] : valuesSelected(params.userData.user.skills.methodologies)
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [languages, setLanguages] = useState(params.userData.user.skills.programming_language)
-    const [frameworks, setFrameworks] = useState(params.userData.user.skills.frameworks)
-    const [platforms, setPlatforms] = useState(params.userData.user.skills.platforms)
-    const [cloud, setCloud] = useState(params.userData.user.skills.cloud_providers)
-    const [db, setDb] = useState(params.userData.user.skills.databases)
-    const [meth, setMeth] = useState(params.userData.user.skills.methodologies)
+    const [languages, setLanguages] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.programming_language)
+    const [frameworks, setFrameworks] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.frameworks)
+    const [platforms, setPlatforms] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.platforms)
+    const [cloud, setCloud] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.cloud_providers)
+    const [db, setDb] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.databases)
+    const [meth, setMeth] = useState(params.userData.user.skills === null ? [] : params.userData.user.skills.methodologies)
 
     const setLanguageHandler = (event) => {
         let list = []
@@ -125,7 +125,7 @@ export default function AddSkillModal(params) {
             <form className="modal-form-div">
                 <div className={"column-skills-left"}>
                     <label className={"add-skill-label"}>
-                        Languages
+                        Programming Languages
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti

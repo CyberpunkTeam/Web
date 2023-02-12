@@ -22,6 +22,7 @@ import EditProfile from "./pages/EditProfile";
 import ReviewScreen from "./pages/ReviewScreen";
 import TeamReview from "./pages/TeamReview";
 import CreateVacantScreen from "./pages/CreateVacantScreen";
+import CreateTeam from "./pages/CreateTeam";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -64,6 +65,8 @@ function App() {
                     <Route path="me" element={<ProfileScreen/>}/>
                     <Route path="/user/:id" element={<ProfileScreen/>}/>
                     <Route path="/team/:id" element={<TeamScreen/>}/>
+                    <Route path="/team/:id/edit" element={<CreateTeam/>}/>
+                    <Route path="/team/new" element={<CreateTeam/>}/>
                     <Route path="/projects" element={<ProjectsScreen/>}/>
                     <Route path="/projects/:id" element={<ProjectScreen/>}/>
                     <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>

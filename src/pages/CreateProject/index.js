@@ -201,7 +201,7 @@ export default function CreateProjectScreen() {
                             </div>
                         </label>
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Idioms
+                            Languages
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
@@ -225,7 +225,7 @@ export default function CreateProjectScreen() {
                 <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Technologies
+                            Programming Languages
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti

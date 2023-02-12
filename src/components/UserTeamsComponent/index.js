@@ -8,36 +8,42 @@ import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {modalStyle} from "../../styles/commonStyles";
+import FrameworkTag from "../FrameworkTag";
+import PlatformTag from "../PlatformTag";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
-    const [modalIsOpen, setIsOpen] = useState(false);
-
     if (Object.keys(params.userData).length === 0) {
         return;
     }
-
-    const closeModal = () => {
-        setIsOpen(false)
-    }
-
-    const openModal = () => {
-        setIsOpen(true)
+    const create = () => {
+        navigate("/team/new")
     }
 
     const teamTags = (data) => {
-
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
                 <div className="teamTagContainer">
                     {data.technologies.programming_language.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
                     })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
+                    })}
                 </div>
                 <div className="teamTagContainer">
                     {data.project_preferences.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {data.idioms.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {data.methodologies.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
                 </div>
@@ -58,14 +64,6 @@ export default function UserTeamsComponent(params) {
                     {data.overall_rating.toFixed(1)}
                 </div>
             </div>
-        )
-    }
-
-    const modal = () => {
-        return (
-            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <TeamModal closeModal={closeModal}/>
-            </Modal>
         )
     }
 
@@ -91,14 +89,14 @@ export default function UserTeamsComponent(params) {
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={openModal}>
+                <button className="createTeamButtonMobile" onClick={create}>
                     <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }
 
         return (
-            <button className="createTeamButton" onClick={openModal}>
+            <button className="createTeamButton" onClick={create}>
                 <AddCircle color="#FAFAFA" variant="Bold" size={32} className="icon"/>
                 New Team
             </button>
@@ -111,7 +109,6 @@ export default function UserTeamsComponent(params) {
             {params.userData.teams.map((data) => {
                 return team(data)
             })}
-            {modal()}
         </div>
     )
 }
