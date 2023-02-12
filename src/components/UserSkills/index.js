@@ -41,7 +41,7 @@ export default function UserSkills(params) {
                     <Award size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
                     Skills
                 </div>
-                <>
+                <div className={"user-skills-tags"}>
                     <div className="tags-projects">
                         {params.userData.user.skills.programming_language.map((technology) => {
                             return <TechnologyTag key={params.userData.user.uid + technology} technology={technology}/>
@@ -72,7 +72,7 @@ export default function UserSkills(params) {
                             return <PreferenceTag key={params.userData.user.uid + preference} preference={preference}/>
                         })}
                     </div>
-                </>
+                </div>
             </div>
             {modal()}
         </div>

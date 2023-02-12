@@ -204,7 +204,7 @@
 
 .user-info-container-mobile {
     margin-bottom: 32px;
-    width: 49%;
+    width: 100%;
     position: relative;
     background: #F1F1F1;
     border-radius: 32px;
@@ -214,7 +214,7 @@
 .user-info-container-mobile-condensed {
     margin-bottom: 32px;
     height: 400px;
-    width: 49%;
+    width: 100%;
     position: relative;
     background: #F1F1F1;
     border-radius: 32px;

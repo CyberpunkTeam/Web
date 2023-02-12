@@ -122,7 +122,7 @@ export default function EducationComponent(params) {
             <div className={length === 1 ? "user-info-container-mobile-condensed" : "user-info-container-mobile"}>
                 <div className="user-info-mobile">
                     <div className="data-title-mobile">
-                        <Teacher size="80" color="#014751" className="icon"/>
+                        <Teacher size="56" color="#014751" className="icon"/>
                         Degree and Certification
                     </div>
                     {params.userData.user.education.slice(0, length).map((data) => {
