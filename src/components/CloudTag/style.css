@@ -1,0 +1,21 @@
+.cloud-tag {
+    font-size: 12px;
+    background: #B84C5F;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 6px;
+}
+
+.cloud-tag-mobile {
+    font-size: 30px;
+    background: #B84C5F;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 10px;
+}
