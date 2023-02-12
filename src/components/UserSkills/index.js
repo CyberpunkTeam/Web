@@ -31,9 +31,9 @@ export default function UserSkills(params) {
         )
     }
 
-    if (params.userData.user.skills.programming_language.length === 0 && params.userData.user.skills.frameworks.length === 0 &&
+    if (params.userData.user.skills === null || (params.userData.user.skills.programming_language.length === 0 && params.userData.user.skills.frameworks.length === 0 &&
         params.userData.user.skills.platforms.length === 0 && params.userData.user.skills.cloud_providers.length === 0 &&
-        params.userData.user.skills.databases.length === 0 && params.userData.user.skills.methodologies.length === 0) {
+        params.userData.user.skills.databases.length === 0 && params.userData.user.skills.methodologies.length === 0)) {
 
         if (params.userData.user.uid !== context.user.uid || isMobile) {
             return
@@ -41,7 +41,8 @@ export default function UserSkills(params) {
 
         return (
             <div className={context.size ? "experience-empty-container-reduce" : "experience-empty-container"}>
-                <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
+                <div
+                    className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
                     <div className={"experience-empty-title"}>
                         <Award size="32" color="#014751" className={"icon"}/>
                         Add Skills
