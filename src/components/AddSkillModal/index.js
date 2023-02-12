@@ -125,7 +125,7 @@ export default function AddSkillModal(params) {
             <form className="modal-form-div">
                 <div className={"column-skills-left"}>
                     <label className={"add-skill-label"}>
-                        Languages
+                        Programming Languages
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti

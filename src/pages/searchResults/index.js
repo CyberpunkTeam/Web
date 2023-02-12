@@ -8,6 +8,8 @@ import {User} from "iconsax-react";
 import NotFound from "../NotFound";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
+import FrameworkTag from "../../components/FrameworkTag";
+import PlatformTag from "../../components/PlatformTag";
 
 export default function SearchResults() {
     let context = useContext(AppContext);
@@ -32,9 +34,21 @@ export default function SearchResults() {
                                 {data.technologies.programming_language.map((data) => {
                                     return <TechnologyTag key={data + "-modal"} technology={data}/>
                                 })}
+                                {data.technologies.frameworks.map((data) => {
+                                    return <FrameworkTag key={data + "-modal"} framework={data}/>
+                                })}
+                                {data.technologies.programming_language.map((data) => {
+                                    return <PlatformTag key={data + "-modal"} platform={data}/>
+                                })}
                             </div>
                             <div className="tags-modal">
                                 {data.project_preferences.map((data) => {
+                                    return <PreferenceTag key={data + "-modal"} preference={data}/>
+                                })}
+                                {data.idioms.map((data) => {
+                                    return <PreferenceTag key={data + "-modal"} preference={data}/>
+                                })}
+                                {data.methodologies.map((data) => {
                                     return <PreferenceTag key={data + "-modal"} preference={data}/>
                                 })}
                             </div>
