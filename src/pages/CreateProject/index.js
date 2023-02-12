@@ -7,7 +7,7 @@ import AppContext from "../../utils/AppContext";
 import {createProject, updateProject} from "../../services/projectService";
 import Select from "react-select";
 import {optionsIdioms, optionsLanguages, platformsOptions, frameworksOptionsData} from "../../config/dictonary";
-import {selectedGreenStyle, selectedViolet, selectedViolet2} from "../../styles/commonStyles";
+import {selectedGreenStyle, selectedViolet, selectedViolet2, selectedViolet3} from "../../styles/commonStyles";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -246,7 +246,7 @@ export default function CreateProjectScreen() {
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet}
+                                    styles={selectedViolet3}
                                 />
                             </div>
                         </label>

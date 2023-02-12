@@ -106,6 +106,115 @@ export const selectedViolet2 = {
     })
 }
 
+export const selectedViolet3 = {
+    control: () => ({
+        display: "flex",
+        minHeight: "32px",
+        padding: "4px 0",
+        borderRadius: "16px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    multiValueLabel: () => ({
+            background: "#9850A3",
+            color: "#FAFAFA",
+            padding: "4px 0 4px 8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderTopLeftRadius: "8px",
+            borderBottomLeftRadius: "8px"
+        }
+    ),
+    multiValueRemove: (theme, state) => ({
+        background: "#9850A3",
+        color: "#FAFAFA",
+        display: "flex",
+        padding: "4px",
+        alignItems: "center",
+        justifyContent: "center",
+        borderTopRightRadius: "8px",
+        borderBottomRightRadius: "8px",
+        cursor: "pointer",
+        ':hover': {
+            backgroundColor: "#CD5B45"
+        },
+    })
+}
+
+export const selectedColor5 = {
+    control: () => ({
+        display: "flex",
+        minHeight: "32px",
+        padding: "4px 0",
+        borderRadius: "16px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    multiValueLabel: () => ({
+            background: "#4B80BD",
+            color: "#FAFAFA",
+            padding: "4px 0 4px 8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderTopLeftRadius: "8px",
+            borderBottomLeftRadius: "8px"
+        }
+    ),
+    multiValueRemove: (theme, state) => ({
+        background: "#4B80BD",
+        color: "#FAFAFA",
+        display: "flex",
+        padding: "4px",
+        alignItems: "center",
+        justifyContent: "center",
+        borderTopRightRadius: "8px",
+        borderBottomRightRadius: "8px",
+        cursor: "pointer",
+        ':hover': {
+            backgroundColor: "#CD5B45"
+        },
+    })
+}
+
+
+export const selected4 = {
+    control: () => ({
+        display: "flex",
+        minHeight: "32px",
+        padding: "4px 0",
+        borderRadius: "16px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    multiValueLabel: () => ({
+            background: "#B84C5F",
+            color: "#FAFAFA",
+            padding: "4px 0 4px 8px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderTopLeftRadius: "8px",
+            borderBottomLeftRadius: "8px"
+        }
+    ),
+    multiValueRemove: (theme, state) => ({
+        background: "#B84C5F",
+        color: "#FAFAFA",
+        display: "flex",
+        padding: "4px",
+        alignItems: "center",
+        justifyContent: "center",
+        borderTopRightRadius: "8px",
+        borderBottomRightRadius: "8px",
+        cursor: "pointer",
+        ':hover': {
+            backgroundColor: "#CD5B45"
+        },
+    })
+}
+
 export const modalStyle = {
     overlay: {
         backgroundColor: 'rgba(0, 0, 0, 0.5)'

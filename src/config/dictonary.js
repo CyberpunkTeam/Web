@@ -184,6 +184,33 @@ export const frameworksOptionsData = {
         {'value': 'Flutter', 'label': 'Flutter'}
     ]
 }
+
+export const frameworksOptionsDataAll = [
+    {'value': 'Spring', 'label': 'Spring'},
+    {'value': 'Django', 'label': 'Django'},
+    {'value': 'Flask', 'label': 'Flask'},
+    {'value': 'FastAPI', 'label': 'FastAPI'},
+    {'value': 'Ruby on Rails', 'label': 'Ruby on Rails'},
+    {'value': 'React JS', 'label': 'React JS'},
+    {'value': 'Node JS', 'label': 'Node JS'},
+    {'value': 'Vue JS', 'label': 'Vue JS'},
+    {'value': 'Express', 'label': 'Express'},
+    {'value': 'Ember JS', 'label': 'Ember JS'},
+    {'value': 'Meteor JS', 'label': 'Meteor JS'},
+    {'value': 'Expo', 'label': 'Expo'},
+    {'value': 'React Native', 'label': 'React Native'},
+    {'value': 'Next JS', 'label': 'Next JS'},
+    {'value': 'Angular', 'label': 'Angular'},
+    {'value': 'ASP.NET', 'label': 'ASP.NET'},
+    {'value': 'CakePHP', 'label': 'CakePHP'},
+    {'value': 'Laravel', 'label': 'Laravel'},
+    {'value': 'Gin', 'label': 'Gin'},
+    {'value': 'Beego', 'label': 'Beego'},
+    {'value': 'Echo', 'label': 'Echo'},
+    {'value': 'Fiber', 'label': 'Fiber'},
+    {'value': 'Flutter', 'label': 'Flutter'}
+]
+
 export const platformsOptions = [
     {'value': 'Wix', 'label': 'Wix'},
     {'value': 'Squarespace', 'label': 'Squarespace'},
@@ -197,12 +224,47 @@ export const platformsOptions = [
     {'value': 'Jimdo Creator', 'label': 'Jimdo Creator'}
 ]
 
+export const CloudOptions = [
+    {'value': 'AWS', 'label': 'AWS'},
+    {'value': 'Microsoft Azure', 'label': 'Microsoft Azure'},
+    {'value': 'GCP', 'label': 'GCP'},
+    {'value': 'Alibaba Cloud', 'label': 'Alibaba Cloud'},
+    {'value': 'Oracle Cloud', 'label': 'Oracle Cloud'},
+    {'value': 'IBM Cloud', 'label': 'IBM Cloud'},
+    {'value': 'Tencent Cloud', 'label': 'Tencent Cloud'},
+    {'value': 'OVHcloud', 'label': 'OVHcloud'},
+    {'value': 'DigitalOcean', 'label': 'DigitalOcean'},
+    {'value': 'Linode', 'label': 'Linode'},
+    {'value': 'Salesforce', 'label': 'Salesforce'},
+    {'value': 'SAP', 'label': 'SAP'}
+]
+
+export const databasesOptions = [
+    {'value': 'Oracle', 'label': 'Oracle'},
+    {'value': 'MySQL', 'label': 'MySQL'},
+    {'value': 'Microsoft SQL Server', 'label': 'Microsoft SQL Server'},
+    {'value': 'PostgreSQL', 'label': 'PostgreSQL'},
+    {'value': 'MongoDB', 'label': 'MongoDB'},
+    {'value': 'Redis', 'label': 'Redis'},
+    {'value': 'Elasticsearch', 'label': 'Elasticsearch'},
+    {'value': 'SQLite', 'label': 'SQLite'},
+    {'value': 'Cassandra', 'label': 'Cassandra'},
+    {'value': 'Splunk', 'label': 'Splunk'},
+    {'value': 'MariaDB', 'label': 'MariaDB'},
+    {'value': 'Teradata', 'label': 'Teradata'},
+    {'value': 'Hive', 'label': 'Hive'},
+    {'value': 'Solr', 'label': 'Solr'},
+    {'value': 'HBase', 'label': 'HBase'},
+    {'value': 'Amazon DynamoDB', 'label': 'Amazon DynamoDB'},
+    {'value': 'Neo4j', 'label': 'Neo4j'},
+    {'value': 'Couchbase', 'label': 'Couchbase'},
+    {'value': 'Memcached', 'label': 'Memcached'},
+    {'value': 'Microsoft Azure SQL Database', 'label': 'Microsoft Azure SQL Database'}
+]
+
 /*
-const platforms = ["Wix", "Squarespace", "GoDaddy", "Weebly", "Zyro", "Jimdo Creator", "WordPress.com", "SITE123", "Strikingly", "1&1 IONOS 2"]
-
-const cloudProviders = ["AWS", "Microsoft Azure", "GCP", "Alibaba Cloud", "Oracle Cloud", "IBM Cloud", "Tencent Cloud", "OVHcloud", "DigitalOcean", "Linode", "Salesforce", "SAP"]
-
-const dataBases = ["Oracle", "MySQL", "Microsoft SQL Server", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "SQLite", "Cassandra", "Splunk", "MariaDB", "Teradata", "Hive", "Solr", "HBase", "Amazon DynamoDB", "Neo4j", "Couchbase", "Memcached", "Microsoft Azure SQL Database"]
+const dataBases = ["Oracle", "MySQL", "Microsoft SQL Server", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "SQLite",
+ "Cassandra", "Splunk", "MariaDB", "Teradata", "Hive", "Solr", "HBase", "Amazon DynamoDB", "Neo4j", "Couchbase", "Memcached", "Microsoft Azure SQL Database"]
 
 const methodologies = ["Agile Software Development", "Scrum", "FDD", "Lean Development", "XP", "Waterfall Model", "Prototype Model", "RAD", "Dynamic Systems Development Model", "Spiral Model", "JAD", "Rational Unified Process", "DevOps Methodology", "Adaptive Software Development", "BDD"]
 */

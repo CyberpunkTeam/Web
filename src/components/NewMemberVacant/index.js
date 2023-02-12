@@ -3,8 +3,20 @@ import {useContext, useState} from "react";
 import {isMobile} from "react-device-detect";
 import {createTeamVacant} from "../../services/teamService";
 import Select from "react-select";
-import {optionsIdioms, optionsLanguages} from "../../config/dictonary";
-import {selectedGreenStyle} from "../../styles/commonStyles";
+import {
+    CloudOptions,
+    databasesOptions,
+    frameworksOptionsDataAll,
+    optionsLanguages,
+    platformsOptions
+} from "../../config/dictonary";
+import {
+    selected4,
+    selectedColor5,
+    selectedViolet,
+    selectedViolet2,
+    selectedViolet3,
+} from "../../styles/commonStyles";
 import SearchBar from "../SearchBar";
 import SideBar from "../SideBar";
 import AppContext from "../../utils/AppContext";
@@ -17,6 +29,10 @@ export default function NewMemberVacant(params) {
     const [description, setDescription] = useState("")
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [languages, setLanguages] = useState([])
+    const [frameworks, setFrameworks] = useState([])
+    const [platforms, setPlatforms] = useState([])
+    const [cloud, setCloud] = useState([])
+    const [db, setDb] = useState([])
 
     const goBack = () => {
         navigate("/team/" + params.tid)
@@ -28,6 +44,38 @@ export default function NewMemberVacant(params) {
             list.push(value.value)
         })
         setLanguages(list);
+    }
+
+    const setFrameworksHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setFrameworks(list);
+    }
+
+    const setPlatformsHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setPlatforms(list);
+    }
+
+    const setCloudHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setCloud(list);
+    }
+
+    const setDBHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setDb(list);
     }
 
     const setVacantHandler = (event) => {
@@ -43,7 +91,14 @@ export default function NewMemberVacant(params) {
         const body = {
             title: vacant,
             description: description,
-            tid: params.tid
+            tid: params.tid,
+            requirements: {
+                programming_language: languages,
+                frameworks: frameworks,
+                platforms: platforms,
+                cloud_providers: cloud,
+                databases: db
+            }
         }
         createTeamVacant(body).then(() => {
             setButtonDisabled(true);
@@ -91,8 +146,7 @@ export default function NewMemberVacant(params) {
                                     isMulti
                                     options={optionsLanguages}
                                     onChange={(choice) => setLanguageHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    styles={selectedViolet}
                                 />
                             </div>
                         </label>
@@ -101,10 +155,9 @@ export default function NewMemberVacant(params) {
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
-                                    options={optionsIdioms}
-                                    onChange={(choice) => setLanguageHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    options={frameworksOptionsDataAll}
+                                    onChange={(choice) => setFrameworksHandler(choice)}
+                                    styles={selectedViolet3}
                                 />
                             </div>
                         </label>
@@ -113,10 +166,9 @@ export default function NewMemberVacant(params) {
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
-                                    options={optionsIdioms}
-                                    onChange={(choice) => setLanguageHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    options={platformsOptions}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                    styles={selectedViolet2}
                                 />
                             </div>
                         </label>
@@ -125,10 +177,9 @@ export default function NewMemberVacant(params) {
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
-                                    options={optionsIdioms}
-                                    onChange={(choice) => setLanguageHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    options={CloudOptions}
+                                    onChange={(choice) => setCloudHandler(choice)}
+                                    styles={selected4}
                                 />
                             </div>
                         </label>
@@ -137,10 +188,9 @@ export default function NewMemberVacant(params) {
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
-                                    options={optionsIdioms}
-                                    onChange={(choice) => setLanguageHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    options={databasesOptions}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                    styles={selectedColor5}
                                 />
                             </div>
                         </label>
