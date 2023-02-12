@@ -2,17 +2,14 @@ import {createTeam, updateTeam} from "../../services/teamService";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
-import {CloseCircle} from "iconsax-react";
 import {
-    CloudOptions, databasesOptions, frameworksOptionsData,
-    frameworksOptionsDataAll, MethodologiesOptions, optionsIdioms,
+    frameworksOptionsData, MethodologiesOptions, optionsIdioms,
     optionsLanguages,
     optionsProjects,
     platformsOptions
 } from "../../config/dictonary"
 import Select from "react-select";
 import {
-    selected4, selectedColor5,
     selectedGreenStyle,
     selectedViolet,
     selectedViolet2,

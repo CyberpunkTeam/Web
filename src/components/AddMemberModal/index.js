@@ -1,98 +1,14 @@
 import './style.css'
-import {sendInvitation} from "../../services/notificationService";
-import {AddCircle, CloseCircle, SearchNormal1, TickCircle, User} from "iconsax-react";
-import {useContext, useState} from "react";
-import AppContext from "../../utils/AppContext";
-import {useNavigate} from "react-router-dom";
+import {CloseCircle, SearchNormal1} from "iconsax-react";
+import {useState} from "react";
+import AddMember from "../AddMember";
 
 export default function AddMemberModal(params) {
-    let context = useContext(AppContext);
-    const navigate = useNavigate();
     const [search, setSearch] = useState("")
     const [allUsers, setAllUsers] = useState(true)
-    const [loading, setLoading] = useState(false);
 
     const setSearchHandler = (event) => {
         setSearch(event.target.value);
-    }
-
-    const sendMemberInvitation = (uid) => {
-        setLoading(true)
-        const body = {
-            "sender_id": context.user.uid,
-            "receiver_id": uid,
-            "tid": params.tid
-        }
-        sendInvitation(body).then(() => {
-            let invitationsUpdated = [...params.invitations]
-            invitationsUpdated.push(uid)
-            params.setInvitations(invitationsUpdated)
-            setLoading(false)
-        }).catch()
-    }
-
-    const memberView = (data) => {
-        if (params.members.includes(data.uid)) {
-            return
-        }
-
-        if (!allUsers && !params.invitations.includes(data.uid)) {
-            return
-        }
-
-        const user_image = (data) => {
-            if (data.profile_image === "default") {
-                return (
-                    <div className="member-photo">
-                        <User color="#FAFAFA" size="24px" variant="Bold"/>
-                    </div>
-                )
-            } else {
-                return <img src={data.profile_image} alt='' className="member-photo"/>
-            }
-        }
-
-        const user_link = "/user/" + data.uid
-
-        const invited = () => {
-            return(
-                <div className={"invited"}>
-                    <TickCircle size="24" className={"icon"} variant="Bold" color="#2E9999"/>
-                    Invited
-                </div>
-            )
-        }
-
-        const invite = (data) => {
-            return(
-                <div className={"invite"} onClick={() => {sendMemberInvitation(data.uid)}}>
-                    {loading ? <i className="fa fa-circle-o-notch fa-spin"/> : <AddCircle size="24" color="#B1B1B1" className={"icon"}/>}
-                    {loading ? "" : "Invite"}
-                </div>
-            )
-        }
-
-
-        if (data.name.toLowerCase().includes(search.toLowerCase()) || data.lastname.toLowerCase().includes(search.toLowerCase()) || data.email.toLowerCase().includes(search.toLowerCase())) {
-            return (
-                <div key={data.uid} className="add-member">
-                    <div className="member">
-                        {user_image(data)}
-                        <div className="member-name" onClick={() => {
-                            navigate(user_link)
-                        }}>
-                            {data.name} {data.lastname}
-                            <div className="email">
-                                {data.email}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="add-user">
-                        {params.invitations.includes(data.uid) ? invited() : invite(data)}
-                    </div>
-                </div>
-            )
-        }
     }
 
     return (
@@ -120,7 +36,18 @@ export default function AddMemberModal(params) {
             </div>
             <div className="memberDiv">
                 {params.users.map((data) => {
-                    return memberView(data)
+                    if (params.members.includes(data.uid)) {
+                        return null
+                    }
+
+                    if (!allUsers && !params.invitations.includes(data.uid)) {
+                        return null
+                    }
+                    if (data.name.toLowerCase().includes(search.toLowerCase()) || data.lastname.toLowerCase().includes(search.toLowerCase()) || data.email.toLowerCase().includes(search.toLowerCase())) {
+                        return <AddMember key={data.uid} data={data} tid={params.tid} invitations={params.invitations}
+                                          setInvitations={params.setInvitations}/>
+                    }
+                    return null
                 })}
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
