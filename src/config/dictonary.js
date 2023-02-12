@@ -262,9 +262,25 @@ export const databasesOptions = [
     {'value': 'Microsoft Azure SQL Database', 'label': 'Microsoft Azure SQL Database'}
 ]
 
-/*
-const dataBases = ["Oracle", "MySQL", "Microsoft SQL Server", "PostgreSQL", "MongoDB", "Redis", "Elasticsearch", "SQLite",
- "Cassandra", "Splunk", "MariaDB", "Teradata", "Hive", "Solr", "HBase", "Amazon DynamoDB", "Neo4j", "Couchbase", "Memcached", "Microsoft Azure SQL Database"]
+export const MethodologiesOptions = [
+    {'value': 'Agile', 'label': 'Agile'},
+    {'value': 'Scrum', 'label': 'Scrum'},
+    {'value': 'FDD', 'label': 'FDD'},
+    {'value': 'Lean Development', 'label': 'Lean Development'},
+    {'value': 'XP', 'label': 'XP'},
+    {'value': 'Waterfall Model', 'label': 'Waterfall Model'},
+    {'value': 'Prototype Model', 'label': 'Prototype Model'},
+    {'value': 'RAD', 'label': 'RAD'},
+    {'value': 'Dynamic Systems', 'label': 'Dynamic Systems'},
+    {'value': 'Spiral Model', 'label': 'Spiral Model'},
+    {'value': 'JAD', 'label': 'JAD'},
+    {'value': 'Rational Unified Process', 'label': 'Rational Unified Process'},
+    {'value': '"DevOps Methodology', 'label': '"DevOps Methodology'},
+    {'value': 'Adaptive Software Development', 'label': 'Adaptive Software Development'},
+    {'value': 'BDD', 'label': 'BDD'}
+]
 
-const methodologies = ["Agile Software Development", "Scrum", "FDD", "Lean Development", "XP", "Waterfall Model", "Prototype Model", "RAD", "Dynamic Systems Development Model", "Spiral Model", "JAD", "Rational Unified Process", "DevOps Methodology", "Adaptive Software Development", "BDD"]
+/*
+
+"Prototype Model", "RAD", "Dynamic Systems Development Model", "Spiral Model", "JAD", "Rational Unified Process", "DevOps Methodology", "Adaptive Software Development", "BDD"]
 */
