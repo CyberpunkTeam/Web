@@ -23,6 +23,16 @@
     background: #F1F1F1;
 }
 
+
+.search-result-view-reduced {
+    height: 100px;
+    width: 100%;
+    padding: 16px 0;
+    margin: 8px 0px;
+    border-radius: 16px;
+    background: #F1F1F1;
+}
+
 .search_user_image {
     background: #0F2830;
     display: flex;

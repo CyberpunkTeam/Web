@@ -23,7 +23,7 @@ export default function SearchResults() {
         const link_url = "/team/" + data.tid
 
         return (
-            <div key={data.uid} className="search-result-view">
+            <div key={data.uid} className={context.size ? "search-result-view-reduced" : "search-result-view"}>
                 <div className="search-result-view-info">
                     <div className="search-result-view-data">
                         <Link to={link_url} className="search-link">
@@ -78,7 +78,7 @@ export default function SearchResults() {
         const link_url = "/user/" + data.uid
 
         return (
-            <div key={data.uid} className="search-result-view">
+            <div key={data.uid} className={context.size ? "search-result-view-reduced" : "search-result-view"}>
                 <div className="search-result-view-info">
                     {user_image(data)}
                     <div to={link_url} className="search-result-view-data">
