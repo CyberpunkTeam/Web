@@ -263,7 +263,7 @@ export const databasesOptions = [
 ]
 
 export const MethodologiesOptions = [
-    {'value': 'Agile Software Development', 'label': 'Agile Software Development'},
+    {'value': 'Agile', 'label': 'Agile'},
     {'value': 'Scrum', 'label': 'Scrum'},
     {'value': 'FDD', 'label': 'FDD'},
     {'value': 'Lean Development', 'label': 'Lean Development'},
@@ -271,7 +271,7 @@ export const MethodologiesOptions = [
     {'value': 'Waterfall Model', 'label': 'Waterfall Model'},
     {'value': 'Prototype Model', 'label': 'Prototype Model'},
     {'value': 'RAD', 'label': 'RAD'},
-    {'value': 'Dynamic Systems Development Model', 'label': 'Dynamic Systems Development Model'},
+    {'value': 'Dynamic Systems', 'label': 'Dynamic Systems'},
     {'value': 'Spiral Model', 'label': 'Spiral Model'},
     {'value': 'JAD', 'label': 'JAD'},
     {'value': 'Rational Unified Process', 'label': 'Rational Unified Process'},

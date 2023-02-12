@@ -26,7 +26,7 @@ export default function UserSkills(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {<AddSkillModal closeModal={closeModal}/>}
+                {<AddSkillModal userData={params.userData} closeModal={closeModal}/>}
             </Modal>
         )
     }

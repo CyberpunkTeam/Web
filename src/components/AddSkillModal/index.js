@@ -24,13 +24,28 @@ import {
 export default function AddSkillModal(params) {
     let context = useContext(AppContext);
 
+    const valuesSelected = (data) => {
+        let list = []
+        data.forEach((value) => {
+            list.push({value: value, label: value})
+        })
+        return list
+    }
+
+    const languagesDefault = valuesSelected(params.userData.user.skills.programming_language)
+    const frameworksDefault = valuesSelected(params.userData.user.skills.frameworks)
+    const platformsDefault = valuesSelected(params.userData.user.skills.platforms)
+    const cloudProvidersDefault = valuesSelected(params.userData.user.skills.cloud_providers)
+    const databasesDefault = valuesSelected(params.userData.user.skills.databases)
+    const methDefault = valuesSelected(params.userData.user.skills.methodologies)
+
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [languages, setLanguages] = useState([])
-    const [frameworks, setFrameworks] = useState([])
-    const [platforms, setPlatforms] = useState([])
-    const [cloud, setCloud] = useState([])
-    const [db, setDb] = useState([])
-    const [meth, setMeth] = useState([])
+    const [languages, setLanguages] = useState(params.userData.user.skills.programming_language)
+    const [frameworks, setFrameworks] = useState(params.userData.user.skills.frameworks)
+    const [platforms, setPlatforms] = useState(params.userData.user.skills.platforms)
+    const [cloud, setCloud] = useState(params.userData.user.skills.cloud_providers)
+    const [db, setDb] = useState(params.userData.user.skills.databases)
+    const [meth, setMeth] = useState(params.userData.user.skills.methodologies)
 
     const setLanguageHandler = (event) => {
         let list = []
@@ -114,6 +129,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={languagesDefault}
                                 options={optionsLanguages}
                                 onChange={(choice) => setLanguageHandler(choice)}
                                 styles={selectedViolet}
@@ -125,6 +141,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={frameworksDefault}
                                 options={frameworksOptionsDataAll}
                                 onChange={(choice) => setFrameworksHandler(choice)}
                                 styles={selectedViolet3}
@@ -136,6 +153,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={platformsDefault}
                                 options={platformsOptions}
                                 onChange={(choice) => setPlatformsHandler(choice)}
                                 styles={selectedViolet2}
@@ -149,6 +167,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={cloudProvidersDefault}
                                 options={CloudOptions}
                                 onChange={(choice) => setCloudHandler(choice)}
                                 styles={selected4}
@@ -160,6 +179,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={databasesDefault}
                                 options={databasesOptions}
                                 onChange={(choice) => setDBHandler(choice)}
                                 styles={selectedColor5}
@@ -171,6 +191,7 @@ export default function AddSkillModal(params) {
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                defaultValue={methDefault}
                                 options={MethodologiesOptions}
                                 onChange={(choice) => setMethHandler(choice)}
                                 styles={selectedGreenStyle}
