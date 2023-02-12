@@ -6,9 +6,10 @@ import SideBar from "../../components/SideBar";
 
 export default function CreateTeam() {
     const {state} = useLocation();
+
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
-            <TeamModal teamData={state.team}/>
+            <TeamModal team={state.team}/>
             <SearchBar/>
             <SideBar/>
         </div>

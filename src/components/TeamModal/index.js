@@ -37,7 +37,7 @@ export default function TeamModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
     const languagesValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.programming_language)
-    const preferencesValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.project_preferences)
+    const preferencesValues = params.team === undefined ? [] : valuesSelected(params.team.project_preferences)
     const methodologiesValues = params.team === undefined ? [] : valuesSelected(params.team.methodologies)
     const idiomsValues = params.team === undefined ? [] : valuesSelected(params.team.idioms)
     const frameworksValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.frameworks)
@@ -52,6 +52,10 @@ export default function TeamModal(params) {
 
     const goBack = () => {
         navigate("/me")
+    }
+
+    const goBackTeam = () => {
+        navigate("/team/" + params.team.tid)
     }
 
     const setLanguageHandler = (event) => {
@@ -152,7 +156,7 @@ export default function TeamModal(params) {
 
         updateTeam(params.team.tid, body).then((response) => {
             setButtonDisabled(false)
-            params.closeModal()
+            goBackTeam()
         })
     }
     const basicInformation = () => {
