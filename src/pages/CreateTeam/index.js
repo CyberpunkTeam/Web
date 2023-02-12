@@ -9,7 +9,7 @@ export default function CreateTeam() {
 
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
-            <TeamModal team={state.team}/>
+            <TeamModal team={state !== null ? state.team : undefined}/>
             <SearchBar/>
             <SideBar/>
         </div>

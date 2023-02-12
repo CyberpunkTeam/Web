@@ -51,11 +51,11 @@ export default function TeamModal(params) {
     const [platforms, setPlatforms] = useState(params.team !== undefined ? [...params.team.technologies.platforms] : [])
 
     const goBack = () => {
+        if (params.team !== undefined) {
+            navigate("/team/" + params.team.tid)
+            return
+        }
         navigate("/me")
-    }
-
-    const goBackTeam = () => {
-        navigate("/team/" + params.team.tid)
     }
 
     const setLanguageHandler = (event) => {
@@ -156,7 +156,7 @@ export default function TeamModal(params) {
 
         updateTeam(params.team.tid, body).then((response) => {
             setButtonDisabled(false)
-            goBackTeam()
+            goBack()
         })
     }
     const basicInformation = () => {
@@ -176,7 +176,7 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Idioms
+                            Languages
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
@@ -224,7 +224,7 @@ export default function TeamModal(params) {
                 <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Languages
+                            Programming Languages
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti

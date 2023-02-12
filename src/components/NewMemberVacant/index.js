@@ -140,7 +140,7 @@ export default function NewMemberVacant(params) {
                 <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Languages
+                            Programming Languages
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti

@@ -21,6 +21,8 @@ import {isMobile} from "react-device-detect";
 import MembersPostulations from "../../components/MembersPostulations";
 import TeamInformationView from "../../components/TeamInformationView";
 import {modalStyle} from "../../styles/commonStyles";
+import PlatformTag from "../../components/PlatformTag";
+import FrameworkTag from "../../components/FrameworkTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -126,9 +128,21 @@ export default function TeamScreen() {
                         {teamData.technologies.programming_language.map((data) => {
                             return <TechnologyTag key={data} technology={data}/>
                         })}
+                        {teamData.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data} framework={data}/>
+                        })}
+                        {teamData.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data} platform={data}/>
+                        })}
                     </div>
                     <div className="tags-container">
                         {teamData.project_preferences.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
+                        {teamData.idioms.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
+                        {teamData.methodologies.map((data) => {
                             return <PreferenceTag key={data} preference={data}/>
                         })}
                     </div>
