@@ -82,16 +82,16 @@ export default function EducationComponent(params) {
     }
 
     if (params.userData.user.education.length === 0) {
-        if (params.userData.user.uid !== context.user.uid) {
+        if (params.userData.user.uid !== context.user.uid || isMobile) {
             return
         }
 
-        if (isMobile) {
+        /*if (isMobile) {
             return (
                 <div className="user-info-container-mobile">
                     <div className="user-info-mobile">
                         <div className="data-title-mobile">
-                            <Teacher size="80" color="#014751" className={"icon"}/>
+                            <Teacher size="56" color="#014751" className={"icon"}/>
                             Add Degree or Certification
                         </div>
                         <div className="button-center">
@@ -101,13 +101,13 @@ export default function EducationComponent(params) {
                     {modal()}
                 </div>
             )
-        }
+        }*/
 
         return (
             <div className={context.size ? "experience-empty-container-reduce" : "experience-empty-container"}>
                 <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
-                    <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
-                        <Teacher size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
+                    <div className={"experience-empty-title"}>
+                        <Teacher size="32px" color="#014751" className={"icon"}/>
                         Add Degree or Certification
                     </div>
                     <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>
