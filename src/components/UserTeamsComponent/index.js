@@ -1,13 +1,10 @@
 import {AddCircle, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {useContext, useState} from "react";
-import Modal from "react-modal";
-import TeamModal from "../TeamModal";
+import {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
-import {modalStyle} from "../../styles/commonStyles";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 
