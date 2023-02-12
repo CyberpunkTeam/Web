@@ -3,6 +3,7 @@
     margin: 40px;
 }
 .create-project-info-reduced {
+    padding: 20px;
     font-size: 18px;
     margin-top: 16px;
 }
@@ -81,8 +82,8 @@
     font-size: 18px;
     margin: 32px;
 }
-textarea {
-    border-radius: 10px;
+.textarea-style {
+    border-radius: 16px;
     border-color: #E3E3E3;
     border-width: 0;
     background: #E3E3E3;
@@ -92,15 +93,13 @@ textarea {
     height: 100px;
     outline: none;
     font-size: 16px;
-    padding-left: 10px;
-    padding-right: 10px;
-
+    padding: 8px;
 }
 .text-area-label {
     align-self: center;
     width: 100%;
     font-weight: 400;
-    font-size: 14px;
+    font-size: 12px;
     display: flex;
     flex-direction: column;
     padding: 20px 0px;

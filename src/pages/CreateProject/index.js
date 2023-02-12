@@ -150,7 +150,7 @@ export default function CreateProjectScreen() {
                     <div className="information-form">
                         <div className="text-area-label">
                             Description
-                            <textarea value={description} onChange={setDescriptionHandler} name="Text1" cols="40"
+                            <textarea className="textarea-style" value={description} onChange={setDescriptionHandler} name="Text1" cols="40"
                                       rows="5"/>
                         </div>
                     </div>

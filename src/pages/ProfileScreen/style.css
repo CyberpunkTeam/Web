@@ -648,7 +648,7 @@
     overflow-y: hidden;
     overflow-x: hidden;
     flex-direction: column;
-    height: 556px;
+    min-height: 556px;
     width: 500px;
     padding: 32px 0;
     background: #FAFAFA;
@@ -706,6 +706,12 @@
     position: relative;
     font-family: "Inter", sans-serif;
     padding-bottom: 20px;
+    margin-top: 4px;
+}
+
+.modal-form-input-team {
+    position: relative;
+    font-family: "Inter", sans-serif;
     margin-top: 4px;
 }
 

@@ -73,7 +73,7 @@ export default function PostulationModal(params) {
             <form className="modal-form">
                 <label className="label">
                     Select a Team
-                    <div className="modal-form-input">
+                    <div className="modal-form-input-team">
                         <select value={teamName} className="select-team" onChange={setTeamHandler}>
                             {params.teams.map((e, index) => {
                                 return <option key={index} value={e.name}>{e.name}</option>;
@@ -99,7 +99,7 @@ export default function PostulationModal(params) {
                 </label>
                 <div className="text-area-postulation-label">
                     Description
-                    <textarea className="description" value={description} onChange={setDescriptionHandler} name="Text1"
+                    <textarea className="textarea-style" value={description} onChange={setDescriptionHandler} name="Text1"
                               cols="40"
                               rows="5"/>
                 </div>
