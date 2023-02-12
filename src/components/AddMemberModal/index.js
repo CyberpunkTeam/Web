@@ -97,7 +97,7 @@ export default function AddMemberModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 Add Member
             </div>
             <div className="search-member-input">

@@ -21,6 +21,7 @@ import RecoveryPassword from "./pages/RecoveryPassword";
 import EditProfile from "./pages/EditProfile";
 import ReviewScreen from "./pages/ReviewScreen";
 import TeamReview from "./pages/TeamReview";
+import CreateVacantScreen from "./pages/CreateVacantScreen";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -70,6 +71,7 @@ function App() {
                     <Route path="/search" element={<SearchResults/>}/>
                     <Route path="/review" element={<ReviewScreen/>}/>
                     <Route path="/team/review/:id" element={<TeamReview/>}/>
+                    <Route path="/new/vacant" element={<CreateVacantScreen/>}/>
                 </>
             )
         }

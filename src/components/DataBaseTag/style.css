@@ -1,0 +1,21 @@
+.database-tag {
+    font-size: 12px;
+    background: #4B80BD;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 6px;
+}
+
+.database-tag-mobile {
+    font-size: 30px;
+    background: #4B80BD;
+    display: flex;
+    padding: 4px 8px;
+    color: white;
+    font-weight: 600;
+    margin-right: 8px;
+    border-radius: 10px;
+}

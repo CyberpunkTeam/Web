@@ -7,6 +7,13 @@ import {acceptCandidate, rejectCandidate} from "../../services/teamService";
 import Modal from "react-modal";
 import {DeleteVacantModal} from "../DeleteVacantModal";
 import {PostulateInTeamModal} from "../PostulateInTeamModal";
+import {modalStyle} from "../../styles/commonStyles";
+import TechnologyTag from "../TechnologyTag";
+import FrameworkTag from "../FrameworkTag";
+import PlatformTag from "../PlatformTag";
+import PreferenceTag from "../PreferenceTag";
+import DataBaseTag from "../DataBaseTag";
+import CloudTag from "../CloudTag";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
@@ -43,6 +50,46 @@ export default function MemberPostulationView(params) {
         )
     }
 
+    const requirements = () => {
+        if (params.data.requirements !== null) {
+            return (
+                <>
+                    <div className="tags-projects">
+                        {params.data.requirements.programming_language.map((technology) => {
+                            return <TechnologyTag key={params.data.tpid + technology} technology={technology}/>
+                        })}
+                    </div>
+                    <div className="tags-projects">
+                        {params.data.requirements.frameworks.map((framework) => {
+                            return <FrameworkTag key={params.data.tpid + framework} framework={framework}/>
+                        })}
+                    </div>
+                    <div className="tags-projects">
+                        {params.data.requirements.platforms.map((data) => {
+                            return <PlatformTag key={params.data.tpid + data} platform={data}/>
+                        })}
+                    </div>
+                    <div className="tags-projects">
+                        {params.data.requirements.cloud_providers.map((cloud) => {
+                            return <CloudTag key={params.data.tpid + cloud} cloud={cloud}/>
+                        })}
+                    </div>
+                    <div className="tags-projects">
+                        {params.data.requirements.databases.map((database) => {
+                            return <DataBaseTag key={params.data.tpid + database} database={database}/>
+                        })}
+                    </div>
+                </>
+            )
+        } else {
+            return (
+                <div className="tags-project">
+                    Without requirements
+                </div>
+            )
+        }
+    }
+
     if (params.owner !== context.user.uid) {
         let list = []
         params.data.candidates.map((user) => {
@@ -61,6 +108,7 @@ export default function MemberPostulationView(params) {
                         <div className="vacantPostulationsTitle">
                             {params.data.title}
                         </div>
+                        {requirements()}
                         <div className="vacantDescription">
                             Description
                             <div className="vacantPostulationDescription">
@@ -196,7 +244,8 @@ export default function MemberPostulationView(params) {
                     <div className="vacantTitle">
                         {params.data.title}
                     </div>
-                    <div>
+                    {requirements()}
+                    <div className="vacantDescription">
                         Description
                         <div className="descriptionApplication">
                             {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
@@ -218,23 +267,4 @@ export default function MemberPostulationView(params) {
             {modal()}
         </div>
     )
-}
-
-const modalStyle = {
-    overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
-    },
-    content: {
-        fontFamily: "Inter",
-        padding: '0',
-        borderWidth: 0,
-        borderRadius: '16px',
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)',
-        boxShadow: "0px 4px 10px #666666",
-    },
 }

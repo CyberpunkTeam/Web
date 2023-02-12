@@ -4,6 +4,8 @@ import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
+import FrameworkTag from "../FrameworkTag";
+import PlatformTag from "../PlatformTag";
 
 export default function TeamProjectTileComponent(params) {
     const data = params.data.project
@@ -33,6 +35,14 @@ export default function TeamProjectTileComponent(params) {
                 <div className="tags-project">
                     {data.technologies.programming_language.map((technology) => {
                         return <TechnologyTag key={technology} technology={technology}/>
+                    })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                </div>
+                <div className="tags-project">
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
                     })}
                 </div>
                 <div className="tags-project">

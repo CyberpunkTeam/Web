@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {CloseCircle} from "iconsax-react";
 import {optionsLanguages, optionsProjects} from "../../config/dictonary"
 import Select from "react-select";
+import {selectedGreenStyle, selectedViolet} from "../../styles/commonStyles";
 
 export default function TeamModal(params) {
     let context = useContext(AppContext);
@@ -130,7 +131,7 @@ export default function TeamModal(params) {
 
     return (
         <div className="modal-container">
-            <div className="form-text">
+            <div className="form-text-modal">
                 {params.team !== undefined ? "Edit Team" : "Create a New Team"}
             </div>
             <form className="modal-form">
@@ -150,41 +151,7 @@ export default function TeamModal(params) {
                                 options={optionsLanguages}
                                 onChange={(choice) => setTechHandler(choice)}
                                 name="Technologies"
-                                styles={{
-                                    control: () => ({
-                                        display: "flex",
-                                        minHeight: "32px",
-                                        padding: "4px 0",
-                                        borderRadius: "16px",
-                                        background: "#E3E3E3",
-                                        border: "none"
-                                    }),
-                                    multiValueLabel: () => ({
-                                            background: "#8D64CC",
-                                            color: "#FAFAFA",
-                                            padding: "4px 0 4px 8px",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopLeftRadius: "8px",
-                                            borderBottomLeftRadius: "8px"
-                                        }
-                                    ),
-                                    multiValueRemove: (theme, state) => ({
-                                        background: "#8D64CC",
-                                        color: "#FAFAFA",
-                                        display: "flex",
-                                        padding: "4px",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        borderTopRightRadius: "8px",
-                                        borderBottomRightRadius: "8px",
-                                        cursor: "pointer",
-                                        ':hover': {
-                                            backgroundColor: "#CD5B45"
-                                        },
-                                    })
-                                }}
+                                styles={selectedViolet}
                             />
                         </div>
                     </label>
@@ -197,41 +164,7 @@ export default function TeamModal(params) {
                                 options={optionsProjects}
                                 onChange={(choice) => setPrefHandler(choice)}
                                 name="Technologies"
-                                styles={{
-                                    control: () => ({
-                                        display: "flex",
-                                        minHeight: "32px",
-                                        padding: "4px 0",
-                                        borderRadius: "16px",
-                                        background: "#E3E3E3",
-                                        border: "none"
-                                    }),
-                                    multiValueLabel: () => ({
-                                            background: "#089BAD",
-                                            color: "#FAFAFA",
-                                            padding: "4px 0 4px 8px",
-                                            display: "flex",
-                                            alignItems: "center",
-                                            justifyContent: "center",
-                                            borderTopLeftRadius: "8px",
-                                            borderBottomLeftRadius: "8px"
-                                        }
-                                    ),
-                                    multiValueRemove: (theme, state) => ({
-                                        background: "#089BAD",
-                                        color: "#FAFAFA",
-                                        display: "flex",
-                                        padding: "4px",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        borderTopRightRadius: "8px",
-                                        borderBottomRightRadius: "8px",
-                                        cursor: "pointer",
-                                        ':hover': {
-                                            backgroundColor: "#CD5B45"
-                                        },
-                                    })
-                                }}
+                                styles={selectedGreenStyle}
                             />
                         </div>
                     </label>

@@ -68,7 +68,7 @@ export default function AddEducationModal(params) {
 
     return (
         <div className={context.size ? "modal-container-reduce" : "modal-container"}>
-            <div className="form-text">
+            <div className="form-text-modal">
                 Add Degree or Certification
             </div>
             <form className="modal-form">
