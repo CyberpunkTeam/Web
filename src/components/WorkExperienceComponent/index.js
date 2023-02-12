@@ -75,11 +75,11 @@ export default function WorkExperienceComponent(params) {
     }
 
     if (params.userData.user.work_experience.length === 0) {
-        if (params.userData.user.uid !== context.user.uid) {
+        if (params.userData.user.uid !== context.user.uid || isMobile) {
             return
         }
 
-        if (isMobile) {
+        /*if (isMobile) {
             return (
                 <div className="user-info-container-mobile">
                     <div className="user-info-mobile">
@@ -94,13 +94,13 @@ export default function WorkExperienceComponent(params) {
                     {modal()}
                 </div>
             )
-        }
+        }*/
 
         return (
             <div className={context.size ? "experience-empty-container-reduce" : "experience-empty-container"}>
                 <div className={context.size ? "experience-empty-info-container-reduce" : "experience-empty-info-container"}>
-                    <div className={context.size ? "experience-empty-title-reduce" : "experience-empty-title"}>
-                        <Briefcase size="32px" color="#014751" className={context.size ? "icon-reduce" : "icon"}/>
+                    <div className={"experience-empty-title"}>
+                        <Briefcase size="32" color="#014751" className={"icon"}/>
                         Add Job Experience
                     </div>
                     <AddCircle size="28px" color="#B1B1B1" onClick={openModal} className={"icon-button"}/>

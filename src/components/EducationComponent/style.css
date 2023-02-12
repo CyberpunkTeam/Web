@@ -17,9 +17,8 @@
 }
 
 .experience-empty-info-container-reduce {
-    position: relative;
-    width: 90%;
     padding: 20px;
+    width: calc(100% - 40px);
     display: flex;
     align-items: center;
     font-weight: 700;
@@ -29,12 +28,12 @@
 
 
 .experience-empty-container-reduce {
-    width: 48%;
+    width: 100%;
     margin-bottom: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     background: #F1F1F1;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);

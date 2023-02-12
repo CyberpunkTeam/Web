@@ -17,7 +17,7 @@ export function PostulateInTeamModal(params) {
 
     return (
         <div className={"abandonModalWithoutOptions"}>
-            <div className="form-text">
+            <div className="form-text-modal">
                 Are you sure you want to apply for this team's position?
             </div>
             <div className="container-button-modal">

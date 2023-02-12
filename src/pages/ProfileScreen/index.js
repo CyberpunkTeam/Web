@@ -17,6 +17,7 @@ import UserProjectComponent from "../../components/UserProjectComponent";
 import {isMobile} from "react-device-detect";
 import UserProjectMobileComponent from "../../components/UserProjectMobileComponent";
 import {modalStyle} from "../../styles/commonStyles";
+import UserSkills from "../../components/UserSkills";
 
 function ProfileScreen() {
     const params = useParams();
@@ -167,6 +168,7 @@ function ProfileScreen() {
                 <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
                     <EducationComponent userData={userData}/>
                     <WorkExperienceComponent userData={userData}/>
+                    <UserSkills userData={userData}/>
                 </div>
             )
         } else if (tagSelect === "teams") {
