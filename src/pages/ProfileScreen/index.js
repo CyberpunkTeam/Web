@@ -176,8 +176,7 @@ function ProfileScreen() {
                 <UserTeamsComponent userData={userData}/>
             )
         } else {
-            return context.size || isMobile ? <UserProjectMobileComponent userData={userData}/> :
-                <UserProjectComponent userData={userData}/>
+            return <UserProjectMobileComponent userData={userData}/>
         }
     }
 
