@@ -48,7 +48,7 @@ export default function AddEducationModal(params) {
                 "institution": institution,
                 "start_date": `${startDate.getFullYear()}-${parseInt(startDate.getMonth().toString()) + 1}-${startDate.getDate()}`,
                 "finish_date": actualDate ? "" : `${finishDate.getFullYear()}-${parseInt(finishDate.getMonth().toString()) + 1}-${finishDate.getDate()}`,
-                "finished": actualDate
+                "finished": !actualDate
             }
 
         educations.push(newEducation)

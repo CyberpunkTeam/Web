@@ -66,7 +66,7 @@ export default function EducationComponent(params) {
                 <div className={isMobile ? "education-info-mobile" : "education-info"}>
                     {data.institution}
                     <div>
-                        {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "Actual"}
+                        {data.start_date.split('-')[0]} - {data.finished ? data.finish_date.split('-')[0] : "In Progress"}
                     </div>
                 </div>
             </div>
