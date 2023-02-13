@@ -1,5 +1,6 @@
 export const selectedGreenStyle = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -7,7 +8,28 @@ export const selectedGreenStyle = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(8,155,173,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(8,155,173,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#089BAD",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -19,6 +41,7 @@ export const selectedGreenStyle = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#089BAD",
         color: "#FAFAFA",
         display: "flex",
@@ -36,6 +59,7 @@ export const selectedGreenStyle = {
 
 export const selectedViolet = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -43,7 +67,29 @@ export const selectedViolet = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        overflow: "hidden",
+        backgroundColor: isSelected ? "rgba(141,100,204,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(141,100,204,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#8D64CC",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -55,6 +101,7 @@ export const selectedViolet = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#8D64CC",
         color: "#FAFAFA",
         display: "flex",
@@ -72,6 +119,7 @@ export const selectedViolet = {
 
 export const selectedViolet2 = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -79,7 +127,28 @@ export const selectedViolet2 = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(162,60,121,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(162,60,121,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#a23c79",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -91,6 +160,7 @@ export const selectedViolet2 = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#a23c79",
         color: "#FAFAFA",
         display: "flex",
@@ -108,6 +178,7 @@ export const selectedViolet2 = {
 
 export const selectedViolet3 = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -115,7 +186,28 @@ export const selectedViolet3 = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(152,80,163,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(152,80,163,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#9850A3",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -127,6 +219,7 @@ export const selectedViolet3 = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#9850A3",
         color: "#FAFAFA",
         display: "flex",
@@ -144,6 +237,7 @@ export const selectedViolet3 = {
 
 export const selectedColor5 = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -151,7 +245,28 @@ export const selectedColor5 = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(75,128,189,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(75,128,189,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#4B80BD",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -163,6 +278,7 @@ export const selectedColor5 = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#4B80BD",
         color: "#FAFAFA",
         display: "flex",
@@ -178,9 +294,9 @@ export const selectedColor5 = {
     })
 }
 
-
 export const selected4 = {
     control: () => ({
+        fontFamily: "Inter",
         display: "flex",
         minHeight: "32px",
         padding: "4px 0",
@@ -188,7 +304,28 @@ export const selected4 = {
         background: "#E3E3E3",
         border: "none"
     }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(184,76,95,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(184,76,95,0.2)"
+        }
+    }),
     multiValueLabel: () => ({
+            fontFamily: "Inter",
             background: "#B84C5F",
             color: "#FAFAFA",
             padding: "4px 0 4px 8px",
@@ -200,6 +337,7 @@ export const selected4 = {
         }
     ),
     multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
         background: "#B84C5F",
         color: "#FAFAFA",
         display: "flex",
