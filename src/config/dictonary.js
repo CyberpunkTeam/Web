@@ -275,7 +275,7 @@ export const MethodologiesOptions = [
     {'value': 'Spiral Model', 'label': 'Spiral Model'},
     {'value': 'JAD', 'label': 'JAD'},
     {'value': 'Rational Unified Process', 'label': 'Rational Unified Process'},
-    {'value': '"DevOps Methodology', 'label': '"DevOps Methodology'},
+    {'value': 'DevOps Methodology', 'label': 'DevOps Methodology'},
     {'value': 'Adaptive Software Development', 'label': 'Adaptive Software Development'},
     {'value': 'BDD', 'label': 'BDD'}
 ]

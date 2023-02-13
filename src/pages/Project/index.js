@@ -384,7 +384,7 @@ export default function ProjectScreen() {
         return (
             <div key={data.description} className={"history"}>
                 {data.description}
-                <div>
+                <div className={"history-date"}>
                     {formatDate(data.created_date)}
                 </div>
             </div>
@@ -407,7 +407,7 @@ export default function ProjectScreen() {
             )
         } else if (tagSelect === "history") {
             return (
-                <div>
+                <div className={"historyContainer"}>
                     {logs.map((info) => {
                         return activity(info)
                     })}

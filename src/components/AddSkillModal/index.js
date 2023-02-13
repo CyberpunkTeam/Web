@@ -207,7 +207,7 @@ export default function AddSkillModal(params) {
                 <button disabled={buttonDisabled}
                         className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
                         onClick={addSkills}>
-                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Add"}
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : "Save"}
                 </button>
             </div>
             <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>
