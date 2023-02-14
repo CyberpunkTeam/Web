@@ -25,13 +25,23 @@
 }
 
 .project-information-container {
-    font-size: 24px;
+    font-size: 16px;
     font-weight: 700;
     position: relative;
     width: 49%;
     background: #F1F1F1;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.budget-container {
+    margin: 8px 20px;
+    width: fit-content;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 300;
+    color: #FAFAFA;
 }
 
 .project-information-container-reduce {
@@ -46,6 +56,7 @@
 
 .project-information-card {
     font-size: 16px;
+    color: #014751;
     padding: 32px;
 }
 

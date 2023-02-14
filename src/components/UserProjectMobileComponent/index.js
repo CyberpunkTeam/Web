@@ -28,8 +28,8 @@ export default function UserProjectMobileComponent(params) {
 
         return (
             <button className="createTeamButton" onClick={createProject}>
-                <AddCircle color="#FAFAFA" variant="Bold" size={40} className="icon"/>
-                Crear Proyecto
+                <AddCircle color="#FAFAFA" variant="Bold" size={32} className="icon"/>
+                New Project
             </button>
         )
     }
