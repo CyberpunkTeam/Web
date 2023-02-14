@@ -13,7 +13,6 @@ import EditProfileModal from "../../components/EditProfileModal";
 import EducationComponent from "../../components/EducationComponent";
 import WorkExperienceComponent from "../../components/WorkExperienceComponent";
 import UserTeamsComponent from "../../components/UserTeamsComponent";
-import UserProjectComponent from "../../components/UserProjectComponent";
 import {isMobile} from "react-device-detect";
 import UserProjectMobileComponent from "../../components/UserProjectMobileComponent";
 import {modalStyle} from "../../styles/commonStyles";
