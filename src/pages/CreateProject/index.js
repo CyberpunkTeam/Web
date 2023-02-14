@@ -196,7 +196,7 @@ export default function CreateProjectScreen() {
                                 <select value={time} className="select-coin" onChange={setTimeHandler}>
                                     <option value="Hours">Hours</option>
                                     <option value="Days">Days</option>
-                                    <option value="Mounts">Mounts</option>
+                                    <option value="Months">Months</option>
                                 </select>
                             </div>
                         </label>
