@@ -8,7 +8,7 @@ import NotFound from "../NotFound";
 import {getProjectPostulations, getProject} from "../../services/projectService";
 import {
     AddCircle,
-    ArrowCircleDown,
+    ArrowCircleDown, DollarSquare,
     Edit,
     LogoutCurve,
     People,
@@ -33,6 +33,7 @@ import {DeleteProjectModal} from "../../components/DeleteProjectModal";
 import {modalStyle} from "../../styles/commonStyles";
 import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
+import BudgetTag from "../../components/BudgetTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -356,6 +357,23 @@ export default function ProjectScreen() {
         )
     }
 
+
+    const budget = () => {
+        return (
+            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
+                <div className={isMobile ? "user-info-mobile" : "user-info"}>
+                    <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                        <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                        Budget
+                    </div>
+                    <div className={"budget-container"}>
+                        <BudgetTag budget={project.tentative_budget + " USD"}/>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const information = () => {
         return (
             <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
@@ -395,6 +413,7 @@ export default function ProjectScreen() {
         if (tagSelect === "info") {
             return (
                 <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
+                    {budget()}
                     {information()}
                 </div>
             )
