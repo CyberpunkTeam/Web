@@ -8,7 +8,7 @@ export default function PostulationModal(params) {
     const [teamIndex, setTeamIndex] = useState(0)
     const [description, setDescription] = useState("")
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [estimatedBudget, setEstimatedBudget] = useState("0")
+    const [estimatedBudget, setEstimatedBudget] = useState(params.budget)
     const [coin, setCoin] = useState("DOLAR")
 
     const setTeamHandler = (event) => {

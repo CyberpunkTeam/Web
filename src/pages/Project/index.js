@@ -359,6 +359,11 @@ export default function ProjectScreen() {
 
 
     const budget = () => {
+        const formatter = new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+        });
+
         return (
             <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
                 <div className={isMobile ? "user-info-mobile" : "user-info"}>
@@ -367,7 +372,7 @@ export default function ProjectScreen() {
                         Budget
                     </div>
                     <div className={"budget-container"}>
-                        <BudgetTag budget={project.tentative_budget + " USD"}/>
+                        <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
                     </div>
                 </div>
             </div>
@@ -393,7 +398,7 @@ export default function ProjectScreen() {
                 {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
                     isFinishProject ? <CompleteProjectModal closeModal={closeModal} project={project}/> :
                         isDeleteProject ? <DeleteProjectModal closeModal={closeModal} project={project}/> :
-                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}/>}
+                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid} budget={project.tentative_budget}/>}
             </Modal>
         )
     }
