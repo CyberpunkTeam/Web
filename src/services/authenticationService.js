@@ -1,4 +1,4 @@
-const serviceUrl = "https://apigateway-wt22wsppsq-uc.a.run.app/authentication"
+const serviceUrl = "https://apigateway-a64ymxbbqq-uc.a.run.app/authentication"
 
 export const createToken = (body) => {
     return fetch(serviceUrl, {
