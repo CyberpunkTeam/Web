@@ -51,7 +51,7 @@ jobs:
       # Download the file locally
       - name: Get_file
         run: |-
-          gsutil cp gs://web_configuration/.env.production .
+          gsutil cp gs://web_configuration_cred/credentials.json .
 
       - name: Build and Push Container
         run: |-
