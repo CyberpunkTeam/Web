@@ -11,7 +11,6 @@ import {modalStyle} from "../../styles/commonStyles";
 import TechnologyTag from "../TechnologyTag";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
-import PreferenceTag from "../PreferenceTag";
 import DataBaseTag from "../DataBaseTag";
 import CloudTag from "../CloudTag";
 

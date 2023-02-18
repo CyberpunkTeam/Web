@@ -179,7 +179,7 @@ export default function CreateProjectScreen() {
                             </div>
                         </label>
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Budget
+                            Total Budget
                             <div className="budget-input-container">
                                 <input type="number" min="0" value={estimatedBudget} className="budget-input"
                                        onChange={setEstimatedBudgetHandler}/>
@@ -189,7 +189,7 @@ export default function CreateProjectScreen() {
                             </div>
                         </label>
                         <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Estimated Time
+                            Estimated Completion Time
                             <div className="budget-input-container">
                                 <input type="number" min="0" value={timeValue} className="budget-input"
                                        onChange={setTimeValueHandler}/>
