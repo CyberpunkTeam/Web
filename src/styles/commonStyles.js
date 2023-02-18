@@ -371,3 +371,86 @@ export const modalStyle = {
         boxShadow: "0px 4px 10px #666666",
     },
 }
+
+export const selectedCities = {
+    control: () => ({
+        fontFamily: "Inter",
+        display: "flex",
+        minHeight: "32px",
+        padding: "4px 0",
+        fontSize: "16px",
+        borderRadius: "16px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    menu: (style) => ({
+        ...style,
+        padding: " 0 8px",
+        maxHeight: "120px",
+        borderRadius: "16px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        maxHeight: "120px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        fontsize: "12px",
+        color: "#222222",
+        borderRadius: "8px",
+        backgroundColor: isSelected ? "rgba(75,128,189,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(75,128,189,0.2)"
+        }
+    })
+}
+
+export const selectedCitiesMobile = {
+    control: () => ({
+        fontFamily: "Inter",
+        display: "flex",
+        height: "100px",
+        padding: "8px 0",
+        fontSize: "40px",
+        borderRadius: "45px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    menu: (style) => ({
+        ...style,
+        fontFamily: "Inter",
+        padding: " 0 24px",
+        fontSize: "32px",
+        maxHeight: "300px",
+        borderRadius: "45px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        fontSize: "32px",
+        maxHeight: "300px" // your desired height
+    }),
+    option: (style, {isSelected }) => ({
+        ...style,
+        fontFamily: "Inter",
+        color: "#222222",
+        fontSize: "40px",
+        borderRadius: "16px",
+        backgroundColor: isSelected ? "rgba(75,128,189,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(75,128,189,0.2)"
+        }
+    }),
+    dropdownIndicator: (base) => ({
+        ...base,
+        display: "none"
+    }),
+    clearIndicator: () => ({
+        display: "none"
+    }),
+    indicatorSeparator: () => ({
+    display: "none"
+})
+}

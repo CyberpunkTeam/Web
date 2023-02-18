@@ -96,17 +96,17 @@
 
 .input-mobile {
     font-family: "Inter", sans-serif;
-    width: 100%;
-    border-radius: 30px;
+    width: calc(100% - 32px);
+    border-radius: 46px;
     border-color: #E3E3E3;
     border-width: 0px;
     outline: none;
-    height: 60px;
+    height: 100px;
     color: #222222;
     background: #E3E3E3;
-    font-size: 32px;
-    padding-left: 10px;
-    padding-right: 10px;
+    font-size: 40px;
+    padding-left: 16px;
+    padding-right: 16px;
 }
 
 .form-text {
@@ -138,8 +138,7 @@
     line-height: 150%;
     text-align: center;
     color: #014751;
-    padding-left: 50px;
-    padding-right: 50px;
+    padding: 50px 50px;
 }
 
 .form {
@@ -150,7 +149,7 @@
     justify-content: space-around;
 }
 .form-mobile {
-    width: 70%;
+    width: 90%;
     font-size: 24px;
     color: #222222;
     align-items: center;
@@ -159,7 +158,6 @@
 
 .edit-form-mobile {
     width: 90%;
-    font-size: 24px;
     color: #222222;
     display: flex;
     flex-direction: column;
@@ -175,8 +173,13 @@
 .password-button-mobile {
     position: absolute;
     border-radius: 50%;
-    top: -2px;
-    right: -20px;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    top: 10px;
+    right: 10px;
+    height: 60px;
+    width: 60px;
     padding: 20px;
 }
 
@@ -195,11 +198,11 @@
 }
 
 .label-mobile {
-    width: 97.5%;
+    width: 100%;
     position: relative;
-    font-size: 28px;
+    font-size: 32px;
     color: #222222;
-    padding-bottom: 20px;
+    padding-bottom: 60px;
 }
 
 .button-style {
@@ -345,8 +348,8 @@
 
 .verify-message {
     width: 70%;
-    min-height: 400px;
-    max-height: 400px;
+    min-height: 800px;
+    max-height: 1200px;
     display: flex;
     color: #014751;
     align-items: center;
@@ -373,6 +376,7 @@
     font-size: 32px;
     width: 100%;
     display: flex;
+    padding-bottom: 160px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -391,7 +395,19 @@
     border-radius: 32px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     width: 90%;
-    height: 900px;
+    height: 1200px;
+    background: #F1F1F1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.form-container-mobile-register {
+    align-self: center;
+    border-radius: 32px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 90%;
     background: #F1F1F1;
     display: flex;
     flex-direction: column;
