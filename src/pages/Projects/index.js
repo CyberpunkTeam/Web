@@ -18,6 +18,13 @@ export default function ProjectsScreen() {
     const [loading, setLoading] = useState(true);
     const [team, setTeam] = useState(true);
     const [time, setTime] = useState(Date.now());
+    const [shake, setShake] = useState(false);
+
+    const animate = () => {
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+
+    }
 
     useEffect(() => {
         setTeam(!team)
@@ -26,10 +33,11 @@ export default function ProjectsScreen() {
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 8000);
+        animate()
         return () => {
             clearInterval(interval);
         };
-    }, []);
+    }, [team]);
 
     useEffect(() => {
         getProjects().then((response) => {
@@ -61,15 +69,13 @@ export default function ProjectsScreen() {
         </div>)
     }
     const cover = () => {
-        const left = () => {
-            setTeam(false);
-        }
-        const right = () => {
-            setTeam(true);
+        const change = () => {
+            setTeam(!team);
+            animate()
         }
         const projectsCover = () => {
             return (
-                <div className="projects-cover-title">
+                <div className={shake ? "shake" : "projects-cover-title"}>
                     Create a project that fits your preferences
                     <button className="createProjectButtonCover" onClick={() => {
                         navigate(("/projects/new"))
@@ -83,7 +89,7 @@ export default function ProjectsScreen() {
 
         const teamCover = () => {
             return (
-                <div className="projects-cover-title">
+                <div className={shake ? "shake" : "projects-cover-title"}>
                     Find the project you’ve been looking forward to work in
                 </div>
             )
@@ -94,8 +100,8 @@ export default function ProjectsScreen() {
                 <ArrowCircleLeft
                     size="48"
                     className={"carrousel-buttons"}
-                    color={team ? "#FAFAFA" : "#0F2830"}
-                    onClick={left}
+                    color={"#FAFAFA"}
+                    onClick={change}
                 />
                 <div className="projects-cover">
                     {team ? teamCover() : projectsCover()}
@@ -103,9 +109,9 @@ export default function ProjectsScreen() {
                 </div>
                 <ArrowCircleRight
                     size="48"
-                    color={team ? "#014751" : "#FAFAFA"}
+                    color={"#FAFAFA"}
                     className={"carrousel-buttons"}
-                    onClick={right}
+                    onClick={change}
                 />
             </div>
         )
