@@ -6,6 +6,9 @@ import {updateUser} from "../../services/userService";
 import {CloseCircle, GalleryImport, User} from "iconsax-react";
 import {savePhoto} from "../../services/firebaseStorage";
 import {isMobile} from "react-device-detect";
+import Select from "react-select";
+import {selectedCities, selectedCitiesMobile} from "../../styles/commonStyles";
+import {searchCity} from "../../services/searchService";
 
 export default function EditProfileModal(params) {
     let context = useContext(AppContext);
@@ -16,6 +19,8 @@ export default function EditProfileModal(params) {
     const [name, setName] = useState(context.user.name);
     const [lastname, setLastName] = useState(context.user.lastname);
     const [city, setCity] = useState(context.user.location);
+    const [cities, setCities] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     function handleChange(e) {
         setProfileImg(e.target.files[0]);
@@ -35,6 +40,30 @@ export default function EditProfileModal(params) {
 
     const setCityHandler = (event) => {
         setCity(event.target.value);
+    }
+
+    const setCitySearchHandler = (value) => {
+        console.log(value)
+        if (value === null) {
+            setCity("")
+            setCities([])
+            return
+        }
+        setCity(value.value)
+    }
+    const setSearchHandler = (value) => {
+        console.log(value)
+        if (value.length >= 3) {
+            setLoading(true);
+            searchCity(value).then((response) => {
+                let list = []
+                response.forEach((city) => {
+                    list.push({value: city, label: city})
+                })
+                setCities(list)
+                setLoading(false);
+            })
+        }
     }
 
     const updateProfileButton = async () => {
@@ -198,10 +227,19 @@ export default function EditProfileModal(params) {
                             <input type="text" value={lastname} className="input-mobile" onChange={setLastnameHandler}/>
                         </div>
                     </label>
-                    <label className="label-mobile">
+                    <label className={"label-mobile"}>
                         Location
-                        <div className="modal-form-input">
-                            <input type="text" value={city} className="input-mobile" onChange={setCityHandler}/>
+                        <div className="modal-form-input-select">
+                            <Select
+                                defaultValue={[{value: city, label: city}]}
+                                isClearable
+                                isLoading={loading}
+                                onSelectResetsInput={false}
+                                onInputChange={ (newValue) => setSearchHandler(newValue)}
+                                options={cities}
+                                onChange={(choice) => setCitySearchHandler(choice)}
+                                styles={selectedCitiesMobile}
+                            />
                         </div>
                     </label>
                 </form>
@@ -239,10 +277,19 @@ export default function EditProfileModal(params) {
                         <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
                     </div>
                 </label>
-                <label className="label">
+                <label className={" "}>
                     Location
-                    <div className="modal-form-input">
-                        <input type="text" value={city} className="input" onChange={setCityHandler}/>
+                    <div className="modal-form-input-select">
+                        <Select
+                            defaultValue={[{value: city, label: city}]}
+                            isClearable
+                            isLoading={loading}
+                            onSelectResetsInput={false}
+                            onInputChange={ (newValue) => setSearchHandler(newValue)}
+                            options={cities}
+                            onChange={(choice) => setCitySearchHandler(choice)}
+                            styles={selectedCities}
+                        />
                     </div>
                 </label>
             </form>

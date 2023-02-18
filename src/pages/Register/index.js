@@ -4,6 +4,9 @@ import {useNavigate} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
 import {createUser} from "../../services/userService";
 import {isMobile} from "react-device-detect";
+import Select from "react-select";
+import {selectedCities, selectedCitiesMobile} from "../../styles/commonStyles";
+import {searchCity} from "../../services/searchService";
 
 function Register(params) {
     let context = useContext(AppContext);
@@ -16,6 +19,32 @@ function Register(params) {
     const [loginError, setLoginError] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
+    const [cities, setCities] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const setCitySearchHandler = (value) => {
+        console.log(value)
+        if (value === null) {
+            setCity("")
+            setCities([])
+            return
+        }
+        setCity(value.value)
+    }
+    const setSearchHandler = (value) => {
+        console.log(value)
+        if (value.length >= 3) {
+            setLoading(true);
+            searchCity(value).then((response) => {
+                let list = []
+                response.forEach((city) => {
+                    list.push({value: city, label: city})
+                })
+                setCities(list)
+                setLoading(false);
+            })
+        }
+    }
 
     const setNameHandler = (event) => {
         setName(event.target.value);
@@ -88,13 +117,18 @@ function Register(params) {
                     </label>
                 </div>
                 <div className={isMobile ? "label-mobile" : "label"}>
-                    <label>
-                        Location
-                        <input type="text"
-                               value={city}
-                               className={isMobile ? "input-mobile" : "input"}
-                               onChange={setCityHandler}/>
-                    </label>
+                    Location
+                    <div className="modal-form-input-select">
+                        <Select
+                            isClearable
+                            isLoading={loading}
+                            onSelectResetsInput={false}
+                            onInputChange={ (newValue) => setSearchHandler(newValue)}
+                            options={cities}
+                            onChange={(choice) => setCitySearchHandler(choice)}
+                            styles={isMobile ? selectedCitiesMobile : selectedCities}
+                        />
+                    </div>
                 </div>
             </>
         )

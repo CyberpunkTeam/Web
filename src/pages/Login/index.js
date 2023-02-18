@@ -13,6 +13,7 @@ import {updatePassword} from "../../services/recoveryService";
 import {isMobile} from "react-device-detect";
 
 function Login() {
+    // eslint-disable-next-line
     const [searchParams, _] = useSearchParams();
     const emailRegister = searchParams.get("email") !== null
     const recoveryPasswordMode = searchParams.get("mode") === "resetPassword";
@@ -214,11 +215,11 @@ function Login() {
                                     {passwordShown ?
                                         <Eye color="#B1B1B1"
                                              variant="Outline"
-                                             size={isMobile ? 40 : 20}
+                                             size={isMobile ? 60 : 20}
                                              onClick={togglePassword}/> :
                                         <EyeSlash color="#B1B1B1"
                                                   variant="Outline"
-                                                  size={isMobile ? 40 : 20}
+                                                  size={isMobile ? 60 : 20}
                                                   onClick={togglePassword}/>
                                     }
                                 </div>
