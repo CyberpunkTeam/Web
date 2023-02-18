@@ -106,6 +106,7 @@
 .container-button-login-mobile {
     color: #014751;
     padding-top: 30px;
+    padding-bottom: 30px;
     font-size: 32px;
     align-items: center;
 }

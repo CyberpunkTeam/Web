@@ -120,11 +120,11 @@ function MainScreen() {
                                 {passwordShown ?
                                     <Eye color="#B1B1B1"
                                          variant="Outline"
-                                         size={isMobile ? 40 : 20}
+                                         size={isMobile ? 60 : 20}
                                          onClick={togglePassword}/> :
                                     <EyeSlash color="#B1B1B1"
                                               variant="Outline"
-                                              size={isMobile ? 40 : 20}
+                                              size={isMobile ? 60 : 20}
                                               onClick={togglePassword}/>}
                             </div>
                         </div>
@@ -191,7 +191,7 @@ function MainScreen() {
                     <div className="title-style-mobile">
                         Find your ideal team easily and quickly
                     </div>
-                    <div className="form-container-mobile">
+                    <div className="form-container-mobile-register">
                         {register ? verifyMessage() : registerForm()}
                     </div>
                     <img src={pana} className="pana-style-mobile" alt="logo"/>

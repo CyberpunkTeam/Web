@@ -277,7 +277,7 @@ export default function EditProfileModal(params) {
                         <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
                     </div>
                 </label>
-                <label className={"create-project-label"}>
+                <label className={" "}>
                     Location
                     <div className="modal-form-input-select">
                         <Select
