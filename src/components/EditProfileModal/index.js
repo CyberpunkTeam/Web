@@ -227,12 +227,6 @@ export default function EditProfileModal(params) {
                             <input type="text" value={lastname} className="input-mobile" onChange={setLastnameHandler}/>
                         </div>
                     </label>
-                    <label className="label-mobile">
-                        Location
-                        <div className="modal-form-input">
-                            <input type="text" value={city} className="input-mobile" onChange={setCityHandler}/>
-                        </div>
-                    </label>
                     <label className={"label-mobile"}>
                         Location
                         <div className="modal-form-input-select">
