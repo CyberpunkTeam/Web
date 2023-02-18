@@ -3,7 +3,7 @@ import logo from '../../assests/projects-pana.svg';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import {AddCircle} from "iconsax-react";
+import {AddCircle, ArrowCircleLeft, ArrowCircleRight} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import {getProjects} from "../../services/projectService";
 import Loading from "../../components/loading";
@@ -16,6 +16,20 @@ export default function ProjectsScreen() {
     let context = useContext(AppContext);
     const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [team, setTeam] = useState(true);
+    const [time, setTime] = useState(Date.now());
+
+    useEffect(() => {
+        setTeam(!team)
+    }, [time]);
+
+
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 8000);
+        return () => {
+            clearInterval(interval);
+        };
+    }, []);
 
     useEffect(() => {
         getProjects().then((response) => {
@@ -47,10 +61,16 @@ export default function ProjectsScreen() {
         </div>)
     }
     const cover = () => {
-        return (<div className="projects-header">
-            <div className="projects-cover">
+        const left = () => {
+            setTeam(false);
+        }
+        const right = () => {
+            setTeam(true);
+        }
+        const projectsCover = () => {
+            return (
                 <div className="projects-cover-title">
-                    Find the project you’ve been looking forward to work in
+                    Create a project that fits your preferences
                     <button className="createProjectButtonCover" onClick={() => {
                         navigate(("/projects/new"))
                     }}>
@@ -58,9 +78,37 @@ export default function ProjectsScreen() {
                         Create Project
                     </button>
                 </div>
-                <img src={logo} className="pana-projects-style" alt="logo"/>
+            )
+        }
+
+        const teamCover = () => {
+            return (
+                <div className="projects-cover-title">
+                    Find the project you’ve been looking forward to work in
+                </div>
+            )
+        }
+
+        return (
+            <div className="projects-header">
+                <ArrowCircleLeft
+                    size="48"
+                    className={"carrousel-buttons"}
+                    color={team ? "#FAFAFA" : "#0F2830"}
+                    onClick={left}
+                />
+                <div className="projects-cover">
+                    {team ? teamCover() : projectsCover()}
+                    <img src={logo} className="pana-projects-style" alt="logo"/>
+                </div>
+                <ArrowCircleRight
+                    size="48"
+                    color={team ? "#014751" : "#FAFAFA"}
+                    className={"carrousel-buttons"}
+                    onClick={right}
+                />
             </div>
-        </div>)
+        )
     }
 
     return (

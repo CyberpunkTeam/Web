@@ -172,3 +172,8 @@
     width: available;
     cursor: pointer;
 }
+
+.carrousel-buttons {
+    padding: 8px 16px;
+    cursor: pointer;
+}
