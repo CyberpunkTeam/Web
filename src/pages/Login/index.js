@@ -13,6 +13,7 @@ import {updatePassword} from "../../services/recoveryService";
 import {isMobile} from "react-device-detect";
 
 function Login() {
+    // eslint-disable-next-line
     const [searchParams, _] = useSearchParams();
     const emailRegister = searchParams.get("email") !== null
     const recoveryPasswordMode = searchParams.get("mode") === "resetPassword";

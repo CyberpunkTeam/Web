@@ -96,15 +96,15 @@
 
 .input-mobile {
     font-family: "Inter", sans-serif;
-    width: 100%;
-    border-radius: 30px;
+    width: calc(100% - 20px);
+    border-radius: 46px;
     border-color: #E3E3E3;
     border-width: 0px;
     outline: none;
-    height: 60px;
+    height: 100px;
     color: #222222;
     background: #E3E3E3;
-    font-size: 32px;
+    font-size: 40px;
     padding-left: 10px;
     padding-right: 10px;
 }
@@ -159,7 +159,6 @@
 
 .edit-form-mobile {
     width: 90%;
-    font-size: 24px;
     color: #222222;
     display: flex;
     flex-direction: column;
@@ -195,9 +194,10 @@
 }
 
 .label-mobile {
-    width: 97.5%;
+    background: #CD5B45;
+    width: 100%;
     position: relative;
-    font-size: 28px;
+    font-size: 32px;
     color: #222222;
     padding-bottom: 20px;
 }
