@@ -37,11 +37,6 @@ export default function EditProfileModal(params) {
     const setLastnameHandler = (event) => {
         setLastName(event.target.value);
     }
-
-    const setCityHandler = (event) => {
-        setCity(event.target.value);
-    }
-
     const setCitySearchHandler = (value) => {
         console.log(value)
         if (value === null) {
