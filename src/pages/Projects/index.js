@@ -26,6 +26,11 @@ export default function ProjectsScreen() {
 
     }
 
+    const change = () => {
+        setTeam(!team);
+        animate()
+    }
+
     useEffect(() => {
         setTeam(!team)
     }, [time]);
@@ -53,10 +58,11 @@ export default function ProjectsScreen() {
     }
 
     const coverMobile = () => {
-        return (<div className="projects-header">
+        return (
+            <div className="projects-header">
             <div className="projects-cover-reduced">
                 <div className="projects-cover-title-reduced">
-                    Find the project you’ve been looking forward to work in
+                    Create a project that fits your preferences
                 </div>
                 <img src={logo} className="pana-projects-style-reduced" alt="logo"/>
                 <button className="createProjectButtonCover" onClick={() => {
@@ -66,13 +72,10 @@ export default function ProjectsScreen() {
                     Create Project
                 </button>
             </div>
-        </div>)
+        </div>
+        )
     }
     const cover = () => {
-        const change = () => {
-            setTeam(!team);
-            animate()
-        }
         const projectsCover = () => {
             return (
                 <div className={shake ? "shake" : "projects-cover-title"}>
