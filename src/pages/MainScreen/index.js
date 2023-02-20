@@ -148,9 +148,6 @@ function MainScreen() {
     const verifyMessage = () => {
         return (
             <div className="verify-message">
-                <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Verify your account
-                </div>
                 <div className={isMobile ? "verify-text-mobile" : "verify-text"}>
                     <div>
                         We sent you an email to <b>{email}</b>,
@@ -164,9 +161,6 @@ function MainScreen() {
     const registerForm = () => {
         return (
             <>
-                <div className={isMobile ? "form-text-mobile" : "form-text"}>
-                    Join to be part of our community
-                </div>
                 <form className={isMobile ? "form-mobile" : "form"}>
                     {emailData()}
                     {loginErrorView()}
@@ -192,6 +186,9 @@ function MainScreen() {
                         Find your ideal team easily and quickly
                     </div>
                     <div className="form-container-mobile-register">
+                        <div className={isMobile ? "form-text-mobile" : "form-text"}>
+                            {register ? " Verify your account" : "Join to be part of our community"}
+                        </div>
                         {register ? verifyMessage() : registerForm()}
                     </div>
                     <img src={pana} className="pana-style-mobile" alt="logo"/>
@@ -204,7 +201,7 @@ function MainScreen() {
         return (
             <div className="container">
                 <Logo/>
-                <div className="container-login">
+                <div className={context.size ? "container-login-reduced" : "container-login"}>
                     <div className="pana-container">
                         <div className="title-style">
                             Find your ideal team
@@ -214,6 +211,9 @@ function MainScreen() {
                         <img src={pana} className="pana-style" alt="logo"/>
                     </div>
                     <div className="form-container">
+                        <div className={isMobile ? "form-text-mobile" : "form-text"}>
+                            {register ? " Verify your account" : "Join to be part of our community"}
+                        </div>
                         {register ? verifyMessage() : registerForm()}
                     </div>
                 </div>
