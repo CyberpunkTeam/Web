@@ -1,8 +1,5 @@
 .projects-screen {
     padding-top: 70px;
-    font-size: 24px;
-    font-weight: 700;
-    color: #222222;
     padding-bottom: 80px;
 }
 
@@ -10,6 +7,9 @@
     display: flex;
     width: 100%;
     align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    color: #222222;
 }
 
 .projects-header {

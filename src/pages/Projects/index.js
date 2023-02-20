@@ -66,7 +66,7 @@ export default function ProjectsScreen() {
                 </div>
                 <img src={logo} className="pana-projects-style-reduced" alt="logo"/>
                 <button className="createProjectButtonCover" onClick={() => {
-                    navigate(("/projects/new"))
+                    navigate("/new/projects/type")
                 }}>
                     <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                     Create Project
@@ -81,7 +81,7 @@ export default function ProjectsScreen() {
                 <div className={shake ? "shake" : "projects-cover-title"}>
                     Create a project that fits your preferences
                     <button className="createProjectButtonCover" onClick={() => {
-                        navigate(("/projects/new"))
+                        navigate("/new/projects/type")
                     }}>
                         <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                         Create Project
