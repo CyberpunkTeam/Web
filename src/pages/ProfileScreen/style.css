@@ -448,10 +448,12 @@
 
 .coverProject {
     position: relative;
-    height: 120px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: space-between;
+    margin-top: 16px;
+    padding-bottom: 8px;
     border-top-right-radius: 16px;
     border-top-left-radius: 16px;
     background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
@@ -459,11 +461,12 @@
 
 .coverProjectMobile {
     position: relative;
-    height: 200px;
+    min-height: 240px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 16px;
+    justify-content: space-between;
+    padding: 16px 0;
+    margin-top: 32px;
     border-top-right-radius: 32px;
     border-top-left-radius: 32px;
     background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
@@ -489,6 +492,59 @@
     font-weight: 400;
     font-size: 12px;
     border-radius: 8px;
+}
+
+.status-tag {
+    padding: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    background: rgba(227, 227, 227, 0.9);
+    height: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    border-radius: 8px;
+}
+
+.status-tag-mobile {
+    padding: 4px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    background: rgba(227, 227, 227, 0.9);
+    font-weight: 400;
+    font-size: 32px;
+    border-radius: 16px;
+}
+
+.project-tile-title-container {
+    font-size: 16px;
+    font-weight: 700;
+    color: #FAFAFA;
+    cursor: pointer;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.project-tile-title-container-mobile {
+    font-size: 36px;
+    font-weight: 700;
+    color: #FAFAFA;
+    cursor: pointer;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.status-tag-container {
+    display: flex;
+    align-items: center;
+    color: #222222;
+    justify-content: space-between;
 }
 
 .statusMobile {
@@ -1029,6 +1085,10 @@
     margin: 8px;
     font-weight: 200;
     display: flex;
+}
+
+.tags-container-tile {
+    padding: 0 8px;
 }
 
 .education-info {
