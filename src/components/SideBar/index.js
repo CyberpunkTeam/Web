@@ -57,7 +57,6 @@ function SideBar() {
         };
     }, []);
 
-
     const closeAll = () => {
         setWatchNotifications(false);
         setWatchSettings(false);

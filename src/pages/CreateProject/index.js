@@ -44,10 +44,10 @@ export default function CreateProjectScreen() {
     const [platforms, setPlatforms] = useState(state.project === undefined ? [] : [...state.project.technologies.platforms]);
     const [frameworksOptions, setFrameworksOptions] = useState(state.project === undefined ? [] : getFrameworksOptions(state.project.technologies.programming_language));
     const [frameworks, setFrameworks] = useState(state.project === undefined ? [] : [...state.project.technologies.frameworks]);
-    const [estimatedBudget, setEstimatedBudget] = useState("0")
-    const [timeValue, setTimeValue] = useState("0")
+    const [estimatedBudget, setEstimatedBudget] = useState(state.project === undefined ? "0" : state.project.tentative_budget)
+    const [timeValue, setTimeValue] = useState(state.project === undefined ? "0" : state.project.tentative_duration)
     const [coin, setCoin] = useState("DOLAR")
-    const [time, setTime] = useState("Months")
+    const [time, setTime] = useState(state.project === undefined ? "Months" : state.project.unit_duration)
     const type = state.project === undefined ? state.type : state.project.project_type
 
     const projectButton = () => {
@@ -152,7 +152,8 @@ export default function CreateProjectScreen() {
                     <div className="information-form">
                         <div className="text-area-label">
                             Description
-                            <textarea className="textarea-style" value={description} onChange={setDescriptionHandler} name="Text1" cols="40"
+                            <textarea className="textarea-style" value={description} onChange={setDescriptionHandler}
+                                      name="Text1" cols="40"
                                       rows="5"/>
                         </div>
                     </div>
@@ -196,9 +197,9 @@ export default function CreateProjectScreen() {
                                 <input type="number" min="0" value={timeValue} className="budget-input"
                                        onChange={setTimeValueHandler}/>
                                 <select value={time} className="select-coin" onChange={setTimeHandler}>
-                                    <option value="Hours">Hours</option>
-                                    <option value="Days">Days</option>
-                                    <option value="Months">Months</option>
+                                    <option value="HOURS">Hours</option>
+                                    <option value="DAYS">Days</option>
+                                    <option value="MONTHS">Months</option>
                                 </select>
                             </div>
                         </label>
@@ -274,7 +275,7 @@ export default function CreateProjectScreen() {
     return (
         <div className="projects-screen">
             <div className="create-projects-header">
-                {state.project === undefined ? "New Project" : "Edit Project"}
+                {state.project === undefined ? type === "Base" ? "New Project" : "New " + type + " Project" : "Edit Project"}
             </div>
             <div>
                 <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
