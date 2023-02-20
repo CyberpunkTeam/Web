@@ -4,6 +4,7 @@ import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, Star1, TickCircle, User}
 import TechnologyTag from "../TechnologyTag";
 import {updateTeamPostulation} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
+import {formatter} from "../../utils/budgetFormatter";
 
 export default function PostulationsModal(params) {
     let context = useContext(AppContext);
@@ -19,11 +20,6 @@ export default function PostulationsModal(params) {
     const seeMore = () => {
         setShowMore(!showMore)
     }
-
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-    });
 
     const postulationButton = (status) => {
         const body = {

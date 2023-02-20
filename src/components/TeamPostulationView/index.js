@@ -6,16 +6,12 @@ import PreferenceTag from "../PreferenceTag";
 import {useContext, useState} from "react";
 import {formatDate} from "../../utils/dateFormat";
 import AppContext from "../../utils/AppContext";
+import {formatter} from "../../utils/budgetFormatter";
 
 export default function TeamPostulationView(params) {
 
     const [showMore, setShowMore] = useState(false);
     let context = useContext(AppContext);
-
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-    });
 
     const seeMore = () => {
         setShowMore(!showMore)

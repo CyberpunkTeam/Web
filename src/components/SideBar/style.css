@@ -1,8 +1,8 @@
 .navbar {
-    margin: 36px;
+    margin-left: 36px;
     width: 70px;
     border-radius: 16px;
-    height: 92vh;
+    height: calc(100% - 72px);
     background: #0F2830;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4);
     display: flex;
@@ -14,11 +14,11 @@
     position: fixed;
     left: 0;
     top: 0;
-    height: 100vh;
+    height: 100%;
+    align-self: center;
     min-height: 540px;
     display: flex;
     align-items: center;
-    flex-direction: column;
 }
 
 .navbar-mobile {
@@ -213,9 +213,10 @@
     border-radius: 16px;
     font-weight: 700;
     color: #222222;
-    height: 92vh;
-    margin: 36px 16px;
+    height: calc(100% - 72px);
+    margin: 0 16px;
     backdrop-filter: blur(120px);
+    align-self: center;
     background: rgba(1, 71, 81, 0.1);
     width: 340px;
 }
@@ -236,11 +237,11 @@
     position: fixed;
     left: 106px;
     top: 0;
-    height: 100vh;
+    height: 100%;
     min-height: 540px;
     display: flex;
+    justify-content: center;
     align-items: center;
-    flex-direction: column;
 }
 
 .notifications-container-reduce{
@@ -273,6 +274,7 @@
     font-size: 24px;
     font-weight: 700;
     width: 300px;
+    align-self: center;
     height: 92%;
 }
 
@@ -291,7 +293,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    height: 80vh;
+    height: 80%;
 }
 .without{
     display: flex;
@@ -299,7 +301,7 @@
     flex-direction: column;
     text-align: center;
     justify-content: center;
-    height: 80vh;
+    height: 90%;
     font-size: 16px;
     font-weight: 400;
 }
