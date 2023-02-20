@@ -57,6 +57,9 @@
     min-width: 200px;
     width: 55%;
 }
+.pana-projects-style-mobile {
+    min-width: 500px;
+}
 
 .pana-style-mobile {
     width: 60%;
