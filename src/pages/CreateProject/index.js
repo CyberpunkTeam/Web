@@ -8,12 +8,14 @@ import {createProject, updateProject} from "../../services/projectService";
 import Select from "react-select";
 import {optionsIdioms, optionsLanguages, platformsOptions, frameworksOptionsData} from "../../config/dictonary";
 import {selectedGreenStyle, selectedViolet, selectedViolet2, selectedViolet3} from "../../styles/commonStyles";
+import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+
     const valuesSelected = (data) => {
         let list = []
         data.forEach((value) => {
@@ -49,6 +51,50 @@ export default function CreateProjectScreen() {
     const [coin, setCoin] = useState("DOLAR")
     const [time, setTime] = useState(state.project === undefined ? "Months" : state.project.unit_duration)
     const type = state.project === undefined ? state.type : state.project.project_type
+    const [files, setFiles] = useState([]);
+    const [images, setImages] = useState([]);
+
+    function handleFilesChange(e) {
+        if (Array.from(e.target.files).length > 5 - files.length) {
+            e.preventDefault();
+            alert(`Cannot upload files more than five`);
+            return;
+        }
+        let filesList = [...files]
+        Object.keys(e.target.files).forEach((key) => {
+            if (!files.includes(e.target.files[key])) {
+                filesList.push(e.target.files[key])
+            }
+        })
+        setFiles(filesList);
+    }
+
+    function handleImagesChange(e) {
+        if (Array.from(e.target.files).length > 5 - images.length) {
+            e.preventDefault();
+            alert(`Cannot upload images more than five`);
+            return;
+        }
+        let imagesList = [...images]
+        Object.keys(e.target.files).forEach((key) => {
+            if (!images.includes(e.target.files[key])) {
+                imagesList.push(e.target.files[key])
+            }
+        })
+        setImages(imagesList);
+    }
+
+    const deleteImage = (index) => {
+        let imagesList = [...images]
+        imagesList.splice(index, 1)
+        setImages(imagesList);
+    }
+
+    const deleteFile = (index) => {
+        let filesList = [...files]
+        filesList.splice(index, 1)
+        setFiles(filesList);
+    }
 
     const projectButton = () => {
         setButtonDisabled(true)
@@ -126,6 +172,10 @@ export default function CreateProjectScreen() {
     }
 
     const setDescriptionHandler = (event) => {
+        if (event.target.value.length >= 2000) {
+            setDescription(event.target.value.slice(0, 2000));
+            return
+        }
         setDescription(event.target.value);
     }
 
@@ -145,6 +195,35 @@ export default function CreateProjectScreen() {
         setTimeValue(event.target.value);
     }
 
+    const filesUploads = (file, index) => {
+        return (
+            <div key={file.name} className="input-image-container">
+                <Document className="input-docs" size={28} color="#FAFAFA"/>
+                .{file.type.split("/")[1]}
+                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+                    deleteFile(index)
+                }}/>
+            </div>
+        )
+    }
+
+    const imagesUploads = (file, index) => {
+        let url;
+        try {
+            url = URL.createObjectURL(file);
+        } catch (e) {
+            url = file;
+        }
+        return (
+            <div key={file.name} className="input-image-container">
+                <img src={url} alt='' className="input-image"/>
+                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+                    deleteImage(index)
+                }}/>
+            </div>
+        )
+    }
+
     const details = () => {
         return (
             <div className="projects-description-container">
@@ -155,6 +234,34 @@ export default function CreateProjectScreen() {
                             <textarea className="textarea-style" value={description} onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
+                        </div>
+                        <div className={"files-upload"}>
+                            <div>
+                                <label>
+                                    <input type="file"
+                                           disabled={files.length === 5}
+                                           multiple onChange={handleFilesChange}
+                                           accept="application/doc, application/txt, application/pdf, .json, text/plain"/>
+                                    <AttachSquare size="20" className={images.length === 5 ? "icon-input-images-full" : "icon-input-images"} color="#FAFAFA"/>
+                                </label>
+                                <label>
+                                    <input type="file" multiple onChange={handleImagesChange}
+                                           disabled={images.length === 5}
+                                           accept="image/jpeg, image/png"/>
+                                    <Gallery size="20"
+                                             className={images.length === 5 ? "icon-input-images-full" : "icon-input-images"}
+                                             color="#FAFAFA"/>
+                                </label>
+                            </div>
+                            {description.length + "/2000"}
+                        </div>
+                        <div className={"input-files"}>
+                            {files.map((file, index) => {
+                                return filesUploads(file, index)
+                            })}
+                            {images.map((file, index) => {
+                                return imagesUploads(file, index)
+                            })}
                         </div>
                     </div>
                 </div>

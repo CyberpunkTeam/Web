@@ -2,24 +2,28 @@
     font-size: 18px;
     margin: 40px;
 }
+
 .create-project-info-reduced {
     padding: 20px;
     font-size: 18px;
     margin-top: 16px;
 }
+
 .create-project-info-container {
     align-items: center;
     width: 49.5%;
     background: #F1F1F1;
     border-radius: 16px;
 }
+
 .create-project-info-container-reduced {
     align-items: center;
     width: 100%;
     background: #F1F1F1;
     border-radius: 16px;
 }
-.create-project-form{
+
+.create-project-form {
     font-weight: 400;
     font-size: 16px;
     padding: 20px 0px;
@@ -30,6 +34,7 @@
     align-items: center;
     justify-content: space-around;
 }
+
 .create-project-input {
     font-family: "Inter", sans-serif;
     position: relative;
@@ -40,24 +45,28 @@
     padding-bottom: 20px;
     padding-top: 8px;
 }
+
 .create-project-label {
     width: 70%;
     padding-bottom: 20px;
     font-size: 12px;
     color: #222222;
 }
+
 .add-skill-label {
     width: 95%;
     padding-bottom: 20px;
     font-size: 12px;
     color: #222222;
 }
+
 .create-project-label-reduced {
     width: 80%;
     padding-bottom: 20px;
     font-size: 12px;
     color: #222222;
 }
+
 .select {
     appearance: none;
     font-family: "Inter", sans-serif;
@@ -71,25 +80,30 @@
     font-size: 16px;
     padding: 0px 8px 0px 8px;
 }
+
 .from-button {
     background: #E3E3E3;
     position: absolute;
     right: 8px;
 }
+
 .information-container {
     flex-direction: column;
     display: flex;
     background: #F1F1F1;
     border-radius: 16px;
 }
+
 .information-form {
     display: flex;
     flex-direction: column;
     font-size: 18px;
     margin: 32px;
 }
+
 .textarea-style {
-    border-radius: 16px;
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
     border-color: #E3E3E3;
     border-width: 0;
     background: #E3E3E3;
@@ -101,6 +115,7 @@
     font-size: 16px;
     padding: 8px;
 }
+
 .text-area-label {
     align-self: center;
     width: 100%;
@@ -108,15 +123,31 @@
     font-size: 12px;
     display: flex;
     flex-direction: column;
-    padding: 20px 0px;
+    padding-top: 20px;
     color: #222222;
 }
+
+.files-upload {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FAFAFA;
+    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 16px;
+    background: #014751;
+    height: 20px;
+    font-size: 16px;
+    padding: 8px;
+    margin-bottom: 20px;
+}
+
 .create-project-buttons {
     display: flex;
     padding: 20px 0px;
     justify-content: flex-end;
     align-items: center;
 }
+
 .create-project-from-button {
     margin-left: 10px;
     width: 50%;
@@ -129,6 +160,7 @@
     background: #014751;
     font-size: 16px;
 }
+
 .create-project-from-button-disabled {
     margin-left: 10px;
     width: 50%;
@@ -140,4 +172,68 @@
     text-align: center;
     background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
+}
+
+.input-image {
+    position: relative;
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 80px;
+    width: 80px;
+    border-radius: 8px;
+    overflow: hidden;
+    object-fit: cover;
+}
+
+.input-image-container {
+    position: relative;
+    height: 80px;
+    width: 80px;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: #FAFAFA;
+    font-size: 12px;
+    background: rgba(1, 71, 81);
+}
+
+
+.input-image-trash {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    background: #CD5B45;
+    border-radius: 100%;
+    padding: 4px;
+    cursor: pointer;
+}
+
+.input-files {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.icon-input-images {
+    cursor: pointer;
+    padding-right: 8px;
+}
+
+.icon-input-images-full {
+    cursor: no-drop;
+    padding-right: 8px;
+}
+
+.input-docs {
+    width: 80px;
+    align-self: center;
+    border-radius: 4px;
 }
