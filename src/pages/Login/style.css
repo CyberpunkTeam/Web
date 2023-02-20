@@ -115,11 +115,11 @@
 }
 
 .forgot-mobile {
-    align-items: center;
+    text-align: center;
+    padding: 8px;
     text-decoration: inherit;
-    padding-left: 10px;
     font-weight: bolder;
-    font-size: 28px;
+    font-size: 32px;
     color: #014751;
 }
 
