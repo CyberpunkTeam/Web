@@ -1,13 +1,3 @@
-/*export const languages = ["Python", "Java", "JavaScript", "C++", "Go", "TypeScript", "PHP", "Ruby", "C", "C#", "Shell",
-    "Nix", "HTML", "Scala", "Rust", "Kotlin", "Swift", "Jupyter Notebook", "Dart", "DM", "HCL", "Lua", "SystemVerilog",
-    "CSS", "Perl", "Groovy", "Makefile", "Objective-C", "CodeQL", "SCSS", "Elixir", "OCaml", "Vue", "Haskell", "Starlark",
-    "Lean", "Dockerfile", "Erlang", "Smarty", "Emacs Lisp", "Jinja", "PowerShell", "JSON", "Clojure", "Julia", "MLIR",
-    "Verilog", "Vim Script", "Roff", "CoffeeScript", "Assembly", "WebAssembly", "Puppet", "F#", "R", "Jsonnet", "GAP",
-    "Bicep", "MATLAB", "BitBake", "Visual Basic .NET", "PLpgSQL", "YAML", "ANTLR", "hoon", "Markdown", "TeX", "Fortran",
-    "Twig", "Cython", "ZAP", "Cuda", "SourcePawn", "ColdFusion", "GLSL", "Sass", "Nunjucks", "XSLT", "Mustache",
-    "Common Lisp", "SWIG", "Smalltalk", "Less", "Elm", "Gherkin", "Coq", "Vala", "CMake", "PostScript",
-    "Haxe", "LLVM", "F*", "Stylus", "Crystal", "Raku", "Blade", "Batchfile", "Slim", "Handlebars", "Pascal"]*/
-
 export const optionsLanguages = [
     {'value': 'Python', 'label': 'Python'},
     {'value': 'Java', 'label': 'Java'},
@@ -128,18 +118,6 @@ export const optionsIdioms = [
     {'value': 'German', 'label': 'German'},
     {'value': 'Portuguese', 'label': 'Portuguese'}
 ]
-
-/*const frameworks = {
-    "Java": ["Spring"],
-    "Python": ["Django", "Flask", "FastAPI"],
-    "Ruby": ["Ruby on Rails"],
-    "JavaScript": ["React JS", "Node JS", "Vue JS", "Express", "Ember JS", "Meteor JS", "Expo", "React Native"],
-    "TypeScript": ["Next JS", "Angular"],
-    "C#": ["ASP.NET"],
-    "PHP": ["CakePHP", "Laravel"],
-    "Go": ["Gin", "Beego", "Echo", "Fiber"],
-    "Dart": ["Flutter"]
-}*/
 
 export const frameworksOptionsData = {
     "Java": [
@@ -279,8 +257,3 @@ export const MethodologiesOptions = [
     {'value': 'Adaptive Software Development', 'label': 'Adaptive Software Development'},
     {'value': 'BDD', 'label': 'BDD'}
 ]
-
-/*
-
-"Prototype Model", "RAD", "Dynamic Systems Development Model", "Spiral Model", "JAD", "Rational Unified Process", "DevOps Methodology", "Adaptive Software Development", "BDD"]
-*/
