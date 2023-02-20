@@ -23,6 +23,7 @@ import ReviewScreen from "./pages/ReviewScreen";
 import TeamReview from "./pages/TeamReview";
 import CreateVacantScreen from "./pages/CreateVacantScreen";
 import CreateTeam from "./pages/CreateTeam";
+import SelectTypeProject from "./pages/SelectTypeProject";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -62,19 +63,24 @@ function App() {
         if (user !== null) {
             return (
                 <>
+                    {/*user*/}
                     <Route path="me" element={<ProfileScreen/>}/>
                     <Route path="/user/:id" element={<ProfileScreen/>}/>
+                    {/*team*/}
                     <Route path="/team/:id" element={<TeamScreen/>}/>
                     <Route path="/team/:id/edit" element={<CreateTeam/>}/>
                     <Route path="/team/new" element={<CreateTeam/>}/>
-                    <Route path="/projects" element={<ProjectsScreen/>}/>
-                    <Route path="/projects/:id" element={<ProjectScreen/>}/>
-                    <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
-                    <Route path="/projects/new" element={<CreateProjectScreen/>}/>
-                    <Route path="/search" element={<SearchResults/>}/>
                     <Route path="/review" element={<ReviewScreen/>}/>
                     <Route path="/team/review/:id" element={<TeamReview/>}/>
                     <Route path="/new/vacant" element={<CreateVacantScreen/>}/>
+                    {/*project*/}
+                    <Route path="/projects" element={<ProjectsScreen/>}/>
+                    <Route path="/projects/:id" element={<ProjectScreen/>}/>
+                    <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
+                    <Route path="/new/projects/data" element={<CreateProjectScreen/>}/>
+                    <Route path="/new/projects/type" element={<SelectTypeProject/>}/>
+                    {/*extra*/}
+                    <Route path="/search" element={<SearchResults/>}/>
                 </>
             )
         }

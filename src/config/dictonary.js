@@ -117,7 +117,7 @@ export const optionsProjects = [
     {'value': 'Backend', 'label': 'Backend'},
     {'value': 'Data Science', 'label': 'Data Science'},
     {'value': 'Data Analytics', 'label': 'Data Analytics'},
-    {'value': ' Data Engineering', 'label': ' Data Engineering'}
+    {'value': 'Data Engineering', 'label': 'Data Engineering'}
 ]
 
 export const optionsIdioms = [

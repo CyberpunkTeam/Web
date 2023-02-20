@@ -32,22 +32,23 @@ export default function CreateProjectScreen() {
         return list
     }
 
-    const defaultValues = state !== null ? valuesSelected(state.project.technologies.programming_language) : []
-    const IdiomsDefaultValues = state !== null ? valuesSelected(state.project.idioms) : []
-    const frameworksDefaultValues = state !== null ? valuesSelected(state.project.technologies.frameworks) : []
-    const platformsDefaultValues = state !== null ? valuesSelected(state.project.technologies.platforms) : []
+    const defaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.programming_language) : []
+    const IdiomsDefaultValues = state.project !== undefined ? valuesSelected(state.project.idioms) : []
+    const frameworksDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.frameworks) : []
+    const platformsDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.platforms) : []
 
-    const [name, setName] = useState(state === null ? "" : state.project.name)
-    const [description, setDescription] = useState(state === null ? "" : state.project.description.summary)
-    const [languages, setLanguages] = useState(state === null ? [] : [...state.project.idioms])
-    const [techs, setTechs] = useState(state === null ? [] : [...state.project.technologies.programming_language]);
-    const [platforms, setPlatforms] = useState(state === null ? [] : [...state.project.technologies.platforms]);
-    const [frameworksOptions, setFrameworksOptions] = useState(state === null ? [] : getFrameworksOptions(state.project.technologies.programming_language));
-    const [frameworks, setFrameworks] = useState(state === null ? [] : [...state.project.technologies.frameworks]);
+    const [name, setName] = useState(state.project === undefined ? "" : state.project.name)
+    const [description, setDescription] = useState(state.project === undefined ? "" : state.project.description.summary)
+    const [languages, setLanguages] = useState(state.project === undefined ? [] : [...state.project.idioms])
+    const [techs, setTechs] = useState(state.project === undefined ? [] : [...state.project.technologies.programming_language]);
+    const [platforms, setPlatforms] = useState(state.project === undefined ? [] : [...state.project.technologies.platforms]);
+    const [frameworksOptions, setFrameworksOptions] = useState(state.project === undefined ? [] : getFrameworksOptions(state.project.technologies.programming_language));
+    const [frameworks, setFrameworks] = useState(state.project === undefined ? [] : [...state.project.technologies.frameworks]);
     const [estimatedBudget, setEstimatedBudget] = useState("0")
     const [timeValue, setTimeValue] = useState("0")
     const [coin, setCoin] = useState("DOLAR")
     const [time, setTime] = useState("Months")
+    const type = state.project === undefined ? state.type : state.project.project_type
 
     const projectButton = () => {
         setButtonDisabled(true)
@@ -56,6 +57,7 @@ export default function CreateProjectScreen() {
             "name": name,
             "idioms": languages,
             "creator_uid": context.user.uid,
+            "project_type": type,
             "description": {
                 "files_attached": [],
                 "functional_requirements": [],
@@ -73,7 +75,7 @@ export default function CreateProjectScreen() {
             "unit_duration": time.toUpperCase()
         }
 
-        if (state === null) {
+        if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
                 navigate("/projects/" + r.pid)
@@ -160,7 +162,7 @@ export default function CreateProjectScreen() {
                             className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"}
                             onClick={projectButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : state === null ? "Create" : "Save"}
+                        {buttonDisabled ? "" : state.project === undefined ? "Create" : "Save"}
                     </button>
                 </div>
             </div>
@@ -272,7 +274,7 @@ export default function CreateProjectScreen() {
     return (
         <div className="projects-screen">
             <div className="create-projects-header">
-                {state === null ? "New Project" : "Edit Project"}
+                {state.project === undefined ? "New Project" : "Edit Project"}
             </div>
             <div>
                 <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
