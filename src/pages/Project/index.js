@@ -34,6 +34,7 @@ import {modalStyle} from "../../styles/commonStyles";
 import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import BudgetTag from "../../components/BudgetTag";
+import {formatter} from "../../utils/budgetFormatter";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -359,10 +360,6 @@ export default function ProjectScreen() {
 
 
     const budget = () => {
-        const formatter = new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: 'USD',
-        });
 
         return (
             <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>

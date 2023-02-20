@@ -6,6 +6,7 @@ import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
+import {formatter} from "../../utils/budgetFormatter";
 
 export default function TeamProjectTileComponent(params) {
     const data = params.data.project
@@ -15,11 +16,6 @@ export default function TeamProjectTileComponent(params) {
     const goTo = () => {
         navigate(projects_link)
     }
-
-    const formatter = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-    });
 
     return (
         <div key={data.pid}
