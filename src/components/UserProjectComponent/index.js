@@ -10,7 +10,7 @@ export default function UserProjectComponent(params) {
     const navigate = useNavigate();
 
     const createProject = () => {
-        navigate("/projects/new")
+        navigate("/new/projects/type")
     }
 
     const addButton = () => {
