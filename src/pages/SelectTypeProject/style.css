@@ -42,6 +42,24 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.projectTypeButtonLeftMobile {
+    width: 100%;
+    padding: 16px;
+    height: 220px;
+    background: #F1F1F1;
+    border-radius: 16px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .projectTypeButtonRight {
     width: 100%;
     padding: 16px;
@@ -60,9 +78,35 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.projectTypeButtonRightMobile {
+    width: 100%;
+    padding: 16px;
+    font-size: 32px;
+    height: 220px;
+    background: #F1F1F1;
+    border-radius: 16px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .projectTypeButtonsContainer {
     width: 100%;
     margin: 8px 0;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.projectTypeButtonsContainerMobile {
+    width: 100%;
+    margin: 16px 0;
     align-items: center;
     display: flex;
     justify-content: space-between;

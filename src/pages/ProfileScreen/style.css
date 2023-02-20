@@ -653,6 +653,9 @@
 .icon {
     padding-right: 8px;
 }
+.iconMobile {
+    padding-right: 15px;
+}
 
 .star {
     padding-right: 8px;
@@ -998,13 +1001,13 @@
 }
 
 .cancel-edit-button-mobile-style {
-    width: 75%;
-    border-radius: 20px;
-    height: 80px;
+    width: 100%;
+    border-radius: 32px;
+    height: 120px;
     color: #014751;;
     border: 2px solid rgba(1, 71, 81, 0.5);
     background: #F1F1F1;
-    font-size: 32px;
+    font-size: 36px;
     margin-bottom: 32px;
     margin-top: 64px;
 }

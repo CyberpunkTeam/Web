@@ -59,20 +59,20 @@ export default function ProjectsScreen() {
 
     const coverMobile = () => {
         return (
-            <div className="projects-header">
-            <div className="projects-cover-reduced">
-                <div className="projects-cover-title-reduced">
-                    Create a project that fits your preferences
+            <div className={isMobile ? "projects-header-mobile" : "projects-header"}>
+                <div className="projects-cover-reduced">
+                    <div className={isMobile ? "projects-cover-title-reduced-mobile" : "projects-cover-title-reduced"}>
+                        Create a project that fits your preferences
+                    </div>
+                    <img src={logo} className={isMobile ? "pana-projects-style-mobile" : "pana-projects-style-reduced"} alt="logo"/>
+                    <button className={isMobile ? "createProjectButtonCoverMobile" : "createProjectButtonCover"} onClick={() => {
+                        navigate("/new/projects/type")
+                    }}>
+                        <AddCircle color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className={isMobile ? "iconMobile" : "icon"}/>
+                        Create Project
+                    </button>
                 </div>
-                <img src={logo} className="pana-projects-style-reduced" alt="logo"/>
-                <button className="createProjectButtonCover" onClick={() => {
-                    navigate("/new/projects/type")
-                }}>
-                    <AddCircle color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                    Create Project
-                </button>
             </div>
-        </div>
         )
     }
     const cover = () => {
@@ -122,7 +122,7 @@ export default function ProjectsScreen() {
 
     return (
         <div>
-            <div className="projects-screen">
+            <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
                 {isMobile || context.size ? coverMobile() : cover()}
                 <div className="projects-container">
                     {projects.map((value) => {

@@ -16,7 +16,52 @@ export default function SelectTypeProject() {
     }
 
     const type = () => {
-        if (isMobile || context.size) {
+        if (isMobile) {
+            return (
+                <>
+                    <div className="projectTypeButtonsContainerMobile">
+                        <div className="projectTypeButtonLeftMobile" onClick={() => redirect("Base")}>
+                            <Box1 size="80" color="#222222" className="projectTypeIcon"/>
+                            Empty
+                        </div>
+                        <div className="projectTypeButtonRightMobile" onClick={() => redirect("Backend")}>
+                            <Scroll size="80" color="#222222" className="projectTypeIcon"/>
+                            Backend
+                        </div>
+                    </div>
+                    <div className="projectTypeButtonsContainerMobile">
+                        <div className="projectTypeButtonLeftMobile" onClick={() => redirect("Web")}>
+                            <Monitor size="80" color="#222222" className="projectTypeIcon"/>
+                            Web
+                        </div>
+                        <div className="projectTypeButtonRightMobile" onClick={() => redirect("Mobile")}>
+                            <Mobile size="80" color="#222222" className="projectTypeIconPhone"/>
+                            Mobile
+                        </div>
+                    </div>
+                    <div className="projectTypeButtonsContainerMobile">
+                        <div className="projectTypeButtonLeftMobile" onClick={() => redirect("Crypto")}>
+                            <Bitcoin size="80" color="#222222" className="projectTypeIcon"/>
+                            Crypto
+                        </div>
+                        <div className="projectTypeButtonRightMobile" onClick={() => redirect("Data Analytics")}>
+                            <ChartSquare size="80" color="#222222" className="projectTypeIcon"/>
+                            Data Analytics
+                        </div>
+                    </div>
+                    <div className="projectTypeButtonsContainerMobile">
+                        <div className="projectTypeButtonLeftMobile" onClick={() => redirect("Data Science")}>
+                            <Hex size="80" color="#222222" className="projectTypeIcon"/>
+                            Data Science
+                        </div>
+                        <div className="projectTypeButtonRightMobile" onClick={() => redirect("Data Engineering")}>
+                            <CpuSetting size="80" color="#222222" className="projectTypeIcon"/>
+                            Data Engineering
+                        </div>
+                    </div>
+                </>
+            )
+        } else if (context.size) {
             return (
                 <>
                     <div className="projectTypeButtonsContainer">
@@ -108,9 +153,9 @@ export default function SelectTypeProject() {
 
 
     return (
-        <div className="profile-screen">
+        <div className={isMobile ? "profile-screen-mobile" :"profile-screen"}>
             <div className="projectTypeContainer">
-                <div className="create-projects-header">
+                <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                     Select a Project Type
                 </div>
                 {type()}
