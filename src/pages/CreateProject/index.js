@@ -6,9 +6,22 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {createProject, updateProject} from "../../services/projectService";
 import Select from "react-select";
-import {optionsIdioms, optionsLanguages, platformsOptions, frameworksOptionsData} from "../../config/dictonary";
-import {selectedGreenStyle, selectedViolet, selectedViolet2, selectedViolet3} from "../../styles/commonStyles";
+import {
+    optionsIdioms,
+    optionsLanguages,
+    platformsOptions,
+    frameworksOptionsData,
+    databasesOptions
+} from "../../config/dictonary";
+import {
+    selected4,
+    selectedGreenStyle,
+    selectedViolet,
+    selectedViolet2,
+    selectedViolet3
+} from "../../styles/commonStyles";
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
+import {saveFile} from "../../services/firebaseStorage";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -38,12 +51,14 @@ export default function CreateProjectScreen() {
     const IdiomsDefaultValues = state.project !== undefined ? valuesSelected(state.project.idioms) : []
     const frameworksDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.frameworks) : []
     const platformsDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.platforms) : []
+    const databasesDefault = state.project !== undefined ? valuesSelected(state.project.technologies.databases) : []
 
     const [name, setName] = useState(state.project === undefined ? "" : state.project.name)
     const [description, setDescription] = useState(state.project === undefined ? "" : state.project.description.summary)
     const [languages, setLanguages] = useState(state.project === undefined ? [] : [...state.project.idioms])
     const [techs, setTechs] = useState(state.project === undefined ? [] : [...state.project.technologies.programming_language]);
     const [platforms, setPlatforms] = useState(state.project === undefined ? [] : [...state.project.technologies.platforms]);
+    const [db, setDb] = useState(state.project === undefined ? [] : [...state.project.technologies.databases])
     const [frameworksOptions, setFrameworksOptions] = useState(state.project === undefined ? [] : getFrameworksOptions(state.project.technologies.programming_language));
     const [frameworks, setFrameworks] = useState(state.project === undefined ? [] : [...state.project.technologies.frameworks]);
     const [estimatedBudget, setEstimatedBudget] = useState(state.project === undefined ? "0" : state.project.tentative_budget)
@@ -51,8 +66,8 @@ export default function CreateProjectScreen() {
     const [coin, setCoin] = useState("DOLAR")
     const [time, setTime] = useState(state.project === undefined ? "Months" : state.project.unit_duration)
     const type = state.project === undefined ? state.type : state.project.project_type
-    const [files, setFiles] = useState([]);
-    const [images, setImages] = useState([]);
+    const [files, setFiles] = useState(state.project === undefined ? [] : state.project.description.files_attached.length === 0 ? [] : state.project.description.files_attached[0].files);
+    const [images, setImages] = useState(state.project === undefined ? [] : state.project.description.files_attached.length === 0 ? [] : state.project.description.files_attached[0].images);
 
     function handleFilesChange(e) {
         if (Array.from(e.target.files).length > 5 - files.length) {
@@ -99,19 +114,42 @@ export default function CreateProjectScreen() {
     const projectButton = () => {
         setButtonDisabled(true)
 
+        let filesUrl = []
+        files.forEach((file) => {
+            if (typeof file === "string") {
+                filesUrl.push(file)
+                return
+            }
+            saveFile(context.app, file, name + "-file-" + file.name).then((r) => {
+                filesUrl.push(r)
+            })
+        })
+
+        let imagesUrl = []
+        images.forEach((file) => {
+            if (typeof file === "string") {
+                imagesUrl.push(file)
+                return
+            }
+            saveFile(context.app, file, name + "-image-" + file.name).then((r) => {
+                imagesUrl.push(r)
+            })
+        })
+
         const body = {
             "name": name,
             "idioms": languages,
             "creator_uid": context.user.uid,
             "project_type": type,
             "description": {
-                "files_attached": [],
+                "files_attached": [{"files": filesUrl, images: imagesUrl}],
                 "functional_requirements": [],
                 "non_function_requirements": [],
                 "summary": description
             },
             "technologies": {
                 "programming_language": techs,
+                "databases": db,
                 "frameworks": frameworks,
                 "platforms": platforms
             },
@@ -120,6 +158,8 @@ export default function CreateProjectScreen() {
             "tentative_duration": timeValue,
             "unit_duration": time.toUpperCase()
         }
+
+        console.log(body)
 
         if (state.project === undefined) {
             createProject(body).then((r) => {
@@ -169,6 +209,14 @@ export default function CreateProjectScreen() {
             list.push(value.value)
         })
         setFrameworks(list)
+    }
+
+    const setDBHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setDb(list);
     }
 
     const setDescriptionHandler = (event) => {
@@ -230,7 +278,7 @@ export default function CreateProjectScreen() {
                 <div className="information-container">
                     <div className="information-form">
                         <div className="text-area-label">
-                            Description
+                            Summary
                             <textarea className="textarea-style" value={description} onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
@@ -242,7 +290,9 @@ export default function CreateProjectScreen() {
                                            disabled={files.length === 5}
                                            multiple onChange={handleFilesChange}
                                            accept="application/doc, application/txt, application/pdf, .json, text/plain"/>
-                                    <AttachSquare size="20" className={images.length === 5 ? "icon-input-images-full" : "icon-input-images"} color="#FAFAFA"/>
+                                    <AttachSquare size="20"
+                                                  className={files.length === 5 ? "icon-input-images-full" : "icon-input-images"}
+                                                  color="#FAFAFA"/>
                                 </label>
                                 <label>
                                     <input type="file" multiple onChange={handleImagesChange}
@@ -370,6 +420,18 @@ export default function CreateProjectScreen() {
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                     name="Technologies"
                                     styles={selectedViolet2}
+                                />
+                            </div>
+                        </label>
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                            Databases
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    defaultValue={databasesDefault}
+                                    options={databasesOptions}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                    styles={selected4}
                                 />
                             </div>
                         </label>
