@@ -122,30 +122,26 @@ export default function CreateProjectScreen() {
         setFiles(filesList);
     }
 
-    const projectButton = () => {
+    const projectButton = async () => {
         setButtonDisabled(true)
 
         let filesUrl = []
-        files.forEach((file) => {
+        for (const file of files) {
             if (typeof file === "string") {
                 filesUrl.push(file)
-                return
+                continue;
             }
-            saveFile(context.app, file, name + "-file-" + file.name).then((r) => {
-                filesUrl.push(r)
-            })
-        })
+            filesUrl.push(await saveFile(context.app, file, name + "-file-" + file.name))
+        }
 
         let imagesUrl = []
-        images.forEach((file) => {
+        for (const file of images) {
             if (typeof file === "string") {
                 imagesUrl.push(file)
-                return
+                continue;
             }
-            saveFile(context.app, file, name + "-image-" + file.name).then((r) => {
-                imagesUrl.push(r)
-            })
-        })
+            imagesUrl.push(await saveFile(context.app, file, name + "-image-" + file.name))
+        }
 
         const body = {
             "name": name,
@@ -153,7 +149,7 @@ export default function CreateProjectScreen() {
             "creator_uid": context.user.uid,
             "project_type": type,
             "description": {
-                "files_attached": [],
+                "files_attached": {files: filesUrl, images: imagesUrl},
                 "functional_requirements": [requirementsFunctional],
                 "non_function_requirements": req,
                 "summary": description
@@ -265,10 +261,17 @@ export default function CreateProjectScreen() {
     }
 
     const filesUploads = (file, index) => {
+        let name = ""
+        if (typeof file === "string") {
+            name = file.split("-file-")[1].split("?")[0].split(".")[1]
+        } else {
+            name = file.type.split("/")[1]
+        }
+
         return (
             <div key={file.name} className="input-image-container">
                 <Document className="input-docs" size={28} color="#FAFAFA"/>
-                .{file.type.split("/")[1]}
+                .{name === undefined ? "empty" : name}
                 <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
                     deleteFile(index)
                 }}/>
@@ -283,6 +286,7 @@ export default function CreateProjectScreen() {
         } catch (e) {
             url = file;
         }
+
         return (
             <div key={file.name} className="input-image-container">
                 <img src={url} alt='' className="input-image"/>
