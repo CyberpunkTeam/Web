@@ -351,6 +351,9 @@ export default function ProjectScreen() {
                         {project.idioms.map((data) => {
                             return <PreferenceTag key={data} preference={data}/>
                         })}
+                        {project.description.non_function_requirements.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
                     </div>
                 </div>
                 {editButton()}

@@ -11,7 +11,7 @@ import {
     optionsLanguages,
     platformsOptions,
     frameworksOptionsData,
-    databasesOptions
+    databasesOptions, Requirements
 } from "../../config/dictonary";
 import {
     selected4,
@@ -22,7 +22,6 @@ import {
 } from "../../styles/commonStyles";
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 import {saveFile} from "../../services/firebaseStorage";
-import {isMobile} from "react-device-detect";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -49,26 +48,37 @@ export default function CreateProjectScreen() {
     }
 
     const defaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.programming_language) : []
+    const [techs, setTechs] = useState(state.project === undefined ? [] : [...state.project.technologies.programming_language]);
+
     const IdiomsDefaultValues = state.project !== undefined ? valuesSelected(state.project.idioms) : []
+    const [languages, setLanguages] = useState(state.project === undefined ? [] : [...state.project.idioms])
+
     const frameworksDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.frameworks) : []
+    const [frameworks, setFrameworks] = useState(state.project === undefined ? [] : [...state.project.technologies.frameworks]);
+    const [frameworksOptions, setFrameworksOptions] = useState(state.project === undefined ? [] : getFrameworksOptions(state.project.technologies.programming_language));
+
     const platformsDefaultValues = state.project !== undefined ? valuesSelected(state.project.technologies.platforms) : []
+    const [platforms, setPlatforms] = useState(state.project === undefined ? [] : [...state.project.technologies.platforms]);
+
     const databasesDefault = state.project !== undefined ? valuesSelected(state.project.technologies.databases) : []
+    const [db, setDb] = useState(state.project === undefined ? [] : [...state.project.technologies.databases])
+
+    const reqDefault = state.project !== undefined ? valuesSelected(state.project.description.non_function_requirements) : []
+    const [req, setReq] = useState(state.project === undefined ? [] : [...state.project.description.non_function_requirements])
 
     const [name, setName] = useState(state.project === undefined ? "" : state.project.name)
     const [description, setDescription] = useState(state.project === undefined ? "" : state.project.description.summary)
-    const [languages, setLanguages] = useState(state.project === undefined ? [] : [...state.project.idioms])
-    const [techs, setTechs] = useState(state.project === undefined ? [] : [...state.project.technologies.programming_language]);
-    const [platforms, setPlatforms] = useState(state.project === undefined ? [] : [...state.project.technologies.platforms]);
-    const [db, setDb] = useState(state.project === undefined ? [] : [...state.project.technologies.databases])
-    const [frameworksOptions, setFrameworksOptions] = useState(state.project === undefined ? [] : getFrameworksOptions(state.project.technologies.programming_language));
-    const [frameworks, setFrameworks] = useState(state.project === undefined ? [] : [...state.project.technologies.frameworks]);
+    const [requirementsFunctional, setRequirementsFunctional] = useState(state.project === undefined ? "" : state.project.description.summary)
+
     const [estimatedBudget, setEstimatedBudget] = useState(state.project === undefined ? "0" : state.project.tentative_budget)
-    const [timeValue, setTimeValue] = useState(state.project === undefined ? "0" : state.project.tentative_duration)
     const [coin, setCoin] = useState("DOLAR")
+
+    const [timeValue, setTimeValue] = useState(state.project === undefined ? "0" : state.project.tentative_duration)
     const [time, setTime] = useState(state.project === undefined ? "Months" : state.project.unit_duration)
+
     const type = state.project === undefined ? state.type : state.project.project_type
-    const [files, setFiles] = useState(state.project === undefined ? [] : state.project.description.files_attached.length === 0 ? [] : state.project.description.files_attached[0].files);
-    const [images, setImages] = useState(state.project === undefined ? [] : state.project.description.files_attached.length === 0 ? [] : state.project.description.files_attached[0].images);
+    const [files, setFiles] = useState(state.project === undefined ? [] : state.project.description.files_attached.files === undefined ? [] : state.project.description.files_attached.files);
+    const [images, setImages] = useState(state.project === undefined ? [] : state.project.description.files_attached.images === undefined ? [] : state.project.description.files_attached.images);
 
     function handleFilesChange(e) {
         if (Array.from(e.target.files).length > 5 - files.length) {
@@ -143,9 +153,9 @@ export default function CreateProjectScreen() {
             "creator_uid": context.user.uid,
             "project_type": type,
             "description": {
-                "files_attached": [{"files": filesUrl, images: imagesUrl}],
-                "functional_requirements": [],
-                "non_function_requirements": [],
+                "files_attached": [],
+                "functional_requirements": [requirementsFunctional],
+                "non_function_requirements": req,
                 "summary": description
             },
             "technologies": {
@@ -202,6 +212,14 @@ export default function CreateProjectScreen() {
         setPlatforms(list)
     }
 
+    const setReqHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setReq(list)
+    }
+
     const setFrameworksHandler = (event) => {
         let list = []
         event.forEach((value) => {
@@ -224,6 +242,10 @@ export default function CreateProjectScreen() {
             return
         }
         setDescription(event.target.value);
+    }
+
+    const setRequirementsFunctionalHandler = (event) => {
+        setRequirementsFunctional(event.target.value);
     }
 
     const setEstimatedBudgetHandler = (event) => {
@@ -318,7 +340,8 @@ export default function CreateProjectScreen() {
                     <div className={"information-form"}>
                         <div className="text-area-label">
                             Functional Requirements
-                            <textarea className="reqTextAreaStyle" value={description} onChange={setDescriptionHandler}
+                            <textarea className="reqTextAreaStyle" value={requirementsFunctional}
+                                      onChange={setRequirementsFunctionalHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
                         </div>
@@ -327,11 +350,10 @@ export default function CreateProjectScreen() {
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
-                                    defaultValue={platformsDefaultValues}
-                                    options={platformsOptions}
-                                    onChange={(choice) => setPlatformsHandler(choice)}
-                                    name="Technologies"
-                                    styles={selectedViolet2}
+                                    defaultValue={reqDefault}
+                                    options={Requirements}
+                                    onChange={(choice) => setReqHandler(choice)}
+                                    styles={selectedGreenStyle}
                                 />
                             </div>
                         </div>
