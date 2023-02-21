@@ -22,6 +22,7 @@ import {
 } from "../../styles/commonStyles";
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 import {saveFile} from "../../services/firebaseStorage";
+import {isMobile} from "react-device-detect";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -158,8 +159,6 @@ export default function CreateProjectScreen() {
             "tentative_duration": timeValue,
             "unit_duration": time.toUpperCase()
         }
-
-        console.log(body)
 
         if (state.project === undefined) {
             createProject(body).then((r) => {
@@ -312,6 +311,29 @@ export default function CreateProjectScreen() {
                             {images.map((file, index) => {
                                 return imagesUploads(file, index)
                             })}
+                        </div>
+                    </div>
+                </div>
+                <div className="information-container">
+                    <div className={"information-form"}>
+                        <div className="text-area-label">
+                            Functional Requirements
+                            <textarea className="reqTextAreaStyle" value={description} onChange={setDescriptionHandler}
+                                      name="Text1" cols="40"
+                                      rows="5"/>
+                        </div>
+                        <div className="text-area-label">
+                            No Functional Requirements
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    defaultValue={platformsDefaultValues}
+                                    options={platformsOptions}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                    name="Technologies"
+                                    styles={selectedViolet2}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

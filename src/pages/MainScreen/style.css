@@ -68,8 +68,8 @@
 
 .input {
     font-family: "Inter", sans-serif;
-    width: 95%;
-    padding: 0 8px;
+    width: calc(100% - 16px);
+    padding: 2px 8px;
     border-radius: 16px;
     border: none;
     outline: none;
