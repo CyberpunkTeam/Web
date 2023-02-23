@@ -24,16 +24,6 @@
     margin: 20px 0;
 }
 
-.project-information-container {
-    font-size: 16px;
-    font-weight: 700;
-    position: relative;
-    width: 49%;
-    background: #F1F1F1;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
 .budget-container {
     margin: 8px 20px;
     width: fit-content;
@@ -44,7 +34,8 @@
     color: #FAFAFA;
 }
 
-.project-information-container-reduce {
+.information-container-reduce {
+    margin-bottom: 16px;
     font-size: 24px;
     font-weight: 700;
     position: relative;
@@ -52,6 +43,20 @@
     background: #F1F1F1;
     border-radius: 16px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.project-information-container {
+    width: calc(50% - 8px);
+    margin-left: 8px;
+}
+
+.project-information-container-left {
+    width: calc(50% - 8px);
+    margin-right: 8px;
+}
+
+.project-information-container-reduce {
+    width: 100%;
 }
 
 .project-information-card {
@@ -62,11 +67,16 @@
 
 .project-description-card {
     background: #E3E3E3;
+    color: #222222;
     margin: 16px 0;
     border-radius: 16px;
     padding: 16px 16px;
     font-size: 16px;
     font-weight: 400;
+}
+
+.project-files {
+    padding: 0 20px;
 }
 
 .postulation-button {

@@ -269,7 +269,7 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={file.name} className="input-image-container">
+            <div key={file.name === undefined ? file : file.name} className="input-image-container">
                 <Document className="input-docs" size={28} color="#FAFAFA"/>
                 .{name === undefined ? "empty" : name}
                 <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
@@ -288,7 +288,7 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={file.name} className="input-image-container">
+            <div key={url} className="input-image-container">
                 <img src={url} alt='' className="input-image"/>
                 <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
                     deleteImage(index)

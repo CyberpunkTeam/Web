@@ -243,6 +243,7 @@
     overflow-y: hidden;
     width: 100%;
     display: flex;
+    margin-top: 8px;
     align-items: center;
 }
 

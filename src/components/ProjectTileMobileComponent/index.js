@@ -6,6 +6,7 @@ import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import {formatter} from "../../utils/budgetFormatter";
 import {Bitcoin, Box1, ChartSquare, CpuSetting, Hex, Mobile, Monitor, Scroll} from "iconsax-react";
+import CloudTag from "../CloudTag";
 
 export default function ProjectTileMobileComponent(params) {
     const data = params.data
@@ -64,6 +65,9 @@ export default function ProjectTileMobileComponent(params) {
                     <div className="tags-project">
                         {data.technologies.platforms.map((data) => {
                             return <PlatformTag key={data} platform={data}/>
+                        })}
+                        {data.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
                         })}
                     </div>
                     <div className="tags-project">

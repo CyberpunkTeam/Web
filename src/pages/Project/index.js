@@ -14,6 +14,7 @@ import {
     People,
     TickCircle,
     Trash,
+    Document,
     User
 } from "iconsax-react";
 import AppContext from "../../utils/AppContext";
@@ -35,6 +36,7 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import BudgetTag from "../../components/BudgetTag";
 import {formatter} from "../../utils/budgetFormatter";
+import CloudTag from "../../components/CloudTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -122,6 +124,25 @@ export default function ProjectScreen() {
     if (project.pid === undefined) {
         return (
             <NotFound/>
+        )
+    }
+
+    const filesUploads = (file) => {
+        let name = file.split("-file-")[1].split("?")[0].split(".")[1]
+
+        return (
+            <a key={file} className="input-image-container" href={file}>
+                <Document className="input-docs" size={28} color="#FAFAFA"/>
+                .{name === undefined ? "empty" : name}
+            </a>
+        )
+    }
+
+    const imagesUploads = (file) => {
+        return (
+            <a key={file} className="input-image-container" href={file}>
+                <img src={file} alt='' className="input-image"/>
+            </a>
         )
     }
 
@@ -346,6 +367,9 @@ export default function ProjectScreen() {
                         {project.technologies.platforms.map((data) => {
                             return <PlatformTag key={data} platform={data}/>
                         })}
+                        {project.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
+                        })}
                     </div>
                     <div className="tags-container">
                         {project.idioms.map((data) => {
@@ -365,14 +389,37 @@ export default function ProjectScreen() {
     const budget = () => {
 
         return (
-            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
-                <div className={isMobile ? "user-info-mobile" : "user-info"}>
-                    <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                        <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
-                        Budget
+            <div
+                className={context.size ? "project-information-container-reduce" : "project-information-container-left"}>
+                <div className={"information-container-reduce"}>
+                    <div className="project-information-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                            Budget
+                        </div>
+                        <div className={"budget-container"}>
+                            <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
+                        </div>
                     </div>
-                    <div className={"budget-container"}>
-                        <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
+                </div>
+                <div className={"information-container-reduce"}>
+                    <div className="project-information-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            <Document size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                            Files
+                        </div>
+                        <div className={"project-files"}>
+                            <div className={"input-files"}>
+                                {project.description.files_attached.files === undefined ? null : project.description.files_attached.files.map((file) => {
+                                    return filesUploads(file)
+                                })}
+                            </div>
+                            <div className={"input-files"}>
+                                {project.description.files_attached.images === undefined ? null : project.description.files_attached.images.map((file) => {
+                                    return imagesUploads(file)
+                                })}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -382,10 +429,20 @@ export default function ProjectScreen() {
     const information = () => {
         return (
             <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
-                <div className="project-information-card">
-                    Description
-                    <div className="project-description-card">
-                        {project.description.summary}
+                <div className={"information-container-reduce"}>
+                    <div className="project-information-card">
+                        Summary
+                        <div className="project-description-card">
+                            {project.description.summary}
+                        </div>
+                    </div>
+                </div>
+                <div className={"information-container-reduce"}>
+                    <div className="project-information-card">
+                        Functional Requirements
+                        <div className="project-description-card">
+                            {project.description.functional_requirements}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -398,7 +455,8 @@ export default function ProjectScreen() {
                 {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
                     isFinishProject ? <CompleteProjectModal closeModal={closeModal} project={project}/> :
                         isDeleteProject ? <DeleteProjectModal closeModal={closeModal} project={project}/> :
-                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid} budget={project.tentative_budget}/>}
+                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}
+                                              budget={project.tentative_budget}/>}
             </Modal>
         )
     }
