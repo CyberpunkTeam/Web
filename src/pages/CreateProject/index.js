@@ -68,7 +68,7 @@ export default function CreateProjectScreen() {
 
     const [name, setName] = useState(state.project === undefined ? "" : state.project.name)
     const [description, setDescription] = useState(state.project === undefined ? "" : state.project.description.summary)
-    const [requirementsFunctional, setRequirementsFunctional] = useState(state.project === undefined ? "" : state.project.description.summary)
+    const [requirementsFunctional, setRequirementsFunctional] = useState(state.project === undefined ? "" : state.project.description.functional_requirements)
 
     const [estimatedBudget, setEstimatedBudget] = useState(state.project === undefined ? "0" : state.project.tentative_budget)
     const [coin, setCoin] = useState("DOLAR")
