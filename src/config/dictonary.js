@@ -257,3 +257,12 @@ export const MethodologiesOptions = [
     {'value': 'Adaptive Software Development', 'label': 'Adaptive Software Development'},
     {'value': 'BDD', 'label': 'BDD'}
 ]
+
+export const Requirements = [
+    {'value': 'Security', 'label': 'Security'},
+    {'value': 'Reliability', 'label': 'Reliability'},
+    {'value': 'Performance', 'label': 'Performance'},
+    {'value': 'Maintainability', 'label': 'Maintainability'},
+    {'value': 'Scalability', 'label': 'Scalability'},
+    {'value': 'Usability', 'label': 'Usability'}
+]

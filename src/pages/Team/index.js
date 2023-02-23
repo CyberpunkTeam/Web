@@ -23,6 +23,7 @@ import TeamInformationView from "../../components/TeamInformationView";
 import {modalStyle} from "../../styles/commonStyles";
 import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
+import CloudTag from "../../components/CloudTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -133,6 +134,9 @@ export default function TeamScreen() {
                         })}
                         {teamData.technologies.platforms.map((data) => {
                             return <PlatformTag key={data} platform={data}/>
+                        })}
+                        {teamData.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
                         })}
                     </div>
                     <div className="tags-container">

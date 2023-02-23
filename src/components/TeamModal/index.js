@@ -3,6 +3,7 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {
+    databasesOptions,
     frameworksOptionsData, MethodologiesOptions, optionsIdioms,
     optionsLanguages,
     optionsProjects,
@@ -10,6 +11,7 @@ import {
 } from "../../config/dictonary"
 import Select from "react-select";
 import {
+    selected4,
     selectedGreenStyle,
     selectedViolet,
     selectedViolet2,
@@ -42,21 +44,30 @@ export default function TeamModal(params) {
     }
 
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
-    const languagesValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.programming_language)
-    const preferencesValues = params.team === undefined ? [] : valuesSelected(params.team.project_preferences)
-    const methodologiesValues = params.team === undefined ? [] : valuesSelected(params.team.methodologies)
-    const idiomsValues = params.team === undefined ? [] : valuesSelected(params.team.idioms)
-    const frameworksValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.frameworks)
-    const platformsValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.platforms)
 
+    const [teamName, setTeamName] = useState(params.team !== undefined ? params.team.name : "");
+
+    const languagesValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.programming_language)
     const [languages, setLanguages] = useState(params.team !== undefined ? [...params.team.technologies.programming_language] : []);
+
+    const preferencesValues = params.team === undefined ? [] : valuesSelected(params.team.project_preferences)
     const [prefs, setPrefs] = useState(params.team !== undefined ? [...params.team.project_preferences] : []);
+
+    const methodologiesValues = params.team === undefined ? [] : valuesSelected(params.team.methodologies)
     const [methodologies, setMethodologies] = useState(params.team !== undefined ? [...params.team.methodologies] : [])
+
+    const idiomsValues = params.team === undefined ? [] : valuesSelected(params.team.idioms)
     const [idioms, setIdioms] = useState(params.team !== undefined ? [...params.team.idioms] : [])
+
+    const frameworksValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.frameworks)
     const [frameworks, setFrameworks] = useState(params.team !== undefined ? [...params.team.technologies.frameworks] : [])
-    const [platforms, setPlatforms] = useState(params.team !== undefined ? [...params.team.technologies.platforms] : [])
     const [frameworksOptions, setFrameworksOptions] = useState(params.team === undefined ? [] : getFrameworksOptions(params.team.technologies.programming_language));
+
+    const platformsValues = params.team === undefined ? [] : valuesSelected(params.team.technologies.platforms)
+    const [platforms, setPlatforms] = useState(params.team !== undefined ? [...params.team.technologies.platforms] : [])
+
+    const databasesDefault = params.team === undefined ? [] : valuesSelected(params.team.technologies.databases)
+    const [db, setDb] = useState(params.team === undefined ? [] : [...params.team.technologies.databases])
 
     const goBack = () => {
         if (params.team !== undefined) {
@@ -119,6 +130,14 @@ export default function TeamModal(params) {
         setIdioms(list)
     }
 
+    const setDBHandler = (event) => {
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setDb(list);
+    }
+
     const buttonOnClick = () => {
         if (params.team !== undefined) {
             return updateTeamButton()
@@ -133,7 +152,8 @@ export default function TeamModal(params) {
             technologies: {
                 programming_language: languages,
                 frameworks: frameworks,
-                platforms: platforms
+                platforms: platforms,
+                databases: db
             },
             methodologies: methodologies,
             idioms: idioms,
@@ -155,7 +175,8 @@ export default function TeamModal(params) {
             technologies: {
                 programming_language: languages,
                 frameworks: frameworks,
-                platforms: platforms
+                platforms: platforms,
+                databases: db
             },
             methodologies: methodologies,
             idioms: idioms,
@@ -265,6 +286,18 @@ export default function TeamModal(params) {
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                     styles={selectedViolet2}
+                                />
+                            </div>
+                        </label>
+                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                            Databases
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    defaultValue={databasesDefault}
+                                    options={databasesOptions}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                    styles={selected4}
                                 />
                             </div>
                         </label>
