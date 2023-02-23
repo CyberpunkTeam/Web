@@ -133,13 +133,13 @@ export default function EditProfileModal(params) {
             <div className="profile-photo-edit">
                 <div className="user-cover-edit-container">
                     <label className="custom-file-upload">
-                        <input type="file" onChange={handleChange}/>
+                        <input type="file" onChange={handleChange} accept="image/jpeg, image/png"/>
                         <GalleryImport size="24" color="#014751"/>
                     </label>
                     {image()}
                 </div>
                 <label className="custom-cover-file-upload">
-                    <input type="file" onChange={handleCoverChange}/>
+                    <input type="file" onChange={handleCoverChange} accept="image/jpeg, image/png"/>
                     <GalleryImport size="24" color="#014751"/>
                 </label>
                 {coverImage()}
@@ -272,7 +272,7 @@ export default function EditProfileModal(params) {
                         <input type="text" value={lastname} className="input" onChange={setLastnameHandler}/>
                     </div>
                 </label>
-                <label className={" "}>
+                <label className={"label"}>
                     Location
                     <div className="modal-form-input-select">
                         <Select

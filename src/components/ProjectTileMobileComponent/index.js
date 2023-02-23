@@ -6,9 +6,13 @@ import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import {formatter} from "../../utils/budgetFormatter";
 import {Bitcoin, Box1, ChartSquare, CpuSetting, Hex, Mobile, Monitor, Scroll} from "iconsax-react";
+import CloudTag from "../CloudTag";
+import {useContext} from "react";
+import AppContext from "../../utils/AppContext";
 
 export default function ProjectTileMobileComponent(params) {
     const data = params.data
+    let context = useContext(AppContext);
     const navigate = useNavigate();
     const projects_link = "/projects/" + data.pid
     const state = (data.state.slice(0,1) + data.state.slice(1,data.state.length).toLowerCase()).replace("_", " ")
@@ -65,6 +69,9 @@ export default function ProjectTileMobileComponent(params) {
                         {data.technologies.platforms.map((data) => {
                             return <PlatformTag key={data} platform={data}/>
                         })}
+                        {data.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
+                        })}
                     </div>
                     <div className="tags-project">
                         {data.idioms.map((preference) => {
@@ -74,7 +81,7 @@ export default function ProjectTileMobileComponent(params) {
                 </div>
             </div>
             <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
-                {data.description.summary.substring(0, 120)}
+                {data.description.summary.substring(0, context.size ? 140 : 320)}{data.description.summary.length > (context.size ? 140 : 320) ? "..." : null}
             </div>
         </div>
     )

@@ -17,3 +17,18 @@ export const savePhoto = async (app, file, name) => {
         return r
     })
 }
+
+export const saveFile = async (app, file, name) => {
+    if (!file) {
+        alert("Please choose a file first!")
+        return;
+    }
+
+    const storage = getStorage(app);
+
+    const storageRef = ref(storage, `/files/${name}`)
+    await uploadBytes(storageRef, file);
+    return getDownloadURL(storageRef).then((r) => {
+        return r
+    })
+}

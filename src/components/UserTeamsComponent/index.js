@@ -7,6 +7,7 @@ import TechnologyTag from "../TechnologyTag";
 import PreferenceTag from "../PreferenceTag";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
+import CloudTag from "../CloudTag";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
@@ -32,6 +33,9 @@ export default function UserTeamsComponent(params) {
                     {data.technologies.platforms.map((data) => {
                         return <PlatformTag key={data} platform={data}/>
                     })}
+                    {data.technologies.databases.map((data) => {
+                        return <CloudTag key={data} cloud={data}/>
+                    })}
                 </div>
                 <div className="teamTagContainer">
                     {data.project_preferences.map((data) => {
@@ -52,7 +56,8 @@ export default function UserTeamsComponent(params) {
         const team_link = "/team/" + data.tid;
 
         return (
-            <div key={data.tid} className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
+            <div key={data.tid}
+                 className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
                 <Link to={team_link} className="teamLinkName">
                     {data.name}
                 </Link>
@@ -80,7 +85,7 @@ export default function UserTeamsComponent(params) {
     }
 
     const addButton = () => {
-        if (params.userData.user.uid !== context.user.uid){
+        if (params.userData.user.uid !== context.user.uid) {
             return
         }
 
