@@ -6,7 +6,7 @@ export const savePhoto = async (app, file, name) => {
         alert("Please choose a file first!")
         return;
     }
-    file = await imageConversion.compressAccurately(file, 200);
+    file = await imageConversion.compressAccurately(file, 2000);
     file = await imageConversion.compress(file, 0.9);
 
     const storage = getStorage(app);

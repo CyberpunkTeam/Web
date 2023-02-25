@@ -38,7 +38,6 @@ export default function EditProfileModal(params) {
         setLastName(event.target.value);
     }
     const setCitySearchHandler = (value) => {
-        console.log(value)
         if (value === null) {
             setCity("")
             setCities([])
@@ -47,7 +46,6 @@ export default function EditProfileModal(params) {
         setCity(value.value)
     }
     const setSearchHandler = (value) => {
-        console.log(value)
         if (value.length >= 3) {
             setLoading(true);
             searchCity(value).then((response) => {
