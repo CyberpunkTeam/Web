@@ -12,35 +12,36 @@ export default function GoogleLoginButton(params) {
     const provider = new GoogleAuthProvider();
     const [loadingGoogle, setLoadingGoogle] = useState(false);
 
+    const login = (user) => {
+        getUser(user.uid).then((r) => {
+            if (Object.keys(r).length === 0) {
+                const userLogin = {
+                    'name': user.displayName.split(" ",)[0],
+                    "lastname": user.displayName.split(" ")[1],
+                    "email": user.email,
+                    "location": "",
+                    "uid": user.uid
+                }
+                createUser(userLogin).then((r) => {
+                    context.setUser(r);
+                    localStorage.setItem("user", JSON.stringify(r))
+                    navigate('/me')
+                    setLoadingGoogle(false)
+                })
+            } else {
+                context.setUser(r)
+                localStorage.setItem("user", JSON.stringify(r))
+                navigate("/me")
+                setLoadingGoogle(false)
+            }
+        })
+    }
+
     const loginGoogle = () => {
         setLoadingGoogle(true)
         signInWithPopup(context.auth, provider)
             .then((result) => {
-                const user = result.user;
-                getUser(user.uid).then((r) => {
-                    if (Object.keys(r).length === 0) {
-                        const userLogin = {
-                            'name': user.displayName.split(" ",)[0],
-                            "lastname": user.displayName.split(" ")[1],
-                            "email": user.email,
-                            "location": "",
-                            "uid": user.uid
-                        }
-                        createUser(userLogin).then((r) => {
-                            context.setUser(r);
-                            localStorage.setItem("user", JSON.stringify(r))
-                            navigate('/me')
-                            setLoadingGoogle(false)
-                        })
-
-                    } else {
-                        context.setUser(r)
-                        localStorage.setItem("user", JSON.stringify(r))
-                        navigate("/me")
-                        setLoadingGoogle(false)
-                    }
-                })
-
+                login(result.user);
             }).catch((error) => {
             console.log(error.code);
             console.log(error.message);
@@ -49,10 +50,10 @@ export default function GoogleLoginButton(params) {
 
     return (
         <button disabled={loadingGoogle}
-                className={loadingGoogle ? isMobile ? "loading-style-mobile" : "google-loading-style" : isMobile ? "button-style-mobile" : "google-button-style"}
+                className={loadingGoogle ? isMobile ? "google-loading-style-mobile" : "google-loading-style" : isMobile ? "google-button-style-mobile" : "google-button-style"}
                 onClick={loginGoogle}>
             {loadingGoogle ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                <Google size="20" variant={"Bold"} className="icon" color="#FAFAFA"/>}
+                <Google size={isMobile ? "48" : "20"} variant={"Bold"} className={isMobile ? "iconMobile" : "icon"} color="#FAFAFA"/>}
             {loadingGoogle ? "" : params.login ? "Sign In with Google" :"Join with Google"}
         </button>
     )
