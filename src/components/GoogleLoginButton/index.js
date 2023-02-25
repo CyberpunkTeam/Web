@@ -80,7 +80,7 @@ export default function GoogleLoginButton(params) {
     return (
         <button disabled={loadingGoogle}
                 className={loadingGoogle ? isMobile ? "google-loading-style-mobile" : "google-loading-style" : isMobile ? "google-button-style-mobile" : "google-button-style"}
-                onClick={isMobile ? loginGoogleMobile : loginGoogle}>
+                onClick={loginGoogle}>
             {loadingGoogle ? <i className="fa fa-circle-o-notch fa-spin"></i> :
                 <Google size={isMobile ? "48" : "20"} variant={"Bold"} className={isMobile ? "iconMobile" : "icon"}
                         color="#FAFAFA"/>}
