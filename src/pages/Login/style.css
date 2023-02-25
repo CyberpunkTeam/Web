@@ -70,10 +70,10 @@
 }
 
 .button-style-disabled-mobile {
-    width: 75%;
+    width: 100%;
     border-width: 0;
     border-radius: 20px;
-    height: 80px;
+    height: 120px;
     color: white;
     text-align: center;
     justify-content: center;
