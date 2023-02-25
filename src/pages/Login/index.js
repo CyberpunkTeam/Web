@@ -11,6 +11,7 @@ import Register from "../Register";
 import {createToken} from "../../services/authenticationService";
 import {updatePassword} from "../../services/recoveryService";
 import {isMobile} from "react-device-detect";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 function Login() {
     // eslint-disable-next-line
@@ -95,6 +96,7 @@ function Login() {
             setButtonDisabled(false)
         })
     }
+
     const getUserService = (userCredential) => {
         getUser(userCredential.user.uid).then((userdata => {
             if (Object.keys(userdata).length === 0) {
@@ -236,6 +238,7 @@ function Login() {
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                         {buttonDisabled ? "" : recoveryPasswordMode ? "Recovery" : "Sign In"}
                     </button>
+                    <GoogleLoginButton login={true}/>
                     {joinButton()}
                 </div>
             </div>
@@ -247,7 +250,6 @@ function Login() {
             <Register uid={uid} email={email}/>
         )
     }
-
 
     return (
         <div className="container">

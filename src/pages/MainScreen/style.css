@@ -208,7 +208,7 @@
 
 .button-style {
     width: 55%;
-    border-radius: 10px;
+    border-radius: 16px;
     text-decoration: inherit;
     display: flex;
     flex-direction: column;
@@ -221,6 +221,38 @@
     background: #014751;
     font-size: 16px;
     cursor: pointer;
+}
+
+.google-button-style {
+    margin-top: 8px;
+    width: 55%;
+    border-radius: 16px;
+    display: flex;
+    height: 40px;
+    color: #FAFAFA;
+    border: 0;
+    align-items: center;
+    justify-content: center;
+    background: #3c6fc5;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.google-loading-style {
+    margin-top: 8px;
+    width: 55%;
+    border-radius: 16px;
+    text-decoration: inherit;
+    display: flex;
+    height: 40px;
+    color: #FAFAFA;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: rgba(60, 111, 197, 0.5);
+    font-size: 16px;
 }
 
 .button-style-mobile {
@@ -245,7 +277,6 @@
     border-radius: 16px;
     text-decoration: inherit;
     display: flex;
-    flex-direction: column;
     height: 40px;
     color: white;
     border: 0;
@@ -331,7 +362,6 @@
 }
 
 .login-message-error-list {
-    height: 80px;
     font-family: "Inter", sans-serif;
     color: rgb(205, 91, 69);
     font-size: 14px;
