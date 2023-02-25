@@ -7,7 +7,7 @@ export const createUser = (body) => {
 }
 
 export const getUser = (uid) => {
-    return get(endpoint+ uid)
+    return get(endpoint + uid)
 }
 
 export const getProfile = (uid) => {

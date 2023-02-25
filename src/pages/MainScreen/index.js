@@ -1,13 +1,14 @@
+import './style.css';
 import {useContext, useState} from "react";
 import {createUserWithEmailAndPassword, sendEmailVerification} from "firebase/auth";
 import {Eye, EyeSlash} from "iconsax-react";
 import {Link} from "react-router-dom";
 
-import './style.css';
 import pana from "../../assests/pana.svg";
 import Logo from "../../components/logo";
 import AppContext from "../../utils/AppContext";
 import {BrowserView, isMobile, MobileView} from "react-device-detect";
+import GoogleLoginButton from "../../components/GoogleLoginButton";
 
 function MainScreen() {
     let context = useContext(AppContext);
@@ -97,7 +98,6 @@ function MainScreen() {
         }
     }
 
-
     const emailData = () => {
         return (
             <>
@@ -169,8 +169,10 @@ function MainScreen() {
                     <button disabled={loginError || loading}
                             className={loading ? isMobile ? "loading-style-mobile" : "loading-style" : isMobile ? "button-style-mobile" : "button-style"}
                             onClick={registerButton}>
-                        Join
+                        {loading ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {loading ? "" : "Join"}
                     </button>
+                    <GoogleLoginButton login={false}/>
                     {loginButton()}
                 </div>
             </>

@@ -208,7 +208,7 @@
 
 .button-style {
     width: 55%;
-    border-radius: 10px;
+    border-radius: 16px;
     text-decoration: inherit;
     display: flex;
     flex-direction: column;
@@ -221,6 +221,38 @@
     background: #014751;
     font-size: 16px;
     cursor: pointer;
+}
+
+.google-button-style {
+    margin-top: 8px;
+    width: 55%;
+    border-radius: 16px;
+    display: flex;
+    height: 40px;
+    color: #FAFAFA;
+    border: 0;
+    align-items: center;
+    justify-content: center;
+    background: #3c6fc5;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+.google-loading-style {
+    margin-top: 8px;
+    width: 55%;
+    border-radius: 16px;
+    text-decoration: inherit;
+    display: flex;
+    height: 40px;
+    color: #FAFAFA;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: rgba(60, 111, 197, 0.5);
+    font-size: 16px;
 }
 
 .button-style-mobile {
@@ -240,12 +272,28 @@
     cursor: pointer;
 }
 
+.google-button-style-mobile {
+    margin-top: 16px;
+    width: 100%;
+    border-radius: 32px;
+    text-decoration: inherit;
+    display: flex;
+    height: 120px;
+    color: white;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: #3c6fc5;
+    font-size: 36px;
+    cursor: pointer;
+}
+
 .loading-style {
     width: 55%;
     border-radius: 16px;
     text-decoration: inherit;
     display: flex;
-    flex-direction: column;
     height: 40px;
     color: white;
     border: 0;
@@ -257,18 +305,34 @@
 }
 
 .loading-style-mobile {
-    width: 75%;
-    border-radius: 20px;
+    width: 100%;
+    border-radius: 32px;
     text-decoration: inherit;
     display: flex;
     flex-direction: column;
-    height: 80px;
+    height: 120px;
     color: white;
     border: 0;
     align-items: center;
     text-align: center;
     justify-content: center;
     background: #D1D1D1;
+    font-size: 32px;
+}
+
+.google-loading-style-mobile {
+    margin-top: 16px;
+    width: 100%;
+    border-radius: 32px;
+    text-decoration: inherit;
+    display: flex;
+    height: 120px;
+    color: white;
+    border: 0;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background: rgba(60, 111, 197, 0.5);
     font-size: 32px;
 }
 
@@ -331,7 +395,6 @@
 }
 
 .login-message-error-list {
-    height: 80px;
     font-family: "Inter", sans-serif;
     color: rgb(205, 91, 69);
     font-size: 14px;
@@ -389,7 +452,7 @@
     border-radius: 32px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     width: 90%;
-    height: 1200px;
+    min-height: 1200px;
     background: #F1F1F1;
     display: flex;
     flex-direction: column;
