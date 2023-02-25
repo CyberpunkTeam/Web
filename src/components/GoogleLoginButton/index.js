@@ -12,7 +12,7 @@ export default function GoogleLoginButton(params) {
     const provider = new GoogleAuthProvider();
     const [loadingGoogle, setLoadingGoogle] = useState(false);
 
-    const loginGoogleMobile = () => {
+    /*const loginGoogleMobile = () => {
         setLoadingGoogle(true)
         signInWithRedirect(context.auth, provider)
         getRedirectResult(context.auth).then((result) => {
@@ -42,7 +42,7 @@ export default function GoogleLoginButton(params) {
                 console.log(error.code);
                 console.log(error.message);
             });
-    }
+    }*/
 
     const loginGoogle = () => {
         setLoadingGoogle(true)
