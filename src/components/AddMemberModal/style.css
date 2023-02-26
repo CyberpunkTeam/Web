@@ -59,6 +59,21 @@
     cursor: pointer;
 }
 
+.button-members-mobile {
+    border-width: 0;
+    color: #222222;
+    margin: 0 16px;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    font-size: 32px;
+    background: #E3E3E3;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
 .button-members-selected {
     margin: 0 8px;
     padding: 8px 16px;
@@ -70,6 +85,21 @@
     background: #2E9999FF;
     color: white;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.button-members-selected-mobile {
+    margin: 0 16px;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    border-width: 0;
+    background: #2E9999FF;
+    color: white;
+    font-size: 32px;
+    border-radius: 16px;
     cursor: pointer;
 }
 

@@ -126,6 +126,20 @@
     align-items: center;
     justify-content: center;
     align-self: center;
+    height: 80px;
+    width: 80px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 2px solid rgb(46, 153, 153);
+}
+
+.user-sidebar-mobile {
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
     height: 60px;
     width: 60px;
     border-radius: 100%;
