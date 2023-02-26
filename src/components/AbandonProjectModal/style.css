@@ -22,9 +22,21 @@
     justify-content: space-around;
 }
 
+.abandonModalWithoutOptionsMobile {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 300px;
+    width: 800px;
+    background: #FAFAFA;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .leave-project-button-style {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;
@@ -35,7 +47,7 @@
 
 .leave-project-button-style-disabled {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;

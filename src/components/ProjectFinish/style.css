@@ -17,7 +17,7 @@
     height: 40px;
     color: #F1F1F1;
     background: #CD5B45;
-    border-radius: 10px;
+    border-radius: 16px;
     border-width: 0;
 }
 .invitation {
@@ -33,7 +33,7 @@
     justify-content: center;
     align-items: center;
     margin-bottom: 16px;
-    border-radius: 10px;
+    border-radius: 16px;
     background: #F1F1F1;
     width: 100%;
 }

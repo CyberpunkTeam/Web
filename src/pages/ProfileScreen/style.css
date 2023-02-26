@@ -812,6 +812,16 @@
     align-self: center;
     padding-bottom: 20px;
 }
+.container-button-modal-mobile {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    color: #014751;
+    font-size: 12px;
+    align-items: center;
+    align-self: center;
+    padding-bottom: 20px;
+}
 
 .container-button-mobile {
     display: flex;
@@ -1010,6 +1020,17 @@
     cursor: pointer;
 }
 
+.cancel-edit-button-style-modal-mobile {
+    width: 49%;
+    border-radius: 16px;
+    height: 80px;
+    color: #014751;;
+    border: 4px solid rgba(1, 71, 81, 0.5);
+    background: #FAFAFA;
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .cancel-edit-button-style-mobile {
     width: 100%;
     border-radius: 32px;
@@ -1045,14 +1066,36 @@
     cursor: pointer;
 }
 
+.save-edit-button-style-mobile {
+    width: 49%;
+    border-radius: 32px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: #014751;
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .save-edit-button-style-red {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;
     background: #CD5B45;
     font-size: 16px;
+    cursor: pointer;
+}
+
+.save-edit-button-style-red-mobile {
+    width: 49%;
+    border-radius: 16px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: #CD5B45;
+    font-size: 32px;
     cursor: pointer;
 }
 
@@ -1067,14 +1110,36 @@
     cursor: pointer;
 }
 
+.save-edit-button-style-disabled-mobile {
+    width: 49%;
+    border-radius: 32px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .save-edit-button-style-disabled-red {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;
     background: rgba(205, 91, 69, 0.5);
     font-size: 16px;
+    cursor: pointer;
+}
+
+.save-edit-button-style-disabled-red-mobile {
+    width: 49%;
+    border-radius: 32px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: rgba(205, 91, 69, 0.5);
+    font-size: 32px;
     cursor: pointer;
 }
 

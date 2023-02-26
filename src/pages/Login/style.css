@@ -59,7 +59,7 @@
 .button-style-disabled {
     width: 55%;
     border-width: 0;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     text-align: center;
