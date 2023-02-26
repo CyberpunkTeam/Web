@@ -17,7 +17,7 @@ import {getTeamPostulations} from "../../services/projectService";
 import TeamProjectPostulations from "../../components/TeamProjectPostulations";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
-import {isMobile} from "react-device-detect";
+import {BrowserView, isMobile, MobileView} from "react-device-detect";
 import MembersPostulations from "../../components/MembersPostulations";
 import TeamInformationView from "../../components/TeamInformationView";
 import {modalStyle} from "../../styles/commonStyles";
@@ -105,6 +105,16 @@ export default function TeamScreen() {
     const editButton = () => {
         if (teamData.owner === context.user.uid) {
 
+            if (isMobile) {
+                return (
+                    <div className="cover-buttons">
+                        <div className="edit-button-mobile" onClick={editButtonNavigation}>
+                            <Edit size="48" color="#014751"/>
+                        </div>
+                    </div>
+                )
+            }
+
             return (
                 <div className="cover-buttons">
                     <div className="edit-button" onClick={editButtonNavigation}>
@@ -115,6 +125,61 @@ export default function TeamScreen() {
         }
     }
     const cover = () => {
+
+        if (isMobile) {
+            return (
+                <div className="team-cover-container-mobile">
+                    <div className="team-data-container-mobile">
+                        <div className="team-name-mobile">
+                            {teamData.name}
+                            <div className="team-rating-mobile">
+                                <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
+                                {teamData.overall_rating.toFixed(1)}
+                            </div>
+                        </div>
+                        <div className={"team-tags"}>
+                            <div className="tags-container">
+                                {teamData.technologies.programming_language.map((data) => {
+                                    return <TechnologyTag key={data} technology={data}/>
+                                })}
+                            </div>
+                            <div className="tags-container">
+                                {teamData.technologies.frameworks.map((data) => {
+                                    return <FrameworkTag key={data} framework={data}/>
+                                })}
+                            </div>
+                            <div className="tags-container">
+                                {teamData.technologies.platforms.map((data) => {
+                                    return <PlatformTag key={data} platform={data}/>
+                                })}
+                            </div>
+                            <div className="tags-container">
+                                {teamData.technologies.databases.map((data) => {
+                                    return <CloudTag key={data} cloud={data}/>
+                                })}
+                            </div>
+                            <div className="tags-container">
+                                {teamData.project_preferences.map((data) => {
+                                    return <PreferenceTag key={data} preference={data}/>
+                                })}
+                                {teamData.idioms.map((data) => {
+                                    return <PreferenceTag key={data} preference={data}/>
+                                })}
+                            </div>
+                            <div className="tags-container">
+                                {teamData.methodologies.map((data) => {
+                                    return <PreferenceTag key={data} preference={data}/>
+                                })}
+                            </div>
+                        </div>
+                        {editButton()}
+                    </div>
+                    <img src={IMAGE} className="team-image-container-mobile" alt=""/>
+                </div>
+            )
+        }
+
+
         return (
             <div className="cover-container">
                 <div className="team-data-container">
@@ -168,14 +233,31 @@ export default function TeamScreen() {
         const user_image = (data) => {
             if (data.profile_image === "default") {
                 return (
-                    <div className="member-photo">
-                        <User color="#FAFAFA" size="16px" variant="Bold"/>
+                    <div className={isMobile ? "member-photo-mobile": "member-photo"}>
+                        <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
                     </div>
                 )
             } else {
-                return <img src={data.profile_image} alt='' className="user-sidebar"/>
+                return <img src={data.profile_image} alt='' className={isMobile ? "user-sidebar-mobile" : "user-sidebar"}/>
             }
         }
+
+        if (isMobile) {
+            return (
+                <div key={data.uid} className="members-info-container-mobile">
+                    <div className="members-info-mobile">
+                        {user_image(data)}
+                        <div className="member-name-mobile" onClick={userNavigate}>
+                            {data.name} {data.lastname}
+                            <div className="owner-mobile">
+                                {data.uid === teamData.owner ? 'Owner' : ''}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
 
         return (
             <div key={data.uid} className="members-info-container">
@@ -263,14 +345,9 @@ export default function TeamScreen() {
         }
     }
 
-
-    if (teamData.tid === undefined) {
+    const browserView = () => {
         return (
-            <NotFound/>
-        )
-    } else {
-        return (
-            <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
+            <div className={"team-screen"}>
                 <div className="team-container">
                     <TeamInvitation tid={teamData.tid} owner={teamData.members[0]}/>
                     {cover()}
@@ -298,6 +375,55 @@ export default function TeamScreen() {
                 <SearchBar/>
                 <SideBar/>
             </div>
+        )
+    }
+
+    const mobileView = () => {
+        return (
+            <div className={"profile-screen-mobile"}>
+                <div className="team-container">
+                    {cover()}
+                </div>
+                <div className="profile-data-container">
+                    <div className="members-container">
+                        {teamData.members.map((data) => {
+                                return member(data)
+                            }
+                        )}
+                    </div>
+                </div>
+                <div className="tagsFilterContainer">
+                    <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                        setTagSelect("info")
+                    }}>
+                        Information
+                    </div>
+                    {membersTag()}
+                    {postulationsTag()}
+                </div>
+                {tagsInfo()}
+                {modal()}
+                <SearchBar/>
+                <SideBar/>
+            </div>
+        )
+    }
+
+
+    if (teamData.tid === undefined) {
+        return (
+            <NotFound/>
+        )
+    } else {
+        return (
+            <>
+                <BrowserView>
+                    {browserView()}
+                </BrowserView>
+                <MobileView>
+                    {mobileView()}
+                </MobileView>
+            </>
         )
     }
 }
