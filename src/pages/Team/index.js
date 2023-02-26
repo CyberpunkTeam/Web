@@ -125,30 +125,32 @@ export default function TeamScreen() {
                             {teamData.overall_rating.toFixed(1)}
                         </div>
                     </div>
-                    <div className="tags-container">
-                        {teamData.technologies.programming_language.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                        {teamData.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                        {teamData.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                        {teamData.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    <div className="tags-container">
-                        {teamData.project_preferences.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                        {teamData.idioms.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                        {teamData.methodologies.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
+                    <div className={"team-tags"}>
+                        <div className="tags-container">
+                            {teamData.technologies.programming_language.map((data) => {
+                                return <TechnologyTag key={data} technology={data}/>
+                            })}
+                            {teamData.technologies.frameworks.map((data) => {
+                                return <FrameworkTag key={data} framework={data}/>
+                            })}
+                            {teamData.technologies.platforms.map((data) => {
+                                return <PlatformTag key={data} platform={data}/>
+                            })}
+                            {teamData.technologies.databases.map((data) => {
+                                return <CloudTag key={data} cloud={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {teamData.project_preferences.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                            {teamData.idioms.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                            {teamData.methodologies.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                        </div>
                     </div>
                     {editButton()}
                 </div>

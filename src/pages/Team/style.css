@@ -69,6 +69,11 @@
     font-size: 28px;
 }
 
+.team-tags {
+    width: 100%;
+    overflow-x: auto;
+}
+
 .team-rating {
     color: white;
     padding-left: 24px;
@@ -87,7 +92,7 @@
 
 .tags-container {
     display: flex;
-    padding: 0px 40px 16px 40px;
+    padding: 0 40px 16px 40px;
 }
 
 .members-info-container {
