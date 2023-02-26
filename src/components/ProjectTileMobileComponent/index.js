@@ -15,7 +15,7 @@ export default function ProjectTileMobileComponent(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const projects_link = "/projects/" + data.pid
-    const state = (data.state.slice(0,1) + data.state.slice(1,data.state.length).toLowerCase()).replace("_", " ")
+    const state = (data.state.slice(0, 1) + data.state.slice(1, data.state.length).toLowerCase()).replace("_", " ")
     const goTo = () => {
         navigate(projects_link)
     }
@@ -41,6 +41,66 @@ export default function ProjectTileMobileComponent(params) {
         }
     }
 
+    const tags = () => {
+        if (isMobile) {
+            return (
+                <div className={"tags-container-tile"}>
+                    <div className="tags-project">
+                        {data.technologies.programming_language.map((technology) => {
+                            return <TechnologyTag key={technology} technology={technology}/>
+                        })}
+                    </div>
+                    <div className="tags-project">
+                        {data.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data} framework={data}/>
+                        })}
+                    </div>
+                    <div className="tags-project">
+                        {data.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data} platform={data}/>
+                        })}
+                    </div>
+                    <div className="tags-project">
+                        {data.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
+                        })}
+                    </div>
+                    <div className="tags-project">
+                        {data.idioms.map((preference) => {
+                            return <PreferenceTag key={preference} preference={preference}/>
+                        })}
+                    </div>
+                </div>
+            )
+        }
+        return (
+            <div className={"tags-container-tile"}>
+                <div className="tags-project">
+                    {data.technologies.programming_language.map((technology) => {
+                        return <TechnologyTag key={technology} technology={technology}/>
+                    })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                </div>
+                <div className="tags-project">
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
+                    })}
+                    {data.technologies.databases.map((data) => {
+                        return <CloudTag key={data} cloud={data}/>
+                    })}
+                </div>
+                <div className="tags-project">
+                    {data.idioms.map((preference) => {
+                        return <PreferenceTag key={preference} preference={preference}/>
+                    })}
+                </div>
+            </div>
+        )
+    }
+
+
     return (
         <div>
             <div className={isMobile ? "coverProjectMobile" : "coverProject"} onClick={goTo}>
@@ -56,29 +116,7 @@ export default function ProjectTileMobileComponent(params) {
                         </div>
                     </div>
                 </div>
-                <div className={"tags-container-tile"}>
-                    <div className="tags-project">
-                        {data.technologies.programming_language.map((technology) => {
-                            return <TechnologyTag key={technology} technology={technology}/>
-                        })}
-                        {data.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                        {data.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.idioms.map((preference) => {
-                            return <PreferenceTag key={preference} preference={preference}/>
-                        })}
-                    </div>
-                </div>
+                {tags()}
             </div>
             <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
                 {data.description.summary.substring(0, context.size ? 140 : 320)}{data.description.summary.length > (context.size ? 140 : 320) ? "..." : null}

@@ -3,7 +3,7 @@ import {isMobile} from "react-device-detect";
 import {LampCharge} from "iconsax-react";
 import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
-import TeamProjectTileComponent from "../TeamProjectTileComponent";
+import ProjectTileMobileComponent from "../ProjectTileMobileComponent";
 
 export default function TeamProjectInProgress(params) {
     let context = useContext(AppContext);
@@ -20,12 +20,15 @@ export default function TeamProjectInProgress(params) {
                     </div>
                 </div>
             </div>
-            {params.projects.map((value) => {
-                if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
-                    return <TeamProjectTileComponent key={value} data={value}/>
-                }
-                return null
-            })}
+            <div className={"projects"}>
+                {params.projects.map((value) => {
+                    value.project.tentative_budget = value.estimated_budget
+                    if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
+                        return <ProjectTileMobileComponent key={value} data={value.project}/>
+                    }
+                    return null
+                })}
+            </div>
         </div>
     )
 
