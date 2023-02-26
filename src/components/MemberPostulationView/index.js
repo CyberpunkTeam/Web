@@ -149,7 +149,7 @@ export default function MemberPostulationView(params) {
             )
         } else {
             return (
-                <CloseCircle className={"button"} size={isMobile ? 80 : 48} color="#CD5B45" variant="Bold" onClick={reject}/>
+                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold" onClick={reject}/>
             )
         }
     }
@@ -170,7 +170,7 @@ export default function MemberPostulationView(params) {
             )
         } else {
             return (
-                <TickCircle size={isMobile ? 80 : 48} className={"button"} color="#014751" variant="Bold" onClick={accept}/>
+                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold" onClick={accept}/>
             )
         }
     }
