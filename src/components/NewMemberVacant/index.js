@@ -215,12 +215,12 @@ export default function NewMemberVacant(params) {
                     {basicInformation()}
                     {skillsColumn()}
                 </div>
-                <div className={context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
-                    <button className="cancel-edit-button-style" onClick={goBack}>
+                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
                         Cancel
                     </button>
                     <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
                             onClick={createVacant}
                     >
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}

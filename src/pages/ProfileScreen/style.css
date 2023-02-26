@@ -1001,12 +1001,24 @@
 
 .cancel-edit-button-style {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: #014751;;
     border: 2px solid rgba(1, 71, 81, 0.5);
     background: #FAFAFA;
     font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-edit-button-style-mobile {
+    width: 100%;
+    border-radius: 32px;
+    height: 120px;
+    color: #014751;;
+    border: 4px solid rgba(1, 71, 81, 0.5);
+    background: #FAFAFA;
+    font-size: 32px;
+    margin-bottom: 32px;
     cursor: pointer;
 }
 
@@ -1024,7 +1036,7 @@
 
 .save-edit-button-style {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;
@@ -1046,7 +1058,7 @@
 
 .save-edit-button-style-disabled {
     width: 49%;
-    border-radius: 10px;
+    border-radius: 16px;
     height: 40px;
     color: white;
     border: 0;

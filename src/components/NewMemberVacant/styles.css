@@ -62,6 +62,17 @@
     padding-top: 16px;
 }
 
+.new-vacant-button-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    color: #014751;
+    font-size: 32px;
+    align-items: center;
+    padding-top: 32px;
+}
+
 .text-area-label-vacant{
     align-self: center;
     width: 70%;
