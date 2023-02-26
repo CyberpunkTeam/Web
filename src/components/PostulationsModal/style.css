@@ -137,6 +137,12 @@
     align-items: center;
 }
 
+.postulations-buttons-container-mobile {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .button:hover {
     cursor: pointer;
 }
@@ -153,10 +159,34 @@
     color: white;
 }
 
+.loading-button-mobile {
+    margin: 4px;
+    height: 72px;
+    width: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(1, 71, 81, 0.5);
+    color: white;
+}
+
 .loading-button-reject {
     margin: 4px;
     height: 40px;
     width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(205, 91, 69, 0.5);
+    color: white;
+}
+
+.loading-button-reject-mobile {
+    margin: 4px;
+    height: 72px;
+    width: 72px;
     display: flex;
     align-items: center;
     justify-content: center;

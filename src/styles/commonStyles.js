@@ -784,3 +784,69 @@ export const selectedDb = {
         },
     })
 }
+
+export const selectPref = {
+    control: () => ({
+        fontFamily: "Inter",
+        display: "flex",
+        minHeight: "100px",
+        padding: "16px",
+        fontSize: "32px",
+        borderRadius: "45px",
+        background: "#E3E3E3",
+        border: "none"
+    }),
+    menu: (style) => ({
+        ...style,
+        fontFamily: "Inter",
+        padding: " 0 24px",
+        fontSize: "32px",
+        maxHeight: "300px",
+        borderRadius: "45px",
+        background: "#FAFAFA"
+    }),
+    menuList: base => ({
+        ...base,
+        fontSize: "32px",
+        maxHeight: "300px" // your desired height
+    }),
+    option: (style, {isSelected}) => ({
+        ...style,
+        fontFamily: "Inter",
+        color: "#222222",
+        borderRadius: "16px",
+        fontSize: "40px",
+        overflow: "hidden",
+        backgroundColor: isSelected ? "rgba(8,155,173,0.2)" : undefined,
+        ":hover": {
+            background: "rgba(8,155,173,0.2)"
+        }
+    }),
+    multiValueLabel: () => ({
+            fontFamily: "Inter",
+            background: "#089BAD",
+            color: "#FAFAFA",
+            padding: "8px 0 8px 16px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderTopLeftRadius: "16px",
+            borderBottomLeftRadius: "16px"
+        }
+    ),
+    multiValueRemove: (theme, state) => ({
+        fontFamily: "Inter",
+        background: "#089BAD",
+        color: "#FAFAFA",
+        display: "flex",
+        padding: "16px",
+        alignItems: "center",
+        justifyContent: "center",
+        borderTopRightRadius: "16px",
+        borderBottomRightRadius: "16px",
+        cursor: "pointer",
+        ':hover': {
+            backgroundColor: "#CD5B45"
+        },
+    })
+}
