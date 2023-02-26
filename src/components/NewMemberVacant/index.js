@@ -11,8 +11,8 @@ import {
     platformsOptions
 } from "../../config/dictonary";
 import {
-    selected4,
-    selectedColor5,
+    selected4, selectedCloud,
+    selectedColor5, selectedDb, selectedFrameworks, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
     selectedViolet3,
@@ -108,11 +108,11 @@ export default function NewMemberVacant(params) {
 
     const basicInformation = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
-                            className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Title
                             <div className="create-project-input">
                                 <input type="text"
@@ -121,9 +121,9 @@ export default function NewMemberVacant(params) {
                                        onChange={setVacantHandler}/>
                             </div>
                         </label>
-                        <div className={context.size ? "text-area-label-vacant-reduced" : "text-area-label-vacant"}>
+                        <div className={isMobile ? "text-area-label-vacant-mobile" : context.size ? "text-area-label-vacant-reduced" : "text-area-label-vacant"}>
                             Description
-                            <textarea className="new-vacant-textarea" value={description}
+                            <textarea className={isMobile ? "new-vacant-textarea-mobile" : "new-vacant-textarea"} value={description}
                                       onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="18"/>
@@ -136,61 +136,66 @@ export default function NewMemberVacant(params) {
 
     const skillsColumn = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Programming Languages
-                            <div className="modal-form-input-select">
+                            <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
                                     options={optionsLanguages}
                                     onChange={(choice) => setLanguageHandler(choice)}
-                                    styles={selectedViolet}
+                                    styles={isMobile ? selectedLanguages : selectedViolet}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Frameworks
-                            <div className="modal-form-input-select">
+                            <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
                                     options={frameworksOptionsDataAll}
                                     onChange={(choice) => setFrameworksHandler(choice)}
-                                    styles={selectedViolet3}
+                                    styles={isMobile ? selectedFrameworks :selectedViolet3}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Platforms
-                            <div className="modal-form-input-select">
+                            <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
-                                    styles={selectedViolet2}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Cloud Providers
-                            <div className="modal-form-input-select">
+                            <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
                                     options={CloudOptions}
                                     onChange={(choice) => setCloudHandler(choice)}
-                                    styles={selected4}
+                                    styles={isMobile ? selectedCloud : selected4}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Databases
-                            <div className="modal-form-input-select">
+                            <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
                                     options={databasesOptions}
                                     onChange={(choice) => setDBHandler(choice)}
-                                    styles={selectedColor5}
+                                    styles={isMobile ? selectedDb : selectedColor5}
                                 />
                             </div>
                         </label>
@@ -202,20 +207,20 @@ export default function NewMemberVacant(params) {
 
     return (
         <div className="projects-screen">
-            <div className="create-projects-header">
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 New Opportunity
             </div>
             <div>
-                <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
+                <div className={isMobile || context.size ? "projects-cards-reduced" : "projects-cards"}>
                     {basicInformation()}
                     {skillsColumn()}
                 </div>
-                <div className={context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
-                    <button className="cancel-edit-button-style" onClick={goBack}>
+                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
                         Cancel
                     </button>
                     <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "save-edit-button-style-disabled" : "save-edit-button-style"}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
                             onClick={createVacant}
                     >
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}

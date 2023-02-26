@@ -3,16 +3,16 @@ import {isMobile} from "react-device-detect";
 import {LampCharge} from "iconsax-react";
 import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
-import TeamProjectTileComponent from "../TeamProjectTileComponent";
+import ProjectTileMobileComponent from "../ProjectTileMobileComponent";
 
 export default function TeamProjectInProgress(params) {
     let context = useContext(AppContext);
 
     return (
         <div
-            className={context.size ? "teamProjectsInProgressInfoContainerReduced" : "teamProjectsInProgressInfoContainer"}>
+            className={isMobile || context.size ? "teamProjectsInProgressInfoContainerReduced" : "teamProjectsInProgressInfoContainer"}>
             <div
-                className={context.size ? "teamProjectsInProgressContainerReduced" : "teamProjectsInProgressContainer"}>
+                className={isMobile ? "teamProjectsInProgressContainerMobile" : context.size ? "teamProjectsInProgressContainerReduced" : "teamProjectsInProgressContainer"}>
                 <div className={"teamInformationTitleContainer"}>
                     <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
                         <LampCharge size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>
@@ -20,12 +20,15 @@ export default function TeamProjectInProgress(params) {
                     </div>
                 </div>
             </div>
-            {params.projects.map((value) => {
-                if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
-                    return <TeamProjectTileComponent key={value} data={value}/>
-                }
-                return null
-            })}
+            <div className={"projects"}>
+                {params.projects.map((value) => {
+                    value.project.tentative_budget = value.estimated_budget
+                    if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
+                        return <ProjectTileMobileComponent key={value} data={value.project}/>
+                    }
+                    return null
+                })}
+            </div>
         </div>
     )
 

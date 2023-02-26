@@ -1,6 +1,7 @@
 import './style.css'
 import {useState} from "react";
 import TeamPostulationView from "../TeamPostulationView";
+import {isMobile} from "react-device-detect";
 
 export default function TeamProjectPostulations(params) {
     const postulations = params.postulations
@@ -8,15 +9,15 @@ export default function TeamProjectPostulations(params) {
 
     const filters = () => {
         return (
-            <div className="filterButtonsContainer">
+            <div className={isMobile ? "filterButtonsContainerMobile" : "filterButtonsContainer"}>
                 <div className="filtersButtons">
-                    <button className={filter === "PENDING" ? "button-members-selected" : "button-members"}
+                    <button className={filter === "PENDING" ? isMobile ? "button-members-selected-mobile" : "button-members-selected" : isMobile ? "button-members-mobile" : "button-members"}
                             onClick={() => {
                                 setFilter("PENDING")
                             }}>
                         Pending
                     </button>
-                    <button className={filter === "PENDING" ? "button-members" : "button-members-selected"}
+                    <button className={filter === "REJECTED" ? isMobile ? "button-members-selected-mobile" : "button-members-selected" : isMobile ? "button-members-mobile" : "button-members"}
                             onClick={() => {
                                 setFilter("REJECTED")
                             }}>
