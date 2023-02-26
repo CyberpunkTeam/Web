@@ -1066,6 +1066,17 @@
     cursor: pointer;
 }
 
+.save-edit-button-style-mobile {
+    width: 49%;
+    border-radius: 32px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: #014751;
+    font-size: 32px;
+    cursor: pointer;
+}
+
 .save-edit-button-style-red {
     width: 49%;
     border-radius: 16px;
@@ -1096,6 +1107,17 @@
     border: 0;
     background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
+    cursor: pointer;
+}
+
+.save-edit-button-style-disabled-mobile {
+    width: 49%;
+    border-radius: 32px;
+    height: 80px;
+    color: white;
+    border: 0;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 32px;
     cursor: pointer;
 }
 
