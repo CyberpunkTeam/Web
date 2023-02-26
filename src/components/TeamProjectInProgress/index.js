@@ -10,9 +10,9 @@ export default function TeamProjectInProgress(params) {
 
     return (
         <div
-            className={context.size ? "teamProjectsInProgressInfoContainerReduced" : "teamProjectsInProgressInfoContainer"}>
+            className={isMobile || context.size ? "teamProjectsInProgressInfoContainerReduced" : "teamProjectsInProgressInfoContainer"}>
             <div
-                className={context.size ? "teamProjectsInProgressContainerReduced" : "teamProjectsInProgressContainer"}>
+                className={isMobile ? "teamProjectsInProgressContainerMobile" : context.size ? "teamProjectsInProgressContainerReduced" : "teamProjectsInProgressContainer"}>
                 <div className={"teamInformationTitleContainer"}>
                     <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
                         <LampCharge size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>

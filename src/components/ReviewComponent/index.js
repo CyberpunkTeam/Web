@@ -57,7 +57,7 @@ export default function ReviewComponent(params) {
 
     if (params.reviews.length === 0) {
         return (
-            <div className={context.size ? "teamWithoutReviewsContainerReduced" : "teamWithoutReviewsContainer"}>
+            <div className={isMobile ? "teamWithoutReviewsContainerMobile" : context.size ? "teamWithoutReviewsContainerReduced" : "teamWithoutReviewsContainer"}>
                 <div className={isMobile ? "user-info-mobile" : "user-info"}>
                     <div className={isMobile ? "data-title-mobile" : "data-title"}>
                         <Ranking size={isMobile ? "80" : "32"} color="#014751" className="icon"/>

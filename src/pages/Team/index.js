@@ -311,7 +311,7 @@ export default function TeamScreen() {
     const postulationsTag = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <div className={tagSelect === "projects" ? "tagSelectorSelect" : "tagSelector"}
+                <div className={tagSelect === "projects" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
                      onClick={() => {
                          setTagSelect("projects")
                      }}>
@@ -324,7 +324,7 @@ export default function TeamScreen() {
     const membersTag = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                <div className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
                      onClick={() => {
                          setTagSelect("members")
                      }}>
@@ -335,7 +335,7 @@ export default function TeamScreen() {
 
         if (!membersList.includes(context.user.uid)) {
             return (
-                <div className={tagSelect === "members" ? "tagSelectorSelect" : "tagSelector"}
+                <div className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
                      onClick={() => {
                          setTagSelect("members")
                      }}>
@@ -393,7 +393,7 @@ export default function TeamScreen() {
                     </div>
                 </div>
                 <div className="tagsFilterContainer">
-                    <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
+                    <div className={tagSelect === "info" ? "tagSelectorSelectMobile" : "tagSelectorMobile"} onClick={() => {
                         setTagSelect("info")
                     }}>
                         Information
