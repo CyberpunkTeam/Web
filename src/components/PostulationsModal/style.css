@@ -161,8 +161,8 @@
 
 .loading-button-mobile {
     margin: 4px;
-    height: 72px;
-    width: 72px;
+    height: 122px;
+    width: 122px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -185,8 +185,8 @@
 
 .loading-button-reject-mobile {
     margin: 4px;
-    height: 72px;
-    width: 72px;
+    height: 122px;
+    width: 122px;
     display: flex;
     align-items: center;
     justify-content: center;
