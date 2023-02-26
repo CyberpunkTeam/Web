@@ -257,6 +257,15 @@
     align-items: center;
 }
 
+.applicationsUserInformationMobile {
+    height: 70%;
+    font-size: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 .applicationsUserImage {
     background: #0F2830;
     display: flex;
@@ -265,6 +274,20 @@
     align-self: center;
     height: 72px;
     width: 72px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 2px solid rgb(46, 153, 153);
+}
+
+.applicationsUserImageMobile {
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 120px;
+    width: 120px;
     border-radius: 100%;
     overflow: hidden;
     object-fit: cover;

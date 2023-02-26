@@ -143,13 +143,13 @@ export default function MemberPostulationView(params) {
 
         if (loading) {
             return (
-                <div className="loading-button-reject">
+                <div className={isMobile ? "loading-button-reject-mobile" : "loading-button-reject"}>
                     <i className="fa fa-circle-o-notch fa-spin"></i>
                 </div>
             )
         } else {
             return (
-                <CloseCircle className={"button"} size="48px" color="#CD5B45" variant="Bold" onClick={reject}/>
+                <CloseCircle className={"button"} size={isMobile ? 80 : 48} color="#CD5B45" variant="Bold" onClick={reject}/>
             )
         }
     }
@@ -164,13 +164,13 @@ export default function MemberPostulationView(params) {
         }
         if (loading) {
             return (
-                <div className="loading-button">
+                <div className={isMobile ? "loading-button-mobile" : "loading-button"}>
                     <i className="fa fa-circle-o-notch fa-spin"></i>
                 </div>
             )
         } else {
             return (
-                <TickCircle size="48" className={"button"} color="#014751" variant="Bold" onClick={accept}/>
+                <TickCircle size={isMobile ? 80 : 48} className={"button"} color="#014751" variant="Bold" onClick={accept}/>
             )
         }
     }
@@ -178,12 +178,12 @@ export default function MemberPostulationView(params) {
     const userImage = (data) => {
         if (data.profile_image === "default") {
             return (
-                <div className="applicationsUserImage">
+                <div className={isMobile ? "applicationsUserImageMobile" : "applicationsUserImage"}>
                     <User color="#FAFAFA" size="30" variant="Bold"/>
                 </div>
             )
         } else {
-            return <img src={data.profile_image} alt='' className="applicationsUserImage"/>
+            return <img src={data.profile_image} alt='' className={isMobile ? "applicationsUserImageMobile" : "applicationsUserImage"}/>
         }
     }
 
@@ -211,23 +211,23 @@ export default function MemberPostulationView(params) {
         return (
             <div className="applications">
                 <ArrowCircleLeft
-                    size="24"
+                    size={isMobile ? "48" :  "24"}
                     className={"button"}
                     onClick={back}
                     color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
                 />
                 <div className={"applicationsInformation"}>
-                    <div className={"applicationsUserInformation"}>
+                    <div className={isMobile ? "applicationsUserInformationMobile" : "applicationsUserInformation"}>
                         {userImage(params.data.candidates[index])}
                         {params.data.candidates[index].name} {params.data.candidates[index].lastname}
                     </div>
-                    <div className="postulations-buttons-container">
+                    <div className={isMobile ? "postulations-buttons-container-mobile" : "postulations-buttons-container"}>
                         {rejectButton()}
                         {acceptButton()}
                     </div>
                 </div>
                 <ArrowCircleRight
-                    size="24"
+                    size={isMobile ? "48" :  "24"}
                     className={"button"}
                     onClick={next}
                     color={params.data.candidates.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
