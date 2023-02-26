@@ -1,7 +1,7 @@
 import {isMobile} from "react-device-detect";
 import {Google} from "iconsax-react";
 import {useContext, useState} from "react";
-import {signInWithPopup, GoogleAuthProvider, signInWithRedirect, getRedirectResult} from "firebase/auth";
+import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {createUser, getUser} from "../../services/userService";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
