@@ -2,6 +2,7 @@ import {CloseCircle} from "iconsax-react";
 import {useContext, useState} from "react";
 import {teamPostulate} from "../../services/teamService";
 import AppContext from "../../utils/AppContext";
+import {isMobile} from "react-device-detect";
 
 export function PostulateInTeamModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -16,7 +17,7 @@ export function PostulateInTeamModal(params) {
     }
 
     return (
-        <div className={"abandonModalWithoutOptions"}>
+        <div className={isMobile ? "abandonModalWithoutOptionsMobile" : "abandonModalWithoutOptions"}>
             <div className="form-text-modal">
                 Are you sure you want to apply for this team's position?
             </div>

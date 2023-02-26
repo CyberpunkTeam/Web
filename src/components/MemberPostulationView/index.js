@@ -102,15 +102,15 @@ export default function MemberPostulationView(params) {
 
         return (
             <div key={params.data.tpid} className="vacantPostulationContainer">
-                <div className={isMobile || context.size ? "vacantDataMobile" : "vacantData"}>
+                <div className={isMobile ?  "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
                     <div className={isMobile || context.size ? "vacantInfoContainerReduced" : "vacantInfoContainer"}>
-                        <div className="vacantPostulationsTitle">
+                        <div className={isMobile ? "vacantTitleMobile" : "vacantTitle"}>
                             {params.data.title}
                         </div>
                         {requirements()}
-                        <div className="vacantDescription">
+                        <div className={isMobile ? "vacantDescriptionMobile" : "vacantDescription"}>
                             Description
-                            <div className="vacantPostulationDescription">
+                            <div className={isMobile ?  "descriptionApplicationMobile" : "descriptionApplication"}>
                                 {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
                                 {showMore || params.data.description.length < 600 ? "" : "..."}
                             </div>
@@ -120,8 +120,8 @@ export default function MemberPostulationView(params) {
                             </div>
                         </div>
                     </div>
-                    <button className="postulateVacantButton" onClick={openModalPostulations}>
-                        <UserCirlceAdd color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                    <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"} onClick={openModalPostulations}>
+                        <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
                         Postulate
                     </button>
                 </div>
@@ -190,7 +190,7 @@ export default function MemberPostulationView(params) {
     const applications = () => {
         if (params.data.candidates.length === 0) {
             return (
-                <div className={"withoutApplications"}>
+                <div className={isMobile ? "withoutApplicationsMobile" : "withoutApplications"}>
                     No Applications
                 </div>
             )
@@ -238,15 +238,15 @@ export default function MemberPostulationView(params) {
 
     return (
         <div key={params.data.tpid} className="teamPostulationContainer">
-            <div className={context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
-                <div className={context.size ? "vacantInfoReduce" : "vacantInfo"}>
-                    <div className="vacantTitle">
+            <div className={isMobile ? "teamPostulationInfoMobile" : context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
+                <div className={isMobile ? "vacantInfoMobile" : context.size  ? "vacantInfoReduce" : "vacantInfo"}>
+                    <div className={isMobile ? "vacantTitleMobile" : "vacantTitle"}>
                         {params.data.title}
                     </div>
                     {requirements()}
-                    <div className="vacantDescription">
+                    <div className={isMobile ? "vacantDescriptionMobile" : "vacantDescription"}>
                         Description
-                        <div className="descriptionApplication">
+                        <div className={isMobile ?  "descriptionApplicationMobile" : "descriptionApplication"}>
                             {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
                             {showMore || params.data.description.length < 600 ? "" : "..."}
                         </div>
@@ -255,11 +255,11 @@ export default function MemberPostulationView(params) {
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
-                    <button className="deleteVacantButton" onClick={openModal}>
-                        <Trash color="#FAFAFA" variant="Bold" size={24}/>
+                    <button className={isMobile ? "deleteVacantButtonMobile" : "deleteVacantButton"} onClick={openModal}>
+                        <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24}/>
                     </button>
                 </div>
-                <div className={context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
+                <div className={isMobile ? "vacantDescriptionContainerMobile" : context.size  ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
                     {applications()}
                 </div>
             </div>
