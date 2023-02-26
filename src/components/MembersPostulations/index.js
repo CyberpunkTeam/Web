@@ -79,7 +79,7 @@ export default function MembersPostulations(params) {
     return (
         <div className="profile-data-container">
             <div className={"user-team-container"}>
-                {isMobile ? null : addButton()}
+                {addButton()}
                 {showPostulations()}
             </div>
         </div>

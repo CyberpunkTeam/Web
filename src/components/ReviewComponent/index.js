@@ -48,7 +48,7 @@ export default function ReviewComponent(params) {
                     {data.project.name}
                 </Link>
                 <div className={isMobile ? "reviewRatingMobile" : "reviewRatingInfo"}>
-                    <Star1 size="20" color="#ECA95A" variant="Linear" className={"star"}/>
+                    <Star1 size={isMobile ? "40" : "20"} color="#ECA95A" variant="Linear" className={"star"}/>
                     {data.rating}
                 </div>
             </div>
@@ -73,9 +73,13 @@ export default function ReviewComponent(params) {
             <div className={length === 1 ? "user-info-container-mobile-condensed" : "user-info-container-mobile"}>
                 <div className="user-info-mobile">
                     <div className="data-title-mobile">
-                        <Ranking size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                        <Ranking size="80" color="#014751" className="icon"/>
                         Reviews
                     </div>
+                    {params.reviews.slice(0, length).map((data) => {
+                        return reviewView(data)
+                    })}
+                    {viewMore()}
                 </div>
             </div>
         )

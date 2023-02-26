@@ -774,6 +774,12 @@
     margin-top: 8px;
 }
 
+.modal-form-input-select-mobile {
+    font-family: "Inter", sans-serif;
+    padding-bottom: 20px;
+    margin-top: 24px;
+}
+
 .modal-form-input-double {
     font-family: "Inter", sans-serif;
     position: relative;

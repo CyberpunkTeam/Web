@@ -28,6 +28,19 @@
     padding: 8px;
 }
 
+.new-vacant-textarea-mobile {
+    border-radius: 32px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    background: #E3E3E3;
+    resize: none;
+    margin-top: 8px;
+    font-family: "Inter", sans-serif;
+    outline: none;
+    font-size: 24px;
+    padding: 16px;
+}
+
 .new-vacant-button {
     display: flex;
     justify-content: space-between;
@@ -64,6 +77,16 @@
     width: 80%;
     font-weight: 400;
     font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    color: #222222;
+}
+
+.text-area-label-vacant-mobile{
+    align-self: center;
+    width: 90%;
+    font-weight: 400;
+    font-size: 32px;
     display: flex;
     flex-direction: column;
     color: #222222;

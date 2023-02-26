@@ -66,6 +66,9 @@
 }
 
 .reviewRatingMobile {
-    font-size: 32px;
+    display: flex;
+    padding: 0 32px;
+    align-items: flex-start;
+    font-size: 36px;
     color: #222222;
 }
