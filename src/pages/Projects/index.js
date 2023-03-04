@@ -3,7 +3,7 @@ import logo from '../../assests/projects-pana.svg';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import {AddCircle, ArrowCircleLeft, ArrowCircleRight} from "iconsax-react";
+import {AddCircle, ArrowCircleLeft, ArrowCircleRight, ArrowDown2} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import {getProjects} from "../../services/projectService";
 import Loading from "../../components/loading";
@@ -108,6 +108,29 @@ export default function ProjectsScreen() {
             )
         }
 
+        const filters = () => {
+            return (
+                <div className={"filters-container"}>
+                    <button className={"filters-buttons"}>
+                        Tools
+                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                    </button>
+                    <button className={"filters-buttons"}>
+                        Preferences
+                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                    </button>
+                    <button className={"filters-buttons"}>
+                        Budget
+                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                    </button>
+                    <button className={"filters-buttons"}>
+                        Language
+                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                    </button>
+                </div>
+            )
+        }
+
         return (
             <div className="projects-header">
                 <ArrowCircleLeft
@@ -126,6 +149,7 @@ export default function ProjectsScreen() {
                     className={"carrousel-buttons"}
                     onClick={change}
                 />
+                {filters()}
             </div>
         )
     }
@@ -142,12 +166,15 @@ export default function ProjectsScreen() {
                         <ReactPaginate
                             containerClassName={"pagination"}
                             breakLabel={'...'}
-                            nextLabel={<ArrowCircleRight size="24" color={index + 10 > projects.length ? "#E3E3E3" : "#014751"} className={"pagination-icon"}/>}
+                            nextLabel={<ArrowCircleRight size="24"
+                                                         color={index + 10 > projects.length ? "#E3E3E3" : "#014751"}
+                                                         className={"pagination-icon"}/>}
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={10}
                             pageCount={pageCount}
                             activeClassName={"active-page"}
-                            previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"} className={"pagination-icon"}/>}
+                            previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"}
+                                                            className={"pagination-icon"}/>}
                             renderOnZeroPageCount={null}
                         />
                     </div>
