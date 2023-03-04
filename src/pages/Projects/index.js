@@ -140,11 +140,13 @@ export default function ProjectsScreen() {
                     })}
                     <div className={"pagination"}>
                         <ReactPaginate
-                            className={"pagination"}
+                            containerClassName={"pagination"}
+                            breakLabel={'...'}
                             nextLabel={<ArrowCircleRight size="24" color={index + 10 > projects.length ? "#E3E3E3" : "#014751"} className={"pagination-icon"}/>}
                             onPageChange={handlePageClick}
                             pageRangeDisplayed={10}
                             pageCount={pageCount}
+                            activeClassName={"active-page"}
                             previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"} className={"pagination-icon"}/>}
                             renderOnZeroPageCount={null}
                         />

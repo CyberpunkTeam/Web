@@ -266,18 +266,19 @@ ul.pagination li a {
     font-size: 16px;
 }
 
-ul.pagination li.active a {
+ul.pagination li a:hover {
+    font-weight: 700;
     color: #222222;
-    font-weight: 700;
-}
-
-ul.pagination li a:hover,
-ul.pagination li a.active {
-    font-weight: 700;
     cursor: pointer;
 }
 
 .pagination-icon {
     padding-top: 4px;
+    cursor: pointer;
+}
+
+.active-page{
+    font-weight: 700;
+    color: #222222;
     cursor: pointer;
 }
