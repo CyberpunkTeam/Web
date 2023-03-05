@@ -11,6 +11,21 @@ import {isMobile} from "react-device-detect";
 import AppContext from "../../utils/AppContext";
 import ProjectTileMobileComponent from "../../components/ProjectTileMobileComponent";
 import ReactPaginate from "react-paginate";
+import {
+    databasesOptions,
+    frameworksOptionsDataAll,
+    optionsLanguages,
+    optionsProjects,
+    platformsOptions
+} from "../../config/dictonary";
+import {
+    selected4,
+    selectedGreenStyle,
+    selectedViolet,
+    selectedViolet2,
+    selectedViolet3
+} from "../../styles/commonStyles";
+import Select from "react-select";
 
 export default function ProjectsScreen() {
     const navigate = useNavigate();
@@ -22,6 +37,22 @@ export default function ProjectsScreen() {
     const [shake, setShake] = useState(false);
     const [index, setIndex] = useState(0);
     const pageCount = Math.ceil(projects.length / 10);
+    const [toolsFilters, setToolsFilters] = useState(false)
+    const [preferencesFilters, setPreferencesFilters] = useState(false)
+
+    const toolButton = () => {
+        setPreferencesFilters(false)
+        setToolsFilters(!toolsFilters)
+    }
+
+    const preferencesButton = () => {
+        setToolsFilters(false)
+        setPreferencesFilters(!preferencesFilters)
+    }
+
+    const closeAll = () => {
+        setToolsFilters(false);
+    }
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * 10) % projects.length;
@@ -109,16 +140,86 @@ export default function ProjectsScreen() {
         }
 
         const filters = () => {
+            const tools = () => {
+                return (
+                    <div className={"filters-button-selector-container"}>
+                        <button className={"filters-buttons"} onClick={toolButton}>
+                            Tools
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                        <div
+                            className={toolsFilters ? "filters-selector-container" : "filters-selector-container-hidden"}>
+                            <div className={"filters-selectors-container"}>
+                                <div className={"filters-selectors-column-container"}>
+                                    <div className={"filters-selectors-input"}>
+                                        Programming Languages
+                                        <Select
+                                            isMulti
+                                            options={optionsLanguages}
+                                            styles={selectedViolet}
+                                        />
+                                    </div>
+                                    <div className={"filters-selectors-input"}>
+                                        Frameworks
+                                        <Select
+                                            isMulti
+                                            options={frameworksOptionsDataAll}
+                                            styles={selectedViolet3}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={"filters-selectors-column-container"}>
+                                    <div className={"filters-selectors-input"}>
+                                        Platforms
+                                        <Select
+                                            isMulti
+                                            options={platformsOptions}
+                                            styles={selectedViolet2}
+                                        />
+                                    </div>
+                                    <div className={"filters-selectors-input"}>
+                                        Databases
+                                        <Select
+                                            isMulti
+                                            options={databasesOptions}
+                                            styles={selected4}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
+            const preferences = () => {
+                return (
+                    <div className={"filters-button-selector-container"}>
+                        <button className={"filters-buttons"} onClick={preferencesButton}>
+                            Preferences
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                        <div
+                            className={preferencesFilters ? "filters-selector-container" : "filters-selector-container-hidden"}>
+                            <div className={"filters-selectors-container"}>
+                                <div>
+                                    Project Preferences
+                                    <Select
+                                        isMulti
+                                        options={optionsProjects}
+                                        styles={selectedGreenStyle}
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
+
             return (
                 <div className={"filters-container"}>
-                    <button className={"filters-buttons"}>
-                        Tools
-                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                    </button>
-                    <button className={"filters-buttons"}>
-                        Preferences
-                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                    </button>
+                    {tools()}
+                    {preferences()}
                     <button className={"filters-buttons"}>
                         Budget
                         <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
@@ -155,33 +256,36 @@ export default function ProjectsScreen() {
     }
 
     return (
-        <div>
-            <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
-                {isMobile || context.size ? coverMobile() : cover()}
-                <div className="projects-container">
-                    {projects.slice(index, 10 + (index)).map((value) => {
-                        return <ProjectTileMobileComponent key={value.pid} data={value}/>
-                    })}
-                    <div className={"pagination"}>
-                        <ReactPaginate
-                            containerClassName={"pagination"}
-                            breakLabel={'...'}
-                            nextLabel={<ArrowCircleRight size="24"
-                                                         color={index + 10 > projects.length ? "#E3E3E3" : "#014751"}
-                                                         className={"pagination-icon"}/>}
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={10}
-                            pageCount={pageCount}
-                            activeClassName={"active-page"}
-                            previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"}
-                                                            className={"pagination-icon"}/>}
-                            renderOnZeroPageCount={null}
-                        />
+        <>
+            {toolsFilters ? <div onClick={closeAll} className="all-sidebar"/> : null}
+            <div>
+                <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
+                    {isMobile || context.size ? coverMobile() : cover()}
+                    <div className="projects-container">
+                        {projects.slice(index, 10 + (index)).map((value) => {
+                            return <ProjectTileMobileComponent key={value.pid} data={value}/>
+                        })}
+                        <div className={"pagination"}>
+                            <ReactPaginate
+                                containerClassName={"pagination"}
+                                breakLabel={'...'}
+                                nextLabel={<ArrowCircleRight size="24"
+                                                             color={index + 10 > projects.length ? "#E3E3E3" : "#014751"}
+                                                             className={"pagination-icon"}/>}
+                                onPageChange={handlePageClick}
+                                pageRangeDisplayed={10}
+                                pageCount={pageCount}
+                                activeClassName={"active-page"}
+                                previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"}
+                                                                className={"pagination-icon"}/>}
+                                renderOnZeroPageCount={null}
+                            />
+                        </div>
                     </div>
                 </div>
+                <SearchBar/>
+                <SideBar/>
             </div>
-            <SearchBar/>
-            <SideBar/>
-        </div>
+        </>
     )
 }

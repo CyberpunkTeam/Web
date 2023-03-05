@@ -188,7 +188,7 @@ export const selectedViolet3 = {
     }),
     menu: (style) => ({
         ...style,
-        padding: " 0 8px",
+        padding: "0 8px",
         maxHeight: "120px",
         borderRadius: "16px",
         background: "#FAFAFA"
