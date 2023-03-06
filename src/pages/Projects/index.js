@@ -13,7 +13,7 @@ import ProjectTileMobileComponent from "../../components/ProjectTileMobileCompon
 import ReactPaginate from "react-paginate";
 import {
     databasesOptions,
-    frameworksOptionsDataAll,
+    frameworksOptionsDataAll, optionsIdioms,
     optionsLanguages,
     optionsProjects,
     platformsOptions
@@ -65,6 +65,9 @@ export default function ProjectsScreen() {
     const [budgetFilter, setBudgetFilter] = useState(false)
     const [maxValue, setMaxValue] = useState(0)
     const [range, setRange] = useState([0, maxValue]);
+    const [idiomsFilter, setIdiomsFilter] = useState(false)
+    const [idiomsSelected, setIdiomsSelected] = useState([])
+    const [idiomsSelectedDefault, setIdiomsSelectedDefault] = useState([])
 
     function handleChanges(event, newValue) {
         setRange(newValue);
@@ -102,11 +105,13 @@ export default function ProjectsScreen() {
     const toolButton = () => {
         setPreferencesFilters(false)
         setBudgetFilter(false)
+        setIdiomsFilter(false)
         setToolsFilters(!toolsFilters)
     }
 
     const preferencesButton = () => {
         setToolsFilters(false)
+        setIdiomsFilter(false)
         setBudgetFilter(false)
         setPreferencesFilters(!preferencesFilters)
     }
@@ -114,12 +119,21 @@ export default function ProjectsScreen() {
     const budgetButton = () => {
         setToolsFilters(false)
         setPreferencesFilters(false)
+        setIdiomsFilter(false)
         setBudgetFilter(!budgetFilter)
+    }
+
+    const idiomsButton = () => {
+        setPreferencesFilters(false)
+        setBudgetFilter(false)
+        setToolsFilters(false)
+        setIdiomsFilter(!idiomsFilter)
     }
 
     const closeAll = () => {
         setToolsFilters(false);
         setBudgetFilter(false);
+        setIdiomsFilter(false)
         setPreferencesFilters(false);
     }
 
@@ -193,6 +207,21 @@ export default function ProjectsScreen() {
         })
         setPrefProjects(list);
     }
+
+    const setIdiomsHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setIdiomsSelectedDefault(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setIdiomsSelected(list);
+    }
+
 
     const setPlatformsHandler = (event) => {
         if (event.length > 5) {
@@ -367,6 +396,30 @@ export default function ProjectsScreen() {
                 }
             }
 
+            const idioms = () => {
+                if (idiomsFilter) {
+                    return (
+                        <div className={"filters-selectors-container"}>
+                            <div className={"filters-selectors-column-container"}>
+                                <div className={"filters-selectors-input"}>
+                                    Languages ({idiomsSelected.length}/5)
+                                    <div className="modal-form-input-select">
+                                        <Select
+                                            isMulti
+                                            defaultValue={idiomsSelectedDefault}
+                                            isOptionDisabled={(option) => idiomsSelected.length === 5}
+                                            options={optionsIdioms}
+                                            styles={selectedGreenStyle}
+                                            onChange={(choice) => setIdiomsHandler(choice)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            }
+
             return (
                 <div className={"filters-container"}>
                     <div className={"filters-container-buttons"}>
@@ -382,16 +435,17 @@ export default function ProjectsScreen() {
                             Budget
                             <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
                         </button>
-                        <button className={"filters-buttons"}>
+                        <button className={"filters-buttons"} onClick={idiomsButton}>
                             Language
                             <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
                         </button>
                     </div>
                     <div
-                        className={toolsFilters || preferencesFilters || budgetFilter ? "filters-container-options" : "filters-selector-container-hidden"}>
+                        className={toolsFilters || preferencesFilters || budgetFilter || idiomsFilter ? "filters-container-options" : "filters-selector-container-hidden"}>
                         {budgetContainer()}
                         {tools()}
                         {preferences()}
+                        {idioms()}
                     </div>
                 </div>
             )
@@ -422,7 +476,7 @@ export default function ProjectsScreen() {
 
     return (
         <>
-            {toolsFilters || preferencesFilters || budgetFilter ?
+            {toolsFilters || preferencesFilters || budgetFilter || idiomsFilter ?
                 <div onClick={closeAll} className="all-sidebar"/> : null}
             <div>
                 <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
