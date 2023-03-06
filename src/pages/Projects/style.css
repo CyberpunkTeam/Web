@@ -334,6 +334,7 @@ ul.pagination li a:hover {
     height: 54px;
     background: #F1F1F1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
 
 .filters-buttons-icon {
@@ -363,6 +364,23 @@ ul.pagination li a:hover {
     padding: 0 8px;
 }
 
+.filters-slider-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 8px;
+    width: 100%;
+    color: #222222;
+    height: 100%;
+    padding: 0 32px;
+}
+
+.filters-slider-values {
+    display: flex;
+    justify-content: space-between;
+    color: #222222;
+}
+
 .filters-selectors-column-container{
     width: 48%;
     z-index: 1;
@@ -379,4 +397,8 @@ ul.pagination li a:hover {
 
 .filters-selector-container-hidden {
     display: none;
+}
+
+.slider {
+    align-self: center;
 }

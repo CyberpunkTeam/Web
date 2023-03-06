@@ -25,11 +25,25 @@ import {
     selectedViolet3
 } from "../../styles/commonStyles";
 import Select from "react-select";
+import Slider from "@mui/material/Slider";
+import {styled} from "@mui/material/styles";
+import {formatter} from "../../utils/budgetFormatter";
+
+const CustomSlider = styled(Slider)(({theme}) => ({
+    color: "#58ADAD",
+    "& .MuiSlider-thumb": {
+        backgroundColor: "#2E9999"
+    },
+    "& .MuiSlider-rail": {
+        color: '#222222'
+    }
+}));
 
 export default function ProjectsScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [projects, setProjects] = useState([]);
+    //const [projectsAll, setProjectsAll] = useState([]);
     const [loading, setLoading] = useState(true);
     const [team, setTeam] = useState(true);
     const [time, setTime] = useState(Date.now());
@@ -43,11 +57,18 @@ export default function ProjectsScreen() {
     const [frameworksDefault, setFrameworksDefault] = useState([])
     const [databases, setDatabases] = useState([])
     const [databasesDefault, setDatabasesDefault] = useState([])
+    const [preferencesFilters, setPreferencesFilters] = useState(false)
     const [prefProjects, setPrefProjects] = useState([])
     const [prefProjectsDefault, setPrefProjectsDefault] = useState([])
     const [platforms, setPlatforms] = useState([])
     const [platformsDefault, setPlatformsDefault] = useState([])
-    const [preferencesFilters, setPreferencesFilters] = useState(false)
+    const [budgetFilter, setBudgetFilter] = useState(false)
+    const [maxValue, setMaxValue] = useState(0)
+    const [range, setRange] = useState([0, maxValue]);
+
+    function handleChanges(event, newValue) {
+        setRange(newValue);
+    }
 
     useEffect(() => {
         setTeam(!team)
@@ -64,6 +85,14 @@ export default function ProjectsScreen() {
     useEffect(() => {
         getProjects().then((response) => {
             setProjects([...response]);
+            let max = 0;
+
+            response.forEach((value) => {
+                if (value.tentative_budget > max) {
+                    max = value.tentative_budget
+                }
+            })
+            setMaxValue(max)
             setLoading(false)
         }).catch((error) => {
             console.log(error)
@@ -72,16 +101,26 @@ export default function ProjectsScreen() {
 
     const toolButton = () => {
         setPreferencesFilters(false)
+        setBudgetFilter(false)
         setToolsFilters(!toolsFilters)
     }
 
     const preferencesButton = () => {
         setToolsFilters(false)
+        setBudgetFilter(false)
         setPreferencesFilters(!preferencesFilters)
+    }
+
+    const budgetButton = () => {
+        setToolsFilters(false)
+        setPreferencesFilters(false)
+        setBudgetFilter(!budgetFilter)
     }
 
     const closeAll = () => {
         setToolsFilters(false);
+        setBudgetFilter(false);
+        setPreferencesFilters(false);
     }
 
     const handlePageClick = (event) => {
@@ -309,6 +348,25 @@ export default function ProjectsScreen() {
                 }
             }
 
+            const budgetContainer = () => {
+                if (budgetFilter) {
+                    return (
+                        <div className={"filters-slider-container"}>
+                            <CustomSlider className={"slider"} min={0} max={maxValue} step={10} value={range}
+                                          onChange={handleChanges}/>
+                            <div className={"filters-slider-values"}>
+                                <div>
+                                    {formatter.format(range[0]) + " USD"}
+                                </div>
+                                <div>
+                                    {formatter.format(range[1]) + " USD"}
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
+            }
+
             return (
                 <div className={"filters-container"}>
                     <div className={"filters-container-buttons"}>
@@ -320,7 +378,7 @@ export default function ProjectsScreen() {
                             Preferences
                             <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
                         </button>
-                        <button className={"filters-buttons"}>
+                        <button className={"filters-buttons"} onClick={budgetButton}>
                             Budget
                             <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
                         </button>
@@ -330,7 +388,8 @@ export default function ProjectsScreen() {
                         </button>
                     </div>
                     <div
-                        className={toolsFilters || preferencesFilters ? "filters-container-options" : "filters-selector-container-hidden"}>
+                        className={toolsFilters || preferencesFilters || budgetFilter ? "filters-container-options" : "filters-selector-container-hidden"}>
+                        {budgetContainer()}
                         {tools()}
                         {preferences()}
                     </div>
@@ -363,7 +422,8 @@ export default function ProjectsScreen() {
 
     return (
         <>
-            {toolsFilters ? <div onClick={closeAll} className="all-sidebar"/> : null}
+            {toolsFilters || preferencesFilters || budgetFilter ?
+                <div onClick={closeAll} className="all-sidebar"/> : null}
             <div>
                 <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
                     {isMobile || context.size ? coverMobile() : cover()}
