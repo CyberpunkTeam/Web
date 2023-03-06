@@ -19,7 +19,6 @@ import {
     platformsOptions
 } from "../../config/dictonary";
 import {
-    selected4,
     selectedGreenStyle,
     selectedViolet,
     selectedViolet2,
@@ -38,7 +37,38 @@ export default function ProjectsScreen() {
     const [index, setIndex] = useState(0);
     const pageCount = Math.ceil(projects.length / 10);
     const [toolsFilters, setToolsFilters] = useState(false)
+    const [techs, setTechs] = useState([])
+    const [techsDefaults, setTechsDefaults] = useState([])
+    const [frameworks, setFrameworks] = useState([])
+    const [frameworksDefault, setFrameworksDefault] = useState([])
+    const [databases, setDatabases] = useState([])
+    const [databasesDefault, setDatabasesDefault] = useState([])
+    const [prefProjects, setPrefProjects] = useState([])
+    const [prefProjectsDefault, setPrefProjectsDefault] = useState([])
+    const [platforms, setPlatforms] = useState([])
+    const [platformsDefault, setPlatformsDefault] = useState([])
     const [preferencesFilters, setPreferencesFilters] = useState(false)
+
+    useEffect(() => {
+        setTeam(!team)
+    }, [time]);
+
+    useEffect(() => {
+        const interval = setInterval(() => setTime(Date.now()), 8000);
+        animate()
+        return () => {
+            clearInterval(interval);
+        };
+    }, [team]);
+
+    useEffect(() => {
+        getProjects().then((response) => {
+            setProjects([...response]);
+            setLoading(false)
+        }).catch((error) => {
+            console.log(error)
+        });
+    }, []);
 
     const toolButton = () => {
         setPreferencesFilters(false)
@@ -69,27 +99,75 @@ export default function ProjectsScreen() {
         animate()
     }
 
-    useEffect(() => {
-        setTeam(!team)
-    }, [time]);
+    const setDBHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
 
+        setDatabasesDefault(event)
 
-    useEffect(() => {
-        const interval = setInterval(() => setTime(Date.now()), 8000);
-        animate()
-        return () => {
-            clearInterval(interval);
-        };
-    }, [team]);
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setDatabases(list);
+    }
 
-    useEffect(() => {
-        getProjects().then((response) => {
-            setProjects([...response]);
-            setLoading(false)
-        }).catch((error) => {
-            console.log(error)
-        });
-    }, []);
+    const setTechLanguagesHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setTechsDefaults(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setTechs(list);
+    }
+
+    const setFrameworkHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setFrameworksDefault(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setFrameworks(list);
+    }
+
+    const setProjectsHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setPrefProjectsDefault(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setPrefProjects(list);
+    }
+
+    const setPlatformsHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setPlatformsDefault(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setPlatforms(list);
+    }
 
     if (loading) {
         return <Loading/>
@@ -141,93 +219,121 @@ export default function ProjectsScreen() {
 
         const filters = () => {
             const tools = () => {
-                return (
-                    <div className={"filters-button-selector-container"}>
-                        <button className={"filters-buttons"} onClick={toolButton}>
-                            Tools
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                        </button>
-                        <div
-                            className={toolsFilters ? "filters-selector-container" : "filters-selector-container-hidden"}>
-                            <div className={"filters-selectors-container"}>
-                                <div className={"filters-selectors-column-container"}>
-                                    <div className={"filters-selectors-input"}>
-                                        Programming Languages
+                if (toolsFilters) {
+                    return (
+                        <div className={"filters-selectors-container"}>
+                            <div className={"filters-selectors-column-container"}>
+                                <div className={"filters-selectors-input"}>
+                                    Programming Languages ({techs.length}/5)
+                                    <div className="modal-form-input-select">
                                         <Select
                                             isMulti
+                                            defaultValue={techsDefaults}
+                                            isOptionDisabled={(option) => techs.length === 5}
                                             options={optionsLanguages}
                                             styles={selectedViolet}
-                                        />
-                                    </div>
-                                    <div className={"filters-selectors-input"}>
-                                        Frameworks
-                                        <Select
-                                            isMulti
-                                            options={frameworksOptionsDataAll}
-                                            styles={selectedViolet3}
+                                            onChange={(choice) => setTechLanguagesHandler(choice)}
                                         />
                                     </div>
                                 </div>
-                                <div className={"filters-selectors-column-container"}>
-                                    <div className={"filters-selectors-input"}>
-                                        Platforms
+                                <div className={"filters-selectors-input"}>
+                                    Frameworks ({frameworks.length}/5)
+                                    <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            options={platformsOptions}
-                                            styles={selectedViolet2}
+                                            defaultValue={frameworksDefault}
+                                            isOptionDisabled={(option) => frameworks.length === 5}
+                                            options={frameworksOptionsDataAll}
+                                            styles={selectedViolet3}
+                                            onChange={(choice) => setFrameworkHandler(choice)}
                                         />
                                     </div>
-                                    <div className={"filters-selectors-input"}>
-                                        Databases
+                                </div>
+                            </div>
+                            <div className={"filters-selectors-column-container"}>
+                                <div className={"filters-selectors-input"}>
+                                    Databases ({databases.length}/5)
+                                    <div className="modal-form-input-select">
                                         <Select
                                             isMulti
+                                            defaultValue={databasesDefault}
+                                            isOptionDisabled={(option) => databases.length === 5}
                                             options={databasesOptions}
-                                            styles={selected4}
+                                            styles={selectedViolet2}
+                                            onChange={(choice) => setDBHandler(choice)}
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
             }
 
             const preferences = () => {
-                return (
-                    <div className={"filters-button-selector-container"}>
-                        <button className={"filters-buttons"} onClick={preferencesButton}>
-                            Preferences
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                        </button>
-                        <div
-                            className={preferencesFilters ? "filters-selector-container" : "filters-selector-container-hidden"}>
-                            <div className={"filters-selectors-container"}>
-                                <div>
-                                    Project Preferences
-                                    <Select
-                                        isMulti
-                                        options={optionsProjects}
-                                        styles={selectedGreenStyle}
-                                    />
+                if (preferencesFilters) {
+                    return (
+                        <div className={"filters-selectors-container"}>
+                            <div className={"filters-selectors-column-container"}>
+                                <div className={"filters-selectors-input"}>
+                                    Project Preferences ({prefProjects.length}/5)
+                                    <div className="modal-form-input-select">
+                                        <Select
+                                            isMulti
+                                            defaultValue={prefProjectsDefault}
+                                            isOptionDisabled={(option) => prefProjects.length === 5}
+                                            options={optionsProjects}
+                                            styles={selectedGreenStyle}
+                                            onChange={(choice) => setProjectsHandler(choice)}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={"filters-selectors-column-container"}>
+                                <div className={"filters-selectors-input"}>
+                                    Platforms ({platforms.length}/5)
+                                    <div className="modal-form-input-select">
+                                        <Select
+                                            isMulti
+                                            defaultValue={platformsDefault}
+                                            isOptionDisabled={(option) => platformsOptions.length === 5}
+                                            options={platformsOptions}
+                                            styles={selectedViolet2}
+                                            onChange={(choice) => setPlatformsHandler(choice)}
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                )
+                    )
+                }
             }
 
             return (
                 <div className={"filters-container"}>
-                    {tools()}
-                    {preferences()}
-                    <button className={"filters-buttons"}>
-                        Budget
-                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                    </button>
-                    <button className={"filters-buttons"}>
-                        Language
-                        <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                    </button>
+                    <div className={"filters-container-buttons"}>
+                        <button className={"filters-buttons"} onClick={toolButton}>
+                            Tools
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                        <button className={"filters-buttons"} onClick={preferencesButton}>
+                            Preferences
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                        <button className={"filters-buttons"}>
+                            Budget
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                        <button className={"filters-buttons"}>
+                            Language
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        </button>
+                    </div>
+                    <div
+                        className={toolsFilters || preferencesFilters ? "filters-container-options" : "filters-selector-container-hidden"}>
+                        {tools()}
+                        {preferences()}
+                    </div>
                 </div>
             )
         }

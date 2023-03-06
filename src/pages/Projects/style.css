@@ -287,12 +287,36 @@ ul.pagination li a:hover {
 
 .filters-container {
     position: absolute;
+    bottom: -40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 256px);
+    z-index: 1;
+}
+
+.filters-container-buttons {
+    height: 80px;
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1;
+}
+
+.filters-container-options {
+    position: absolute;
+    top: 80px;
+    align-self: center;
+    border-radius: 16px;
+    padding: 16px 0;
+    width: 98%;
+    background: #F1F1F1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: space-around;
     align-items: center;
-    bottom: -40px;
-    height: 80px;
-    width: calc(100% - 256px);
     z-index: 1;
 }
 
@@ -308,7 +332,7 @@ ul.pagination li a:hover {
     font-weight: 700;
     border-radius: 16px;
     height: 54px;
-    background: #E3E3E3;
+    background: #F1F1F1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
@@ -332,6 +356,9 @@ ul.pagination li a:hover {
 .filters-selectors-container {
     display: flex;
     justify-content: space-between;
+    margin: 0 8px;
+    width: 100%;
+    color: #222222;
     height: 100%;
     padding: 0 8px;
 }
