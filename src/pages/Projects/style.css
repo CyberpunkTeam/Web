@@ -306,17 +306,35 @@ ul.pagination li a:hover {
 }
 
 .filters-container-options {
+    align-self: center;
+    width: calc(100% - 32px);
+    margin: 8px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters-container-options-buttons {
+    align-self: center;
+    width: calc(100% - 64px);
+    margin: 8px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters-container-div {
     position: absolute;
     top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-self: center;
     border-radius: 16px;
-    padding: 16px 0;
-    width: 98%;
+    padding: 16px;
+    width: calc(98% - 32px);
     background: #F1F1F1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     z-index: 1;
 }
 

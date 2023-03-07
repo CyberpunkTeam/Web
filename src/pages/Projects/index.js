@@ -3,7 +3,7 @@ import logo from '../../assests/projects-pana.svg';
 import SideBar from "../../components/SideBar";
 import {useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
-import {AddCircle, ArrowCircleLeft, ArrowCircleRight, ArrowDown2} from "iconsax-react";
+import {AddCircle, ArrowCircleLeft, ArrowCircleRight, ArrowDown2, ArrowUp2} from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import {getProjects} from "../../services/projectService";
 import Loading from "../../components/loading";
@@ -68,6 +68,7 @@ export default function ProjectsScreen() {
     const [idiomsFilter, setIdiomsFilter] = useState(false)
     const [idiomsSelected, setIdiomsSelected] = useState([])
     const [idiomsSelectedDefault, setIdiomsSelectedDefault] = useState([])
+    const [buttonDisabled, setButtonDisabled] = useState(false);
 
     function handleChanges(event, newValue) {
         setRange(newValue);
@@ -86,6 +87,10 @@ export default function ProjectsScreen() {
     }, [team]);
 
     useEffect(() => {
+        setRange([0, maxValue])
+    }, [maxValue])
+
+    useEffect(() => {
         getProjects().then((response) => {
             setProjects([...response]);
             let max = 0;
@@ -101,6 +106,39 @@ export default function ProjectsScreen() {
             console.log(error)
         });
     }, []);
+
+    const cleanAll = () => {
+        setTechs([])
+        setTechsDefaults([])
+
+        setFrameworks([])
+        setFrameworksDefault([])
+
+        setDatabases([])
+        setDatabasesDefault([])
+
+        setPlatforms([])
+        setPlatformsDefault([])
+
+        setPrefProjects([])
+        setPrefProjectsDefault([])
+
+        setIdiomsSelected([])
+        setIdiomsSelectedDefault([])
+
+        setRange([0, maxValue])
+    }
+
+    const find = () => {
+        setButtonDisabled(true);
+        getProjects().then((response) => {
+            setProjects([...response]);
+            setButtonDisabled(false);
+            closeAll()
+        }).catch((error) => {
+            console.log(error)
+        });
+    }
 
     const toolButton = () => {
         setPreferencesFilters(false)
@@ -222,7 +260,6 @@ export default function ProjectsScreen() {
         setIdiomsSelected(list);
     }
 
-
     const setPlatformsHandler = (event) => {
         if (event.length > 5) {
             return
@@ -296,7 +333,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={techsDefaults}
+                                            value={techsDefaults}
                                             isOptionDisabled={(option) => techs.length === 5}
                                             options={optionsLanguages}
                                             styles={selectedViolet}
@@ -309,7 +346,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={frameworksDefault}
+                                            value={frameworksDefault}
                                             isOptionDisabled={(option) => frameworks.length === 5}
                                             options={frameworksOptionsDataAll}
                                             styles={selectedViolet3}
@@ -324,7 +361,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={databasesDefault}
+                                            value={databasesDefault}
                                             isOptionDisabled={(option) => databases.length === 5}
                                             options={databasesOptions}
                                             styles={selectedViolet2}
@@ -348,7 +385,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={prefProjectsDefault}
+                                            value={prefProjectsDefault}
                                             isOptionDisabled={(option) => prefProjects.length === 5}
                                             options={optionsProjects}
                                             styles={selectedGreenStyle}
@@ -363,7 +400,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={platformsDefault}
+                                            value={platformsDefault}
                                             isOptionDisabled={(option) => platformsOptions.length === 5}
                                             options={platformsOptions}
                                             styles={selectedViolet2}
@@ -406,7 +443,7 @@ export default function ProjectsScreen() {
                                     <div className="modal-form-input-select">
                                         <Select
                                             isMulti
-                                            defaultValue={idiomsSelectedDefault}
+                                            value={idiomsSelectedDefault}
                                             isOptionDisabled={(option) => idiomsSelected.length === 5}
                                             options={optionsIdioms}
                                             styles={selectedGreenStyle}
@@ -425,27 +462,50 @@ export default function ProjectsScreen() {
                     <div className={"filters-container-buttons"}>
                         <button className={"filters-buttons"} onClick={toolButton}>
                             Tools
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            {toolsFilters ?
+                                <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                                <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            }
                         </button>
                         <button className={"filters-buttons"} onClick={preferencesButton}>
                             Preferences
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            {preferencesFilters ?
+                                <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                                <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            }
                         </button>
                         <button className={"filters-buttons"} onClick={budgetButton}>
                             Budget
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            {budgetFilter ?
+                                <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                                <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            }
                         </button>
                         <button className={"filters-buttons"} onClick={idiomsButton}>
                             Language
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            {idiomsFilter ?
+                                <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                                <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            }
                         </button>
                     </div>
                     <div
-                        className={toolsFilters || preferencesFilters || budgetFilter || idiomsFilter ? "filters-container-options" : "filters-selector-container-hidden"}>
-                        {budgetContainer()}
-                        {tools()}
-                        {preferences()}
-                        {idioms()}
+                        className={toolsFilters || preferencesFilters || budgetFilter || idiomsFilter ? "filters-container-div" : "filters-selector-container-hidden"}>
+                        <div className={"filters-container-options"}>
+                            {tools()}
+                            {preferences()}
+                            {budgetContainer()}
+                            {idioms()}
+                        </div>
+                        <div className={"filters-container-options-buttons"}>
+                            <button className={"cancel-edit-button-style"} onClick={cleanAll}>Clean All</button>
+                            <button disabled={buttonDisabled}
+                                    className={buttonDisabled ? "filter-button-disabled" : "filter-button"}
+                                    onClick={find}>
+                                {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                                {buttonDisabled ? "" : "Apply"}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )
