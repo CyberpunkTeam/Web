@@ -169,7 +169,7 @@ export default function CreateProjectScreen() {
         if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
-                navigate("/projects/" + r.pid)
+                navigate("/projects/" + r.pid + "/teamRecommendation")
             })
         } else {
             updateProject(state.project.pid, body).then((r) => {

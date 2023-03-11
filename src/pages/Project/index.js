@@ -100,6 +100,11 @@ export default function ProjectScreen() {
         setIsOpen(true);
     }
 
+    const recommendation = () => {
+        console.log("entra")
+        navigate("/projects/" + project.pid + "/teamRecommendation")
+    }
+
     const openModalIfCancelProject = () => {
         setIsFinishProject(false);
         setIsDeleteProject(false)
@@ -185,6 +190,31 @@ export default function ProjectScreen() {
             <button className="postulate-button" onClick={openModal}>
                 <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                 Postulate Team
+            </button>
+        )
+    }
+
+    const teamRecommendations = () => {
+        if (project.creator.uid !== context.user.uid) {
+            return
+        }
+
+        if (project.state !== "PENDING") {
+            return
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={recommendation}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="postulate-button" onClick={recommendation}>
+                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Team Recommendations
             </button>
         )
     }
@@ -444,7 +474,7 @@ export default function ProjectScreen() {
         }
 
         const functional = () => {
-            if (project.description.functional_requirements.length === 0) {
+            if (project.description.functional_requirements.length <= 1) {
                 return
             }
             return (
@@ -540,6 +570,7 @@ export default function ProjectScreen() {
                     {owner(project.creator)}
                     {teamAssigned(project.team_assigned)}
                     {postulate()}
+                    {teamRecommendations()}
                 </div>
                 <div className={"projectButtonContainer"}>
                     {cancelProject()}

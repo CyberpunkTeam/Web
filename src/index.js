@@ -24,6 +24,7 @@ import TeamReview from "./pages/TeamReview";
 import CreateVacantScreen from "./pages/CreateVacantScreen";
 import CreateTeam from "./pages/CreateTeam";
 import SelectTypeProject from "./pages/SelectTypeProject";
+import TeamRecommendation from "./pages/TeamRecommendation";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -76,6 +77,7 @@ function App() {
                     {/*project*/}
                     <Route path="/projects" element={<ProjectsScreen/>}/>
                     <Route path="/projects/:id" element={<ProjectScreen/>}/>
+                    <Route path="/projects/:id/teamRecommendation" element={<TeamRecommendation/>}/>
                     <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/data" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/type" element={<SelectTypeProject/>}/>
