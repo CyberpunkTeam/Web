@@ -64,7 +64,7 @@ export default function ProjectsScreen() {
     const [platforms, setPlatforms] = useState([])
     const [platformsDefault, setPlatformsDefault] = useState([])
     const [budgetFilter, setBudgetFilter] = useState(false)
-    const [maxValue, setMaxValue] = useState(0)
+    const [maxValue, setMaxValue] = useState(-1)
     const [range, setRange] = useState([0, maxValue]);
     const [idiomsFilter, setIdiomsFilter] = useState(false)
     const [idiomsSelected, setIdiomsSelected] = useState([])
@@ -76,9 +76,29 @@ export default function ProjectsScreen() {
     }
 
     const queryParams = () => {
-        let params = ""
+        let params = "&min_budget=" + range[0]
+
+        if (range[1] !== -1) {
+            params = params + "&max_budget=" + range[1]
+        }
+
         if (techs.length !== 0) {
             params = params + "&programming_languages=" + techs.toString()
+        }
+        if (frameworks.length !== 0) {
+            params = params + "&frameworks=" + frameworks.toString()
+        }
+        if (databases.length !== 0) {
+            params = params + "&databases=" + databases.toString()
+        }
+        if (platforms.length !== 0) {
+            params = params + "&platforms=" + platforms.toString()
+        }
+        if (prefProjects.length !== 0) {
+            params = params + "&project_types=" + prefProjects.toString()
+        }
+        if (idiomsSelected.length !== 0) {
+            params = params + "&idioms=" + idiomsSelected.toString()
         }
         return params
     }
@@ -96,26 +116,24 @@ export default function ProjectsScreen() {
     }, [team]);
 
     useEffect(() => {
-        setRange([0, maxValue])
-    }, [maxValue])
-
-    useEffect(() => {
         const params = queryParams()
         getProjects(params).then((response) => {
             setProjects([...response]);
-            let max = 0;
-
-            response.forEach((value) => {
-                if (value.tentative_budget > max) {
-                    max = value.tentative_budget
-                }
-            })
-            setMaxValue(max)
+            if (maxValue === -1) {
+                let max = 0;
+                response.forEach((value) => {
+                    if (value.tentative_budget > max) {
+                        max = value.tentative_budget
+                    }
+                })
+                setRange([0, max])
+                setMaxValue(max)
+            }
             setLoading(false)
         }).catch((error) => {
             console.log(error)
         });
-    }, []);
+    }, [time]);
 
     const cleanAll = () => {
         setTechs([])
@@ -137,6 +155,15 @@ export default function ProjectsScreen() {
         setIdiomsSelectedDefault([])
 
         setRange([0, maxValue])
+
+        const params = queryParams()
+        getProjects(params).then((response) => {
+            setProjects([...response]);
+            setButtonDisabled(false);
+            closeAll()
+        }).catch((error) => {
+            console.log(error)
+        });
     }
 
     const find = () => {
@@ -744,6 +771,16 @@ export default function ProjectsScreen() {
         )
     }
 
+    const noData = () => {
+        if (projects.length === 0) {
+            return (
+                <div className={"noDataDiv"}>
+                    No results found
+                </div>
+            )
+        }
+    }
+
     return (
         <>
             {toolsFilters || preferencesFilters || budgetFilter || idiomsFilter || filtersMobile ?
@@ -755,12 +792,13 @@ export default function ProjectsScreen() {
                         {projects.slice(index, 10 + (index)).map((value) => {
                             return <ProjectTileMobileComponent key={value.pid} data={value}/>
                         })}
+                        {noData()}
                         <div className={"pagination"}>
                             <ReactPaginate
                                 containerClassName={"pagination"}
                                 breakLabel={'...'}
                                 nextLabel={<ArrowCircleRight size="24"
-                                                             color={index + 10 > projects.length ? "#E3E3E3" : "#014751"}
+                                                             color={index + 10 >= projects.length ? "#E3E3E3" : "#014751"}
                                                              className={"pagination-icon"}/>}
                                 onPageChange={handlePageClick}
                                 pageRangeDisplayed={10}
