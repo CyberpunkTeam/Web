@@ -5,6 +5,7 @@ import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
 import {createUser, getUser} from "../../services/userService";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
+import {createToken} from "../../services/authenticationService";
 
 export default function GoogleLoginButton(params) {
     let context = useContext(AppContext);
@@ -49,27 +50,33 @@ export default function GoogleLoginButton(params) {
         signInWithPopup(context.auth, provider)
             .then((result) => {
                 const user = result.user
-                getUser(user.uid).then((r) => {
-                    if (Object.keys(r).length === 0) {
-                        const userLogin = {
-                            'name': user.displayName.split(" ",)[0],
-                            "lastname": user.displayName.split(" ")[1],
-                            "email": user.email,
-                            "location": "",
-                            "uid": user.uid
-                        }
-                        createUser(userLogin).then((r) => {
-                            context.setUser(r);
-                            localStorage.setItem("user", JSON.stringify(r))
-                            navigate('/me')
-                            setLoadingGoogle(false)
+                result.user.getIdToken().then((token) => {
+                    let tokenBody = {"auth_google_token": token, "user_id": user.uid}
+                    createToken(tokenBody).then((authToken) => {
+                        localStorage.setItem("auth_token", authToken.token)
+                        getUser(user.uid).then((r) => {
+                            if (Object.keys(r).length === 0) {
+                                const userLogin = {
+                                    'name': user.displayName.split(" ",)[0],
+                                    "lastname": user.displayName.split(" ")[1],
+                                    "email": user.email,
+                                    "location": "",
+                                    "uid": user.uid
+                                }
+                                createUser(userLogin).then((r) => {
+                                    context.setUser(r);
+                                    localStorage.setItem("user", JSON.stringify(r))
+                                    navigate('/me')
+                                    setLoadingGoogle(false)
+                                })
+                            } else {
+                                context.setUser(r)
+                                localStorage.setItem("user", JSON.stringify(r))
+                                navigate("/me")
+                                setLoadingGoogle(false)
+                            }
                         })
-                    } else {
-                        context.setUser(r)
-                        localStorage.setItem("user", JSON.stringify(r))
-                        navigate("/me")
-                        setLoadingGoogle(false)
-                    }
+                    })
                 })
             }).catch((error) => {
             console.log(error.code);
