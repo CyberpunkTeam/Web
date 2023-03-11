@@ -99,7 +99,7 @@ export default function PostulationModal(params) {
                 </label>
                 <div className="text-area-postulation-label">
                     Description
-                    <textarea className="textarea-style" value={description} onChange={setDescriptionHandler} name="Text1"
+                    <textarea className="textarea-style-modal" value={description} onChange={setDescriptionHandler} name="Text1"
                               cols="40"
                               rows="5"/>
                 </div>

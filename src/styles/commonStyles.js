@@ -125,17 +125,20 @@ export const selectedViolet2 = {
         padding: "4px 0",
         borderRadius: "16px",
         background: "#E3E3E3",
-        border: "none"
+        border: "none",
+        zIndex: "1"
     }),
     menu: (style) => ({
         ...style,
         padding: " 0 8px",
         maxHeight: "120px",
         borderRadius: "16px",
-        background: "#FAFAFA"
+        background: "#FAFAFA",
+        zIndex: "1"
     }),
     menuList: base => ({
         ...base,
+        zIndex: "1",
         maxHeight: "120px" // your desired height
     }),
     option: (style, {isSelected}) => ({
@@ -188,7 +191,7 @@ export const selectedViolet3 = {
     }),
     menu: (style) => ({
         ...style,
-        padding: " 0 8px",
+        padding: "0 8px",
         maxHeight: "120px",
         borderRadius: "16px",
         background: "#FAFAFA"

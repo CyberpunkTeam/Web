@@ -427,8 +427,11 @@ export default function ProjectScreen() {
     }
 
     const information = () => {
-        return (
-            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
+        const summary = () => {
+            if (project.description.summary.length === 0) {
+                return
+            }
+            return (
                 <div className={"information-container-reduce"}>
                     <div className="project-information-card">
                         Summary
@@ -437,6 +440,14 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                 </div>
+            )
+        }
+
+        const functional = () => {
+            if (project.description.functional_requirements.length === 0) {
+                return
+            }
+            return (
                 <div className={"information-container-reduce"}>
                     <div className="project-information-card">
                         Functional Requirements
@@ -445,6 +456,13 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                 </div>
+            )
+        }
+
+        return (
+            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
+                {summary()}
+                {functional()}
             </div>
         )
     }

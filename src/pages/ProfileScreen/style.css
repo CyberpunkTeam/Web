@@ -1010,12 +1010,34 @@
 }
 
 .cancel-edit-button-style {
-    width: 49%;
+    width: 48%;
     border-radius: 16px;
     height: 40px;
     color: #014751;;
     border: 2px solid rgba(1, 71, 81, 0.5);
     background: #FAFAFA;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-edit-button-style-reduced {
+    width: 100%;
+    border-radius: 16px;
+    height: 40px;
+    color: #014751;;
+    border: 2px solid rgba(1, 71, 81, 0.5);
+    background: #FAFAFA;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.cancel-edit-button-style-grey {
+    width: 49%;
+    border-radius: 16px;
+    height: 40px;
+    color: #014751;;
+    border: 2px solid rgba(1, 71, 81, 0.5);
+    background: #F1F1F1;
     font-size: 16px;
     cursor: pointer;
 }

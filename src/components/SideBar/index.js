@@ -212,6 +212,7 @@ function SideBar() {
     const settingsHover = () => {
         const logout = () => {
             localStorage.removeItem("user");
+            localStorage.removeItem("auth_token")
             navigate("/")
         }
 
