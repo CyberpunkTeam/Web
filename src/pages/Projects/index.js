@@ -75,6 +75,14 @@ export default function ProjectsScreen() {
         setRange(newValue);
     }
 
+    const queryParams = () => {
+        let params = ""
+        if (techs.length !== 0) {
+            params = params + "&programming_languages=" + techs.toString()
+        }
+        return params
+    }
+
     useEffect(() => {
         setTeam(!team)
     }, [time]);
@@ -92,7 +100,8 @@ export default function ProjectsScreen() {
     }, [maxValue])
 
     useEffect(() => {
-        getProjects().then((response) => {
+        const params = queryParams()
+        getProjects(params).then((response) => {
             setProjects([...response]);
             let max = 0;
 
@@ -132,7 +141,8 @@ export default function ProjectsScreen() {
 
     const find = () => {
         setButtonDisabled(true);
-        getProjects().then((response) => {
+        const params = queryParams()
+        getProjects(params).then((response) => {
             setProjects([...response]);
             setButtonDisabled(false);
             closeAll()
@@ -466,7 +476,7 @@ export default function ProjectsScreen() {
                         <div className={"filters-container-options-buttons-mobile"}>
                             <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
                             <button disabled={buttonDisabled}
-                                    className={buttonDisabled ? "filter-button-disabled-mobile " : "filter-button-mobile"}
+                                    className={buttonDisabled ? "filter-button-disabled-mobile" : "filter-button-mobile"}
                                     onClick={find}>
                                 {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                                 {buttonDisabled ? "" : "Apply"}

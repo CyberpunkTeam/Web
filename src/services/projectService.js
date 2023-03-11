@@ -14,8 +14,8 @@ export const getProject = (pid) => {
     return get(endpoint + pid)
 }
 
-export const getProjects = () => {
-    return get(endpoint + "?state=PENDING")
+export const getProjects = (params) => {
+    return get(endpoint + "?state=PENDING&currency=DOLAR" + params)
 }
 
 export const getPostulation = (ppid) => {
