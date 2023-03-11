@@ -139,6 +139,20 @@
     padding: 8px;
 }
 
+.textarea-style-modal {
+    border-radius: 16px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    background: #E3E3E3;
+    resize: none;
+    margin-top: 8px;
+    font-family: "Inter", sans-serif;
+    height: 100px;
+    outline: none;
+    font-size: 16px;
+    padding: 8px;
+}
+
 .reqTextAreaStyle {
     border-radius: 16px;
     border-color: #E3E3E3;
@@ -188,22 +202,77 @@
 
 .create-project-from-button {
     margin-left: 10px;
-    width: 50%;
+    width: 48%;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 16px;
     text-decoration: inherit;
     border-width: 0;
     color: white;
     text-align: center;
     background: #014751;
     font-size: 16px;
+    cursor: pointer;
+}
+
+.filter-button {
+    margin-left: 10px;
+    width: 48%;
+    height: 40px;
+    border-radius: 16px;
+    text-decoration: inherit;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    background: #014751;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.filter-button-mobile {
+    margin-top: 16px;
+    width: 100%;
+    height: 40px;
+    border-radius: 16px;
+    text-decoration: inherit;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    background: #014751;
+    font-size: 16px;
+    cursor: pointer;
 }
 
 .create-project-from-button-disabled {
     margin-left: 10px;
-    width: 50%;
+    width: 48%;
     height: 40px;
-    border-radius: 10px;
+    border-radius: 16px;
+    text-decoration: inherit;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 16px;
+}
+
+.filter-button-disabled {
+    margin-left: 10px;
+    width: 48%;
+    height: 40px;
+    border-radius: 16px;
+    text-decoration: inherit;
+    border-width: 0;
+    color: white;
+    text-align: center;
+    background: rgba(1, 71, 81, 0.5);
+    font-size: 16px;
+}
+
+.filter-button-disabled-mobile {
+    margin-top: 16px;
+    width: 100%;
+    height: 40px;
+    border-radius: 16px;
     text-decoration: inherit;
     border-width: 0;
     color: white;
