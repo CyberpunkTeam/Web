@@ -14,8 +14,8 @@ import {
     databasesOptions, Requirements
 } from "../../config/dictonary";
 import {
-    selected4,
-    selectedGreenStyle,
+    selected4, selectedCloud, selectedFrameworks,
+    selectedGreenStyle, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
     selectedViolet3, selectPref
@@ -170,7 +170,12 @@ export default function CreateProjectScreen() {
         if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
-                navigate("/projects/" + r.pid + "/teamRecommendation", {state: {teams: r.teams_recommendations, project: r.pid}})
+                navigate("/projects/" + r.pid + "/teamRecommendation", {
+                    state: {
+                        teams: r.teams_recommendations,
+                        project: r.pid
+                    }
+                })
             })
         } else {
             updateProject(state.project.pid, body).then((r) => {
@@ -366,7 +371,7 @@ export default function CreateProjectScreen() {
                                     defaultValue={reqDefault}
                                     options={Requirements}
                                     onChange={(choice) => setReqHandler(choice)}
-                                    styles={selectedGreenStyle}
+                                    styles={isMobile ? selectPref : selectedGreenStyle}
                                 />
                             </div>
                         </div>
@@ -378,39 +383,48 @@ export default function CreateProjectScreen() {
 
     const BasicInfoLeft = () => {
         return (
-            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Name
                             <div className="create-project-input">
-                                <input type="text" value={name} className={isMobile ? "input-mobile" : "input"} onChange={setNameHandler}/>
+                                <input type="text" value={name} className={isMobile ? "input-mobile" : "input"}
+                                       onChange={setNameHandler}/>
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Total Budget
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={estimatedBudget} className={isMobile ? "budget-input-mobile" : "budget-input"}
+                                <input type="number" min="0" value={estimatedBudget}
+                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setEstimatedBudgetHandler}/>
-                                <select value={coin} className={isMobile ? "select-coin-mobile" : "select-coin"} onChange={setCoinHandler}>
+                                <select value={coin} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                        onChange={setCoinHandler}>
                                     <option value="DOLAR">USD</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Estimated Completion Time
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={timeValue} className={isMobile ? "budget-input-mobile" : "budget-input"}
+                                <input type="number" min="0" value={timeValue}
+                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setTimeValueHandler}/>
-                                <select value={time} className={isMobile ? "select-coin-mobile" : "select-coin"} onChange={setTimeHandler}>
+                                <select value={time} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                        onChange={setTimeHandler}>
                                     <option value="HOURS">Hours</option>
                                     <option value="DAYS">Days</option>
                                     <option value="MONTHS">Months</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Languages
                             <div className="modal-form-input-select">
                                 <Select
@@ -419,7 +433,7 @@ export default function CreateProjectScreen() {
                                     options={optionsIdioms}
                                     onChange={(choice) => setLanguageHandler(choice)}
                                     name="Technologies"
-                                    styles={selectPref}
+                                    styles={isMobile ? selectPref : selectedGreenStyle}
                                 />
                             </div>
                         </label>
@@ -431,10 +445,12 @@ export default function CreateProjectScreen() {
 
     const BasicInfoRight = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Programming Languages
                             <div className="modal-form-input-select">
                                 <Select
@@ -443,11 +459,12 @@ export default function CreateProjectScreen() {
                                     options={optionsLanguages}
                                     onChange={(choice) => setTechHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet}
+                                    styles={isMobile ? selectedLanguages : selectedViolet}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Frameworks
                             <div className="modal-form-input-select">
                                 <Select
@@ -456,11 +473,12 @@ export default function CreateProjectScreen() {
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet3}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Platforms
                             <div className="modal-form-input-select">
                                 <Select
@@ -469,11 +487,12 @@ export default function CreateProjectScreen() {
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet2}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Databases
                             <div className="modal-form-input-select">
                                 <Select
@@ -481,7 +500,7 @@ export default function CreateProjectScreen() {
                                     defaultValue={databasesDefault}
                                     options={databasesOptions}
                                     onChange={(choice) => setDBHandler(choice)}
-                                    styles={selected4}
+                                    styles={isMobile ? selectedCloud : selected4}
                                 />
                             </div>
                         </label>
@@ -504,8 +523,10 @@ export default function CreateProjectScreen() {
                     </div>
                     {details()}
                 </div>
-                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
-                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
+                <div
+                    className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
+                            onClick={goBack}>
                         Cancel
                     </button>
                     <button disabled={buttonDisabled}
