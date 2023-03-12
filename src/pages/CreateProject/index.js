@@ -281,7 +281,7 @@ export default function CreateProjectScreen() {
                  className={isMobile ? "input-image-container-mobile" : "input-image-container"}>
                 <Document className="input-docs" size={isMobile ? 46 : 28} color="#FAFAFA"/>
                 .{name === undefined ? "empty" : name}
-                <Trash color="#FAFAFA" variant="Bold" s size={isMobile ? 32 : 16}
+                <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 32 : 16}
                        className={isMobile ? "input-image-trash-mobile" : "input-image-trash"} onClick={() => {
                     deleteFile(index)
                 }}/>

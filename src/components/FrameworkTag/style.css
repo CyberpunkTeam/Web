@@ -10,12 +10,12 @@
 }
 
 .framework-tag-mobile {
-    font-size: 30px;
     background: #9850A3;
+    border-radius: 16px;
     display: flex;
-    padding: 4px 8px;
     color: white;
     font-weight: 600;
-    margin-right: 8px;
-    border-radius: 8px;
+    font-size: 32px;
+    padding: 8px 16px;
+    margin: 0px 8px 0px 0px;
 }
