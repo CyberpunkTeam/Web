@@ -169,7 +169,7 @@ export default function CreateProjectScreen() {
         if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
-                navigate("/projects/" + r.pid + "/teamRecommendation")
+                navigate("/projects/" + r.pid + "/teamRecommendation", {state: {teams: r.teams_recommendations, project: r.pid}})
             })
         } else {
             updateProject(state.project.pid, body).then((r) => {
@@ -367,7 +367,7 @@ export default function CreateProjectScreen() {
                     <button disabled={buttonDisabled}
                             className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"}
                             onClick={projectButton}>
-                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"/> : null}
                         {buttonDisabled ? "" : state.project === undefined ? "Create" : "Save"}
                     </button>
                 </div>

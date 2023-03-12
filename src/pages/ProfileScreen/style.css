@@ -675,6 +675,7 @@
     margin: 8px;
     font-weight: 300;
     display: flex;
+    justify-content: center;
     align-items: center;
 }
 
@@ -880,6 +881,7 @@
 }
 
 .teamLinkName {
+    font-size: 20px;
     text-decoration: inherit;
     font-weight: 700;
     color: #FAFAFA;
