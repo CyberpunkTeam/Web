@@ -19,10 +19,11 @@ import {
     platformsOptions
 } from "../../config/dictonary";
 import {
-    selectedGreenStyle,
+    selectedFrameworks,
+    selectedGreenStyle, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3
+    selectedViolet3, selectPref
 } from "../../styles/commonStyles";
 import Select from "react-select";
 import Slider from "@mui/material/Slider";
@@ -33,6 +34,19 @@ const CustomSlider = styled(Slider)(({theme}) => ({
     color: "#58ADAD",
     "& .MuiSlider-thumb": {
         backgroundColor: "#2E9999"
+    },
+    "& .MuiSlider-rail": {
+        color: '#222222'
+    }
+}));
+
+const CustomSliderMobile = styled(Slider)(({theme}) => ({
+    color: "#58ADAD",
+    height: "20px",
+    "& .MuiSlider-thumb": {
+        backgroundColor: "#2E9999",
+        height: "60px",
+        width: "60px",
     },
     "& .MuiSlider-rail": {
         color: '#222222'
@@ -337,7 +351,7 @@ export default function ProjectsScreen() {
                     </div>
                     <div
                         className={toolsFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Programming Languages ({techs.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -345,12 +359,12 @@ export default function ProjectsScreen() {
                                     value={techsDefaults}
                                     isOptionDisabled={(option) => techs.length === 5}
                                     options={optionsLanguages}
-                                    styles={selectedViolet}
+                                    styles={selectedLanguages}
                                     onChange={(choice) => setTechLanguagesHandler(choice)}
                                 />
                             </div>
                         </div>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Frameworks ({frameworks.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -358,12 +372,12 @@ export default function ProjectsScreen() {
                                     value={frameworksDefault}
                                     isOptionDisabled={(option) => frameworks.length === 5}
                                     options={frameworksOptionsDataAll}
-                                    styles={selectedViolet3}
+                                    styles={selectedFrameworks}
                                     onChange={(choice) => setFrameworkHandler(choice)}
                                 />
                             </div>
                         </div>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Databases ({databases.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -371,7 +385,7 @@ export default function ProjectsScreen() {
                                     value={databasesDefault}
                                     isOptionDisabled={(option) => databases.length === 5}
                                     options={databasesOptions}
-                                    styles={selectedViolet2}
+                                    styles={selectedPlatform}
                                     onChange={(choice) => setDBHandler(choice)}
                                 />
                             </div>
@@ -393,7 +407,7 @@ export default function ProjectsScreen() {
                     </div>
                     <div
                         className={preferencesFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Project Preferences ({prefProjects.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -401,12 +415,12 @@ export default function ProjectsScreen() {
                                     value={prefProjectsDefault}
                                     isOptionDisabled={(option) => prefProjects.length === 5}
                                     options={optionsProjects}
-                                    styles={selectedGreenStyle}
+                                    styles={selectPref}
                                     onChange={(choice) => setProjectsHandler(choice)}
                                 />
                             </div>
                         </div>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Platforms ({platforms.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -414,7 +428,7 @@ export default function ProjectsScreen() {
                                     value={platformsDefault}
                                     isOptionDisabled={(option) => platformsOptions.length === 5}
                                     options={platformsOptions}
-                                    styles={selectedViolet2}
+                                    styles={selectedPlatform}
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                 />
                             </div>
@@ -437,9 +451,9 @@ export default function ProjectsScreen() {
                     <div
                         className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
                         <div className={"filters-slider-container-mobile"}>
-                            <CustomSlider className={"slider"} min={0} max={maxValue} step={10} value={range}
+                            <CustomSliderMobile className={"slider"} min={0} max={maxValue} step={10} value={range}
                                           onChange={handleChanges}/>
-                            <div className={"filters-slider-values"}>
+                            <div className={"filters-slider-values-mobile"}>
                                 <div>
                                     {formatter.format(range[0]) + " USD"}
                                 </div>
@@ -465,7 +479,7 @@ export default function ProjectsScreen() {
                     </div>
                     <div
                         className={idiomsFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-selectors-input"}>
+                        <div className={"filters-selectors-input-mobile"}>
                             Languages ({idiomsSelected.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
@@ -473,7 +487,7 @@ export default function ProjectsScreen() {
                                     value={idiomsSelectedDefault}
                                     isOptionDisabled={(option) => idiomsSelected.length === 5}
                                     options={optionsIdioms}
-                                    styles={selectedGreenStyle}
+                                    styles={selectPref}
                                     onChange={(choice) => setIdiomsHandler(choice)}
                                 />
                             </div>
@@ -629,7 +643,7 @@ export default function ProjectsScreen() {
                     </div>
                     <div
                         className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-slider-container-mobile"}>
+                        <div className={"filters-slider-container-reduced"}>
                             <CustomSlider className={"slider"} min={0} max={maxValue} step={10} value={range}
                                           onChange={handleChanges}/>
                             <div className={"filters-slider-values"}>

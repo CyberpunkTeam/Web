@@ -316,7 +316,6 @@ ul.pagination li a:hover {
 .filters-container-mobile {
     position: relative;
     width: 100%;
-    margin-top: 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -335,7 +334,7 @@ ul.pagination li a:hover {
 
 .filters-container-buttons-mobile {
     height: 120px;
-    padding: 32px 0;
+    padding-top: 32px;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -599,12 +598,30 @@ ul.pagination li a:hover {
     flex-direction: column;
     justify-content: space-between;
     width: calc(100% - 32px);
+    font-size: 32px;
+    color: #222222;
+    height: 100%;
+    padding: 0 16px;
+}
+
+.filters-slider-container-reduced {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 32px);
     color: #222222;
     height: 100%;
     padding: 0 16px;
 }
 
 .filters-slider-values {
+    display: flex;
+    justify-content: space-between;
+    color: #222222;
+}
+
+.filters-slider-values-mobile {
+    padding-top: 16px;
     display: flex;
     justify-content: space-between;
     color: #222222;
@@ -618,6 +635,12 @@ ul.pagination li a:hover {
 .filters-selectors-input {
     width: 100%;
     margin-bottom: 16px;
+}
+
+.filters-selectors-input-mobile {
+    width: 100%;
+    font-size: 32px;
+    margin-bottom: 32px;
 }
 
 .filters-button-selector-container {
