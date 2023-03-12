@@ -5,14 +5,13 @@ import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import CloudTag from "../CloudTag";
 import PreferenceTag from "../PreferenceTag";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {People, Star1, TickCircle} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 
 export default function TeamRecommendationTile(params) {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
     const data = params.data
     const [loading, setLoading] = useState(false);
     const [sendIt, setSendIt] = useState(false);

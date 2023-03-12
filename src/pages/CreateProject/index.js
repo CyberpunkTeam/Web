@@ -14,14 +14,15 @@ import {
     databasesOptions, Requirements
 } from "../../config/dictonary";
 import {
-    selected4,
-    selectedGreenStyle,
+    selected4, selectedCloud, selectedFrameworks,
+    selectedGreenStyle, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3
+    selectedViolet3, selectPref
 } from "../../styles/commonStyles";
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 import {saveFile} from "../../services/firebaseStorage";
+import {isMobile} from "react-device-detect";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -150,7 +151,7 @@ export default function CreateProjectScreen() {
             "project_type": type,
             "description": {
                 "files_attached": {files: filesUrl, images: imagesUrl},
-                "functional_requirements": [requirementsFunctional],
+                "functional_requirements": requirementsFunctional,
                 "non_function_requirements": req,
                 "summary": description
             },
@@ -169,11 +170,18 @@ export default function CreateProjectScreen() {
         if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
-                navigate("/projects/" + r.pid + "/teamRecommendation", {state: {teams: r.teams_recommendations, project: r.pid}})
+                window.scrollTo(0, 0);
+                navigate("/projects/" + r.pid + "/teamRecommendation", {
+                    state: {
+                        teams: r.teams_recommendations,
+                        project: r.pid
+                    }
+                })
             })
         } else {
             updateProject(state.project.pid, body).then((r) => {
                 setButtonDisabled(false)
+                window.scrollTo(0, 0);
                 navigate("/projects/" + r.pid)
             })
         }
@@ -269,10 +277,12 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={file.name === undefined ? file : file.name} className="input-image-container">
-                <Document className="input-docs" size={28} color="#FAFAFA"/>
+            <div key={file.name === undefined ? file : file.name}
+                 className={isMobile ? "input-image-container-mobile" : "input-image-container"}>
+                <Document className="input-docs" size={isMobile ? 46 : 28} color="#FAFAFA"/>
                 .{name === undefined ? "empty" : name}
-                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+                <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 32 : 16}
+                       className={isMobile ? "input-image-trash-mobile" : "input-image-trash"} onClick={() => {
                     deleteFile(index)
                 }}/>
             </div>
@@ -288,34 +298,44 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={url} className="input-image-container">
-                <img src={url} alt='' className="input-image"/>
-                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+            <div key={url} className={isMobile ? "input-image-container-mobile" : "input-image-container"}>
+                <img src={url} alt='' className={isMobile ? "input-image-mobile" : "input-image"}/>
+                <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 32 : 16}
+                       className={isMobile ? "input-image-trash-mobile" : "input-image-trash"} onClick={() => {
                     deleteImage(index)
                 }}/>
             </div>
         )
     }
 
+    const goBack = () => {
+        if (state.project !== undefined) {
+            navigate("/projects/" + state.project.pid)
+            return
+        }
+        navigate("/projects")
+    }
+
     const details = () => {
         return (
             <div className="projects-description-container">
-                <div className="information-container">
+                <div className={isMobile ? "information-container-mobile" : "information-container"}>
                     <div className="information-form">
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             Summary
-                            <textarea className="textarea-style" value={description} onChange={setDescriptionHandler}
+                            <textarea className={isMobile ? "textarea-style-mobile" : "textarea-style"}
+                                      value={description} onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
                         </div>
-                        <div className={"files-upload"}>
+                        <div className={isMobile ? "files-upload-mobile" : "files-upload"}>
                             <div>
                                 <label>
                                     <input type="file"
                                            disabled={files.length === 5}
                                            multiple onChange={handleFilesChange}
                                            accept="application/doc, application/txt, application/pdf, .json, text/plain"/>
-                                    <AttachSquare size="20"
+                                    <AttachSquare size={isMobile ? "54" : "20"}
                                                   className={files.length === 5 ? "icon-input-images-full" : "icon-input-images"}
                                                   color="#FAFAFA"/>
                                 </label>
@@ -323,33 +343,38 @@ export default function CreateProjectScreen() {
                                     <input type="file" multiple onChange={handleImagesChange}
                                            disabled={images.length === 5}
                                            accept="image/jpeg, image/png"/>
-                                    <Gallery size="20"
+                                    <Gallery size={isMobile ? "54" : "20"}
                                              className={images.length === 5 ? "icon-input-images-full" : "icon-input-images"}
                                              color="#FAFAFA"/>
                                 </label>
                             </div>
                             {description.length + "/2000"}
                         </div>
-                        <div className={"input-files"}>
-                            {files.map((file, index) => {
-                                return filesUploads(file, index)
-                            })}
-                            {images.map((file, index) => {
-                                return imagesUploads(file, index)
-                            })}
+                        <div className={isMobile ? "input-files-mobile" : "input-files"}>
+                            <div className={"input-files-mobile-div"}>
+                                {files.map((file, index) => {
+                                    return filesUploads(file, index)
+                                })}
+                            </div>
+                            <div className={"input-files-mobile-div"}>
+                                {images.map((file, index) => {
+                                    return imagesUploads(file, index)
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="information-container">
+                <div className={isMobile ? "information-container-mobile" : "information-container"}>
                     <div className={"information-form"}>
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             Functional Requirements
-                            <textarea className="reqTextAreaStyle" value={requirementsFunctional}
+                            <textarea className={isMobile ? "reqTextAreaMobileStyle" : "reqTextAreaStyle"}
+                                      value={requirementsFunctional}
                                       onChange={setRequirementsFunctionalHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
                         </div>
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             No Functional Requirements
                             <div className="modal-form-input-select">
                                 <Select
@@ -357,19 +382,11 @@ export default function CreateProjectScreen() {
                                     defaultValue={reqDefault}
                                     options={Requirements}
                                     onChange={(choice) => setReqHandler(choice)}
-                                    styles={selectedGreenStyle}
+                                    styles={isMobile ? selectPref : selectedGreenStyle}
                                 />
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="create-project-buttons">
-                    <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"}
-                            onClick={projectButton}>
-                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"/> : null}
-                        {buttonDisabled ? "" : state.project === undefined ? "Create" : "Save"}
-                    </button>
                 </div>
             </div>
         )
@@ -377,38 +394,48 @@ export default function CreateProjectScreen() {
 
     const BasicInfoLeft = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Name
                             <div className="create-project-input">
-                                <input type="text" value={name} className="input" onChange={setNameHandler}/>
+                                <input type="text" value={name} className={isMobile ? "input-mobile" : "input"}
+                                       onChange={setNameHandler}/>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Total Budget
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={estimatedBudget} className="budget-input"
+                                <input type="number" min="0" value={estimatedBudget}
+                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setEstimatedBudgetHandler}/>
-                                <select value={coin} className="select-coin" onChange={setCoinHandler}>
+                                <select value={coin} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                        onChange={setCoinHandler}>
                                     <option value="DOLAR">USD</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Estimated Completion Time
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={timeValue} className="budget-input"
+                                <input type="number" min="0" value={timeValue}
+                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setTimeValueHandler}/>
-                                <select value={time} className="select-coin" onChange={setTimeHandler}>
+                                <select value={time} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                        onChange={setTimeHandler}>
                                     <option value="HOURS">Hours</option>
                                     <option value="DAYS">Days</option>
                                     <option value="MONTHS">Months</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Languages
                             <div className="modal-form-input-select">
                                 <Select
@@ -417,7 +444,7 @@ export default function CreateProjectScreen() {
                                     options={optionsIdioms}
                                     onChange={(choice) => setLanguageHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    styles={isMobile ? selectPref : selectedGreenStyle}
                                 />
                             </div>
                         </label>
@@ -429,10 +456,12 @@ export default function CreateProjectScreen() {
 
     const BasicInfoRight = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Programming Languages
                             <div className="modal-form-input-select">
                                 <Select
@@ -441,11 +470,12 @@ export default function CreateProjectScreen() {
                                     options={optionsLanguages}
                                     onChange={(choice) => setTechHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet}
+                                    styles={isMobile ? selectedLanguages : selectedViolet}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Frameworks
                             <div className="modal-form-input-select">
                                 <Select
@@ -454,11 +484,12 @@ export default function CreateProjectScreen() {
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet3}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Platforms
                             <div className="modal-form-input-select">
                                 <Select
@@ -467,11 +498,12 @@ export default function CreateProjectScreen() {
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedViolet2}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
                                 />
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Databases
                             <div className="modal-form-input-select">
                                 <Select
@@ -479,7 +511,7 @@ export default function CreateProjectScreen() {
                                     defaultValue={databasesDefault}
                                     options={databasesOptions}
                                     onChange={(choice) => setDBHandler(choice)}
-                                    styles={selected4}
+                                    styles={isMobile ? selectedCloud : selected4}
                                 />
                             </div>
                         </label>
@@ -490,16 +522,31 @@ export default function CreateProjectScreen() {
     }
 
     return (
-        <div className="projects-screen">
-            <div className="create-projects-header">
+        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 {state.project === undefined ? type === "Base" ? "New Project" : "New " + type + " Project" : "Edit Project"}
             </div>
             <div>
-                <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
-                    {BasicInfoLeft()}
-                    {BasicInfoRight()}
+                <div>
+                    <div className={context.size || isMobile ? "projects-cards-reduced" : "projects-cards"}>
+                        {BasicInfoLeft()}
+                        {BasicInfoRight()}
+                    </div>
+                    {details()}
                 </div>
-                {details()}
+                <div
+                    className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
+                            onClick={goBack}>
+                        Cancel
+                    </button>
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
+                            onClick={projectButton}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {buttonDisabled ? "" : state.project === undefined ? "Save" : "Create"}
+                    </button>
+                </div>
             </div>
             <SearchBar/>
             <SideBar/>

@@ -3,6 +3,11 @@
     padding-bottom: 80px;
 }
 
+.projects-screen-mobile {
+    padding-top: 200px;
+    padding-bottom: 240px;
+}
+
 .create-projects-header {
     display: flex;
     width: 100%;
@@ -279,6 +284,37 @@ ul.pagination li a:hover {
     cursor: pointer;
 }
 
+.paginationMobile {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul.paginationMobile li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul.paginationMobile li a {
+    text-decoration: none;
+    color: #222222;
+    padding: 16px;
+    font-size: 32px;
+}
+
+ul.paginationMobile li a:hover {
+    font-weight: 700;
+    color: #222222;
+    cursor: pointer;
+}
+
 .pagination-icon {
     padding-top: 4px;
     cursor: pointer;
@@ -313,6 +349,16 @@ ul.pagination li a:hover {
     z-index: 1;
 }
 
+.filters-container-mobile {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .filters-container-buttons {
     height: 80px;
     display: flex;
@@ -323,6 +369,16 @@ ul.pagination li a:hover {
 }
 
 .filters-container-buttons-mobile {
+    height: 120px;
+    padding-top: 32px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.filters-container-buttons-reduced {
     height: 80px;
     width: 200px;
     display: flex;
@@ -341,6 +397,16 @@ ul.pagination li a:hover {
 }
 
 .filters-container-options-mobile {
+    align-self: center;
+    width: calc(100% - 32px);
+    margin: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filters-container-options-reduced {
     align-self: center;
     width: calc(100% - 32px);
     margin: 8px 16px;
@@ -369,6 +435,16 @@ ul.pagination li a:hover {
     align-items: center;
 }
 
+.filters-container-options-buttons-reduced {
+    align-self: center;
+    width: calc(100% - 32px);
+    margin: 8px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .filters-container-div {
     position: absolute;
     top: 80px;
@@ -385,6 +461,21 @@ ul.pagination li a:hover {
 }
 
 .filters-container-div-mobile {
+    position: absolute;
+    top: 184px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    border-radius: 16px;
+    padding: 16px;
+    width: calc(100% - 32px);
+    background: #F1F1F1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.filters-container-div-reduced {
     position: absolute;
     top: 80px;
     display: flex;
@@ -417,6 +508,25 @@ ul.pagination li a:hover {
 }
 
 .filters-buttons-mobile {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: 36px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    border-radius: 32px;
+    height: 120px;
+    background: #F1F1F1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    color: #222222;
+}
+
+.filters-buttons-reduced {
     width: 100%;
     display: flex;
     padding: 0 16px;
@@ -481,7 +591,26 @@ ul.pagination li a:hover {
     padding: 0 8px;
 }
 
+.filters-selectors-reduced {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    color: #222222;
+    height: 100%;
+    padding: 0 8px;
+}
+
 .filters-mobile {
+    border-bottom: 1px solid #B1B1B1;
+    align-items: center;
+    display: flex;
+    font-size: 36px;
+    justify-content: flex-start;
+    padding: 32px 0;
+}
+
+.filters-reduced {
     border-bottom: 1px solid #B1B1B1;
     align-items: center;
     display: flex;
@@ -505,12 +634,30 @@ ul.pagination li a:hover {
     flex-direction: column;
     justify-content: space-between;
     width: calc(100% - 32px);
+    font-size: 32px;
+    color: #222222;
+    height: 100%;
+    padding: 0 16px;
+}
+
+.filters-slider-container-reduced {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 32px);
     color: #222222;
     height: 100%;
     padding: 0 16px;
 }
 
 .filters-slider-values {
+    display: flex;
+    justify-content: space-between;
+    color: #222222;
+}
+
+.filters-slider-values-mobile {
+    padding-top: 16px;
     display: flex;
     justify-content: space-between;
     color: #222222;
@@ -524,6 +671,12 @@ ul.pagination li a:hover {
 .filters-selectors-input {
     width: 100%;
     margin-bottom: 16px;
+}
+
+.filters-selectors-input-mobile {
+    width: 100%;
+    font-size: 32px;
+    margin-bottom: 32px;
 }
 
 .filters-button-selector-container {

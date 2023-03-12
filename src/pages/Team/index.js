@@ -238,7 +238,7 @@ export default function TeamScreen() {
                     </div>
                 )
             } else {
-                return <img src={data.profile_image} alt='' className={isMobile ? "user-sidebar-mobile" : "user-sidebar"}/>
+                return <img src={data.profile_image} alt='' className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
             }
         }
 

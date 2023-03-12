@@ -19,10 +19,11 @@ import {
     platformsOptions
 } from "../../config/dictonary";
 import {
-    selectedGreenStyle,
+    selectedFrameworks,
+    selectedGreenStyle, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3
+    selectedViolet3, selectPref
 } from "../../styles/commonStyles";
 import Select from "react-select";
 import Slider from "@mui/material/Slider";
@@ -33,6 +34,19 @@ const CustomSlider = styled(Slider)(({theme}) => ({
     color: "#58ADAD",
     "& .MuiSlider-thumb": {
         backgroundColor: "#2E9999"
+    },
+    "& .MuiSlider-rail": {
+        color: '#222222'
+    }
+}));
+
+const CustomSliderMobile = styled(Slider)(({theme}) => ({
+    color: "#58ADAD",
+    height: "20px",
+    "& .MuiSlider-thumb": {
+        backgroundColor: "#2E9999",
+        height: "60px",
+        width: "60px",
     },
     "& .MuiSlider-rail": {
         color: '#222222'
@@ -220,6 +234,7 @@ export default function ProjectsScreen() {
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * 10) % projects.length;
+        window.scrollTo(0, 0);
         setIndex(newOffset);
     };
 
@@ -321,11 +336,209 @@ export default function ProjectsScreen() {
         return <Loading/>
     }
 
-    const coverMobile = () => {
+    const mobileFilters = () => {
+        if (!isMobile) {
+            return
+        }
         const tools = () => {
             return (
                 <div className={"filters-selectors-mobile"}>
                     <div className={"filters-mobile"} onClick={toolButton}>
+                        Tools
+                        {toolsFilters ?
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={toolsFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Programming Languages ({techs.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={techsDefaults}
+                                    isOptionDisabled={(option) => techs.length === 5}
+                                    options={optionsLanguages}
+                                    styles={selectedLanguages}
+                                    onChange={(choice) => setTechLanguagesHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Frameworks ({frameworks.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={frameworksDefault}
+                                    isOptionDisabled={(option) => frameworks.length === 5}
+                                    options={frameworksOptionsDataAll}
+                                    styles={selectedFrameworks}
+                                    onChange={(choice) => setFrameworkHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Databases ({databases.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={databasesDefault}
+                                    isOptionDisabled={(option) => databases.length === 5}
+                                    options={databasesOptions}
+                                    styles={selectedPlatform}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const preferences = () => {
+            return (
+                <div className={"filters-selectors-mobile"}>
+                    <div className={"filters-mobile"} onClick={preferencesButton}>
+                        Preferences
+                        {preferencesFilters ?
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={preferencesFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Project Preferences ({prefProjects.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={prefProjectsDefault}
+                                    isOptionDisabled={(option) => prefProjects.length === 5}
+                                    options={optionsProjects}
+                                    styles={selectPref}
+                                    onChange={(choice) => setProjectsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Platforms ({platforms.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={platformsDefault}
+                                    isOptionDisabled={(option) => platformsOptions.length === 5}
+                                    options={platformsOptions}
+                                    styles={selectedPlatform}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const budget = () => {
+            return (
+                <div className={"filters-selectors-mobile"}>
+                    <div className={"filters-mobile"} onClick={budgetButton}>
+                        Budget
+                        {budgetFilter ?
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-slider-container-mobile"}>
+                            <CustomSliderMobile className={"slider"} min={0} max={maxValue} step={10} value={range}
+                                                onChange={handleChanges}/>
+                            <div className={"filters-slider-values-mobile"}>
+                                <div>
+                                    {formatter.format(range[0]) + " USD"}
+                                </div>
+                                <div>
+                                    {formatter.format(range[1]) + " USD"}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const idioms = () => {
+            return (
+                <div className={"filters-selectors-mobile"}>
+                    <div className={"filters-mobile"} onClick={idiomsButton}>
+                        Language
+                        {idiomsFilter ?
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={idiomsFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input-mobile"}>
+                            Languages ({idiomsSelected.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={idiomsSelectedDefault}
+                                    isOptionDisabled={(option) => idiomsSelected.length === 5}
+                                    options={optionsIdioms}
+                                    styles={selectPref}
+                                    onChange={(choice) => setIdiomsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className={"filters-container-mobile"}>
+                <div className={"filters-container-buttons-mobile"}>
+                    <button className={"filters-buttons-mobile"} onClick={filterButton}>
+                        Filters
+                        {filtersMobile ?
+                            <ArrowUp2 size={48} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={48} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </button>
+                </div>
+                <div
+                    className={filtersMobile ? "filters-container-div-mobile" : "filters-selector-container-hidden"}>
+                    <div className={"filters-container-options-mobile"}>
+                        {tools()}
+                        {preferences()}
+                        {budget()}
+                        {idioms()}
+                    </div>
+                    <div className={"filters-container-options-buttons-mobile"}>
+                        <button className={"cancel-edit-button-style-mobile"} onClick={cleanAll}>
+                            Clean All
+                        </button>
+                        <button disabled={buttonDisabled}
+                                className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}
+                                onClick={find}>
+                            {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                            {buttonDisabled ? "" : "Apply"}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
+
+    const coverMobile = () => {
+        const tools = () => {
+            return (
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={toolButton}>
                         Tools
                         {toolsFilters ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -380,8 +593,8 @@ export default function ProjectsScreen() {
 
         const preferences = () => {
             return (
-                <div className={"filters-selectors-mobile"}>
-                    <div className={"filters-mobile"} onClick={preferencesButton}>
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={preferencesButton}>
                         Preferences
                         {preferencesFilters ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -423,8 +636,8 @@ export default function ProjectsScreen() {
 
         const budget = () => {
             return (
-                <div className={"filters-selectors-mobile"}>
-                    <div className={"filters-mobile"} onClick={budgetButton}>
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={budgetButton}>
                         Budget
                         {budgetFilter ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -433,7 +646,7 @@ export default function ProjectsScreen() {
                     </div>
                     <div
                         className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-slider-container-mobile"}>
+                        <div className={"filters-slider-container-reduced"}>
                             <CustomSlider className={"slider"} min={0} max={maxValue} step={10} value={range}
                                           onChange={handleChanges}/>
                             <div className={"filters-slider-values"}>
@@ -452,8 +665,8 @@ export default function ProjectsScreen() {
 
         const idioms = () => {
             return (
-                <div className={"filters-selectors-mobile"}>
-                    <div className={"filters-mobile"} onClick={idiomsButton}>
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={idiomsButton}>
                         Language
                         {idiomsFilter ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -483,8 +696,8 @@ export default function ProjectsScreen() {
         const filters = () => {
             return (
                 <div className={"filters-container-reduced"}>
-                    <div className={"filters-container-buttons-mobile"}>
-                        <button className={"filters-buttons-mobile"} onClick={filterButton}>
+                    <div className={"filters-container-buttons-reduced"}>
+                        <button className={"filters-buttons-reduced"} onClick={filterButton}>
                             Filters
                             {filtersMobile ?
                                 <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -493,17 +706,17 @@ export default function ProjectsScreen() {
                         </button>
                     </div>
                     <div
-                        className={filtersMobile ? "filters-container-div-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-container-options-mobile"}>
+                        className={filtersMobile ? "filters-container-div-reduced" : "filters-selector-container-hidden"}>
+                        <div className={"filters-container-options-reduced"}>
                             {tools()}
                             {preferences()}
                             {budget()}
                             {idioms()}
                         </div>
-                        <div className={"filters-container-options-buttons-mobile"}>
+                        <div className={"filters-container-options-buttons-reduced"}>
                             <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
                             <button disabled={buttonDisabled}
-                                    className={buttonDisabled ? "filter-button-disabled-mobile" : "filter-button-mobile"}
+                                    className={buttonDisabled ? "filter-button-disabled-reduced" : "filter-button-reduced"}
                                     onClick={find}>
                                 {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                                 {buttonDisabled ? "" : "Apply"}
@@ -532,10 +745,11 @@ export default function ProjectsScreen() {
                         Create Project
                     </button>
                 </div>
-                {filters()}
+                {isMobile ? null : filters()}
             </div>
         )
     }
+
     const cover = () => {
         const projectsCover = () => {
             return (
@@ -788,23 +1002,24 @@ export default function ProjectsScreen() {
             <div>
                 <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
                     {isMobile || context.size ? coverMobile() : cover()}
+                    {mobileFilters()}
                     <div className="projects-container">
                         {projects.slice(index, 10 + (index)).map((value) => {
                             return <ProjectTileMobileComponent key={value.pid} data={value}/>
                         })}
                         {noData()}
-                        <div className={"pagination"}>
+                        <div className={isMobile ? "paginationMobile" : "pagination"}>
                             <ReactPaginate
-                                containerClassName={"pagination"}
+                                containerClassName={isMobile ? "paginationMobile" : "pagination"}
                                 breakLabel={'...'}
-                                nextLabel={<ArrowCircleRight size="24"
+                                nextLabel={<ArrowCircleRight size={isMobile ? "64" : "24"}
                                                              color={index + 10 >= projects.length ? "#E3E3E3" : "#014751"}
                                                              className={"pagination-icon"}/>}
                                 onPageChange={handlePageClick}
                                 pageRangeDisplayed={10}
                                 pageCount={pageCount}
                                 activeClassName={"active-page"}
-                                previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"}
+                                previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"} color={index === 0 ? "#E3E3E3" : "#014751"}
                                                                 className={"pagination-icon"}/>}
                                 renderOnZeroPageCount={null}
                             />
