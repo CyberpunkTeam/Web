@@ -270,6 +270,21 @@
     cursor: pointer;
 }
 
+.postulate-button-reduced {
+    width: 60px;
+    background: #014751;
+    border-width: 0;
+    margin-right: 16px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
 .finish-button {
     min-width: 200px;
     background: #014751;
@@ -300,6 +315,23 @@
     justify-content: center;
     border-radius: 16px;
     width: available;
+    cursor: pointer;
+}
+
+.cancel-project-button-reduced {
+    background: #CD5B45;
+    width: 60px;
+    height: 80px;
+    min-height: available;
+    border-width: 0;
+    margin-left: 16px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
     cursor: pointer;
 }
 
@@ -504,6 +536,7 @@
     height: 24px;
     font-weight: 400;
     font-size: 14px;
+    margin-bottom: 16px;
     border-radius: 8px;
 }
 
@@ -513,6 +546,7 @@
     justify-content: center;
     align-items: center;
     margin-left: 8px;
+    margin-top: 16px;
     background: rgba(227, 227, 227, 0.9);
     font-weight: 400;
     font-size: 32px;
@@ -526,7 +560,7 @@
     cursor: pointer;
     padding: 16px;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
 }
 .project-tile-title-container-mobile {
@@ -544,7 +578,24 @@
     display: flex;
     align-items: center;
     color: #222222;
+    justify-content: center;
+}
+
+.status-tag-container-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 40%;
+    color: #222222;
     justify-content: space-between;
+}
+
+.type-icon-mobile {
+    margin-top: 16px;
+}
+
+.type-icon {
+    margin-bottom: 16px;
 }
 
 .statusMobile {
@@ -1243,7 +1294,7 @@
     justify-content: center;
     display: flex;
     padding: 16px;
-    margin-bottom: 16px;
+    margin: 16px 0;
     background: #014751;
     border: 0;
     cursor: pointer;

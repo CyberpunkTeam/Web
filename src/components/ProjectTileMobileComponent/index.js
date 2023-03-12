@@ -23,21 +23,21 @@ export default function ProjectTileMobileComponent(params) {
     const projectTileIcon = () => {
         switch (data.project_type) {
             case 'Backend':
-                return <Scroll size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Scroll size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Web':
-                return <Monitor size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Monitor size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Mobile':
-                return <Mobile size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Mobile size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Crypto':
-                return <Bitcoin size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Bitcoin size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Data Analytics':
-                return <ChartSquare size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <ChartSquare size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Data Science':
-                return <Hex size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Hex size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             case 'Data Engineering':
-                return <CpuSetting size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <CpuSetting size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
             default:
-                return <Box1 size={isMobile ? "48" : "24"} color="#FAFAFA"/>
+                return <Box1 size={isMobile ? "48" : "24"} color="#FAFAFA" className={isMobile ? "type-icon-mobile": "type-icon"}/>
         }
     }
 
@@ -106,10 +106,12 @@ export default function ProjectTileMobileComponent(params) {
             <div className={isMobile ? "coverProjectMobile" : "coverProject"} onClick={goTo}>
                 <div className={isMobile ? "project-tile-title-container-mobile" : "project-tile-title-container"}>
                     {data.name}
-                    <div className={"status-tag-container"}>
-                        {projectTileIcon()}
-                        <div className={isMobile ? "status-tag-mobile" : "status-tag"}>
-                            {state}
+                    <div className={isMobile || context.size ? "status-tag-container-mobile" : "status-tag-container"}>
+                        <div className={"status-tag-container"}>
+                            {projectTileIcon()}
+                            <div className={isMobile ? "status-tag-mobile" : "status-tag"}>
+                                {state}
+                            </div>
                         </div>
                         <div className={isMobile ? "status-tag-mobile" : "status-tag"}>
                             {formatter.format(data.tentative_budget) + " USD"}

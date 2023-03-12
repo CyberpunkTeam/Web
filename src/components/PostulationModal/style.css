@@ -31,7 +31,7 @@
     appearance: none;
     font-family: "Inter", sans-serif;
     width: 100%;
-    border-radius: 20px;
+    border-radius: 32px;
     border-color: #E3E3E3;
     border-width: 0px;
     outline: none;
@@ -57,6 +57,23 @@
     padding: 2px 8px;
 }
 
+.select-coin-mobile {
+    appearance: none;
+    font-family: "Inter", sans-serif;
+    width: 25%;
+    text-align: center;
+    border-top-right-radius: 46px;
+    border-bottom-right-radius: 46px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    outline: none;
+    background: #E3E3E3;
+    padding: 0 16px;
+    height: 132px;
+    color: #222222;
+    font-size: 40px;
+}
+
 .budget-input-container {
     display: flex;
     margin-top: 8px;
@@ -79,6 +96,23 @@
     background: #E3E3E3;
     font-size: 16px;
     padding: 2px 8px;
+}
+
+.budget-input-mobile {
+    font-family: "Inter", sans-serif;
+    width: 75%;
+    border-right: 2px solid #D1D1D1;
+    border-top-left-radius: 46px;
+    border-bottom-left-radius: 46px;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    outline: none;
+    height: 132px;
+    background: #E3E3E3;
+    color: #222222;
+    font-size: 40px;
+    padding: 0 16px;
 }
 
 .from-button-postulation {

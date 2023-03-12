@@ -106,7 +106,13 @@ export default function ProjectScreen() {
 
     const recommendationButton = () => {
         console.log("entra")
-        navigate("/projects/" + project.pid + "/teamRecommendation",  {state: {teams: recommendations, project: project.pid, again: true}})
+        navigate("/projects/" + project.pid + "/teamRecommendation", {
+            state: {
+                teams: recommendations,
+                project: project.pid,
+                again: true
+            }
+        })
     }
 
     const openModalIfCancelProject = () => {
@@ -140,8 +146,8 @@ export default function ProjectScreen() {
         let name = file.split("-file-")[1].split("?")[0].split(".")[1]
 
         return (
-            <a key={file} className="input-image-container" href={file}>
-                <Document className="input-docs" size={28} color="#FAFAFA"/>
+            <a key={file} className={isMobile ? "input-image-container-mobile" : "input-image-container"} href={file}>
+                <Document className="input-docs" size={isMobile ? 46 : 28} color="#FAFAFA"/>
                 .{name === undefined ? "empty" : name}
             </a>
         )
@@ -149,8 +155,8 @@ export default function ProjectScreen() {
 
     const imagesUploads = (file) => {
         return (
-            <a key={file} className="input-image-container" href={file}>
-                <img src={file} alt='' className="input-image"/>
+            <a key={file} className={isMobile ? "input-image-container-mobile" : "input-image-container"} href={file}>
+                <img src={file} alt='' className={isMobile ? "input-image-mobile" : "input-image"}/>
             </a>
         )
     }
@@ -191,9 +197,9 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button className="postulate-button" onClick={openModal}>
-                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Postulate Team
+            <button className={context.size ? "postulate-button-reduced" : "postulate-button"} onClick={openModal}>
+                <People color="#FAFAFA" variant="Bold" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Postulate Team"}
             </button>
         )
     }
@@ -207,7 +213,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (recommendations === undefined ||recommendations.length === 0) {
+        if (recommendations === undefined || recommendations.length === 0) {
             return
         }
 
@@ -220,9 +226,10 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button className="postulate-button" onClick={recommendationButton}>
-                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Team Recommendations
+            <button className={context.size ? "postulate-button-reduced" : "postulate-button"}
+                    onClick={recommendationButton}>
+                <People color="#FAFAFA" variant="Bold" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Team Recommendations"}
             </button>
         )
     }
@@ -245,9 +252,10 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button className="cancel-project-button" onClick={openModalIfDeleteProject}>
-                <Trash color="#FAFAFA" variant="Bold" size={24} className="icon"/>
-                Delete Project
+            <button className={context.size ? "cancel-project-button-reduced" : "cancel-project-button"}
+                    onClick={openModalIfDeleteProject}>
+                <Trash color="#FAFAFA" variant="Bold" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Delete Project"}
             </button>
         )
     }
@@ -270,9 +278,10 @@ export default function ProjectScreen() {
         }
 
         return (
-            <button className="cancel-project-button" onClick={openModalIfCancelProject}>
-                <LogoutCurve color="#FAFAFA" variant="Bulk" size={24} className="icon"/>
-                Leave Project
+            <button className={context.size ? "cancel-project-button-reduced" : "cancel-project-button"}
+                    onClick={openModalIfCancelProject}>
+                <LogoutCurve color="#FAFAFA" variant="Bulk" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Leave Project"}
             </button>
         )
     }
@@ -287,22 +296,22 @@ export default function ProjectScreen() {
         }
 
         return (
-            <div className="dropdown">
-                <button className={context.size ? "dropbtnReduced" : "dropbtn"}>
-                    {context.size ? "" : "Request"}
-                    <ArrowCircleDown className={context.size ? null : "chevron"} color="#FAFAFA" variant="Outline"
-                                     size={24}/>
+            <div className={"dropdown"}>
+                <button className={isMobile ? "dropbtnMobile" : context.size ? "dropbtnReduced" : "dropbtn"}>
+                    {isMobile || context.size ? "" : "Request"}
+                    <ArrowCircleDown className={isMobile || context.size ? null : "chevron"} color="#FAFAFA" variant="Outline"
+                                     size={isMobile ? 64 : 24}/>
                 </button>
-                <div className="dropdown-content">
+                <div className={isMobile ? "dropdown-content-mobile" : "dropdown-content"}>
                     <div onClick={openModalIfCancelProject}>
-                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={context.size ? 32 : 24}
-                                     className={context.size ? null : "icon"}/>
-                        {context.size ? "" : "Abandonment"}
+                        <LogoutCurve color="#CD5B45" variant={"Bulk"} size={isMobile ? 80 : context.size ? 32 : 24}
+                                     className={isMobile || context.size ? null : "icon"}/>
+                        {isMobile || context.size ? "" : "Abandonment"}
                     </div>
                     <div onClick={openModalIfFinishProject}>
-                        <TickCircle color="#014751" variant="Bold" size={context.size ? 32 : 24}
-                                    className={context.size ? null : "icon"}/>
-                        {context.size ? "" : "Completion"}
+                        <TickCircle color="#014751" variant="Bold" size={isMobile ? 80 : context.size ? 32 : 24}
+                                    className={isMobile || context.size ? null : "icon"}/>
+                        {isMobile || context.size ? "" : "Completion"}
                     </div>
                 </div>
             </div>
@@ -319,22 +328,24 @@ export default function ProjectScreen() {
         const user_image = (data) => {
             if (data.profile_image === "default") {
                 return (
-                    <div className="member-photo">
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
                         <User color="#FAFAFA" size="16px" variant="Bold"/>
                     </div>
                 )
             } else {
-                return <img src={data.profile_image} alt='' className="user-sidebar"/>
+                return <img src={data.profile_image} alt=''
+                            className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
             }
         }
 
         return (
-            <div className={context.size ? "members-info-container-reduced" : "members-info-container"}>
-                <div className="members-info">
+            <div
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}>
+                <div className={isMobile ? "members-info-mobile" : "members-info"}>
                     {user_image(data)}
-                    <div className="member-name" onClick={userNavigate}>
+                    <div className={isMobile ? "member-name-mobile" : "member-name"} onClick={userNavigate}>
                         {data.name} {data.lastname}
-                        <div className="owner">
+                        <div className={isMobile ? "owner-mobile" : "owner"}>
                             Owner
                         </div>
                     </div>
@@ -354,12 +365,13 @@ export default function ProjectScreen() {
         }
 
         return (
-            <div className="members-info-container">
-                <div className="members-info">
-                    <div className="member-photo">
-                        <People color="#FAFAFA" size="24px" variant="Bold"/>
+            <div
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}>
+                <div className={isMobile ? "members-info-mobile" : "members-info"}>
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                        <People color="#FAFAFA" size={isMobile ? 32 : 24} variant="Bold"/>
                     </div>
-                    <div className="member-name" onClick={userNavigate}>
+                    <div className={isMobile ? "member-name-mobile" : "member-name"} onClick={userNavigate}>
                         {data.name}
                     </div>
                 </div>
@@ -371,20 +383,71 @@ export default function ProjectScreen() {
         const editButton = () => {
             if (project.creator.uid === context.user.uid) {
 
-                if (project.state !== "PENDING") {
-                    return
-                }
                 const edit = () => {
                     navigate(`/projects/${project.pid}/edit`, {state: {project}})
                 }
+
+                if (isMobile) {
+                    return (
+                        <div className="cover-buttons">
+                            <div className="edit-button-mobile" onClick={edit}>
+                                <Edit size="48" color="#014751"/>
+                            </div>
+                        </div>
+                    )
+                }
+
                 return (
                     <div className="cover-buttons">
-                        <div className="project-edit-button" onClick={edit}>
+                        <div className="edit-button" onClick={edit}>
                             <Edit size="24" color="#014751"/>
                         </div>
                     </div>
                 )
             }
+        }
+
+        if (isMobile) {
+            return (
+                <div className="team-cover-container-mobile">
+                    <div className="project-title-container-mobile">
+                        <div className="team-name-mobile">
+                            {project.name}
+                        </div>
+                        <div className="tags-container">
+                            {project.technologies.programming_language.map((data) => {
+                                return <TechnologyTag key={data} technology={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {project.technologies.frameworks.map((data) => {
+                                return <FrameworkTag key={data} framework={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {project.technologies.platforms.map((data) => {
+                                return <PlatformTag key={data} platform={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {project.technologies.databases.map((data) => {
+                                return <CloudTag key={data} cloud={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {project.idioms.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                        </div>
+                        <div className="tags-container">
+                            {project.description.non_function_requirements.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                        </div>
+                    </div>
+                    {editButton()}
+                </div>
+            )
         }
 
         return (
@@ -428,14 +491,14 @@ export default function ProjectScreen() {
 
         return (
             <div
-                className={context.size ? "project-information-container-reduce" : "project-information-container-left"}>
-                <div className={"information-container-reduce"}>
+                className={context.size || isMobile ? "project-information-container-reduce" : "project-information-container-left"}>
+                <div className={isMobile ? "information-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
                             <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
                             Budget
                         </div>
-                        <div className={"budget-container"}>
+                        <div className={isMobile ? "budget-container-mobile" : "budget-container"}>
                             <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
                         </div>
                     </div>
@@ -519,9 +582,9 @@ export default function ProjectScreen() {
 
     const activity = (data) => {
         return (
-            <div key={data.description} className={"history"}>
+            <div key={data.description} className={isMobile ? "history-mobile" : "history"}>
                 {data.description}
-                <div className={"history-date"}>
+                <div className={isMobile ? "history-date-mobile" : "history-date"}>
                     {formatDate(data.created_date)}
                 </div>
             </div>
@@ -531,7 +594,7 @@ export default function ProjectScreen() {
     const tagInfo = () => {
         if (tagSelect === "info") {
             return (
-                <div className={context.size ? "project-data-container-reduce" : "project-data-container"}>
+                <div className={context.size || isMobile ? "project-data-container-reduce" : "project-data-container"}>
                     {budget()}
                     {information()}
                 </div>
@@ -557,9 +620,11 @@ export default function ProjectScreen() {
     const teamsPostulations = () => {
         if (project.creator.uid === context.user.uid && project.state === "PENDING") {
             return (
-                <div className={tagSelect === "postulations" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                    setTagSelect("postulations")
-                }}>
+                <div
+                    className={tagSelect === "postulations" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("postulations")
+                    }}>
                     Postulations
                 </div>
             )
@@ -574,27 +639,31 @@ export default function ProjectScreen() {
                 {cover()}
             </div>
             <div className={context.size ? "projectButtonsContainerReduced" : "projectButtonsContainer"}>
-                <div className={"projectButtonContainer"}>
+                <div className={isMobile ? "projectButtonContainerMobile" : "projectButtonContainer"}>
                     {owner(project.creator)}
                     {teamAssigned(project.team_assigned)}
                     {postulate()}
                     {teamRecommendations()}
                 </div>
-                <div className={"projectButtonContainer"}>
+                <div className={isMobile ? "projectButtonContainerMobile" : "projectButtonContainer"}>
                     {cancelProject()}
                     {abandonProjectButton()}
                     {actionsButton()}
                 </div>
             </div>
             <div className="tagsFilterContainer">
-                <div className={tagSelect === "info" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                    setTagSelect("info")
-                }}>
+                <div
+                    className={tagSelect === "info" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("info")
+                    }}>
                     Information
                 </div>
-                <div className={tagSelect === "history" ? "tagSelectorSelect" : "tagSelector"} onClick={() => {
-                    setTagSelect("history")
-                }}>
+                <div
+                    className={tagSelect === "history" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("history")
+                    }}>
                     History
                 </div>
                 {teamsPostulations()}
