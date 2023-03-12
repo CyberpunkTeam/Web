@@ -60,6 +60,13 @@
     color: #222222;
 }
 
+.modal-label-options {
+    width: 90%;
+    padding-bottom: 20px;
+    font-size: 24px;
+    color: #222222;
+}
+
 .add-skill-label {
     width: 95%;
     padding-bottom: 20px;
@@ -93,12 +100,34 @@
     background: #E3E3E3;
     font-size: 16px;
     padding: 0px 8px 0px 8px;
+    color: #222222;
+}
+
+.selectMobile {
+    appearance: none;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    border-radius: 32px;
+    border-color: #E3E3E3;
+    border-width: 0px;
+    outline: none;
+    height: 120px;
+    background: #E3E3E3;
+    font-size: 24px;
+    padding: 0px 8px;
+    color: #222222;
 }
 
 .from-button {
     background: #E3E3E3;
     position: absolute;
     right: 8px;
+}
+
+.from-button-mobile {
+    background: #E3E3E3;
+    position: absolute;
+    right: 16px;
 }
 
 .information-container {
