@@ -3,6 +3,11 @@
     padding-bottom: 80px;
 }
 
+.projects-screen-mobile {
+    padding-top: 200px;
+    padding-bottom: 240px;
+}
+
 .create-projects-header {
     display: flex;
     width: 100%;

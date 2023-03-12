@@ -417,7 +417,7 @@ export const selectedCitiesMobile = {
         height: "100px",
         padding: "8px 0",
         fontSize: "40px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -427,7 +427,7 @@ export const selectedCitiesMobile = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -465,7 +465,7 @@ export const selectedLanguages = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -475,7 +475,7 @@ export const selectedLanguages = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -531,7 +531,7 @@ export const selectedFrameworks = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -541,7 +541,7 @@ export const selectedFrameworks = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -597,7 +597,7 @@ export const selectedPlatform = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -607,7 +607,7 @@ export const selectedPlatform = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -663,7 +663,7 @@ export const selectedCloud = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -673,7 +673,7 @@ export const selectedCloud = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -729,7 +729,7 @@ export const selectedDb = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -739,7 +739,7 @@ export const selectedDb = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({
@@ -795,7 +795,7 @@ export const selectPref = {
         minHeight: "100px",
         padding: "16px",
         fontSize: "32px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#E3E3E3",
         border: "none"
     }),
@@ -805,7 +805,7 @@ export const selectPref = {
         padding: " 0 24px",
         fontSize: "32px",
         maxHeight: "300px",
-        borderRadius: "45px",
+        borderRadius: "46px",
         background: "#FAFAFA"
     }),
     menuList: base => ({

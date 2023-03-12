@@ -18,10 +18,11 @@ import {
     selectedGreenStyle,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3
+    selectedViolet3, selectPref
 } from "../../styles/commonStyles";
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 import {saveFile} from "../../services/firebaseStorage";
+import {isMobile} from "react-device-detect";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -297,6 +298,14 @@ export default function CreateProjectScreen() {
         )
     }
 
+    const goBack = () => {
+        if (state.project !== undefined) {
+            navigate("/projects/" + state.project.pid)
+            return
+        }
+        navigate("/projects")
+    }
+
     const details = () => {
         return (
             <div className="projects-description-container">
@@ -363,52 +372,45 @@ export default function CreateProjectScreen() {
                         </div>
                     </div>
                 </div>
-                <div className="create-project-buttons">
-                    <button disabled={buttonDisabled}
-                            className={buttonDisabled ? "create-project-from-button-disabled" : "create-project-from-button"}
-                            onClick={projectButton}>
-                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"/> : null}
-                        {buttonDisabled ? "" : state.project === undefined ? "Create" : "Save"}
-                    </button>
-                </div>
             </div>
         )
     }
 
     const BasicInfoLeft = () => {
         return (
-            <div className={context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
-                <div className={context.size ? "create-project-info-reduced" : "create-project-info"}>
+            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+                <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Name
                             <div className="create-project-input">
-                                <input type="text" value={name} className="input" onChange={setNameHandler}/>
+                                <input type="text" value={name} className={isMobile ? "input-mobile" : "input"} onChange={setNameHandler}/>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Total Budget
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={estimatedBudget} className="budget-input"
+                                <input type="number" min="0" value={estimatedBudget} className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setEstimatedBudgetHandler}/>
-                                <select value={coin} className="select-coin" onChange={setCoinHandler}>
+                                <select value={coin} className={isMobile ? "select-coin-mobile" : "select-coin"} onChange={setCoinHandler}>
                                     <option value="DOLAR">USD</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Estimated Completion Time
                             <div className="budget-input-container">
-                                <input type="number" min="0" value={timeValue} className="budget-input"
+                                <input type="number" min="0" value={timeValue} className={isMobile ? "budget-input-mobile" : "budget-input"}
                                        onChange={setTimeValueHandler}/>
-                                <select value={time} className="select-coin" onChange={setTimeHandler}>
+                                <select value={time} className={isMobile ? "select-coin-mobile" : "select-coin"} onChange={setTimeHandler}>
                                     <option value="HOURS">Hours</option>
                                     <option value="DAYS">Days</option>
                                     <option value="MONTHS">Months</option>
                                 </select>
                             </div>
                         </label>
-                        <label className={context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Languages
                             <div className="modal-form-input-select">
                                 <Select
@@ -417,7 +419,7 @@ export default function CreateProjectScreen() {
                                     options={optionsIdioms}
                                     onChange={(choice) => setLanguageHandler(choice)}
                                     name="Technologies"
-                                    styles={selectedGreenStyle}
+                                    styles={selectPref}
                                 />
                             </div>
                         </label>
@@ -490,16 +492,29 @@ export default function CreateProjectScreen() {
     }
 
     return (
-        <div className="projects-screen">
-            <div className="create-projects-header">
+        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 {state.project === undefined ? type === "Base" ? "New Project" : "New " + type + " Project" : "Edit Project"}
             </div>
             <div>
-                <div className={context.size ? "projects-cards-reduced" : "projects-cards"}>
-                    {BasicInfoLeft()}
-                    {BasicInfoRight()}
+                <div>
+                    <div className={context.size || isMobile ? "projects-cards-reduced" : "projects-cards"}>
+                        {BasicInfoLeft()}
+                        {BasicInfoRight()}
+                    </div>
+                    {details()}
                 </div>
-                {details()}
+                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
+                        Cancel
+                    </button>
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
+                            onClick={projectButton}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {buttonDisabled ? "" : state.project === undefined ? "Save" : "Create"}
+                    </button>
+                </div>
             </div>
             <SearchBar/>
             <SideBar/>

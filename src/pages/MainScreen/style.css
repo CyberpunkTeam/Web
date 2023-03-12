@@ -111,14 +111,13 @@
     width: calc(100% - 32px);
     border-radius: 46px;
     border-color: #E3E3E3;
-    border-width: 0px;
+    border-width: 0;
     outline: none;
-    height: 100px;
+    height: 132px;
     color: #222222;
     background: #E3E3E3;
     font-size: 40px;
-    padding-left: 16px;
-    padding-right: 16px;
+    padding: 0 16px;
 }
 
 .form-text-modal {
