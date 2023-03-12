@@ -486,13 +486,12 @@ export default function ProjectScreen() {
         )
     }
 
-
     const budget = () => {
 
         return (
             <div
                 className={context.size || isMobile ? "project-information-container-reduce" : "project-information-container-left"}>
-                <div className={isMobile ? "information-container-mobile" : "information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
                             <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
@@ -503,13 +502,13 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                 </div>
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
                             <Document size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
                             Files
                         </div>
-                        <div className={"project-files"}>
+                        <div className={isMobile ? "project-files-mobile" : "project-files"}>
                             <div className={"input-files"}>
                                 {project.description.files_attached.files === undefined ? null : project.description.files_attached.files.map((file) => {
                                     return filesUploads(file)
@@ -533,10 +532,12 @@ export default function ProjectScreen() {
                 return
             }
             return (
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
-                        Summary
-                        <div className="project-description-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            Summary
+                        </div>
+                        <div className={isMobile ? "project-description-card-mobile" : "project-description-card"}>
                             {project.description.summary}
                         </div>
                     </div>
@@ -545,14 +546,16 @@ export default function ProjectScreen() {
         }
 
         const functional = () => {
-            if (project.description.functional_requirements.length <= 1) {
+            if (project.description.functional_requirements.length === 0) {
                 return
             }
             return (
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
-                        Functional Requirements
-                        <div className="project-description-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            Functional Requirements
+                        </div>
+                        <div className={isMobile ? "project-description-card-mobile" : "project-description-card"}>
                             {project.description.functional_requirements}
                         </div>
                     </div>
@@ -561,7 +564,7 @@ export default function ProjectScreen() {
         }
 
         return (
-            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
+            <div className={isMobile || context.size ? "project-information-container-reduce" : "project-information-container"}>
                 {summary()}
                 {functional()}
             </div>
