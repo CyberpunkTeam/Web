@@ -321,15 +321,18 @@ export default function ProjectsScreen() {
         return <Loading/>
     }
 
-    const coverMobile = () => {
+    const mobileFilters = () => {
+        if (!isMobile) {
+            return
+        }
         const tools = () => {
             return (
                 <div className={"filters-selectors-mobile"}>
                     <div className={"filters-mobile"} onClick={toolButton}>
                         Tools
                         {toolsFilters ?
-                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
                         }
                     </div>
                     <div
@@ -384,8 +387,8 @@ export default function ProjectsScreen() {
                     <div className={"filters-mobile"} onClick={preferencesButton}>
                         Preferences
                         {preferencesFilters ?
-                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
                         }
                     </div>
                     <div
@@ -427,8 +430,8 @@ export default function ProjectsScreen() {
                     <div className={"filters-mobile"} onClick={budgetButton}>
                         Budget
                         {budgetFilter ?
-                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
                         }
                     </div>
                     <div
@@ -454,6 +457,199 @@ export default function ProjectsScreen() {
             return (
                 <div className={"filters-selectors-mobile"}>
                     <div className={"filters-mobile"} onClick={idiomsButton}>
+                        Language
+                        {idiomsFilter ?
+                            <ArrowUp2 size={32} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={32} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={idiomsFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input"}>
+                            Languages ({idiomsSelected.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={idiomsSelectedDefault}
+                                    isOptionDisabled={(option) => idiomsSelected.length === 5}
+                                    options={optionsIdioms}
+                                    styles={selectedGreenStyle}
+                                    onChange={(choice) => setIdiomsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        return (
+            <div className={"filters-container-mobile"}>
+                <div className={"filters-container-buttons-mobile"}>
+                    <button className={"filters-buttons-mobile"} onClick={filterButton}>
+                        Filters
+                        {filtersMobile ?
+                            <ArrowUp2 size={48} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={48} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </button>
+                </div>
+                <div
+                    className={filtersMobile ? "filters-container-div-mobile" : "filters-selector-container-hidden"}>
+                    <div className={"filters-container-options-mobile"}>
+                        {tools()}
+                        {preferences()}
+                        {budget()}
+                        {idioms()}
+                    </div>
+                    <div className={"filters-container-options-buttons-mobile"}>
+                        <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
+                        <button disabled={buttonDisabled}
+                                className={buttonDisabled ? "filter-button-disabled-mobile" : "filter-button-mobile"}
+                                onClick={find}>
+                            {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                            {buttonDisabled ? "" : "Apply"}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
+
+    const coverMobile = () => {
+        const tools = () => {
+            return (
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={toolButton}>
+                        Tools
+                        {toolsFilters ?
+                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={toolsFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input"}>
+                            Programming Languages ({techs.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={techsDefaults}
+                                    isOptionDisabled={(option) => techs.length === 5}
+                                    options={optionsLanguages}
+                                    styles={selectedViolet}
+                                    onChange={(choice) => setTechLanguagesHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input"}>
+                            Frameworks ({frameworks.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={frameworksDefault}
+                                    isOptionDisabled={(option) => frameworks.length === 5}
+                                    options={frameworksOptionsDataAll}
+                                    styles={selectedViolet3}
+                                    onChange={(choice) => setFrameworkHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input"}>
+                            Databases ({databases.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={databasesDefault}
+                                    isOptionDisabled={(option) => databases.length === 5}
+                                    options={databasesOptions}
+                                    styles={selectedViolet2}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const preferences = () => {
+            return (
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={preferencesButton}>
+                        Preferences
+                        {preferencesFilters ?
+                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={preferencesFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-selectors-input"}>
+                            Project Preferences ({prefProjects.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={prefProjectsDefault}
+                                    isOptionDisabled={(option) => prefProjects.length === 5}
+                                    options={optionsProjects}
+                                    styles={selectedGreenStyle}
+                                    onChange={(choice) => setProjectsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input"}>
+                            Platforms ({platforms.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={platformsDefault}
+                                    isOptionDisabled={(option) => platformsOptions.length === 5}
+                                    options={platformsOptions}
+                                    styles={selectedViolet2}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const budget = () => {
+            return (
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={budgetButton}>
+                        Budget
+                        {budgetFilter ?
+                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </div>
+                    <div
+                        className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={"filters-slider-container-mobile"}>
+                            <CustomSlider className={"slider"} min={0} max={maxValue} step={10} value={range}
+                                          onChange={handleChanges}/>
+                            <div className={"filters-slider-values"}>
+                                <div>
+                                    {formatter.format(range[0]) + " USD"}
+                                </div>
+                                <div>
+                                    {formatter.format(range[1]) + " USD"}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+        const idioms = () => {
+            return (
+                <div className={"filters-selectors-reduced"}>
+                    <div className={"filters-reduced"} onClick={idiomsButton}>
                         Language
                         {idiomsFilter ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -483,8 +679,8 @@ export default function ProjectsScreen() {
         const filters = () => {
             return (
                 <div className={"filters-container-reduced"}>
-                    <div className={"filters-container-buttons-mobile"}>
-                        <button className={"filters-buttons-mobile"} onClick={filterButton}>
+                    <div className={"filters-container-buttons-reduced"}>
+                        <button className={"filters-buttons-reduced"} onClick={filterButton}>
                             Filters
                             {filtersMobile ?
                                 <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -493,17 +689,17 @@ export default function ProjectsScreen() {
                         </button>
                     </div>
                     <div
-                        className={filtersMobile ? "filters-container-div-mobile" : "filters-selector-container-hidden"}>
-                        <div className={"filters-container-options-mobile"}>
+                        className={filtersMobile ? "filters-container-div-reduced" : "filters-selector-container-hidden"}>
+                        <div className={"filters-container-options-reduced"}>
                             {tools()}
                             {preferences()}
                             {budget()}
                             {idioms()}
                         </div>
-                        <div className={"filters-container-options-buttons-mobile"}>
+                        <div className={"filters-container-options-buttons-reduced"}>
                             <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
                             <button disabled={buttonDisabled}
-                                    className={buttonDisabled ? "filter-button-disabled-mobile" : "filter-button-mobile"}
+                                    className={buttonDisabled ? "filter-button-disabled-reduced" : "filter-button-reduced"}
                                     onClick={find}>
                                 {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                                 {buttonDisabled ? "" : "Apply"}
@@ -532,10 +728,11 @@ export default function ProjectsScreen() {
                         Create Project
                     </button>
                 </div>
-                {filters()}
+                {isMobile ? null : filters()}
             </div>
         )
     }
+
     const cover = () => {
         const projectsCover = () => {
             return (
@@ -788,6 +985,7 @@ export default function ProjectsScreen() {
             <div>
                 <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
                     {isMobile || context.size ? coverMobile() : cover()}
+                    {mobileFilters()}
                     <div className="projects-container">
                         {projects.slice(index, 10 + (index)).map((value) => {
                             return <ProjectTileMobileComponent key={value.pid} data={value}/>
