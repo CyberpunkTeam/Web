@@ -234,6 +234,7 @@ export default function ProjectsScreen() {
 
     const handlePageClick = (event) => {
         const newOffset = (event.selected * 10) % projects.length;
+        window.scrollTo(0, 0);
         setIndex(newOffset);
     };
 
@@ -452,7 +453,7 @@ export default function ProjectsScreen() {
                         className={budgetFilter ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
                         <div className={"filters-slider-container-mobile"}>
                             <CustomSliderMobile className={"slider"} min={0} max={maxValue} step={10} value={range}
-                                          onChange={handleChanges}/>
+                                                onChange={handleChanges}/>
                             <div className={"filters-slider-values-mobile"}>
                                 <div>
                                     {formatter.format(range[0]) + " USD"}
@@ -517,9 +518,11 @@ export default function ProjectsScreen() {
                         {idioms()}
                     </div>
                     <div className={"filters-container-options-buttons-mobile"}>
-                        <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
+                        <button className={"cancel-edit-button-style-mobile"} onClick={cleanAll}>
+                            Clean All
+                        </button>
                         <button disabled={buttonDisabled}
-                                className={buttonDisabled ? "filter-button-disabled-mobile" : "filter-button-mobile"}
+                                className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}
                                 onClick={find}>
                             {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                             {buttonDisabled ? "" : "Apply"}
@@ -1005,18 +1008,18 @@ export default function ProjectsScreen() {
                             return <ProjectTileMobileComponent key={value.pid} data={value}/>
                         })}
                         {noData()}
-                        <div className={"pagination"}>
+                        <div className={isMobile ? "paginationMobile" : "pagination"}>
                             <ReactPaginate
-                                containerClassName={"pagination"}
+                                containerClassName={isMobile ? "paginationMobile" : "pagination"}
                                 breakLabel={'...'}
-                                nextLabel={<ArrowCircleRight size="24"
+                                nextLabel={<ArrowCircleRight size={isMobile ? "64" : "24"}
                                                              color={index + 10 >= projects.length ? "#E3E3E3" : "#014751"}
                                                              className={"pagination-icon"}/>}
                                 onPageChange={handlePageClick}
                                 pageRangeDisplayed={10}
                                 pageCount={pageCount}
                                 activeClassName={"active-page"}
-                                previousLabel={<ArrowCircleLeft size="24" color={index === 0 ? "#E3E3E3" : "#014751"}
+                                previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"} color={index === 0 ? "#E3E3E3" : "#014751"}
                                                                 className={"pagination-icon"}/>}
                                 renderOnZeroPageCount={null}
                             />

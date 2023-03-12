@@ -279,6 +279,37 @@ ul.pagination li a:hover {
     cursor: pointer;
 }
 
+.paginationMobile {
+    display: flex;
+    list-style: none;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul.paginationMobile li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+ul.paginationMobile li a {
+    text-decoration: none;
+    color: #222222;
+    padding: 16px;
+    font-size: 32px;
+}
+
+ul.paginationMobile li a:hover {
+    font-weight: 700;
+    color: #222222;
+    cursor: pointer;
+}
+
 .pagination-icon {
     padding-top: 4px;
     cursor: pointer;
