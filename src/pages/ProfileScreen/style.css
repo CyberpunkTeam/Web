@@ -270,6 +270,21 @@
     cursor: pointer;
 }
 
+.postulate-button-reduced {
+    width: 60px;
+    background: #014751;
+    border-width: 0;
+    margin-right: 16px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    cursor: pointer;
+}
+
 .finish-button {
     min-width: 200px;
     background: #014751;
@@ -300,6 +315,23 @@
     justify-content: center;
     border-radius: 16px;
     width: available;
+    cursor: pointer;
+}
+
+.cancel-project-button-reduced {
+    background: #CD5B45;
+    width: 60px;
+    height: 80px;
+    min-height: available;
+    border-width: 0;
+    margin-left: 16px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
     cursor: pointer;
 }
 
@@ -1262,7 +1294,7 @@
     justify-content: center;
     display: flex;
     padding: 16px;
-    margin-bottom: 16px;
+    margin: 16px 0;
     background: #014751;
     border: 0;
     cursor: pointer;

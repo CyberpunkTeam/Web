@@ -358,7 +358,8 @@ export const selected4 = {
 
 export const modalStyle = {
     overlay: {
-        backgroundColor: 'rgba(0, 0, 0, 0.5)'
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        zIndex: "1"
     },
     content: {
         fontFamily: "Inter",
@@ -372,6 +373,7 @@ export const modalStyle = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         boxShadow: "0px 4px 10px #666666",
+        zIndex: "1"
     },
 }
 
