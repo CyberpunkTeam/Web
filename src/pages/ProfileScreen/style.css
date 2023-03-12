@@ -885,6 +885,7 @@
     text-decoration: inherit;
     font-weight: 700;
     color: #FAFAFA;
+    cursor: pointer;
 }
 
 .team-link-mobile {
