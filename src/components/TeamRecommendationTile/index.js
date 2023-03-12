@@ -71,23 +71,15 @@ export default function TeamRecommendationTile(params) {
             </div>
         )
     }
-    const teamView = (data) => {
 
-        const team_link = "/team/" + data.tid;
+    const inviteButtonMobile = () => {
+        if (!isMobile) {
+            return
+        }
 
         return (
-            <div key={data.tid}
-                 className={isMobile ? "teamDataInfoMobile" : "teamDataRecommendationInfo"}>
-                <div className={"teamRecommendationTitle"}>
-                    <Link to={team_link} className="teamLinkName">
-                        {data.name}
-                    </Link>
-                    <div className={isMobile ? "rank-mobile" : "rank"}>
-                        <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
-                        {data.overall_rating.toFixed(1)}
-                    </div>
-                </div>
-                <button disabled={sendIt || loading} className={"postulateVacantButton"} onClick={sendInvitation}>
+            <div className={"teamInfoMobileButton"}>
+                <button disabled={sendIt || loading} className={"createProjectButtonCoverMobile"} onClick={sendInvitation}>
                     {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
                         sendIt ?
                             <TickCircle color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/> :
@@ -98,11 +90,49 @@ export default function TeamRecommendationTile(params) {
         )
     }
 
+    const teamView = (data) => {
+
+        const team_link = "/team/" + data.tid;
+
+        const inviteButton = () => {
+            if (isMobile) {
+                return
+            }
+
+            return (
+                <button disabled={sendIt || loading} className={"postulateVacantButton"} onClick={sendInvitation}>
+                    {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                        sendIt ?
+                            <TickCircle color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/> :
+                            <People color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>}
+                    {loading ? "" : sendIt ? "Sent" : "Send Invitation"}
+                </button>
+            )
+        }
+
+        return (
+            <div key={data.tid}
+                 className={isMobile ? "teamDataInfoMobile" : "teamDataRecommendationInfo"}>
+                <div className={"teamRecommendationTitle"}>
+                    <Link to={team_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
+                        {data.name}
+                    </Link>
+                    <div className={isMobile ? "rank-mobile" : "rank"}>
+                        <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
+                        {data.overall_rating.toFixed(1)}
+                    </div>
+                </div>
+                {inviteButton()}
+            </div>
+        )
+    }
+
     return (
         <div key={data.tid} className={isMobile ? "teamContainerMobile" : "teamContainerRecommendation"}>
             <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfoRecommendation"}>
                 {teamView(data)}
                 {teamTags(data)}
+                {inviteButtonMobile()}
             </div>
         </div>
     )

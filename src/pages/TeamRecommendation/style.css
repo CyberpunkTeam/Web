@@ -40,3 +40,10 @@
     font-weight: 700;
     color: #FAFAFA;
 }
+
+.teamInfoMobileButton {
+   width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
