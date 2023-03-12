@@ -151,7 +151,7 @@ export default function CreateProjectScreen() {
             "project_type": type,
             "description": {
                 "files_attached": {files: filesUrl, images: imagesUrl},
-                "functional_requirements": [requirementsFunctional],
+                "functional_requirements": requirementsFunctional,
                 "non_function_requirements": req,
                 "summary": description
             },
@@ -170,6 +170,7 @@ export default function CreateProjectScreen() {
         if (state.project === undefined) {
             createProject(body).then((r) => {
                 setButtonDisabled(false)
+                window.scrollTo(0, 0);
                 navigate("/projects/" + r.pid + "/teamRecommendation", {
                     state: {
                         teams: r.teams_recommendations,
@@ -180,6 +181,7 @@ export default function CreateProjectScreen() {
         } else {
             updateProject(state.project.pid, body).then((r) => {
                 setButtonDisabled(false)
+                window.scrollTo(0, 0);
                 navigate("/projects/" + r.pid)
             })
         }
@@ -275,10 +277,12 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={file.name === undefined ? file : file.name} className="input-image-container">
-                <Document className="input-docs" size={28} color="#FAFAFA"/>
+            <div key={file.name === undefined ? file : file.name}
+                 className={isMobile ? "input-image-container-mobile" : "input-image-container"}>
+                <Document className="input-docs" size={isMobile ? 46 : 28} color="#FAFAFA"/>
                 .{name === undefined ? "empty" : name}
-                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+                <Trash color="#FAFAFA" variant="Bold" s size={isMobile ? 32 : 16}
+                       className={isMobile ? "input-image-trash-mobile" : "input-image-trash"} onClick={() => {
                     deleteFile(index)
                 }}/>
             </div>
@@ -294,9 +298,10 @@ export default function CreateProjectScreen() {
         }
 
         return (
-            <div key={url} className="input-image-container">
-                <img src={url} alt='' className="input-image"/>
-                <Trash color="#FAFAFA" variant="Bold" size={16} className={"input-image-trash"} onClick={() => {
+            <div key={url} className={isMobile ? "input-image-container-mobile" : "input-image-container"}>
+                <img src={url} alt='' className={isMobile ? "input-image-mobile" : "input-image"}/>
+                <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 32 : 16}
+                       className={isMobile ? "input-image-trash-mobile" : "input-image-trash"} onClick={() => {
                     deleteImage(index)
                 }}/>
             </div>
@@ -314,22 +319,23 @@ export default function CreateProjectScreen() {
     const details = () => {
         return (
             <div className="projects-description-container">
-                <div className="information-container">
+                <div className={isMobile ? "information-container-mobile" : "information-container"}>
                     <div className="information-form">
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             Summary
-                            <textarea className="textarea-style" value={description} onChange={setDescriptionHandler}
+                            <textarea className={isMobile ? "textarea-style-mobile" : "textarea-style"}
+                                      value={description} onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
                         </div>
-                        <div className={"files-upload"}>
+                        <div className={isMobile ? "files-upload-mobile" : "files-upload"}>
                             <div>
                                 <label>
                                     <input type="file"
                                            disabled={files.length === 5}
                                            multiple onChange={handleFilesChange}
                                            accept="application/doc, application/txt, application/pdf, .json, text/plain"/>
-                                    <AttachSquare size="20"
+                                    <AttachSquare size={isMobile ? "54" : "20"}
                                                   className={files.length === 5 ? "icon-input-images-full" : "icon-input-images"}
                                                   color="#FAFAFA"/>
                                 </label>
@@ -337,33 +343,38 @@ export default function CreateProjectScreen() {
                                     <input type="file" multiple onChange={handleImagesChange}
                                            disabled={images.length === 5}
                                            accept="image/jpeg, image/png"/>
-                                    <Gallery size="20"
+                                    <Gallery size={isMobile ? "54" : "20"}
                                              className={images.length === 5 ? "icon-input-images-full" : "icon-input-images"}
                                              color="#FAFAFA"/>
                                 </label>
                             </div>
                             {description.length + "/2000"}
                         </div>
-                        <div className={"input-files"}>
-                            {files.map((file, index) => {
-                                return filesUploads(file, index)
-                            })}
-                            {images.map((file, index) => {
-                                return imagesUploads(file, index)
-                            })}
+                        <div className={isMobile ? "input-files-mobile" : "input-files"}>
+                            <div className={"input-files-mobile-div"}>
+                                {files.map((file, index) => {
+                                    return filesUploads(file, index)
+                                })}
+                            </div>
+                            <div className={"input-files-mobile-div"}>
+                                {images.map((file, index) => {
+                                    return imagesUploads(file, index)
+                                })}
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div className="information-container">
+                <div className={isMobile ? "information-container-mobile" : "information-container"}>
                     <div className={"information-form"}>
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             Functional Requirements
-                            <textarea className="reqTextAreaStyle" value={requirementsFunctional}
+                            <textarea className={isMobile ? "reqTextAreaMobileStyle" : "reqTextAreaStyle"}
+                                      value={requirementsFunctional}
                                       onChange={setRequirementsFunctionalHandler}
                                       name="Text1" cols="40"
                                       rows="5"/>
                         </div>
-                        <div className="text-area-label">
+                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
                             No Functional Requirements
                             <div className="modal-form-input-select">
                                 <Select
