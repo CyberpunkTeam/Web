@@ -5,7 +5,7 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject} from "../../services/projectService";
+import {getProjectPostulations, getProject, getProjectTeamRecommendations} from "../../services/projectService";
 import {
     AddCircle,
     ArrowCircleDown, DollarSquare,
@@ -48,6 +48,7 @@ export default function ProjectScreen() {
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [recommendations, setRecommendations] = useState([]);
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
@@ -65,8 +66,11 @@ export default function ProjectScreen() {
                         setLoading(false);
                     })
                 }
-                getProjectPostulations(params.id).then((response) => {
-                    setPostulations(response);
+                getProjectTeamRecommendations(response).then((r) => {
+                    setRecommendations(r)
+                })
+                getProjectPostulations(params.id).then((postulationResponse) => {
+                    setPostulations(postulationResponse);
                     setLoading(false);
                 })
             }
@@ -98,6 +102,11 @@ export default function ProjectScreen() {
         setIsCancelProject(false);
         setIsDeleteProject(false)
         setIsOpen(true);
+    }
+
+    const recommendationButton = () => {
+        console.log("entra")
+        navigate("/projects/" + project.pid + "/teamRecommendation",  {state: {teams: recommendations, project: project.pid, again: true}})
     }
 
     const openModalIfCancelProject = () => {
@@ -185,6 +194,35 @@ export default function ProjectScreen() {
             <button className="postulate-button" onClick={openModal}>
                 <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
                 Postulate Team
+            </button>
+        )
+    }
+
+    const teamRecommendations = () => {
+        if (project.creator.uid !== context.user.uid) {
+            return
+        }
+
+        if (project.state !== "PENDING") {
+            return
+        }
+
+        if (recommendations === undefined ||recommendations.length === 0) {
+            return
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={recommendationButton}>
+                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className="postulate-button" onClick={recommendationButton}>
+                <People color="#FAFAFA" variant="Bold" size={24} className="icon"/>
+                Team Recommendations
             </button>
         )
     }
@@ -444,7 +482,7 @@ export default function ProjectScreen() {
         }
 
         const functional = () => {
-            if (project.description.functional_requirements.length === 0) {
+            if (project.description.functional_requirements.length <= 1) {
                 return
             }
             return (
@@ -540,6 +578,7 @@ export default function ProjectScreen() {
                     {owner(project.creator)}
                     {teamAssigned(project.team_assigned)}
                     {postulate()}
+                    {teamRecommendations()}
                 </div>
                 <div className={"projectButtonContainer"}>
                     {cancelProject()}

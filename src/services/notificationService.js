@@ -49,3 +49,7 @@ export const abandonProjectRequest = (body) => {
 export const getTeamPosition = (tpid) => {
     return get(`teams_positions/${tpid}`)
 }
+
+export const projectInvitation = (body) => {
+    return post(endpoint + "project_invitation/", body)
+}

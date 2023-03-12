@@ -45,3 +45,7 @@ export const getRequestAbandonProject = (tid, pid) => {
 export const getRequestAbandonProjectWithID = (par_id) => {
     return get(`/project_abandons_requests/${par_id}`)
 }
+
+export const getProjectTeamRecommendations = (body) => {
+    return post(`recommendations/projects/`, body)
+}
