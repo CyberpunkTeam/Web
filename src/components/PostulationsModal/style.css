@@ -35,6 +35,16 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.postulation-team-view-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 32px;
+    font-size: 32px;
+    border-radius: 32px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .team-postulation-info {
     width: 30%;
 }
@@ -51,9 +61,26 @@
     text-align: center;
 }
 
+.team-postulation-name-mobile {
+    font-size: 48px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
 .team-postulation-star {
     padding: 0 16px;
     font-size: 16px;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-postulation-star-mobile {
+    padding: 0 16px;
+    font-size: 32px;
     font-weight: 400;
     display: flex;
     justify-content: center;
@@ -66,11 +93,28 @@
     font-weight: 500;
 }
 
+.team-postulation-data-mobile {
+    padding-top: 16px;
+    font-size: 36px;
+    font-weight: 500;
+}
+
 .team-postulation-budget-reduce{
     display: flex;
     width: 100%;
     padding: 8px 0;
     font-size: 24px;
+    font-weight: 300;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.team-postulation-budget-mobile{
+    display: flex;
+    width: 100%;
+    padding: 8px 0;
+    font-size: 40px;
     font-weight: 300;
     align-items: center;
     justify-content: center;
@@ -130,9 +174,28 @@
     border-radius: 8px;
 }
 
+.usd-mobile {
+    background: #E3E3E3;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    padding: 0 8px;
+    font-size: 24px;
+    border-radius: 8px;
+}
+
 .postulations-buttons-container {
     display: flex;
     width: 100px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postulations-buttons-mobile-container {
+    display: flex;
+    width: 260px;
     justify-content: space-between;
     align-items: center;
 }
@@ -158,6 +221,18 @@
     background: rgba(1, 71, 81, 0.5);
     color: white;
 }
+.loading-mobile-button {
+    margin: 4px;
+    height: 108px;
+    width: 108px;
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(1, 71, 81, 0.5);
+    color: white;
+}
 
 .loading-button-mobile {
     margin: 4px;
@@ -175,6 +250,19 @@
     margin: 4px;
     height: 40px;
     width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(205, 91, 69, 0.5);
+    color: white;
+}
+
+.loading-button-mobile-reject {
+    margin: 4px;
+    height: 108px;
+    width: 108px;
+    font-size: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
