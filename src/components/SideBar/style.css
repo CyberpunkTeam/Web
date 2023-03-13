@@ -221,6 +221,18 @@
     border-bottom: none;
 }
 
+.notification-list-reduced li{
+    font-size: 16px;
+    font-weight: 300;
+    list-style: none;
+    margin-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.notification-list-reduced li:last-child{
+    border-bottom: none;
+}
+
 .notifications{
     font-size: 24px;
     display: flex;
@@ -294,6 +306,18 @@
     width: 300px;
     align-self: center;
     height: 92%;
+}
+
+.notification-list-reduced{
+    padding: 0 16px;
+    margin-bottom: 8px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-size: 24px;
+    font-weight: 700;
+    width: 300px;
+    align-self: center;
+    height: 85%;
 }
 
 .bottom {

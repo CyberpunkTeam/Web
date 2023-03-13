@@ -10,6 +10,19 @@
     justify-content: space-around;
 }
 
+.abandonModalMobile {
+    display: flex;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    flex-direction: column;
+    height: 600px;
+    width: 800px;
+    border-radius: 32px;
+    background: #FAFAFA;
+    align-items: center;
+    justify-content: space-around;
+}
+
 .abandonModalWithoutOptions {
     display: flex;
     overflow-y: hidden;

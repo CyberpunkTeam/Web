@@ -187,10 +187,19 @@ export default function ProjectScreen() {
         if (userTeams.length === 0) {
             return
         }
+        const postulateButton = () => {
+            navigate("postulate", {
+                state: {
+                    pid: project.pid,
+                    teams: userTeams,
+                    budget: project.tentative_budget
+                }
+            })
+        }
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={openModal}>
+                <button className="createTeamButtonMobile" onClick={postulateButton}>
                     <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
@@ -299,7 +308,8 @@ export default function ProjectScreen() {
             <div className={"dropdown"}>
                 <button className={isMobile ? "dropbtnMobile" : context.size ? "dropbtnReduced" : "dropbtn"}>
                     {isMobile || context.size ? "" : "Request"}
-                    <ArrowCircleDown className={isMobile || context.size ? null : "chevron"} color="#FAFAFA" variant="Outline"
+                    <ArrowCircleDown className={isMobile || context.size ? null : "chevron"} color="#FAFAFA"
+                                     variant="Outline"
                                      size={isMobile ? 64 : 24}/>
                 </button>
                 <div className={isMobile ? "dropdown-content-mobile" : "dropdown-content"}>
@@ -329,7 +339,7 @@ export default function ProjectScreen() {
             if (data.profile_image === "default") {
                 return (
                     <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
-                        <User color="#FAFAFA" size="16px" variant="Bold"/>
+                        <User color="#FAFAFA" size={isMobile ? 40 : 16} variant="Bold"/>
                     </div>
                 )
             } else {
@@ -486,13 +496,12 @@ export default function ProjectScreen() {
         )
     }
 
-
     const budget = () => {
 
         return (
             <div
                 className={context.size || isMobile ? "project-information-container-reduce" : "project-information-container-left"}>
-                <div className={isMobile ? "information-container-mobile" : "information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
                             <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
@@ -503,13 +512,13 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                 </div>
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
                             <Document size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
                             Files
                         </div>
-                        <div className={"project-files"}>
+                        <div className={isMobile ? "project-files-mobile" : "project-files"}>
                             <div className={"input-files"}>
                                 {project.description.files_attached.files === undefined ? null : project.description.files_attached.files.map((file) => {
                                     return filesUploads(file)
@@ -533,10 +542,12 @@ export default function ProjectScreen() {
                 return
             }
             return (
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
-                        Summary
-                        <div className="project-description-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            Summary
+                        </div>
+                        <div className={isMobile ? "project-description-card-mobile" : "project-description-card"}>
                             {project.description.summary}
                         </div>
                     </div>
@@ -545,14 +556,16 @@ export default function ProjectScreen() {
         }
 
         const functional = () => {
-            if (project.description.functional_requirements.length <= 1) {
+            if (project.description.functional_requirements.length === 0) {
                 return
             }
             return (
-                <div className={"information-container-reduce"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
-                        Functional Requirements
-                        <div className="project-description-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            Functional Requirements
+                        </div>
+                        <div className={isMobile ? "project-description-card-mobile" : "project-description-card"}>
                             {project.description.functional_requirements}
                         </div>
                     </div>
@@ -561,7 +574,8 @@ export default function ProjectScreen() {
         }
 
         return (
-            <div className={context.size ? "project-information-container-reduce" : "project-information-container"}>
+            <div
+                className={isMobile || context.size ? "project-information-container-reduce" : "project-information-container"}>
                 {summary()}
                 {functional()}
             </div>

@@ -544,7 +544,7 @@ export default function CreateProjectScreen() {
                             className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
                             onClick={projectButton}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : state.project === undefined ? "Save" : "Create"}
+                        {buttonDisabled ? "" : state.project !== undefined ? "Save" : "Create"}
                     </button>
                 </div>
             </div>

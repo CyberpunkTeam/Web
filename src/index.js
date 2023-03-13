@@ -25,6 +25,7 @@ import CreateVacantScreen from "./pages/CreateVacantScreen";
 import CreateTeam from "./pages/CreateTeam";
 import SelectTypeProject from "./pages/SelectTypeProject";
 import TeamRecommendation from "./pages/TeamRecommendation";
+import PostulateTeam from "./pages/PostulateTeam";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -93,6 +94,7 @@ function App() {
             return (
                 <>
                     <Route path="/user/edit" element={<EditProfile/>}/>
+                    <Route path="/projects/:id/postulate" element={<PostulateTeam/>}/>
                 </>
             )
         }
