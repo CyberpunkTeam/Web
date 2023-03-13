@@ -185,6 +185,7 @@ export default function ProjectsScreen() {
         const params = queryParams()
         getProjects(params).then((response) => {
             setProjects([...response]);
+            setIndex(0)
             setButtonDisabled(false);
             closeAll()
         }).catch((error) => {
