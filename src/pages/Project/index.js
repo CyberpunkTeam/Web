@@ -46,11 +46,11 @@ export default function ProjectScreen() {
     const [logs, setLogs] = useState([])
     const [postulations, setPostulations] = useState([])
     const [userTeams, setUserTeam] = useState(undefined)
-    const [modalIsOpen, setIsOpen] = useState(true);
+    const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [recommendations, setRecommendations] = useState([]);
     const [isCancelProject, setIsCancelProject] = useState(false)
-    const [isFinishProject, setIsFinishProject] = useState(true)
+    const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
