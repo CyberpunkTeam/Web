@@ -1,10 +1,15 @@
 import './style.css'
 import {useContext, useState} from "react";
-import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, Star1, TickCircle, User} from "iconsax-react";
+import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, Star1, TickCircle} from "iconsax-react";
 import TechnologyTag from "../TechnologyTag";
 import {updateTeamPostulation} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
 import {formatter} from "../../utils/budgetFormatter";
+import PlatformTag from "../PlatformTag";
+import FrameworkTag from "../FrameworkTag";
+import CloudTag from "../CloudTag";
+import PreferenceTag from "../PreferenceTag";
+import {isMobile} from "react-device-detect";
 
 export default function PostulationsModal(params) {
     let context = useContext(AppContext);
@@ -39,7 +44,7 @@ export default function PostulationsModal(params) {
         })
     }
 
-    const showTeamMembers = (data) => {
+    /*const showTeamMembers = (data) => {
 
         if (data.profile_image === "default") {
             return (
@@ -57,8 +62,80 @@ export default function PostulationsModal(params) {
                 </div>
             )
         }
-    }
+    }*/
+
     const postulationView = (data) => {
+
+        const tools = () => {
+            return (
+                <div className={isMobile ? "team-postulation-data-mobile" : "team-postulation-data"}>
+                    Tools
+                    <div className="tags-modal">
+                        {data.team.technologies.programming_language.map((data) => {
+                            return <TechnologyTag key={data + "-modal"} technology={data}/>
+                        })}
+                    </div>
+                    <div className="tags-modal">
+                        {data.team.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data + "-modal"} framework={data}/>
+                        })}
+                    </div>
+                    <div className="tags-modal">
+                        {data.team.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data + "-modal"} platform={data}/>
+                        })}
+                    </div>
+                    <div className="tags-modal">
+                        {data.team.technologies.databases.map((data) => {
+                            return <CloudTag key={data + "-modal"} cloud={data}/>
+                        })}
+                    </div>
+                    <div className="tags-modal">
+                        {data.team.idioms.map((data) => {
+                            return <PreferenceTag key={data + "-modal"} preference={data}/>
+                        })}
+                    </div>
+                </div>
+            )
+        }
+
+        if (isMobile) {
+            return (
+                <div className={"postulation-team-view-mobile"}>
+                    <div className={"team-postulation-info-reduce"}>
+                        <div className="team-postulation-name-mobile">
+                            {data.team.name}
+                            <div className="team-postulation-star-mobile">
+                                <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
+                                {data.team.overall_rating.toFixed(1)}
+                            </div>
+                        </div>
+                        {tools()}
+                        <div className={isMobile ? "team-postulation-data-mobile" : "team-postulation-data"}>
+                            Budget
+                            <div className={"team-postulation-budget-mobile"}>
+                                {formatter.format(data.estimated_budget)}
+                                <div className="usd-mobile">
+                                    USD
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={"descriptionContainerMobile"}>
+                        Description
+                        <div className="description-modal-mobile">
+                            {showMore ? data.proposal_description.substring(0, data.proposal_description.length) : data.proposal_description.substring(0, 600)}
+                            {showMore || data.proposal_description.length < 600 ? "" : "..."}
+                        </div>
+                        <div className={"seeMoreMobile"} onClick={seeMore}>
+                            {data.proposal_description.length < 600 ? null : !showMore ?
+                                "Show More" : "Show Less"}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
         return (
             <div className={context.size ? "postulation-team-view-reduce" : "postulation-team-view"}>
                 <div className={context.size ? "team-postulation-info-reduce" : "team-postulation-info"}>
@@ -69,19 +146,7 @@ export default function PostulationsModal(params) {
                             {data.team.overall_rating.toFixed(1)}
                         </div>
                     </div>
-                    <div className="members-postulation">
-                        {data.team.members.map((user) => {
-                            return showTeamMembers(user)
-                        })}
-                    </div>
-                    <div className="team-postulation-data">
-                        Tools
-                        <div className="tags-modal">
-                            {data.team.technologies.programming_language.map((data) => {
-                                return <TechnologyTag key={data + "-modal"} technology={data}/>
-                            })}
-                        </div>
-                    </div>
+                    {tools()}
                     <div className="team-postulation-data">
                         Budget
                         <div className={context.size ? "team-postulation-budget-reduce" : "team-postulation-budget"}>
@@ -111,13 +176,13 @@ export default function PostulationsModal(params) {
     const rejectButton = () => {
         if (loading) {
             return (
-                <div className="loading-button-reject">
+                <div className={isMobile ? "loading-button-mobile-reject" : "loading-button-reject"}>
                     <i className="fa fa-circle-o-notch fa-spin"></i>
                 </div>
             )
         } else {
             return (
-                <CloseCircle className={"button"} size="48px" color="#CD5B45" variant="Bold" onClick={() => {
+                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold" onClick={() => {
                     postulationButton("REJECTED")
                 }}/>
             )
@@ -126,13 +191,13 @@ export default function PostulationsModal(params) {
     const acceptButton = () => {
         if (loading) {
             return (
-                <div className="loading-button">
+                <div className={isMobile ? "loading-mobile-button" : "loading-button"}>
                     <i className="fa fa-circle-o-notch fa-spin"></i>
                 </div>
             )
         } else {
             return (
-                <TickCircle size="48" className={"button"} color="#014751" variant="Bold" onClick={() => {
+                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold" onClick={() => {
                     postulationButton("ACCEPTED")
                 }}/>
             )
@@ -146,7 +211,7 @@ export default function PostulationsModal(params) {
             </div>
             <div className="postulations-buttons">
                 <ArrowCircleLeft
-                    size="24"
+                    size={isMobile ? "80" : "24"}
                     className={"button"}
                     color={index !== 0 ? "#AAAAAA" : "#FAFAFA"}
                     onClick={() => {
@@ -155,12 +220,12 @@ export default function PostulationsModal(params) {
                         }
                     }}
                 />
-                <div className="postulations-buttons-container">
+                <div className={isMobile ? "postulations-buttons-mobile-container" : "postulations-buttons-container"}>
                     {rejectButton()}
                     {acceptButton()}
                 </div>
                 <ArrowCircleRight
-                    size="24"
+                    size={isMobile ? "80" : "24"}
                     className={"button"}
                     color={params.postulations.length - 1 !== index ? "#AAAAAA" : "#FAFAFA"}
                     onClick={() => {

@@ -14,15 +14,15 @@ export default function TeamRecommendation() {
 
 
     return (
-        <div className={isMobile ? "profile-screen-mobile" : "projects-screen"}>
-            <div className="create-projects-header">
+        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 Team Recommendations
             </div>
             {state.teams.map((team) => {
                 return <TeamRecommendationTile key={team.tid} data={team} project={state.project}/>
             })}
             <div className="create-project-buttons">
-                <button className={"create-project-from-button"} onClick={goToProject}>
+                <button  className={isMobile ? "button-style-mobile" : "save-edit-button-style"} onClick={goToProject}>
                     {state.again === undefined ? "Finish" :  "Go Back"}
                 </button>
             </div>

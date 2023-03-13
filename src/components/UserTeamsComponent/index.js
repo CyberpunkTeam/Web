@@ -27,12 +27,18 @@ export default function UserTeamsComponent(params) {
                     {data.technologies.programming_language.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
                     })}
+                </div>
+                <div className="teamTagContainer">
                     {data.technologies.frameworks.map((data) => {
                         return <FrameworkTag key={data} framework={data}/>
                     })}
+                </div>
+                <div className="teamTagContainer">
                     {data.technologies.platforms.map((data) => {
                         return <PlatformTag key={data} platform={data}/>
                     })}
+                </div>
+                <div className="teamTagContainer">
                     {data.technologies.databases.map((data) => {
                         return <CloudTag key={data} cloud={data}/>
                     })}
@@ -44,6 +50,8 @@ export default function UserTeamsComponent(params) {
                     {data.idioms.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
+                </div>
+                <div className="teamTagContainer">
                     {data.methodologies.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
@@ -58,7 +66,7 @@ export default function UserTeamsComponent(params) {
         return (
             <div key={data.tid}
                  className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
-                <Link to={team_link} className="teamLinkName">
+                <Link to={team_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
                     {data.name}
                 </Link>
                 <div className={isMobile ? "rank-mobile" : "rank"}>

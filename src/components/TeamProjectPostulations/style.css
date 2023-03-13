@@ -74,6 +74,12 @@
     font-size: 14px;
 }
 
+.description-modal-mobile {
+    padding-top: 16px;
+    font-weight: 400;
+    font-size: 36px;
+}
+
 .descriptionContainer {
     display: flex;
     flex-direction: column;
@@ -119,8 +125,28 @@
     font-weight: 500;
 }
 
+.descriptionContainerMobile {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 16px 0;
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    font-size: 36px;
+    font-weight: 500;
+}
+
 .seeMore {
     font-size: 12px;
+    font-weight: 400;
+    padding-top: 8px;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+}
+
+.seeMoreMobile {
+    font-size: 32px;
     font-weight: 400;
     padding-top: 8px;
     display: flex;
