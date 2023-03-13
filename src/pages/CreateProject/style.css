@@ -205,6 +205,21 @@
     padding: 8px;
 }
 
+.text-area-style-mobile {
+    border-radius: 32px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    background: #E3E3E3;
+    resize: none;
+    margin-top: 8px;
+    font-family: "Inter", sans-serif;
+    height: 400px;
+    outline: none;
+    font-size: 40px;
+    padding: 16px;
+    width: calc(100% - 32px);
+}
+
 .reqTextAreaStyle {
     border-radius: 16px;
     border-color: #E3E3E3;

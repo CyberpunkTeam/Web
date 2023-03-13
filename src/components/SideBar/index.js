@@ -200,7 +200,7 @@ function SideBar() {
                         <div className="notification-title">
                             Notifications
                         </div>
-                        <div className="notification-list">
+                        <div className={context.size ? "notification-list-reduced" : "notification-list"}>
                             {showNotifications()}
                         </div>
                     </div>

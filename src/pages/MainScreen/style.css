@@ -120,6 +120,20 @@
     padding: 0 16px;
 }
 
+.postulation-input-mobile {
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    border-radius: 46px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    outline: none;
+    height: 132px;
+    color: #222222;
+    background: #E3E3E3;
+    font-size: 40px;
+    padding: 0 16px;
+}
+
 .form-text-modal {
     font-style: normal;
     font-weight: 700;
