@@ -35,6 +35,7 @@ export function CompleteProjectModal(params) {
                     {buttonDisabled ? "" : "Submit"}
                 </button>
             </div>
+            {isMobile ? null : <CloseCircle size="24" color="#B1B1B1" className="add-button" onClick={params.closeModal}/>}
         </div>
     )
 }
