@@ -1,6 +1,6 @@
 import './style.css';
 import logo from "../../assests/Logo-White.svg";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
     Setting2,
     User,
@@ -62,6 +62,18 @@ function SideBar() {
         setWatchSettings(false);
     }
 
+    const projects = () => {
+        navigate("/projects")
+    }
+
+    const home = () => {
+        navigate("/")
+    }
+
+    const user = () => {
+        navigate("/me")
+    }
+
     const closeNotification = () => {
         closeAll();
         setWatchNotifications(!watchNotifications);
@@ -104,7 +116,7 @@ function SideBar() {
         }
     }
 
-    const notificationHover = () => {
+    const notificationContainer = () => {
         const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
                 getInvitation(id).then((invitation) => {
@@ -177,7 +189,6 @@ function SideBar() {
                 </li>
             )
         }
-
         const showNotifications = () => {
             if (notifications.length === 0) {
                 return (
@@ -193,16 +204,22 @@ function SideBar() {
             }
         }
 
+        return (
+            <div className={context.size ? "notification-list-reduced" : "notification-list"}>
+                {showNotifications()}
+            </div>
+        )
+    }
+    const notificationHover = () => {
+
         if (watchNotifications) {
             return (
-                <div className={context.size ? "notifications-container-reduce" : "notifications-container"}>
-                    <div id="notifications" className={context.size ? "notifications-reduce" : "notifications"}>
+                <div className={"notifications-container-reduce"}>
+                    <div id="notifications" className={"notifications-reduce"}>
                         <div className="notification-title">
-                            Notifications
+                            {watchNotifications ? "Notifications" : "Settings"}
                         </div>
-                        <div className={context.size ? "notification-list-reduced" : "notification-list"}>
-                            {showNotifications()}
-                        </div>
+                        {notificationContainer()}
                     </div>
                 </div>
             )
@@ -218,17 +235,10 @@ function SideBar() {
 
         if (watchSettings) {
             return (
-                <div className="notifications-container">
-                    <div id="notifications" className="notifications">
-                        <div className="notification-title">
-                            Settings
-                        </div>
-                        <div className="logout" onClick={logout}>
-                            <div className="logout-info">
-                                <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
-                                Log Out
-                            </div>
-                        </div>
+                <div className="logout" onClick={logout}>
+                    <div className="logout-info">
+                        <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
+                        Log Out
                     </div>
                 </div>
             )
@@ -239,32 +249,64 @@ function SideBar() {
         return (
             <>
                 {watchNotifications || watchSettings ? <div onClick={closeAll} className="all-sidebar"/> : null}
-                {notificationHover()}
-                {settingsHover()}
                 <div className="navbar-container">
                     <div className="navbar">
                         <div className="top">
-                            <Link to="/">
+                            <div className="navbar-icon" onClick={home}>
                                 <img src={logo} className="logo-side" alt="logo"/>
-                            </Link>
-                            <div className="notification" onClick={closeNotification}>
+                                <div className={"navbar-text"}>
+                                    Home
+                                </div>
+                            </div>
+                            <div className="navbar-icon" onClick={closeNotification}>
                                 <Notification className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 {unreadNotifications.length !== 0 ?
                                     <span className="notification-numbers">{unreadNotifications.length}</span> : null}
+                                <div className={"navbar-text"}>
+                                    Notifications
+                                </div>
                             </div>
-                            <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
-                            <Link to="/projects">
+                            <div className="navbar-icon">
+                                <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                <div className={"navbar-text"}>
+                                    Messages
+                                </div>
+                            </div>
+                            <div className="navbar-icon" onClick={projects}>
                                 <LampCharge className="settings" color="#FAFAFA" variant="Outline" size={28}/>
-                            </Link>
-                            <Notepad2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                <div className={"navbar-text"}>
+                                    Projects
+                                </div>
+                            </div>
+                            <div className="navbar-icon">
+                                <Notepad2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                <div className={"navbar-text"}>
+                                    Articles
+                                </div>
+                            </div>
                         </div>
                         <div className="bottom">
-                            <Link to="/me">
+                            <div className="navbar-icon" onClick={user}>
                                 {user_image()}
-                            </Link>
-                            <Setting2 className="settings" color="#FAFAFA" variant="Outline" size={28}
-                                      onClick={settingsModal}/>
+                                <div className={"navbar-text"}>
+                                    Profile
+                                </div>
+                            </div>
+                            <div className="navbar-icon" onClick={settingsModal}>
+                                <Setting2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                <div className={"navbar-text"}>
+                                    Settings
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div
+                        className={watchNotifications || watchSettings ? "navbar-notifications" : "navbar-notifications-no-show"}>
+                        <div className="notification-title">
+                            {watchNotifications ? "Notifications" : "Settings"}
+                        </div>
+                        {watchNotifications ? notificationContainer() : null}
+                        {watchSettings ? settingsHover() : null}
                     </div>
                 </div>
             </>
@@ -277,9 +319,7 @@ function SideBar() {
                 {notificationHover()}
                 <div className={context.size ? "navbar-web-container-reduce" : "navbar-mobile-container"}>
                     <div className={context.size ? "navbar-web" : "navbar-mobile"}>
-                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
-                            navigate("/projects")
-                        }}>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={projects}>
                             <LampCharge className="settings-mobile" color="#FAFAFA" variant="Outline"
                                         size={context.size ? 28 : 60}/>
                             Projects
@@ -302,9 +342,7 @@ function SideBar() {
                                 <span className="notification-numbers-mobile"></span> : null}
                             Notifications
                         </div>
-                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={() => {
-                            navigate("/me")
-                        }}>
+                        <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"} onClick={user}>
                             {user_image_mobile()}
                             Profile
                         </div>
