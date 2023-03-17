@@ -1,6 +1,6 @@
 import './style.css';
 import logo from "../../assests/Logo-White.svg";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import {
     Setting2,
     User,
@@ -60,6 +60,18 @@ function SideBar() {
     const closeAll = () => {
         setWatchNotifications(false);
         setWatchSettings(false);
+    }
+
+    const projects = () => {
+        navigate("/projects")
+    }
+
+    const home = () => {
+        navigate("/")
+    }
+
+    const user = () => {
+        navigate("/me")
     }
 
     const closeNotification = () => {
@@ -244,26 +256,38 @@ function SideBar() {
                 <div className="navbar-container">
                     <div className="navbar">
                         <div className="top">
-                            <Link to="/">
+                            <div className="navbar-icon" onClick={home}>
                                 <img src={logo} className="logo-side" alt="logo"/>
-                            </Link>
-                            <div className="notification" onClick={closeNotification}>
+                                Home
+                            </div>
+                            <div className="navbar-icon" onClick={closeNotification}>
                                 <Notification className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 {unreadNotifications.length !== 0 ?
                                     <span className="notification-numbers">{unreadNotifications.length}</span> : null}
+                                Notifications
                             </div>
-                            <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
-                            <Link to="/projects">
+                            <div className="navbar-icon">
+                                <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                Messages
+                            </div>
+                            <div className="navbar-icon" onClick={projects}>
                                 <LampCharge className="settings" color="#FAFAFA" variant="Outline" size={28}/>
-                            </Link>
-                            <Notepad2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                Projects
+                            </div>
+                            <div className="navbar-icon">
+                                <Notepad2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                Articles
+                            </div>
                         </div>
                         <div className="bottom">
-                            <Link to="/me">
+                            <div className="navbar-icon" onClick={user}>
                                 {user_image()}
-                            </Link>
-                            <Setting2 className="settings" color="#FAFAFA" variant="Outline" size={28}
-                                      onClick={settingsModal}/>
+                                Profile
+                            </div>
+                            <div className="navbar-icon" onClick={settingsModal}>
+                                <Setting2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                Settings
+                            </div>
                         </div>
                     </div>
                 </div>

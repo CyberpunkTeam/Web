@@ -10,6 +10,40 @@
     flex-direction: column;
 }
 
+.navbar:hover {
+    width: 160px;
+    padding: 0 16px;
+}
+
+.navbar:hover .navbar-icon{
+    font-size: 16px;
+    width: 100%;
+    text-align: right;
+    color: #FAFAFA;
+    cursor: pointer;
+}
+
+.navbar-icon {
+    font-size: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0;
+}
+
+.settings{
+    cursor: pointer;
+    width: 40px;
+}
+
+.navbar:hover .settings{
+    padding-right: 16px;
+}
+
+.navbar:hover .logo-side {
+    padding-right: 16px;
+}
+
 .navbar-container {
     position: fixed;
     left: 0;
@@ -93,8 +127,6 @@
 
 .logo-side {
     width: 48px;
-    padding-top: 20px;
-    padding-bottom: 20px;
 }
 
 .user-container-sidebar {
@@ -162,12 +194,6 @@
     overflow: hidden;
     object-fit: cover;
     border: 2px solid rgb(46, 153, 153);
-}
-
-.settings{
-    padding-top: 10px;
-    padding-bottom: 30px;
-    cursor: pointer;
 }
 
 .settings-mobile{
@@ -284,9 +310,6 @@
     z-index: 1;
 }
 
-.notification:hover{
-    cursor: pointer;
-}
 .notifications:hover{
     cursor: pointer;
 }
@@ -326,7 +349,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    height: 20vh;
+    height: 30%;
 }
 
 .top {
@@ -335,7 +358,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    height: 80%;
+    height: 70%;
 }
 .without{
     display: flex;
