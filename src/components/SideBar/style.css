@@ -10,6 +10,27 @@
     flex-direction: column;
 }
 
+.navbar-notifications {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 16px;
+    font-weight: 700;
+    color: #222222;
+    height: calc(100% - 72px);
+    margin: 0 16px;
+    backdrop-filter: blur(120px);
+    align-self: center;
+    background: rgba(1, 71, 81, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    width: 340px;
+}
+
+.navbar-notifications-no-show {
+    display: none;
+}
+
 .navbar:hover {
     width: 160px;
     padding: 0 16px;
@@ -18,7 +39,6 @@
 .navbar:hover .navbar-icon{
     font-size: 16px;
     width: 100%;
-    text-align: right;
     color: #FAFAFA;
     cursor: pointer;
 }
@@ -27,8 +47,19 @@
     font-size: 0;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin: 16px 0;
+    padding: 16px 0;
+}
+
+.navbar-text {
+}
+
+.navbar:hover .navbar-text{
+    padding-left: 8px;
+}
+
+.navbar-icon:hover {
+    border-radius: 16px;
+    background: rgba(250, 250, 250, 0.1);
 }
 
 .settings{
@@ -36,12 +67,12 @@
     width: 40px;
 }
 
-.navbar:hover .settings{
-    padding-right: 16px;
+.navbar:hover .logo-side {
+    padding: 0 4px;
 }
 
-.navbar:hover .logo-side {
-    padding-right: 16px;
+.navbar:hover .user-sidebar {
+    margin: 0 4px;
 }
 
 .navbar-container {
@@ -130,8 +161,6 @@
 }
 
 .user-container-sidebar {
-    bottom: 48px;
-    height: 48px;
     width: 58px;
     border-radius: 100%;
     display: flex;
@@ -204,9 +233,10 @@
 .notification-numbers {
     line-height: 20px;
     text-align: center;
-    right: 40px;
+    right: 16px;
     color: #F1F1F1;
     font-size: 12px;
+    margin-bottom: 20px;
     justify-content: center;
     position: absolute;
     width: 20px;
@@ -259,22 +289,6 @@
     border-bottom: none;
 }
 
-.notifications{
-    font-size: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-radius: 16px;
-    font-weight: 700;
-    color: #222222;
-    height: calc(100% - 72px);
-    margin: 0 16px;
-    backdrop-filter: blur(120px);
-    align-self: center;
-    background: rgba(1, 71, 81, 0.1);
-    width: 340px;
-}
-
 .notifications-reduce{
     font-size: 24px;
     border-radius: 16px;
@@ -320,6 +334,8 @@
 }
 
 .notification-list{
+    border-radius: 16px;
+    background: none;
     padding: 0 16px;
     margin-bottom: 8px;
     overflow-y: auto;
@@ -345,6 +361,7 @@
 
 .bottom {
     display: flex;
+    padding-bottom: 16px;
     flex-direction: column;
     width: 100%;
     align-items: center;
@@ -354,6 +371,7 @@
 
 .top {
     display: flex;
+    padding-top: 16px;
     flex-direction: column;
     width: 100%;
     align-items: center;
