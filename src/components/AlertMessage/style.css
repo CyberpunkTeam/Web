@@ -1,0 +1,50 @@
+.error-container {
+    border-radius: 16px;
+    padding: 16px 32px;
+    color: #FAFAFA;
+    background: #CD5B45;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.error-position {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+}
+
+div.appear {
+    color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: opacityOn 2s normal linear;
+    animation-delay: 30s;
+    border-radius: 16px;
+    padding: 16px 32px;
+    background: #CD5B45;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.closeButton {
+    margin-left: 32px;
+    padding: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.closeButton:hover {
+    background: rgba(250, 250, 250, 0.1);
+}
+
+
+@keyframes opacityOn {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
