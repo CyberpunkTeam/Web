@@ -17,6 +17,7 @@ export default function PostulationsModal(params) {
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
     const [showMore, setShowMore] = useState(false);
+    const errorMessage = "An error occurred while trying to update the postulation request"
 
     if (params.postulations.length === 0) {
         return
@@ -32,7 +33,14 @@ export default function PostulationsModal(params) {
             "state": status
         }
         setLoading(true)
-        updateTeamPostulation(body).then((r) => {
+        updateTeamPostulation(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+                setLoading(false)
+                return
+            }
             if (status === "ACCEPTED") {
                 params.changePostulations([])
             } else {
