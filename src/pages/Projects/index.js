@@ -134,11 +134,11 @@ export default function ProjectsScreen() {
         const params = queryParams()
         getProjects(params).then((response) => {
             if (Object.keys(response).length === 0) {
-                if (context.errorMessage !== "Error getting projects") {
+                if (context.errorMessage !== "An error occurred while trying to get projects") {
                     if (projects === undefined) {
                         setProjects([]);
                     }
-                    context.setErrorMessage("Error getting projects");
+                    context.setErrorMessage("An error occurred while trying to get projects");
                 }
                 return
             }
@@ -194,6 +194,12 @@ export default function ProjectsScreen() {
         setButtonDisabled(true);
         const params = queryParams()
         getProjects(params).then((response) => {
+            if (Object.keys(response).length === 0) {
+                if (context.errorMessage !== "An error occurred while trying to get projects") {
+                    context.setErrorMessage("An error occurred while trying to get projects");
+                }
+                return
+            }
             setProjects([...response]);
             setIndex(0)
             setButtonDisabled(false);
