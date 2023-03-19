@@ -46,9 +46,8 @@ export const get = (endpoint) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status !== 200) {
-                        console.log(response);
-                        return {}
+                    if (response.status > 399) {
+                        return undefined
                     }
                     return data
                 }

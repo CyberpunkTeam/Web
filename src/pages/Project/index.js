@@ -37,6 +37,7 @@ import FrameworkTag from "../../components/FrameworkTag";
 import BudgetTag from "../../components/BudgetTag";
 import {formatter} from "../../utils/budgetFormatter";
 import CloudTag from "../../components/CloudTag";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -55,23 +56,43 @@ export default function ProjectScreen() {
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
 
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
     useEffect(() => {
         getProject(params.id).then((response) => {
+            if (response === undefined) {
+                setError("An error occurred while trying to get project");
+                return
+            }
             setProject(response)
             setLogs([...response.activities_record.reverse()])
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
-                        setUserTeam(teams);
-                        setLoading(false);
+                        if (teams === undefined) {
+                            setError("An error occurred while trying to user's teams");
+                        } else {
+                            setUserTeam(teams);
+                        }
                     })
                 }
                 getProjectTeamRecommendations(response).then((r) => {
-                    setRecommendations(r)
+                    if (r === undefined) {
+                        setError("An error occurred while trying to user's teams");
+                    } else {
+                        setRecommendations(r)
+                    }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
-                    setPostulations(postulationResponse);
-                    setLoading(false);
+                    if (postulationResponse === undefined) {
+                        setError("An error occurred while trying to team's postulations");
+                    } else {
+                        setPostulations(postulationResponse);
+                    }
                 })
             }
             setLoading(false);
@@ -686,6 +707,7 @@ export default function ProjectScreen() {
             {modal()}
             <SearchBar/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     )
 }
