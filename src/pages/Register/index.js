@@ -7,6 +7,7 @@ import {isMobile} from "react-device-detect";
 import Select from "react-select";
 import {selectedCities, selectedCitiesMobile} from "../../styles/commonStyles";
 import {searchCity} from "../../services/searchService";
+import AlertMessage from "../../components/AlertMessage";
 
 function Register(params) {
     let context = useContext(AppContext);
@@ -21,6 +22,7 @@ function Register(params) {
     const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(false);
+    const errorMessageCreate = "An error occurred while trying to create tue user"
 
     const setCitySearchHandler = (value) => {
         console.log(value)
@@ -81,10 +83,16 @@ function Register(params) {
             "uid": params.uid
         }
         createUser(userLogin).then((r) => {
-            context.setUser(userLogin);
-            localStorage.setItem("user", JSON.stringify(r))
+            if (r === undefined) {
+                if (context.errorMessage !== errorMessageCreate) {
+                    context.setErrorMessage(errorMessageCreate);
+                }
+            } else {
+                context.setUser(userLogin);
+                localStorage.setItem("user", JSON.stringify(r))
+                navigate('/me')
+            }
             setButtonDisabled(false);
-            navigate('/me')
         }).catch((error) => {
             setLoginError(true);
             setErrorMessage("se produjo un error inesperado, intente más tarde")
@@ -151,6 +159,7 @@ function Register(params) {
                     {buttonDisabled ? "" : "Finish"}
                 </button>
             </div>
+            <AlertMessage/>
         </div>
     );
 }

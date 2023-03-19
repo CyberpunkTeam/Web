@@ -21,6 +21,7 @@ export default function EditProfileModal(params) {
     const [city, setCity] = useState(context.user.location);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(false);
+    const errorMessageUpdate = "An error occurred while trying to update the user information"
 
     function handleChange(e) {
         setProfileImg(e.target.files[0]);
@@ -80,10 +81,16 @@ export default function EditProfileModal(params) {
         }
 
         updateUser(context.user.uid, body).then((response) => {
-            context.setUser(response);
-            localStorage.setItem("user", JSON.stringify(response))
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageUpdate) {
+                    context.setErrorMessage(errorMessageUpdate);
+                }
+            } else {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                params.closeModal()
+            }
             setButtonDisabled(false)
-            params.closeModal()
         })
     }
 

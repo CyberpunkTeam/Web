@@ -17,6 +17,7 @@ export default function AddEducationModal(params) {
     const [startDate, setStartDate] = useState(new Date());
     const [finishDate, setFinishDate] = useState(new Date());
     const [actualDate, setActualDate] = useState(false);
+    const errorMessageUpdate = "An error occurred while trying to update the user information"
 
     const ActualJob = () => {
         setActualDate(!actualDate)
@@ -58,10 +59,16 @@ export default function AddEducationModal(params) {
         }
 
         updateUser(context.user.uid, body).then((response) => {
-            context.setUser(response);
-            localStorage.setItem("user", JSON.stringify(response))
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageUpdate) {
+                    context.setErrorMessage(errorMessageUpdate);
+                }
+            } else {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                params.closeModal()
+            }
             setButtonDisabled(false)
-            params.closeModal()
         })
 
     }
