@@ -1,18 +1,27 @@
 import {CloseCircle} from "iconsax-react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {updateProject} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
+import AppContext from "../../utils/AppContext";
 
 export function DeleteProjectModal(params) {
+    let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const errorMessage = "An error occurred while trying to delete the project"
 
     const deleteProjectButton = () => {
         setButtonDisabled(true);
         const body = {
             "state": "CANCELLED"
         }
-        updateProject(params.project.pid, body).then((r) => {
-            window.location.reload()
+        updateProject(params.project.pid, body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                window.location.reload()
+            }
             setButtonDisabled(false);
         })
     }

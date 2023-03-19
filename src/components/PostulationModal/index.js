@@ -1,15 +1,18 @@
 import './style.css'
 import {ArrowDown2, CloseCircle, User} from "iconsax-react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {sendTeamPostulation} from "../../services/notificationService";
+import AppContext from "../../utils/AppContext";
 
 export default function PostulationModal(params) {
+    let context = useContext(AppContext);
     const [teamName, setTeamName] = useState(params.teams[0].name)
     const [teamIndex, setTeamIndex] = useState(0)
     const [description, setDescription] = useState("")
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [estimatedBudget, setEstimatedBudget] = useState(params.budget)
     const [coin, setCoin] = useState("DOLAR")
+    const errorMessage = "An error occurred while trying to send postulation"
 
     const setTeamHandler = (event) => {
         params.teams.map((team, index) => {
@@ -59,9 +62,15 @@ export default function PostulationModal(params) {
             currency: "DOLAR",
             proposal_description: description
         }
-        sendTeamPostulation(body).then(() => {
+        sendTeamPostulation(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                params.closeModal()
+            }
             setButtonDisabled(false)
-            params.closeModal()
         })
     }
 

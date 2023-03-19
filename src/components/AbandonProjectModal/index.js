@@ -10,6 +10,7 @@ export function AbandonProjectModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const condition = params.project.creator.uid !== context.user.uid;
     const [reason, setReason] = useState(condition ? "The owner did not carry out the payments" : "I don't want to do this project")
+    const errorMessage = "An error occurred while trying to send abandon request"
 
     const setReasonHandler = (event) => {
         setReason(event.target.value);
@@ -24,15 +25,28 @@ export function AbandonProjectModal(params) {
         }
 
         if (condition) {
-            abandonProject(body).then((r) => {
+            abandonProject(body).then((response) => {
+                if (response === undefined) {
+                    if (context.errorMessage !== errorMessage) {
+                        context.setErrorMessage(errorMessage);
+                    }
+                } else {
+                    params.closeModal()
+                    window.location.reload()
+                }
                 setButtonDisabled(false)
-                params.closeModal()
-                window.location.reload()
             })
         } else {
-            abandonProjectRequest(body).then((r) => {
+            abandonProjectRequest(body).then((response) => {
+                if (response === undefined) {
+                    if (context.errorMessage !== errorMessage) {
+                        context.setErrorMessage(errorMessage);
+                    }
+                } else {
+                    params.closeModal()
+                    window.location.reload()
+                }
                 setButtonDisabled(false);
-                params.closeModal();
             })
         }
     }
