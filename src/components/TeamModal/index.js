@@ -24,6 +24,8 @@ import {isMobile} from "react-device-detect";
 export default function TeamModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
+    const errorMessageUpdate = "An error occurred while trying to update the team"
+    const errorMessageCreate = "An error occurred while trying to create the team"
 
     const valuesSelected = (data) => {
         let list = []
@@ -162,8 +164,14 @@ export default function TeamModal(params) {
         }
 
         createTeam(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageCreate) {
+                    context.setErrorMessage(errorMessageCreate);
+                }
+            } else {
+                navigate("/team/" + response.tid)
+            }
             setButtonDisabled(false)
-            navigate("/team/" + response.tid)
         })
 
     }
@@ -185,13 +193,21 @@ export default function TeamModal(params) {
         }
 
         updateTeam(params.team.tid, body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageUpdate) {
+                    context.setErrorMessage(errorMessageUpdate);
+                }
+            } else {
+                goBack()
+            }
             setButtonDisabled(false)
-            goBack()
+
         })
     }
     const basicInformation = () => {
         return (
-            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
@@ -230,7 +246,8 @@ export default function TeamModal(params) {
                                 />
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Methodologies
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
@@ -250,10 +267,12 @@ export default function TeamModal(params) {
 
     const skillsColumn = () => {
         return (
-            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Programming Languages
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
@@ -265,7 +284,8 @@ export default function TeamModal(params) {
                                 />
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Frameworks
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
@@ -273,11 +293,12 @@ export default function TeamModal(params) {
                                     defaultValue={frameworksValues}
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
-                                    styles={isMobile ? selectedFrameworks :selectedViolet3}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
                                 />
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Platforms
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
@@ -289,7 +310,8 @@ export default function TeamModal(params) {
                                 />
                             </div>
                         </label>
-                        <label className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
+                        <label
+                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
                             Databases
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
@@ -317,8 +339,10 @@ export default function TeamModal(params) {
                     {basicInformation()}
                     {skillsColumn()}
                 </div>
-                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
-                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
+                <div
+                    className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
+                            onClick={goBack}>
                         Cancel
                     </button>
                     <button disabled={buttonDisabled}

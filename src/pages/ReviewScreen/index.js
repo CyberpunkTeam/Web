@@ -2,20 +2,26 @@ import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import {finishProject} from "../../services/notificationService";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Star1} from "iconsax-react";
 import {getProjectReview, projectReview} from "../../services/projectService";
 import {getTeamReview, teamReview} from "../../services/teamService";
 import Loading from "../../components/loading";
+import AppContext from "../../utils/AppContext";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function ReviewScreen() {
+    let context = useContext(AppContext);
     const navigate = useNavigate();
     const {state} = useLocation();
     const [review, setReview] = useState([])
     const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0)
+    const errorMessageProjectReview = "An error occurred while trying to create project review"
+    const errorMessageFinishProject = "An error occurred while trying to update the project"
+    const errorMessage = "An error occurred while trying to create team project"
 
     useEffect(() => {
         if (state.isProject) {
@@ -48,16 +54,28 @@ export default function ReviewScreen() {
         }
 
         if (state.isProject) {
-            projectReview(rateBody).then(() => {
+            projectReview(rateBody).then((response) => {
+                if (response === undefined) {
+                    if (context.errorMessage !== errorMessageProjectReview) {
+                        context.setErrorMessage(errorMessageProjectReview);
+                    }
+                    return
+                }
                 const body = {
                     "state": "ACCEPTED",
                     "pid": state.project.pid,
                     "tid": state.project.team_assigned.tid,
                     "request_id": state.request.pfr_id
                 }
-                finishProject(body).then(() => {
+                finishProject(body).then((updateResponse) => {
+                    if (updateResponse === undefined) {
+                        if (context.errorMessage !== errorMessageFinishProject) {
+                            context.setErrorMessage(errorMessageFinishProject);
+                        }
+                    } else {
+                        goBack();
+                    }
                     setLoading(false)
-                    goBack();
                 }).catch((e) => {
                     console.log(e)
                     setLoading(false)
@@ -67,9 +85,15 @@ export default function ReviewScreen() {
                 setLoading(false)
             })
         } else {
-            teamReview(rateBody).then(() => {
+            teamReview(rateBody).then((teamReviewResponse) => {
+                if (teamReviewResponse === undefined) {
+                    if (context.errorMessage !== errorMessage) {
+                        context.setErrorMessage(errorMessage);
+                    }
+                } else {
+                    goBack();
+                }
                 setLoading(false)
-                goBack();
             }).catch((e) => {
                 console.log(e)
                 setLoading(false)
@@ -134,6 +158,7 @@ export default function ReviewScreen() {
             </div>
             <SearchBar/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     )
 
