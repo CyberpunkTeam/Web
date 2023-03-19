@@ -29,6 +29,8 @@ export default function CreateProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const errorMessageUpdate = "An error occurred while trying to update the project"
+    const errorMessageCreate = "An error occurred while trying to create the project"
 
     const valuesSelected = (data) => {
         let list = []
@@ -169,20 +171,32 @@ export default function CreateProjectScreen() {
 
         if (state.project === undefined) {
             createProject(body).then((r) => {
-                setButtonDisabled(false)
-                window.scrollTo(0, 0);
-                navigate("/projects/" + r.pid + "/teamRecommendation", {
-                    state: {
-                        teams: r.teams_recommendations,
-                        project: r.pid
+                if (r === undefined) {
+                    if (context.errorMessage !== errorMessageCreate) {
+                        context.setErrorMessage(errorMessageCreate);
                     }
-                })
+                } else {
+                    window.scrollTo(0, 0);
+                    navigate("/projects/" + r.pid + "/teamRecommendation", {
+                        state: {
+                            teams: r.teams_recommendations,
+                            project: r.pid
+                        }
+                    })
+                }
+                setButtonDisabled(false)
             })
         } else {
             updateProject(state.project.pid, body).then((r) => {
+                if (r === undefined) {
+                    if (context.errorMessage !== errorMessageUpdate) {
+                        context.setErrorMessage(errorMessageUpdate);
+                    }
+                } else {
+                    window.scrollTo(0, 0);
+                    navigate("/projects/" + r.pid)
+                }
                 setButtonDisabled(false)
-                window.scrollTo(0, 0);
-                navigate("/projects/" + r.pid)
             })
         }
     }
