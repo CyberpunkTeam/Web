@@ -15,6 +15,7 @@ export default function AddExperienceModal(params) {
     const [startDate, setStartDate] = useState(new Date());
     const [finishDate, setFinishDate] = useState(new Date());
     const [actualDate, setActualDate] = useState(false);
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
     const ActualJob = () => {
         setActualDate(!actualDate)
@@ -56,10 +57,16 @@ export default function AddExperienceModal(params) {
         }
 
         updateUser(context.user.uid, body).then((response) => {
-            context.setUser(response);
-            localStorage.setItem("user", JSON.stringify(response))
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageUpdate) {
+                    context.setErrorMessage(errorMessageUpdate);
+                }
+            } else {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                params.closeModal()
+            }
             setButtonDisabled(false)
-            params.closeModal()
         })
     }
 

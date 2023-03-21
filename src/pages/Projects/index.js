@@ -29,6 +29,7 @@ import Select from "react-select";
 import Slider from "@mui/material/Slider";
 import {styled} from "@mui/material/styles";
 import {formatter} from "../../utils/budgetFormatter";
+import AlertMessage from "../../components/AlertMessage";
 
 const CustomSlider = styled(Slider)(({theme}) => ({
     color: "#58ADAD",
@@ -132,6 +133,15 @@ export default function ProjectsScreen() {
     useEffect(() => {
         const params = queryParams()
         getProjects(params).then((response) => {
+            if ( response === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
+                    if (projects === undefined) {
+                        setProjects([]);
+                    }
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
+                }
+                return
+            }
             setProjects([...response]);
             if (maxValue === -1) {
                 let max = 0;
@@ -172,6 +182,12 @@ export default function ProjectsScreen() {
 
         const params = queryParams()
         getProjects(params).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
+                }
+                return
+            }
             setProjects([...response]);
             setButtonDisabled(false);
             closeAll()
@@ -184,6 +200,12 @@ export default function ProjectsScreen() {
         setButtonDisabled(true);
         const params = queryParams()
         getProjects(params).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
+                }
+                return
+            }
             setProjects([...response]);
             setIndex(0)
             setButtonDisabled(false);
@@ -1020,7 +1042,8 @@ export default function ProjectsScreen() {
                                 pageRangeDisplayed={10}
                                 pageCount={pageCount}
                                 activeClassName={"active-page"}
-                                previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"} color={index === 0 ? "#E3E3E3" : "#014751"}
+                                previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"}
+                                                                color={index === 0 ? "#E3E3E3" : "#014751"}
                                                                 className={"pagination-icon"}/>}
                                 renderOnZeroPageCount={null}
                             />
@@ -1029,6 +1052,7 @@ export default function ProjectsScreen() {
                 </div>
                 <SearchBar/>
                 <SideBar/>
+                <AlertMessage/>
             </div>
         </>
     )

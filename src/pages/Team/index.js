@@ -24,6 +24,7 @@ import {modalStyle} from "../../styles/commonStyles";
 import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -40,31 +41,60 @@ export default function TeamScreen() {
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
 
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
     useEffect(() => {
         getTeam(params.id).then((response) => {
+            if (response === undefined) {
+                setError("An error has occurred while loading team's information. Please, try again later");
+                return
+            }
             setTeamData(response);
             getTeamReviews(params.id).then((reviews) => {
-                setReviews(reviews)
+                if (reviews === undefined) {
+                    setError("An error has occurred while loading team`s reviews. Please, try again later");
+                    return
+                } else {
+                    setReviews(reviews)
+                }
+
                 const list = []
                 response.members.forEach((data) => {
                     list.push(data.uid)
                 })
                 setMembersList(list)
                 getUsers().then((users) => {
-                    setUsers(users)
+                    if (users === undefined) {
+                        setError("An error has occurred while loading users. Please, try again later");
+                    } else {
+                        setUsers(users)
+                    }
                 })
                 getTeamInvitations(params.id).then((invitations) => {
-                    if (invitations.length !== 0) {
-                        const usersInvited = []
-                        invitations.forEach((data) => {
-                            if (data.state === "PENDING") {
-                                usersInvited.push(data.metadata.user.uid)
-                            }
-                        })
-                        setInvitations(usersInvited);
+                    if (invitations === undefined) {
+                        setError("An error has occurred while loading team's invitations. Please, try again later");
+                    } else {
+                        if (invitations.length !== 0) {
+                            const usersInvited = []
+                            invitations.forEach((data) => {
+                                if (data.state === "PENDING") {
+                                    usersInvited.push(data.metadata.user.uid)
+                                }
+                            })
+                            setInvitations(usersInvited);
+                        }
                     }
+
                     getTeamPostulations(params.id).then((response) => {
-                        setPostulations(response)
+                        if (invitations === undefined) {
+                            setError("An error has occurred while loading team's postulations. Please, try again later");
+                        } else {
+                            setPostulations(response)
+                        }
                         setLoading(false);
                     })
                 })
@@ -374,6 +404,7 @@ export default function TeamScreen() {
                 {modal()}
                 <SearchBar/>
                 <SideBar/>
+                <AlertMessage/>
             </div>
         )
     }

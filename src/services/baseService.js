@@ -21,6 +21,9 @@ export const post = (endpoint, body) => {
             }
             return response.json().then(
                 data => {
+                    if (response.status >= 400) {
+                        return undefined
+                    }
                     return data
                 }
             )
@@ -46,8 +49,8 @@ export const get = (endpoint) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status === 404) {
-                        return {}
+                    if (response.status >= 400) {
+                        return undefined
                     }
                     return data
                 }
@@ -76,6 +79,9 @@ export const put = (endpoint, body) => {
             }
             return response.json().then(
                 data => {
+                    if (response.status >= 400) {
+                        return undefined
+                    }
                     return data
                 }
             )
@@ -101,8 +107,8 @@ export const erase = (endpoint) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status === 404) {
-                        return {}
+                    if (response.status >= 400) {
+                        return undefined
                     }
                     return data
                 }

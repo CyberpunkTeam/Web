@@ -38,6 +38,7 @@ function App() {
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
     const [search, setSearch] = useState(undefined);
     const [size, setSize] = useState(undefined);
+    const [errorMessage, setErrorMessage] = useState(undefined);
 
     useEffect(() => {
         window.addEventListener("resize", handleResize)
@@ -55,6 +56,8 @@ function App() {
         user,
         setUser,
         search,
+        errorMessage,
+        setErrorMessage,
         setSearch,
         auth,
         size,

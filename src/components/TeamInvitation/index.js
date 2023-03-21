@@ -9,11 +9,18 @@ export default function TeamInvitation(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
     const [time, setTime] = useState(Date.now());
-
+    const errorMessageRequest = "An error has occurred while loading invitations. Please, try again later"
+    const errorMessage = "An error has occurred while updating this invitation. Please, try again later"
     const [invitation, setInvitation] = useState(undefined);
 
     useEffect(() => {
         getPostulantTeamInvitations(context.user.uid, params.tid).then((r) => {
+            if (r === undefined) {
+                if (context.errorMessage !== errorMessageRequest) {
+                    context.setErrorMessage(errorMessageRequest);
+                }
+                return;
+            }
             if (r.length !== 0) {
                 if (r[0].state === "PENDING") {
                     setInvitation(r[0])
@@ -37,10 +44,15 @@ export default function TeamInvitation(params) {
         const body = {
             "state": status
         }
-
-        updateInvitation(invitation.tiid, body).then(() => {
+        updateInvitation(invitation.tiid, body).then((r) => {
+            if (r === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                setInvitation(undefined)
+            }
             setLoading(false)
-            setInvitation(undefined)
         }).catch((e) => {
             console.log(e)
             setLoading(false)

@@ -21,6 +21,7 @@ import SearchBar from "../SearchBar";
 import SideBar from "../SideBar";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
+import AlertMessage from "../AlertMessage";
 
 export default function NewMemberVacant(params) {
     let context = useContext(AppContext);
@@ -33,6 +34,7 @@ export default function NewMemberVacant(params) {
     const [platforms, setPlatforms] = useState([])
     const [cloud, setCloud] = useState([])
     const [db, setDb] = useState([])
+    const errorMessage = "An error has occurred while creating this opportunity. Please, try again later"
 
     const goBack = () => {
         navigate("/team/" + params.tid)
@@ -100,15 +102,22 @@ export default function NewMemberVacant(params) {
                 databases: db
             }
         }
-        createTeamVacant(body).then(() => {
-            setButtonDisabled(true);
-            goBack()
+        createTeamVacant(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                goBack()
+            }
+            setButtonDisabled(false);
         })
     }
 
     const basicInformation = () => {
         return (
-            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
@@ -121,9 +130,11 @@ export default function NewMemberVacant(params) {
                                        onChange={setVacantHandler}/>
                             </div>
                         </label>
-                        <div className={isMobile ? "text-area-label-vacant-mobile" : context.size ? "text-area-label-vacant-reduced" : "text-area-label-vacant"}>
+                        <div
+                            className={isMobile ? "text-area-label-vacant-mobile" : context.size ? "text-area-label-vacant-reduced" : "text-area-label-vacant"}>
                             Description
-                            <textarea className={isMobile ? "new-vacant-textarea-mobile" : "new-vacant-textarea"} value={description}
+                            <textarea className={isMobile ? "new-vacant-textarea-mobile" : "new-vacant-textarea"}
+                                      value={description}
                                       onChange={setDescriptionHandler}
                                       name="Text1" cols="40"
                                       rows="18"/>
@@ -136,7 +147,8 @@ export default function NewMemberVacant(params) {
 
     const skillsColumn = () => {
         return (
-            <div className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
+            <div
+                className={isMobile ? "create-project-info-container-mobile" : context.size ? "create-project-info-container-reduced" : "create-project-info-container"}>
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
@@ -159,7 +171,7 @@ export default function NewMemberVacant(params) {
                                     isMulti
                                     options={frameworksOptionsDataAll}
                                     onChange={(choice) => setFrameworksHandler(choice)}
-                                    styles={isMobile ? selectedFrameworks :selectedViolet3}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
                                 />
                             </div>
                         </label>
@@ -215,8 +227,10 @@ export default function NewMemberVacant(params) {
                     {basicInformation()}
                     {skillsColumn()}
                 </div>
-                <div className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
-                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"} onClick={goBack}>
+                <div
+                    className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
+                            onClick={goBack}>
                         Cancel
                     </button>
                     <button disabled={buttonDisabled}
@@ -230,6 +244,7 @@ export default function NewMemberVacant(params) {
             </div>
             <SearchBar/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     )
 }

@@ -9,6 +9,8 @@ export default function LeaveProject(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
     const [request, setRequest] = useState(undefined);
+    const errorMessage = "An error has occurred while updating this project. Please, try again later"
+    const errorMessageRequest = "An error has occurred while getting abandonment requests. Please, try again later"
 
     useEffect(() => {
         if (params.project.state !== "ABANDONS_REQUEST") {
@@ -20,6 +22,12 @@ export default function LeaveProject(params) {
         }
 
         getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
+            if (r === undefined) {
+                if (context.errorMessage !== errorMessageRequest) {
+                    context.setErrorMessage(errorMessageRequest);
+                }
+                return;
+            }
             if (r.length !== 0) {
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].state === "PENDING") {
@@ -44,10 +52,16 @@ export default function LeaveProject(params) {
             "reasons" : request.reasons
         }
 
-        abandonProject(body).then((r) => {
+        abandonProject(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                setRequest(undefined)
+                window.location.reload()
+            }
             setLoading(false)
-            setRequest(undefined)
-            window.location.reload()
         }).catch((e) => {
             console.log(e)
             setLoading(false)
