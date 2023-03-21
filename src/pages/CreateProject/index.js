@@ -451,10 +451,11 @@ export default function CreateProjectScreen() {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Languages
+                            Languages ({languages.length}/3)
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => languages.length === 3}
                                     defaultValue={IdiomsDefaultValues}
                                     options={optionsIdioms}
                                     onChange={(choice) => setLanguageHandler(choice)}
@@ -477,10 +478,11 @@ export default function CreateProjectScreen() {
                     <form className="create-project-form">
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Programming Languages
+                            Programming Languages ({techs.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => techs.length === 5}
                                     defaultValue={defaultValues}
                                     options={optionsLanguages}
                                     onChange={(choice) => setTechHandler(choice)}
@@ -491,10 +493,11 @@ export default function CreateProjectScreen() {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Frameworks
+                            Frameworks ({frameworks.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => frameworks.length === 5}
                                     defaultValue={frameworksDefaultValues}
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
@@ -505,10 +508,11 @@ export default function CreateProjectScreen() {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Platforms
+                            Platforms ({platforms.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => platforms.length === 5}
                                     defaultValue={platformsDefaultValues}
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
@@ -519,10 +523,11 @@ export default function CreateProjectScreen() {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Databases
+                            Databases ({db.length}/5)
                             <div className="modal-form-input-select">
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => db.length === 5}
                                     defaultValue={databasesDefault}
                                     options={databasesOptions}
                                     onChange={(choice) => setDBHandler(choice)}
