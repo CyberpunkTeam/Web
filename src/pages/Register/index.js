@@ -55,9 +55,6 @@ function Register(params) {
     const setLastNameHandler = (event) => {
         setLastName(event.target.value);
     }
-    const setCityHandler = (event) => {
-        setCity(event.target.value);
-    }
 
     const loginErrorView = () => {
         if (loginError)
