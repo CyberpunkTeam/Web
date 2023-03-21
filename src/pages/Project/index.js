@@ -65,7 +65,7 @@ export default function ProjectScreen() {
     useEffect(() => {
         getProject(params.id).then((response) => {
             if (response === undefined) {
-                setError("An error occurred while trying to get project");
+                setError("An error has occurred while loading project's information. Please, try again later");
                 return
             }
             setProject(response)
@@ -74,7 +74,7 @@ export default function ProjectScreen() {
                 if (response.creator.uid !== context.user.uid) {
                     getOwnerTeams(context.user.uid).then((teams) => {
                         if (teams === undefined) {
-                            setError("An error occurred while trying to user's teams");
+                            setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
                             setUserTeam(teams);
                         }
@@ -82,14 +82,14 @@ export default function ProjectScreen() {
                 }
                 getProjectTeamRecommendations(response).then((r) => {
                     if (r === undefined) {
-                        setError("An error occurred while trying to user's teams");
+                        setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
                     if (postulationResponse === undefined) {
-                        setError("An error occurred while trying to team's postulations");
+                        setError("An error has occurred while loading team's postulations. Please, try again later");
                     } else {
                         setPostulations(postulationResponse);
                     }

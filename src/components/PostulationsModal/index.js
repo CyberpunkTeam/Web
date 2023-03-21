@@ -17,7 +17,7 @@ export default function PostulationsModal(params) {
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
     const [showMore, setShowMore] = useState(false);
-    const errorMessage = "An error occurred while trying to update the postulation request"
+    const errorMessage = "An error has occurred while updating the postulation request. Please, try again later"
 
     if (params.postulations.length === 0) {
         return

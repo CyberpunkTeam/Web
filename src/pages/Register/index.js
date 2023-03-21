@@ -19,10 +19,10 @@ function Register(params) {
     const [city, setCity] = useState("");
     const [loginError, setLoginError] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("El email ya se encuentra registado");
+    const [errorMessage, setErrorMessage] = useState("Email is already in use");
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(false);
-    const errorMessageCreate = "An error occurred while trying to create tue user"
+    const errorMessageCreate = "An error has occurred while creating user. Please, try again later"
 
     const setCitySearchHandler = (value) => {
         console.log(value)

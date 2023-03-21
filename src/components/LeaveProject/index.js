@@ -9,8 +9,8 @@ export default function LeaveProject(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
     const [request, setRequest] = useState(undefined);
-    const errorMessage = "An error occurred while trying to finish the project"
-    const errorMessageRequest = "An error occurred while trying to get leave requests"
+    const errorMessage = "An error has occurred while updating this project. Please, try again later"
+    const errorMessageRequest = "An error has occurred while getting abandonment requests. Please, try again later"
 
     useEffect(() => {
         if (params.project.state !== "ABANDONS_REQUEST") {

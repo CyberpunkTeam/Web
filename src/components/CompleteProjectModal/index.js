@@ -7,7 +7,7 @@ import AppContext from "../../utils/AppContext";
 export function CompleteProjectModal(params) {
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const errorMessage = "An error occurred while trying to send completion request"
+    const errorMessage = "An error has occurred while requesting completion. Please, try again later"
 
     const finish = () => {
         setButtonDisabled(true)

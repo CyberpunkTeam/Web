@@ -30,8 +30,8 @@ export default function CreateProjectScreen() {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const errorMessageUpdate = "An error occurred while trying to update the project"
-    const errorMessageCreate = "An error occurred while trying to create the project"
+    const errorMessageUpdate = "An error has occurred while updating project's information. Please, try again later"
+    const errorMessageCreate = "An error has occurred while creating the project. Please, try again later"
 
     const valuesSelected = (data) => {
         let list = []

@@ -11,8 +11,8 @@ export default function ProjectFinish(params) {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
     const [finish, setFinish] = useState(undefined);
-    const errorMessage = "An error occurred while trying to finish the project"
-    const errorMessageRequest = "An error occurred while trying to get completion request"
+    const errorMessage = "An error has occurred while marking this project as completed. Please, try again later"
+    const errorMessageRequest = "An error has occurred while getting completion requests. Please, try again later"
 
     useEffect(() => {
         if (params.project.team_assigned === null) {

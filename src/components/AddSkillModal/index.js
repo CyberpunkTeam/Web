@@ -23,7 +23,7 @@ import {
 
 export default function AddSkillModal(params) {
     let context = useContext(AppContext);
-    const errorMessageUpdate = "An error occurred while trying to update the user information"
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
     const valuesSelected = (data) => {
         let list = []

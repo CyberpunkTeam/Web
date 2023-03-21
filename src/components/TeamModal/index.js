@@ -24,8 +24,8 @@ import {isMobile} from "react-device-detect";
 export default function TeamModal(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
-    const errorMessageUpdate = "An error occurred while trying to update the team"
-    const errorMessageCreate = "An error occurred while trying to create the team"
+    const errorMessageUpdate = "An error has occurred while updating team's information. Please, try again later"
+    const errorMessageCreate = "An error has occurred while creating the team. Please, try again later"
 
     const valuesSelected = (data) => {
         let list = []

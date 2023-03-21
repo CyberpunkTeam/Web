@@ -19,9 +19,9 @@ export default function TeamReview() {
     const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [reviews, setReviews] = useState({})
-    const errorMessage = "An error occurred while trying to get team information"
-    const errorMessageReviews = "An error occurred while trying to get team member reviews"
-    const errorMessageReviewsSend = "An error occurred while trying to send team member reviews"
+    const errorMessage = "An error has occurred while trying loading team's information. Please, try again later"
+    const errorMessageReviews = "An error has occurred while loading team's member reviews. Please, try again later"
+    const errorMessageReviewsSend = "An error has occurred while sending team's member reviews. Please, try again later"
 
     const updateReviews = (newReviews) => {
         setReviews(newReviews)

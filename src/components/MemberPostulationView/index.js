@@ -21,8 +21,8 @@ export default function MemberPostulationView(params) {
     const [postulate, setPostulate] = useState(false);
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
-    const errorMessageRequest = "An error occurred while trying to reject the candidate"
-    const errorMessage = "An error occurred while trying to accept the candidate"
+    const errorMessageRequest = "An error has occurred while rejecting the candidate. Please, try again later"
+    const errorMessage = "An error has occurred while accepting the candidate. Please, try again later"
 
     const closeModal = () => {
         setIsOpen(false);

@@ -34,7 +34,7 @@ export default function NewMemberVacant(params) {
     const [platforms, setPlatforms] = useState([])
     const [cloud, setCloud] = useState([])
     const [db, setDb] = useState([])
-    const errorMessage = "An error occurred while trying to create the opportunity"
+    const errorMessage = "An error has occurred while creating this opportunity. Please, try again later"
 
     const goBack = () => {
         navigate("/team/" + params.tid)

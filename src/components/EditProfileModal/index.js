@@ -21,7 +21,7 @@ export default function EditProfileModal(params) {
     const [city, setCity] = useState(context.user.location);
     const [cities, setCities] = useState([]);
     const [loading, setLoading] = useState(false);
-    const errorMessageUpdate = "An error occurred while trying to update the user information"
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
     function handleChange(e) {
         setProfileImg(e.target.files[0]);

@@ -7,7 +7,7 @@ import {isMobile} from "react-device-detect";
 export function PostulateInTeamModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     let context = useContext(AppContext);
-    const errorMessageRequest = "An error occurred while trying to postulate in the opportunity"
+    const errorMessageRequest = "An error has occurred while trying to postulate. Please, try again later"
 
     const postulate = () => {
         setButtonDisabled(true)

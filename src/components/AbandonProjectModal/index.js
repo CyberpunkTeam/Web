@@ -10,7 +10,7 @@ export function AbandonProjectModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const condition = params.project.creator.uid !== context.user.uid;
     const [reason, setReason] = useState(condition ? "The owner did not carry out the payments" : "I don't want to do this project")
-    const errorMessage = "An error occurred while trying to send abandon request"
+    const errorMessage = "An error has occurred while requesting abandonment. Please, try again later"
 
     const setReasonHandler = (event) => {
         setReason(event.target.value);

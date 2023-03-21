@@ -7,7 +7,7 @@ import AppContext from "../../utils/AppContext";
 export function DeleteVacantModal(params) {
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const errorMessageRequest = "An error occurred while trying to delete the opportunity"
+    const errorMessageRequest = "An error has occurred while deleting this opportunity. Please, try again later"
     const deletePosition = () => {
         setButtonDisabled(true);
         deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {

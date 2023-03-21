@@ -17,7 +17,7 @@ export default function AddEducationModal(params) {
     const [startDate, setStartDate] = useState(new Date());
     const [finishDate, setFinishDate] = useState(new Date());
     const [actualDate, setActualDate] = useState(false);
-    const errorMessageUpdate = "An error occurred while trying to update the user information"
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
     const ActualJob = () => {
         setActualDate(!actualDate)

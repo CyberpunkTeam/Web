@@ -12,7 +12,7 @@ export default function PostulationModal(params) {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [estimatedBudget, setEstimatedBudget] = useState(params.budget)
     const [coin, setCoin] = useState("DOLAR")
-    const errorMessage = "An error occurred while trying to send postulation"
+    const errorMessage = "An error has occurred while sending the postulation. Please, try again later"
 
     const setTeamHandler = (event) => {
         params.teams.map((team, index) => {

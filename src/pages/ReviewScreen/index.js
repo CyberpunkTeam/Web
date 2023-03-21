@@ -19,9 +19,9 @@ export default function ReviewScreen() {
     const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0)
-    const errorMessageProjectReview = "An error occurred while trying to create project review"
-    const errorMessageFinishProject = "An error occurred while trying to update the project"
-    const errorMessage = "An error occurred while trying to create team project"
+    const errorMessageProjectReview = "An error has occurred while creating project review. Please, try again later"
+    const errorMessageFinishProject = "An error has occurred while updating this project. Please, try again later"
+    const errorMessage = "An error has occurred while creating the team's project review. Please, try again later"
 
     useEffect(() => {
         if (state.isProject) {

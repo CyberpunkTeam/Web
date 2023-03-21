@@ -7,7 +7,7 @@ import AppContext from "../../utils/AppContext";
 export function DeleteProjectModal(params) {
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
-    const errorMessage = "An error occurred while trying to delete the project"
+    const errorMessage = "An error has occurred while deleting this project. Please, try again later"
 
     const deleteProjectButton = () => {
         setButtonDisabled(true);

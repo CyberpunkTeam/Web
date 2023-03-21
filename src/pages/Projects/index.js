@@ -134,11 +134,11 @@ export default function ProjectsScreen() {
         const params = queryParams()
         getProjects(params).then((response) => {
             if ( response === undefined) {
-                if (context.errorMessage !== "An error occurred while trying to get projects") {
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     if (projects === undefined) {
                         setProjects([]);
                     }
-                    context.setErrorMessage("An error occurred while trying to get projects");
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
             }
@@ -183,8 +183,8 @@ export default function ProjectsScreen() {
         const params = queryParams()
         getProjects(params).then((response) => {
             if (response === undefined) {
-                if (context.errorMessage !== "An error occurred while trying to get projects") {
-                    context.setErrorMessage("An error occurred while trying to get projects");
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
             }
@@ -201,8 +201,8 @@ export default function ProjectsScreen() {
         const params = queryParams()
         getProjects(params).then((response) => {
             if (response === undefined) {
-                if (context.errorMessage !== "An error occurred while trying to get projects") {
-                    context.setErrorMessage("An error occurred while trying to get projects");
+                if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
+                    context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
             }

@@ -8,7 +8,7 @@ export default function AddMember(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
-    const errorMessageRequest = "An error occurred while trying to send invitation"
+    const errorMessageRequest = "An error has occurred while sending invitation. Please, try again later"
 
     const sendMemberInvitation = (uid) => {
         setLoading(true)

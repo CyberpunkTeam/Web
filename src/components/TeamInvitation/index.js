@@ -9,8 +9,8 @@ export default function TeamInvitation(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
     const [time, setTime] = useState(Date.now());
-    const errorMessageRequest = "An error occurred while trying to get invitations"
-    const errorMessage = "An error occurred while trying to update the invitation"
+    const errorMessageRequest = "An error has occurred while loading invitations. Please, try again later"
+    const errorMessage = "An error has occurred while updating this invitation. Please, try again later"
     const [invitation, setInvitation] = useState(undefined);
 
     useEffect(() => {

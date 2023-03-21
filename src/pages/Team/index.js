@@ -50,13 +50,13 @@ export default function TeamScreen() {
     useEffect(() => {
         getTeam(params.id).then((response) => {
             if (response === undefined) {
-                setError("An error occurred while trying to get team's information");
+                setError("An error has occurred while loading team's information. Please, try again later");
                 return
             }
             setTeamData(response);
             getTeamReviews(params.id).then((reviews) => {
                 if (reviews === undefined) {
-                    setError("An error occurred while trying to get team reviews");
+                    setError("An error has occurred while loading team`s reviews. Please, try again later");
                     return
                 } else {
                     setReviews(reviews)
@@ -69,14 +69,14 @@ export default function TeamScreen() {
                 setMembersList(list)
                 getUsers().then((users) => {
                     if (users === undefined) {
-                        setError("An error occurred while trying to get users");
+                        setError("An error has occurred while loading users. Please, try again later");
                     } else {
                         setUsers(users)
                     }
                 })
                 getTeamInvitations(params.id).then((invitations) => {
                     if (invitations === undefined) {
-                        setError("An error occurred while trying to team's invitations");
+                        setError("An error has occurred while loading team's invitations. Please, try again later");
                     } else {
                         if (invitations.length !== 0) {
                             const usersInvited = []
@@ -91,7 +91,7 @@ export default function TeamScreen() {
 
                     getTeamPostulations(params.id).then((response) => {
                         if (invitations === undefined) {
-                            setError("An error occurred while trying to team's postulations");
+                            setError("An error has occurred while loading team's postulations. Please, try again later");
                         } else {
                             setPostulations(response)
                         }
