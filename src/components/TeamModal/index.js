@@ -222,10 +222,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Languages
+                            Languages ({idioms.length}/3)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => idioms.length === 3}
                                     defaultValue={idiomsValues}
                                     options={optionsIdioms}
                                     onChange={(choice) => setIdiomsHandler(choice)}
@@ -235,10 +236,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Project Preferences
+                            Project Preferences ({prefs.length}/3)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => prefs.length === 3}
                                     defaultValue={preferencesValues}
                                     options={optionsProjects}
                                     onChange={(choice) => setPrefHandler(choice)}
@@ -248,10 +250,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Methodologies
+                            Methodologies ({methodologies.length}/3)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => methodologies.length === 3}
                                     defaultValue={methodologiesValues}
                                     options={MethodologiesOptions}
                                     onChange={(choice) => setMethodologiesHandler(choice)}
@@ -273,10 +276,11 @@ export default function TeamModal(params) {
                     <form className="create-project-form">
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Programming Languages
+                            Programming Languages ({languages.length}/5)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => languages.length === 5}
                                     defaultValue={languagesValues}
                                     options={optionsLanguages}
                                     onChange={(choice) => setLanguageHandler(choice)}
@@ -286,10 +290,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Frameworks
+                            Frameworks ({frameworks.length}/5)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => frameworks.length === 5}
                                     defaultValue={frameworksValues}
                                     options={frameworksOptions}
                                     onChange={(choice) => setFrameworksHandler(choice)}
@@ -299,10 +304,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Platforms
+                            Platforms ({platforms.length}/5)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => platforms.length === 5}
                                     defaultValue={platformsValues}
                                     options={platformsOptions}
                                     onChange={(choice) => setPlatformsHandler(choice)}
@@ -312,10 +318,11 @@ export default function TeamModal(params) {
                         </label>
                         <label
                             className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Databases
+                            Databases ({db.length}/5)
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
+                                    isOptionDisabled={(option) => db.length === 5}
                                     defaultValue={databasesDefault}
                                     options={databasesOptions}
                                     onChange={(choice) => setDBHandler(choice)}
