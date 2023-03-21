@@ -13,8 +13,16 @@ export default function MembersPostulations(params) {
     const [vacants, setVacants] = useState(undefined)
     const [time, setTime] = useState(Date.now());
 
+    const errorMessageRequest = "An error has occurred while loading team opportunities. Please, try again later"
+
     useEffect(() => {
         getTeamVacants(params.tid).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageRequest) {
+                    context.setErrorMessage(errorMessageRequest);
+                }
+                return;
+            }
             setVacants(response)
         })
     }, [params.tid, time])

@@ -76,7 +76,7 @@ export default function EducationComponent(params) {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                {<AddEducationModal closeModal={closeModal}/>}
+                <AddEducationModal closeModal={closeModal}/>
             </Modal>
         )
     }

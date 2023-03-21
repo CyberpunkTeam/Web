@@ -17,6 +17,7 @@ export default function PostulationsModal(params) {
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
     const [showMore, setShowMore] = useState(false);
+    const errorMessage = "An error has occurred while updating the postulation request. Please, try again later"
 
     if (params.postulations.length === 0) {
         return
@@ -32,7 +33,14 @@ export default function PostulationsModal(params) {
             "state": status
         }
         setLoading(true)
-        updateTeamPostulation(body).then((r) => {
+        updateTeamPostulation(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+                setLoading(false)
+                return
+            }
             if (status === "ACCEPTED") {
                 params.changePostulations([])
             } else {
@@ -43,26 +51,6 @@ export default function PostulationsModal(params) {
             setLoading(false)
         })
     }
-
-    /*const showTeamMembers = (data) => {
-
-        if (data.profile_image === "default") {
-            return (
-                <div className="member-photo-postulation">
-                    <div className="photo-postulations">
-                        <User color="#FAFAFA" size="24px" variant="Bold"/>
-                    </div>
-                </div>
-            )
-
-        } else {
-            return (
-                <div className="member-photo-postulation">
-                    <img src={data.profile_image} alt='' className="photo-postulations"/>
-                </div>
-            )
-        }
-    }*/
 
     const postulationView = (data) => {
 

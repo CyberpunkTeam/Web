@@ -1,10 +1,13 @@
 import {CloseCircle} from "iconsax-react";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {requestFinishProject} from "../../services/notificationService";
 import {isMobile} from "react-device-detect";
+import AppContext from "../../utils/AppContext";
 
 export function CompleteProjectModal(params) {
+    let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
+    const errorMessage = "An error has occurred while requesting completion. Please, try again later"
 
     const finish = () => {
         setButtonDisabled(true)
@@ -13,9 +16,15 @@ export function CompleteProjectModal(params) {
             "tid": params.project.team_assigned.tid
         }
 
-        requestFinishProject(body).then((r) => {
+        requestFinishProject(body).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessage) {
+                    context.setErrorMessage(errorMessage);
+                }
+            } else {
+                params.closeModal()
+            }
             setButtonDisabled(false);
-            params.closeModal()
         })
     }
 

@@ -23,6 +23,7 @@ import {
 
 export default function AddSkillModal(params) {
     let context = useContext(AppContext);
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
     const valuesSelected = (data) => {
         let list = []
@@ -109,10 +110,16 @@ export default function AddSkillModal(params) {
         }
 
         updateUser(context.user.uid, body).then((response) => {
-            context.setUser(response);
-            localStorage.setItem("user", JSON.stringify(response))
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageUpdate) {
+                    context.setErrorMessage(errorMessageUpdate);
+                }
+            } else {
+                context.setUser(response);
+                localStorage.setItem("user", JSON.stringify(response))
+                params.closeModal()
+            }
             setButtonDisabled(false)
-            params.closeModal()
         })
 
     }

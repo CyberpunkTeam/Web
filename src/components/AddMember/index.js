@@ -8,6 +8,7 @@ export default function AddMember(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
+    const errorMessageRequest = "An error has occurred while sending invitation. Please, try again later"
 
     const sendMemberInvitation = (uid) => {
         setLoading(true)
@@ -16,10 +17,16 @@ export default function AddMember(params) {
             "receiver_id": uid,
             "tid": params.tid
         }
-        sendInvitation(body).then(() => {
-            let invitationsUpdated = [...params.invitations]
-            invitationsUpdated.push(uid)
-            params.setInvitations(invitationsUpdated)
+        sendInvitation(body).then((r) => {
+            if (r === undefined) {
+                if (context.errorMessage !== errorMessageRequest) {
+                    context.setErrorMessage(errorMessageRequest);
+                }
+            } else {
+                let invitationsUpdated = [...params.invitations]
+                invitationsUpdated.push(uid)
+                params.setInvitations(invitationsUpdated)
+            }
             setLoading(false)
         }).catch()
     }

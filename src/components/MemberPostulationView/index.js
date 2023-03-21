@@ -21,6 +21,8 @@ export default function MemberPostulationView(params) {
     const [postulate, setPostulate] = useState(false);
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
+    const errorMessageRequest = "An error has occurred while rejecting the candidate. Please, try again later"
+    const errorMessage = "An error has occurred while accepting the candidate. Please, try again later"
 
     const closeModal = () => {
         setIsOpen(false);
@@ -102,7 +104,7 @@ export default function MemberPostulationView(params) {
 
         return (
             <div key={params.data.tpid} className="vacantPostulationContainer">
-                <div className={isMobile ?  "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
+                <div className={isMobile ? "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
                     <div className={isMobile || context.size ? "vacantInfoContainerReduced" : "vacantInfoContainer"}>
                         <div className={isMobile ? "vacantTitleMobile" : "vacantTitle"}>
                             {params.data.title}
@@ -110,7 +112,7 @@ export default function MemberPostulationView(params) {
                         {requirements()}
                         <div className={isMobile ? "vacantDescriptionMobile" : "vacantDescription"}>
                             Description
-                            <div className={isMobile ?  "descriptionApplicationMobile" : "descriptionApplication"}>
+                            <div className={isMobile ? "descriptionApplicationMobile" : "descriptionApplication"}>
                                 {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
                                 {showMore || params.data.description.length < 600 ? "" : "..."}
                             </div>
@@ -120,7 +122,8 @@ export default function MemberPostulationView(params) {
                             </div>
                         </div>
                     </div>
-                    <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"} onClick={openModalPostulations}>
+                    <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"}
+                            onClick={openModalPostulations}>
                         <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
                         Postulate
                     </button>
@@ -132,11 +135,17 @@ export default function MemberPostulationView(params) {
     const rejectButton = () => {
         const reject = () => {
             setLoading(true)
-            rejectCandidate(params.data.tpid, params.data.candidates[index].uid).then(() => {
-                let candidates = [...params.data.candidates]
-                candidates.splice(index, 1);
-                setIndex(0)
-                params.data.candidates = candidates
+            rejectCandidate(params.data.tpid, params.data.candidates[index].uid).then((r) => {
+                if (r === undefined) {
+                    if (context.errorMessage !== errorMessageRequest) {
+                        context.setErrorMessage(errorMessageRequest);
+                    }
+                } else {
+                    let candidates = [...params.data.candidates]
+                    candidates.splice(index, 1);
+                    setIndex(0)
+                    params.data.candidates = candidates
+                }
                 setLoading(false)
             })
         }
@@ -149,7 +158,8 @@ export default function MemberPostulationView(params) {
             )
         } else {
             return (
-                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold" onClick={reject}/>
+                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold"
+                             onClick={reject}/>
             )
         }
     }
@@ -157,11 +167,18 @@ export default function MemberPostulationView(params) {
 
         const accept = () => {
             setLoading(true)
-            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index].uid).then(() => {
-                window.location.reload()
+            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index].uid).then((r) => {
+                if (r === undefined) {
+                    if (context.errorMessage !== errorMessage) {
+                        context.setErrorMessage(errorMessage);
+                    }
+                } else {
+                    window.location.reload()
+                }
+                setLoading(false)
             })
-            setLoading(false)
         }
+
         if (loading) {
             return (
                 <div className={isMobile ? "loading-button-mobile" : "loading-button"}>
@@ -170,7 +187,8 @@ export default function MemberPostulationView(params) {
             )
         } else {
             return (
-                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold" onClick={accept}/>
+                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold"
+                            onClick={accept}/>
             )
         }
     }
@@ -183,7 +201,8 @@ export default function MemberPostulationView(params) {
                 </div>
             )
         } else {
-            return <img src={data.profile_image} alt='' className={isMobile ? "applicationsUserImageMobile" : "applicationsUserImage"}/>
+            return <img src={data.profile_image} alt=''
+                        className={isMobile ? "applicationsUserImageMobile" : "applicationsUserImage"}/>
         }
     }
 
@@ -211,7 +230,7 @@ export default function MemberPostulationView(params) {
         return (
             <div className="applications">
                 <ArrowCircleLeft
-                    size={isMobile ? "48" :  "24"}
+                    size={isMobile ? "48" : "24"}
                     className={"button"}
                     onClick={back}
                     color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
@@ -221,13 +240,14 @@ export default function MemberPostulationView(params) {
                         {userImage(params.data.candidates[index])}
                         {params.data.candidates[index].name} {params.data.candidates[index].lastname}
                     </div>
-                    <div className={isMobile ? "postulations-buttons-container-mobile" : "postulations-buttons-container"}>
+                    <div
+                        className={isMobile ? "postulations-buttons-container-mobile" : "postulations-buttons-container"}>
                         {rejectButton()}
                         {acceptButton()}
                     </div>
                 </div>
                 <ArrowCircleRight
-                    size={isMobile ? "48" :  "24"}
+                    size={isMobile ? "48" : "24"}
                     className={"button"}
                     onClick={next}
                     color={params.data.candidates.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
@@ -238,15 +258,16 @@ export default function MemberPostulationView(params) {
 
     return (
         <div key={params.data.tpid} className="teamPostulationContainer">
-            <div className={isMobile ? "teamPostulationInfoMobile" : context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
-                <div className={isMobile ? "vacantInfoMobile" : context.size  ? "vacantInfoReduce" : "vacantInfo"}>
+            <div
+                className={isMobile ? "teamPostulationInfoMobile" : context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
+                <div className={isMobile ? "vacantInfoMobile" : context.size ? "vacantInfoReduce" : "vacantInfo"}>
                     <div className={isMobile ? "vacantTitleMobile" : "vacantTitle"}>
                         {params.data.title}
                     </div>
                     {requirements()}
                     <div className={isMobile ? "vacantDescriptionMobile" : "vacantDescription"}>
                         Description
-                        <div className={isMobile ?  "descriptionApplicationMobile" : "descriptionApplication"}>
+                        <div className={isMobile ? "descriptionApplicationMobile" : "descriptionApplication"}>
                             {showMore ? params.data.description.substring(0, params.data.description.length) : params.data.description.substring(0, 600)}
                             {showMore || params.data.description.length < 600 ? "" : "..."}
                         </div>
@@ -255,11 +276,13 @@ export default function MemberPostulationView(params) {
                                 "Show More" : "Show Less"}
                         </div>
                     </div>
-                    <button className={isMobile ? "deleteVacantButtonMobile" : "deleteVacantButton"} onClick={openModal}>
+                    <button className={isMobile ? "deleteVacantButtonMobile" : "deleteVacantButton"}
+                            onClick={openModal}>
                         <Trash color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24}/>
                     </button>
                 </div>
-                <div className={isMobile ? "vacantDescriptionContainerMobile" : context.size  ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
+                <div
+                    className={isMobile ? "vacantDescriptionContainerMobile" : context.size ? "vacantDescriptionContainerReduced" : "vacantDescriptionContainer"}>
                     {applications()}
                 </div>
             </div>

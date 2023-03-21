@@ -7,6 +7,7 @@ import Loading from "../../components/loading";
 import {createMembersTeamReview, getMembersTeamReview, getTeam} from "../../services/teamService";
 import MemberReview from "../../components/MemberReview";
 import AppContext from "../../utils/AppContext";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function TeamReview() {
     const params = useParams();
@@ -18,6 +19,9 @@ export default function TeamReview() {
     const [isLoading, setIsLoading] = useState(true)
     const [loading, setLoading] = useState(false)
     const [reviews, setReviews] = useState({})
+    const errorMessage = "An error has occurred while trying loading team's information. Please, try again later"
+    const errorMessageReviews = "An error has occurred while loading team's member reviews. Please, try again later"
+    const errorMessageReviewsSend = "An error has occurred while sending team's member reviews. Please, try again later"
 
     const updateReviews = (newReviews) => {
         setReviews(newReviews)
@@ -25,9 +29,21 @@ export default function TeamReview() {
 
     useEffect(() => {
         getMembersTeamReview(state.pid, params.id, context.user.uid).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== errorMessageReviews) {
+                    context.setErrorMessage(errorMessageReviews);
+                }
+                return
+            }
             setReview(response)
             if (response.length === 0) {
                 getTeam(params.id).then((response) => {
+                    if (response === undefined) {
+                        if (context.errorMessage !== errorMessage) {
+                            context.setErrorMessage(errorMessage);
+                        }
+                        return
+                    }
                     setTeam(response)
                     setIsLoading(false)
                 }).catch((error) => {
@@ -70,7 +86,14 @@ export default function TeamReview() {
                 member_reviewed: value,
                 member_reviewer: context.user.uid
             }
-            return createMembersTeamReview(body).then()
+           createMembersTeamReview(body).then((response) => {
+                if (response === undefined) {
+                    if (context.errorMessage !== errorMessageReviewsSend) {
+                        context.setErrorMessage(errorMessageReviewsSend);
+                    }
+                }
+            })
+            return null;
         })
         navigate("/team/" + params.id)
         setLoading(false);
@@ -99,6 +122,7 @@ export default function TeamReview() {
             </div>
             <SearchBar/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     )
 

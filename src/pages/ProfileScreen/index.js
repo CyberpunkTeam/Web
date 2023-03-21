@@ -17,6 +17,7 @@ import {isMobile} from "react-device-detect";
 import UserProjectMobileComponent from "../../components/UserProjectMobileComponent";
 import {modalStyle} from "../../styles/commonStyles";
 import UserSkills from "../../components/UserSkills";
+import AlertMessage from "../../components/AlertMessage";
 
 function ProfileScreen() {
     const params = useParams();
@@ -249,6 +250,7 @@ function ProfileScreen() {
                 {modal()}
                 <SearchBar/>
                 <SideBar/>
+                <AlertMessage/>
             </div>
         )
     }
