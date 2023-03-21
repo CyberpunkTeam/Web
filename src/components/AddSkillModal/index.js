@@ -132,10 +132,11 @@ export default function AddSkillModal(params) {
             <form className="modal-form-div">
                 <div className={"column-skills-left"}>
                     <label className={"add-skill-label"}>
-                        Programming Languages
+                        Programming Languages ({languages.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => languages.length === 3}
                                 defaultValue={languagesDefault}
                                 options={optionsLanguages}
                                 onChange={(choice) => setLanguageHandler(choice)}
@@ -144,10 +145,11 @@ export default function AddSkillModal(params) {
                         </div>
                     </label>
                     <label className={"add-skill-label"}>
-                        Frameworks
+                        Frameworks ({frameworks.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => frameworks.length === 3}
                                 defaultValue={frameworksDefault}
                                 options={frameworksOptionsDataAll}
                                 onChange={(choice) => setFrameworksHandler(choice)}
@@ -156,10 +158,11 @@ export default function AddSkillModal(params) {
                         </div>
                     </label>
                     <label className={"add-skill-label"}>
-                        Platforms
+                        Platforms ({platforms.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => platforms.length === 3}
                                 defaultValue={platformsDefault}
                                 options={platformsOptions}
                                 onChange={(choice) => setPlatformsHandler(choice)}
@@ -170,10 +173,11 @@ export default function AddSkillModal(params) {
                 </div>
                 <div className={"column-skills-right"}>
                     <label className={"add-skill-label"}>
-                        Cloud Providers
+                        Cloud Providers ({cloud.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => cloud.length === 3}
                                 defaultValue={cloudProvidersDefault}
                                 options={CloudOptions}
                                 onChange={(choice) => setCloudHandler(choice)}
@@ -182,10 +186,11 @@ export default function AddSkillModal(params) {
                         </div>
                     </label>
                     <label className={"add-skill-label"}>
-                        Databases
+                        Databases ({db.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => db.length === 3}
                                 defaultValue={databasesDefault}
                                 options={databasesOptions}
                                 onChange={(choice) => setDBHandler(choice)}
@@ -194,10 +199,11 @@ export default function AddSkillModal(params) {
                         </div>
                     </label>
                     <label className={"add-skill-label"}>
-                        Methodologies
+                        Methodologies ({meth.length}/3)
                         <div className="modal-form-input-select">
                             <Select
                                 isMulti
+                                isOptionDisabled={(option) => meth.length === 3}
                                 defaultValue={methDefault}
                                 options={MethodologiesOptions}
                                 onChange={(choice) => setMethHandler(choice)}
