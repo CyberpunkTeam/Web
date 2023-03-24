@@ -11,7 +11,7 @@ import {
     Logout,
     People,
     EmojiHappy,
-    Home2
+    Home2, Briefcase
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
@@ -276,6 +276,12 @@ function SideBar() {
                                 <LampCharge className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 <div className={"navbar-text"}>
                                     Projects
+                                </div>
+                            </div>
+                            <div className="navbar-icon">
+                                <Briefcase className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                <div className={"navbar-text"}>
+                                    Opportunities
                                 </div>
                             </div>
                             <div className="navbar-icon">

@@ -14,9 +14,13 @@ export default function TeamRecommendationTile(params) {
     let context = useContext(AppContext);
     const data = params.data
     const [loading, setLoading] = useState(false);
-    const [sendIt, setSendIt] = useState(false);
+    const [sendIt, setSendIt] = useState(data.sent_notification);
     const sendInvitation = () => {
         setLoading(true);
+        if (sendIt) {
+            return
+        }
+
         const body = {
             tid: data.tid,
             pid: params.project
