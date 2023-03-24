@@ -1,21 +1,10 @@
 .recommendations-container {
-    background: #CD5B45;
     width: 100%;
-    display: flex;
-    margin-bottom: 32px;
-    overflow-y: hidden;
-    overflow-x: auto;
 }
 
-.recommendations-title {
-    background: #089BAD;
-    font-size: 24px;
+.recommendations-buttons {
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    max-width: 300px;
-    border-radius: 16px;
-    height: 100px;
-    font-weight: 700;
-    color: #FAFAFA;
+    justify-content: space-between;
 }

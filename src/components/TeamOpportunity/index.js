@@ -11,10 +11,14 @@ import CloudTag from "../CloudTag";
 import DataBaseTag from "../DataBaseTag";
 import AppContext from "../../utils/AppContext";
 
-export default function TeamOpportunity (params) {
+export default function TeamOpportunity(params) {
     let context = useContext(AppContext);
     const [showMore, setShowMore] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
+
+    if (params.data.team.members.includes(context.user.uid)) {
+        return;
+    }
 
     const seeMore = () => {
         setShowMore(!showMore)
@@ -73,7 +77,7 @@ export default function TeamOpportunity (params) {
             <div className={isMobile ? "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
                 <div className={isMobile || context.size ? "vacantInfoContainerReduced" : "vacantInfoContainer"}>
                     <div className={isMobile ? "vacantTitleMobile" : "vacantTitle"}>
-                        {params.data.title}
+                        {params.data.team.name} - {params.data.title}
                     </div>
                     {requirements()}
                     <div className={isMobile ? "vacantDescriptionMobile" : "vacantDescription"}>
@@ -95,7 +99,7 @@ export default function TeamOpportunity (params) {
                 </button>
             </div>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                    <PostulateInTeamModal data={params.data} closeModal={closeModal}/>
+                <PostulateInTeamModal data={params.data} closeModal={closeModal}/>
             </Modal>
         </div>
     )
