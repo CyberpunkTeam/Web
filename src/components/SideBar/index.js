@@ -66,6 +66,10 @@ function SideBar() {
         navigate("/projects")
     }
 
+    const jobs = () => {
+        navigate("/jobs")
+    }
+
     const home = () => {
         navigate("/")
     }
@@ -278,7 +282,7 @@ function SideBar() {
                                     Projects
                                 </div>
                             </div>
-                            <div className="navbar-icon">
+                            <div className="navbar-icon" onClick={jobs}>
                                 <Briefcase className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 <div className={"navbar-text"}>
                                     Opportunities

@@ -65,3 +65,7 @@ export const acceptCandidate = (tid, tpid, uid) => {
 export const deleteVacant = (tpid, body) => {
     return put("teams_positions/" + tpid, body)
 }
+
+export const getAllTeamPositions = () => {
+    return get(`teams_positions/?state=OPEN`)
+}

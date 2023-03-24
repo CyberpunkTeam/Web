@@ -41,7 +41,32 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.opportunity-header {
+    position: relative;
+    margin: 32px 0;
+    background: linear-gradient(105.23deg, #0F2830 0%, #014751 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #FAFAFA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .projects-header-mobile {
+    margin-top: 64px;
+    background: linear-gradient(105.23deg, #0F2830 0%, #014751 100%);
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #FAFAFA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.opportunity-header-mobile {
     margin-top: 64px;
     background: linear-gradient(105.23deg, #0F2830 0%, #014751 100%);
     border-radius: 32px;
