@@ -10,6 +10,7 @@ import TeamOpportunity from "../../components/TeamOpportunity";
 import logo from "../../assests/projects-pana.svg";
 import ReactPaginate from "react-paginate";
 import {ArrowCircleLeft, ArrowCircleRight} from "iconsax-react";
+import AlertMessage from "../../components/AlertMessage";
 
 export default function JobsScreen() {
     let context = useContext(AppContext);
@@ -28,18 +29,34 @@ export default function JobsScreen() {
 
     useEffect(() => {
         getAllTeamPositions().then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading jobs opportunities. Please, try again later") {
+                    if (jobs === undefined) {
+                        setJobs([]);
+                    }
+                    context.setErrorMessage("An error has occurred while loading jobs opportunities. Please, try again later");
+                }
+                return
+            }
             setJobs(response)
             setLoading(false)
         })
     }, [time]);
 
     useEffect(() => {
-        /*getUserOpportunities(context.user).then((recommendationsResponse) => {
-            setRecommendations(recommendationsResponse)
-            if (jobs.length !== 0) {
-                setLoading(false)
+        getUserOpportunities(context.user).then((recommendationsResponse) => {
+            if (recommendationsResponse === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading jobs recommendations. Please, try again later") {
+                    if (recommendations === undefined) {
+                        setRecommendations([]);
+                    }
+                    context.setErrorMessage("An error has occurred while loading jobs recommendations. Please, try again later");
+                }
+                return
             }
-        })*/
+            setRecommendations(recommendationsResponse)
+            setLoading(false)
+        })
     }, []);
 
     useEffect(() => {
@@ -133,7 +150,7 @@ export default function JobsScreen() {
                     Opportunities
                 </div>
                 {jobs.slice(index, 10 + (index)).map((data) => {
-                    return <TeamOpportunity key={data.tid} data={data}/>
+                    return <TeamOpportunity key={data.tpid} data={data}/>
                 })}
             </div>
             <div className={isMobile ? "paginationMobile" : "pagination"}>
@@ -155,6 +172,7 @@ export default function JobsScreen() {
             </div>
             <SearchBar/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     );
 }
