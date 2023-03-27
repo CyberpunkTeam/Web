@@ -67,7 +67,7 @@ function SideBar() {
     }
 
     const jobs = () => {
-        navigate("/jobs")
+        navigate("/opportunities")
     }
 
     const home = () => {
