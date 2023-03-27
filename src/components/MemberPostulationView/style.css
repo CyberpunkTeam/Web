@@ -145,7 +145,7 @@
 
 .vacantPostulationContainer {
     position: relative;
-    margin-bottom: 32px;
+    margin: 16px 0;
     width: 100%;
     font-weight: 700;
     justify-content: space-between;

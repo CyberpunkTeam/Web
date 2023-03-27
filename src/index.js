@@ -26,6 +26,7 @@ import CreateTeam from "./pages/CreateTeam";
 import SelectTypeProject from "./pages/SelectTypeProject";
 import TeamRecommendation from "./pages/TeamRecommendation";
 import PostulateTeam from "./pages/PostulateTeam";
+import JobsScreen from "./pages/JobsScreen";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -71,6 +72,7 @@ function App() {
                     {/*user*/}
                     <Route path="me" element={<ProfileScreen/>}/>
                     <Route path="/user/:id" element={<ProfileScreen/>}/>
+                    <Route path="/jobs" element={<JobsScreen/>}/>
                     {/*team*/}
                     <Route path="/team/:id" element={<TeamScreen/>}/>
                     <Route path="/team/:id/edit" element={<CreateTeam/>}/>

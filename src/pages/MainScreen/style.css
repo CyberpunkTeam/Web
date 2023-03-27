@@ -53,6 +53,11 @@
     width: 55%;
 }
 
+.pana-jobs-style {
+    min-width: 400px;
+    width: 50%;
+}
+
 .pana-projects-style-reduced {
     min-width: 200px;
     width: 55%;
