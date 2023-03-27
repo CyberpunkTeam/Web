@@ -163,6 +163,7 @@ export default function MemberPostulationView(params) {
             )
         }
     }
+
     const acceptButton = () => {
 
         const accept = () => {
