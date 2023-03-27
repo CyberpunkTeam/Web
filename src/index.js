@@ -72,7 +72,7 @@ function App() {
                     {/*user*/}
                     <Route path="me" element={<ProfileScreen/>}/>
                     <Route path="/user/:id" element={<ProfileScreen/>}/>
-                    <Route path="/jobs" element={<JobsScreen/>}/>
+                    <Route path="/opportunities" element={<JobsScreen/>}/>
                     {/*team*/}
                     <Route path="/team/:id" element={<TeamScreen/>}/>
                     <Route path="/team/:id/edit" element={<CreateTeam/>}/>
