@@ -7,7 +7,7 @@ import Loading from "../../components/loading";
 import {getAllTeamPositions, getUserOpportunities} from "../../services/teamService";
 import AppContext from "../../utils/AppContext";
 import TeamOpportunity from "../../components/TeamOpportunity";
-import logo from "../../assests/projects-pana.svg";
+import logo from "../../assests/Collab-pana.svg";
 import ReactPaginate from "react-paginate";
 import {ArrowCircleLeft, ArrowCircleRight} from "iconsax-react";
 import AlertMessage from "../../components/AlertMessage";
@@ -85,9 +85,9 @@ export default function JobsScreen() {
         return (
             <div className="opportunity-header">
                 <div className="projects-cover">
-                    <img src={logo} className="pana-projects-style" alt="logo"/>
+                    <img src={logo} className="pana-jobs-style" alt="logo"/>
                     <div className={"projects-cover-title"}>
-                        Find the team of your dreams to work on the best projects
+                        Discover your dream team to work on the coolest projects ever!
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@ export default function JobsScreen() {
             <div className={isMobile ? "projects-header-mobile" : "opportunity-header"}>
                 <div className="projects-cover-reduced">
                     <div className={isMobile ? "projects-cover-title-reduced-mobile" : "projects-cover-title-reduced"}>
-                        Find the team of your dreams to work on the best projects
+                        Discover your dream team to work on the coolest projects ever!
                     </div>
                     <img src={logo} className={isMobile ? "pana-projects-style-mobile" : "pana-projects-style-reduced"}
                          alt="logo"/>
