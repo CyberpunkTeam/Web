@@ -104,9 +104,9 @@
 
 .vacantData {
     position: relative;
-    width: calc(100% - 64px);
+    width: calc(100% - 32px);
     display: flex;
-    padding: 32px;
+    padding: 16px;
     min-height: 140px;
     justify-content: space-between;
     border-radius: 16px;
