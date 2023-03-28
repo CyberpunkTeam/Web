@@ -125,14 +125,14 @@ export default function JobsScreen() {
                     containerClassName={isMobile ? "paginationMobile" : "pagination"}
                     breakLabel={'...'}
                     nextLabel={<ArrowCircleRight size={isMobile ? "64" : "24"}
-                                                 color={index + 1 >= recommendations.length ? "#E3E3E3" : "#014751"}
+                                                 color={recommendationsIndex + 1 >= recommendations.length ? "#E3E3E3" : "#014751"}
                                                  className={"pagination-icon"}/>}
                     onPageChange={handleRecommendations}
                     pageRangeDisplayed={10}
                     pageCount={recommendationsCount}
                     activeClassName={"active-page"}
                     previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"}
-                                                    color={index === 0 ? "#E3E3E3" : "#014751"}
+                                                    color={recommendationsIndex === 0 ? "#E3E3E3" : "#014751"}
                                                     className={"pagination-icon"}/>}
                     renderOnZeroPageCount={null}
                 />
