@@ -127,6 +127,10 @@ export default function CreateProjectScreen() {
     }
 
     const projectButton = async () => {
+        if (name.length === 0) {
+            context.setErrorMessage(errorMessageCreate);
+            return
+        }
         setButtonDisabled(true)
 
         let filesUrl = []
