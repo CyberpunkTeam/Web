@@ -37,7 +37,6 @@ function SideBar() {
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
-            console.log(response)
             setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {
