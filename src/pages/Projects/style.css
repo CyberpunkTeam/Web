@@ -18,6 +18,17 @@
     color: #222222;
 }
 
+.create-projects-header-reduced {
+    display: flex;
+    width: 100%;
+    margin-top: 16px;
+    align-items: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #222222;
+}
+
 .create-projects-header-mobile {
     display: flex;
     width: 100%;

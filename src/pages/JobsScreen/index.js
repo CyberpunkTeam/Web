@@ -15,19 +15,20 @@ import Select from "react-select";
 import {
     CloudOptions,
     databasesOptions,
-    frameworksOptionsDataAll,
-    optionsLanguages,
+    frameworksOptionsDataAll, optionsIdioms,
+    optionsLanguages, optionsProjects,
     platformsOptions
 } from "../../config/dictonary";
 import {
     selected4,
     selectedCloud,
     selectedColor5,
-    selectedDb, selectedFrameworks, selectedLanguages, selectedPlatform,
+    selectedDb, selectedFrameworks, selectedGreenStyle, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3
+    selectedViolet3, selectPref
 } from "../../styles/commonStyles";
+import {formatter} from "../../utils/budgetFormatter";
 
 export default function JobsScreen() {
     let context = useContext(AppContext);
@@ -155,6 +156,20 @@ export default function JobsScreen() {
         setFrameworks(list);
     }
 
+    const setCloudHandler = (event) => {
+        if (event.length > 5) {
+            return
+        }
+
+        setCloudDefault(event)
+
+        let list = []
+        event.forEach((value) => {
+            list.push(value.value)
+        })
+        setClouds(list);
+    }
+
     const setPlatformsHandler = (event) => {
         if (event.length > 5) {
             return
@@ -196,24 +211,103 @@ export default function JobsScreen() {
 
         setPlatforms([])
         setPlatformsDefault([])
+
+        setClouds([])
+        setCloudDefault([])
     }
 
-    const filtersMobileAndReduced = () => {
-        return (
-            <div className={"filters-container-reduced"}>
-                <div className={"filters-container-buttons-reduced"}>
-                    <button className={"filters-buttons-reduced"} onClick={filterButton}>
-                        Filters
-                        {filtersMobile ?
-                            <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
-                            <ArrowDown2 size={16} color={"#222222"} className={"filters-buttons-icon"}/>
-                        }
-                    </button>
-                </div>
-                <div
-                    className={filtersMobile ? "filters-container-div-reduced" : "filters-selector-container-hidden"}>
-                    <div className={"filters-container-options-reduced"}>
+    const mobileFilters = () => {
+        const tools = () => {
+            return (
+                <div className={isMobile ? "filters-selectors-mobile" : "filters-selectors-reduced"}>
+                    <div
+                        className={toolsFilters ? "filters-selectors-container-mobile" : "filters-selector-container-hidden"}>
+                        <div className={isMobile ? "filters-selectors-input-mobile" : "filters-selectors-input"}>
+                            Programming Languages ({techs.length}/5)
+                            <div className={isMobile ? "modal-form-input-select" : "filters-selectors-input"}>
+                                <Select
+                                    isMulti
+                                    value={techsDefaults}
+                                    isOptionDisabled={(option) => techs.length === 5}
+                                    options={optionsLanguages}
+                                    styles={isMobile ? selectedLanguages : selectedViolet}
+                                    onChange={(choice) => setTechLanguagesHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={isMobile ? "filters-selectors-input-mobile" : "filters-selectors-input"}>
+                            Frameworks ({frameworks.length}/5)
+                            <div className={isMobile ? "modal-form-input-select" : "filters-selectors-input"}>
+                                <Select
+                                    isMulti
+                                    value={frameworksDefault}
+                                    isOptionDisabled={(option) => frameworks.length === 5}
+                                    options={frameworksOptionsDataAll}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
+                                    onChange={(choice) => setFrameworkHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={isMobile ? "filters-selectors-input-mobile" : "filters-selectors-input"}>
+                            Platforms ({platforms.length}/5)
+                            <div className={isMobile ? "modal-form-input-select" : "filters-selectors-input"}>
+                                <Select
+                                    isMulti
+                                    value={platformsDefault}
+                                    isOptionDisabled={(option) => platformsOptions.length === 5}
+                                    options={platformsOptions}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={isMobile ? "filters-selectors-input-mobile" : "filters-selectors-input"}>
+                            Cloud Providers ({cloud.length}/5)
+                            <div className={isMobile ? "modal-form-input-select" : "filters-selectors-input"}>
+                                <Select
+                                    isMulti
+                                    value={cloudDefault}
+                                    isOptionDisabled={(option) => cloud.length === 5}
+                                    options={CloudOptions}
+                                    styles={isMobile ? selectedCloud : selected4}
+                                    onChange={(choice) => setCloudHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={isMobile ? "filters-selectors-input-mobile" : "filters-selectors-input"}>
+                            Databases ({databases.length}/5)
+                            <div className={isMobile ? "modal-form-input-select" : "filters-selectors-input"}>
+                                <Select
+                                    isMulti
+                                    value={databasesDefault}
+                                    isOptionDisabled={(option) => databases.length === 5}
+                                    options={databasesOptions}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                />
+                            </div>
+                        </div>
                     </div>
+                </div>
+            )
+        }
+
+        const buttons = () => {
+            if (isMobile) {
+                return (
+                    <div className={"filters-container-options-buttons-mobile"}>
+                        <button className={"cancel-edit-button-style-mobile"} onClick={cleanAll}>
+                            Clean All
+                        </button>
+                        <button disabled={buttonDisabled}
+                                className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}>
+                            {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                            {buttonDisabled ? "" : "Apply"}
+                        </button>
+                    </div>
+                )
+            } else {
+                return (
                     <div className={"filters-container-options-buttons-reduced"}>
                         <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
                         <button disabled={buttonDisabled}
@@ -222,9 +316,33 @@ export default function JobsScreen() {
                             {buttonDisabled ? "" : "Apply"}
                         </button>
                     </div>
+                )
+            }
+        }
+
+        return (
+            <div className={"filters-container-mobile"}>
+                <div
+                    className={isMobile ? "filters-container-buttons-mobile" : "filters-container-buttons-mobile-reduced"}>
+                    <button className={isMobile ? "filters-buttons-mobile" : "filters-buttons-reduced-2"}
+                            onClick={filterButton}>
+                        Filters
+                        {filtersMobile ?
+                            <ArrowUp2 size={isMobile ? 48 : 16} color={"#222222"} className={"filters-buttons-icon"}/> :
+                            <ArrowDown2 size={isMobile ? 48 : 16} color={"#222222"} className={"filters-buttons-icon"}/>
+                        }
+                    </button>
+                </div>
+                <div
+                    className={filtersMobile ? isMobile ? "filters-container-div-mobile" : "filters-container-div-mobile-reduced" : "filters-selector-container-hidden"}>
+                    <div className={"filters-container-options-mobile"}>
+                        {tools()}
+                    </div>
+                    {buttons()}
                 </div>
             </div>
         )
+
     }
 
     const filters = () => {
@@ -283,7 +401,7 @@ export default function JobsScreen() {
                                         isOptionDisabled={(option) => cloud.length === 5}
                                         options={CloudOptions}
                                         styles={isMobile ? selectedCloud : selected4}
-                                        onChange={(choice) => setFrameworkHandler(choice)}
+                                        onChange={(choice) => setCloudHandler(choice)}
                                     />
                                 </div>
                             </div>
@@ -353,7 +471,6 @@ export default function JobsScreen() {
     }
 
     const coverMobile = () => {
-
         return (
             <div className={isMobile ? "projects-header-mobile" : "opportunity-header"}>
                 <div className="projects-cover-reduced">
@@ -363,7 +480,6 @@ export default function JobsScreen() {
                     <img src={logo} className={isMobile ? "pana-projects-style-mobile" : "pana-projects-style-reduced"}
                          alt="logo"/>
                 </div>
-                {isMobile ? null : filtersMobileAndReduced()}
             </div>
         )
     }
@@ -375,7 +491,7 @@ export default function JobsScreen() {
 
         return (
             <div className={"recommendations-container"}>
-                <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                <div className={isMobile ? "create-projects-header-mobile" : context.size ? "create-projects-header-reduced" : "create-projects-header"}>
                     Recommendations
                 </div>
                 <TeamOpportunity key={recommendations[recommendationsIndex].tid}
@@ -401,37 +517,43 @@ export default function JobsScreen() {
     }
 
     return (
-        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
-            {isMobile || context.size ? coverMobile() : cover()}
-            {recommendationsContainer()}
-            <div>
-                <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
-                    Opportunities
+        <>
+            {toolsFilters || preferencesFilters || filtersMobile ?
+                <div onClick={closeAll} className="all-sidebar"/> : null}
+            <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+                {isMobile || context.size ? coverMobile() : cover()}
+                {isMobile || context.size ? mobileFilters() : null}
+                {recommendationsContainer()}
+                <div>
+                    <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                        Opportunities
+                    </div>
+                    {jobs.slice(index, 10 + (index)).map((data) => {
+                        return <TeamOpportunity key={data.tpid} data={data}/>
+                    })}
                 </div>
-                {jobs.slice(index, 10 + (index)).map((data) => {
-                    return <TeamOpportunity key={data.tpid} data={data}/>
-                })}
+                <div className={isMobile ? "paginationMobile" : "pagination"}>
+                    <ReactPaginate
+                        containerClassName={isMobile ? "paginationMobile" : "pagination"}
+                        breakLabel={'...'}
+                        nextLabel={<ArrowCircleRight size={isMobile ? "64" : "24"}
+                                                     color={index + 10 >= jobs.length ? "#E3E3E3" : "#014751"}
+                                                     className={"pagination-icon"}/>}
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={10}
+                        pageCount={pageCount}
+                        activeClassName={"active-page"}
+                        previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"}
+                                                        color={index === 0 ? "#E3E3E3" : "#014751"}
+                                                        className={"pagination-icon"}/>}
+                        renderOnZeroPageCount={null}
+                    />
+                </div>
+                <SearchBar/>
+                <SideBar/>
+                <AlertMessage/>
             </div>
-            <div className={isMobile ? "paginationMobile" : "pagination"}>
-                <ReactPaginate
-                    containerClassName={isMobile ? "paginationMobile" : "pagination"}
-                    breakLabel={'...'}
-                    nextLabel={<ArrowCircleRight size={isMobile ? "64" : "24"}
-                                                 color={index + 10 >= jobs.length ? "#E3E3E3" : "#014751"}
-                                                 className={"pagination-icon"}/>}
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={10}
-                    pageCount={pageCount}
-                    activeClassName={"active-page"}
-                    previousLabel={<ArrowCircleLeft size={isMobile ? "64" : "24"}
-                                                    color={index === 0 ? "#E3E3E3" : "#014751"}
-                                                    className={"pagination-icon"}/>}
-                    renderOnZeroPageCount={null}
-                />
-            </div>
-            <SearchBar/>
-            <SideBar/>
-            <AlertMessage/>
-        </div>
+        </>
+
     );
 }
