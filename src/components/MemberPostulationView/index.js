@@ -241,6 +241,8 @@ export default function MemberPostulationView(params) {
             )
         }
 
+        console.log(params.data.users_recommendation)
+
         const recommendersUser = params.data.users_recommendation.length
 
         const back = () => {
@@ -268,13 +270,13 @@ export default function MemberPostulationView(params) {
         const buttons = () => {
             if (index < recommendersUser) {
                 return (
-                    <button disabled={invited.includes(members[index].uid) || buttonDisabled}
+                    <button disabled={invited.includes(members[index].uid) || buttonDisabled || members[index].invitation_sent}
                             onClick={sendInvitations}
-                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" :
+                            className={buttonDisabled || invited.includes(members[index].uid) || members[index].invitation_sent ? isMobile ? "button-style-disabled-mobile" :
                                 "save-edit-button-style-disabled" : isMobile ?
                                 "button-style-mobile" : "save-edit-button-style"}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : invited.includes(members[index].uid) ? "Invitation Sent" : "Send Invitation"}
+                        {buttonDisabled ? "" : invited.includes(members[index].uid) || members[index].invitation_sent ? "Invitation Sent" : "Send Invitation"}
                     </button>
                 )
             } else {
@@ -299,8 +301,8 @@ export default function MemberPostulationView(params) {
                 <div className={"applicationsInformation"}>
                     <div className={isMobile ? "applicationsUserInformationMobile" : "applicationsUserInformation"}>
                         {userImage(members[index])}
-                        {recommended()}
                         {members[index].name} {members[index].lastname}
+                        {recommended()}
                     </div>
                     {buttons()}
                 </div>
