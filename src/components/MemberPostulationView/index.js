@@ -13,6 +13,7 @@ import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import DataBaseTag from "../DataBaseTag";
 import CloudTag from "../CloudTag";
+import {sendUserTeamInvitation} from "../../services/notificationService";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
@@ -21,9 +22,12 @@ export default function MemberPostulationView(params) {
     const [postulate, setPostulate] = useState(false);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [index, setIndex] = useState(0)
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
+    const [invited, setInvited] = useState([]);
+    const [members, setMembers] = useState(params.data.users_recommendation.concat(params.data.candidates))
     const errorMessageRequest = "An error has occurred while rejecting the candidate. Please, try again later"
     const errorMessage = "An error has occurred while accepting the candidate. Please, try again later"
+    const errorRecommendedMessage = "An error has occurred while recommended to the candidate. Please, try again later"
 
     const closeModal = () => {
         setIsOpen(false);
@@ -133,19 +137,39 @@ export default function MemberPostulationView(params) {
             </div>
         )
     }
+
+    const sendInvitations = () => {
+        setButtonDisabled(true)
+        const body = {
+            tpid: params.data.tpid,
+            uid: members[index].uid
+        }
+        sendUserTeamInvitation(body).then((r) => {
+            if (r === undefined) {
+                if (context.errorMessage !== errorRecommendedMessage) {
+                    context.setErrorMessage(errorRecommendedMessage);
+                }
+            }
+            let invitedList = [...invited]
+            invitedList.push(members[index].uid)
+            setInvited(invitedList)
+            setButtonDisabled(false)
+        })
+    }
+
     const rejectButton = () => {
         const reject = () => {
             setLoading(true)
-            rejectCandidate(params.data.tpid, params.data.candidates[index].uid).then((r) => {
+            rejectCandidate(params.data.tpid, members[index].uid).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageRequest) {
                         context.setErrorMessage(errorMessageRequest);
                     }
                 } else {
-                    let candidates = [...params.data.candidates]
+                    let candidates = [...members]
                     candidates.splice(index, 1);
                     setIndex(0)
-                    params.data.candidates = candidates
+                    setMembers(candidates)
                 }
                 setLoading(false)
             })
@@ -217,7 +241,6 @@ export default function MemberPostulationView(params) {
             )
         }
 
-        let members = params.data.users_recommendation.concat(params.data.candidates);
         const recommendersUser = params.data.users_recommendation.length
 
         const back = () => {
@@ -232,8 +255,6 @@ export default function MemberPostulationView(params) {
             }
         }
 
-        console.log(members[index] in params.data.users_recommendation)
-
         const recommended = () => {
             if (index < recommendersUser) {
                 return (
@@ -247,10 +268,13 @@ export default function MemberPostulationView(params) {
         const buttons = () => {
             if (index < recommendersUser) {
                 return (
-                    <button disabled={buttonDisabled}
-                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}>
+                    <button disabled={invited.includes(members[index].uid) || buttonDisabled}
+                            onClick={sendInvitations}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" :
+                                "save-edit-button-style-disabled" : isMobile ?
+                                "button-style-mobile" : "save-edit-button-style"}>
                         {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                        {buttonDisabled ? "" : "Send Invitation"}
+                        {buttonDisabled ? "" : invited.includes(members[index].uid) ? "Invitation Sent" : "Send Invitation"}
                     </button>
                 )
             } else {
