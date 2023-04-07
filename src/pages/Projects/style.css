@@ -42,6 +42,19 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
+.projects-header-reduced {
+    position: relative;
+    margin: 32px 0;
+    background: linear-gradient(0deg, #3a3558 0%, #014751 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: #FAFAFA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .opportunity-header {
     position: relative;
     margin: 32px 0;
@@ -394,9 +407,27 @@ ul.paginationMobile li a:hover {
     z-index: 1;
 }
 
+.filters-jobs-container-buttons {
+    height: 80px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
 .filters-container-buttons-mobile {
     height: 120px;
     padding-top: 32px;
+    width: 100%;
+    display: flex;
+    background: #0F2830;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 1;
+}
+
+.filters-container-buttons-mobile-reduced {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -501,6 +532,21 @@ ul.paginationMobile li a:hover {
     z-index: 1;
 }
 
+.filters-container-div-mobile-reduced {
+    position: absolute;
+    top: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: center;
+    border-radius: 16px;
+    padding: 16px;
+    width: calc(100% - 32px);
+    background: #F1F1F1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
 .filters-container-div-reduced {
     position: absolute;
     top: 80px;
@@ -546,6 +592,24 @@ ul.paginationMobile li a:hover {
     font-weight: 700;
     border-radius: 32px;
     height: 120px;
+    background: #F1F1F1;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    color: #222222;
+}
+.filters-buttons-reduced-2 {
+    width: 100%;
+    display: flex;
+    align-self: center;
+    padding: 0 16px;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    font-weight: 700;
+    border-radius: 16px;
+    height: 54px;
     background: #F1F1F1;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     cursor: pointer;
