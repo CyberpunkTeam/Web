@@ -19,6 +19,7 @@ export default function MemberPostulationView(params) {
     const [showMore, setShowMore] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [postulate, setPostulate] = useState(false);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
     const [index, setIndex] = useState(0)
     const [loading, setLoading] = useState(false)
     const errorMessageRequest = "An error has occurred while rejecting the candidate. Please, try again later"
@@ -208,13 +209,16 @@ export default function MemberPostulationView(params) {
     }
 
     const applications = () => {
-        if (params.data.candidates.length === 0) {
+        if (params.data.candidates.length === 0 && params.data.users_recommendation.length === 0) {
             return (
                 <div className={isMobile ? "withoutApplicationsMobile" : "withoutApplications"}>
                     No Applications
                 </div>
             )
         }
+
+        let members = params.data.users_recommendation.concat(params.data.candidates);
+        const recommendersUser = params.data.users_recommendation.length
 
         const back = () => {
             if (index !== 0) {
@@ -223,8 +227,40 @@ export default function MemberPostulationView(params) {
         }
 
         const next = () => {
-            if (params.data.candidates.length - 1 !== index) {
+            if (members.length - 1 !== index) {
                 setIndex(index + 1)
+            }
+        }
+
+        console.log(members[index] in params.data.users_recommendation)
+
+        const recommended = () => {
+            if (index < recommendersUser) {
+                return (
+                    <div className={"recommended-container"}>
+                        Recommended
+                    </div>
+                )
+            }
+        }
+
+        const buttons = () => {
+            if (index < recommendersUser) {
+                return (
+                    <button disabled={buttonDisabled}
+                            className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}>
+                        {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                        {buttonDisabled ? "" : "Send Invitation"}
+                    </button>
+                )
+            } else {
+                return (
+                    <div
+                        className={isMobile ? "postulations-buttons-container-mobile" : "postulations-buttons-container"}>
+                        {rejectButton()}
+                        {acceptButton()}
+                    </div>
+                )
             }
         }
 
@@ -238,20 +274,17 @@ export default function MemberPostulationView(params) {
                 />
                 <div className={"applicationsInformation"}>
                     <div className={isMobile ? "applicationsUserInformationMobile" : "applicationsUserInformation"}>
-                        {userImage(params.data.candidates[index])}
-                        {params.data.candidates[index].name} {params.data.candidates[index].lastname}
+                        {userImage(members[index])}
+                        {recommended()}
+                        {members[index].name} {members[index].lastname}
                     </div>
-                    <div
-                        className={isMobile ? "postulations-buttons-container-mobile" : "postulations-buttons-container"}>
-                        {rejectButton()}
-                        {acceptButton()}
-                    </div>
+                    {buttons()}
                 </div>
                 <ArrowCircleRight
                     size={isMobile ? "48" : "24"}
                     className={"button"}
                     onClick={next}
-                    color={params.data.candidates.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
+                    color={members.length - 1 !== index ? "#AAAAAA" : "#F1F1F1"}
                 />
             </div>
         )

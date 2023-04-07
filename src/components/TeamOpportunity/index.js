@@ -16,10 +16,6 @@ export default function TeamOpportunity(params) {
     const [showMore, setShowMore] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
 
-    if (params.data.team.members.includes(context.user.uid)) {
-        return;
-    }
-
     const seeMore = () => {
         setShowMore(!showMore)
     }
@@ -72,6 +68,20 @@ export default function TeamOpportunity(params) {
         }
     }
 
+    const postulationButton = () => {
+        if (params.data.team.members.includes(context.user.uid)) {
+            return;
+        }
+
+        return (
+            <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"}
+                    onClick={openModalPostulations}>
+                <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
+                Postulate
+            </button>
+        )
+    }
+
     return (
         <div key={params.data.tpid} className="vacantPostulationContainer">
             <div className={isMobile ? "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
@@ -92,11 +102,7 @@ export default function TeamOpportunity(params) {
                         </div>
                     </div>
                 </div>
-                <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"}
-                        onClick={openModalPostulations}>
-                    <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
-                    Postulate
-                </button>
+                {postulationButton()}
             </div>
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
                 <PostulateInTeamModal data={params.data} closeModal={closeModal}/>

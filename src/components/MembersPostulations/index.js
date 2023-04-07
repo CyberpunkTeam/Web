@@ -19,6 +19,7 @@ export default function MembersPostulations(params) {
         getTeamVacants(params.tid).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
+                    setVacants([])
                     context.setErrorMessage(errorMessageRequest);
                 }
                 return;

@@ -193,6 +193,15 @@
     align-items: center;
 }
 
+.recommended-container {
+    font-size: 12px;
+    color: #2E9999;
+    padding: 4px 8px;
+    border-radius: 8px;
+    border: 1px solid #2E9999;
+    margin-bottom: 8px;
+}
+
 .postulations-buttons-mobile-container {
     display: flex;
     width: 260px;

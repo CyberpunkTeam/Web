@@ -154,7 +154,7 @@ function SideBar() {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
-            } else if (notification_type === "NEW_TEAM_CANDIDATE") {
+            } else if (notification_type === "NEW_TEAM_CANDIDATE" || notification_type === "POSITION_INVITATION") {
                 getTeamPosition(id).then((response) => {
                     navigate("/team/" + response.team.tid)
                 })
