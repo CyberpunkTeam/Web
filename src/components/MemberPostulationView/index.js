@@ -241,8 +241,6 @@ export default function MemberPostulationView(params) {
             )
         }
 
-        console.log(params.data.users_recommendation)
-
         const recommendersUser = params.data.users_recommendation.length
 
         const back = () => {

@@ -5,7 +5,12 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject, getProjectTeamRecommendations} from "../../services/projectService";
+import {
+    getProjectPostulations,
+    getProject,
+    getProjectTeamRecommendations,
+    getTemporallyTeamRecommendations
+} from "../../services/projectService";
 import {
     AddCircle,
     ArrowCircleDown, DollarSquare,
@@ -50,6 +55,7 @@ export default function ProjectScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [recommendations, setRecommendations] = useState([]);
+    const [temporal, setTemporal] = useState([]);
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
@@ -85,6 +91,13 @@ export default function ProjectScreen() {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
+                    }
+                })
+                getTemporallyTeamRecommendations(response).then((r) => {
+                    if (r === undefined) {
+                        setError("An error has occurred while loading temporally team. Please, try again later");
+                    } else {
+                        setTemporal(r)
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
@@ -126,11 +139,11 @@ export default function ProjectScreen() {
     }
 
     const recommendationButton = () => {
-        console.log("entra")
         navigate("/projects/" + project.pid + "/teamRecommendation", {
             state: {
                 teams: recommendations,
                 project: project.pid,
+                temporal: temporal,
                 again: true
             }
         })
@@ -244,6 +257,10 @@ export default function ProjectScreen() {
         }
 
         if (recommendations === undefined || recommendations.length === 0) {
+            return
+        }
+
+        if (temporal === undefined || temporal.length === 0) {
             return
         }
 

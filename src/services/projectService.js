@@ -49,3 +49,7 @@ export const getRequestAbandonProjectWithID = (par_id) => {
 export const getProjectTeamRecommendations = (body) => {
     return post(`recommendations/projects/`, body)
 }
+
+export const getTemporallyTeamRecommendations = (body) => {
+    return post(`recommendations/temporal_teams/`, body)
+}
