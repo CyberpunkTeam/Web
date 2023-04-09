@@ -77,3 +77,7 @@ export const getUserOpportunities = (body) => {
 export const createTeamTemporal = (body) => {
     return post(endpoint + `temporal`, body)
 }
+
+export const getTeamTemporal = (pid) => {
+    return get(endpoint + `temporal/?pid=` + pid)
+}

@@ -25,7 +25,7 @@ import {
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams} from "../../services/teamService";
+import {getOwnerTeams, getTeamTemporal} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -43,6 +43,7 @@ import BudgetTag from "../../components/BudgetTag";
 import {formatter} from "../../utils/budgetFormatter";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
+import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -50,7 +51,7 @@ export default function ProjectScreen() {
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
     const [logs, setLogs] = useState([])
-    const [postulations, setPostulations] = useState([])
+    const [postulations, setPostulations] = useState(undefined)
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -692,6 +693,7 @@ export default function ProjectScreen() {
             <div className="team-container">
                 <ProjectFinish project={project}/>
                 <LeaveProject project={project}/>
+                {postulations === undefined  ? null : <TemporalTeamPostulate project={project} postulations={postulations}/>}
                 {cover()}
             </div>
             <div className={context.size ? "projectButtonsContainerReduced" : "projectButtonsContainer"}>
