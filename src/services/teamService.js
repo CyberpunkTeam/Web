@@ -73,3 +73,7 @@ export const getAllTeamPositions = (params) => {
 export const getUserOpportunities = (body) => {
     return post(`recommendations/users/`, body)
 }
+
+export const createTeamTemporal = (body) => {
+    return post(endpoint + `temporal`, body)
+}

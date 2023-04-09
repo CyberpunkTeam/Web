@@ -55,7 +55,7 @@ export default function ProjectScreen() {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [recommendations, setRecommendations] = useState([]);
-    const [temporal, setTemporal] = useState([]);
+    const [temporal, setTemporal] = useState(undefined);
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
@@ -260,7 +260,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (temporal === undefined || temporal.length === 0) {
+        if (temporal === undefined) {
             return
         }
 
@@ -429,6 +429,10 @@ export default function ProjectScreen() {
 
     const cover = () => {
         const editButton = () => {
+            if (project.state !== "PENDING") {
+                return
+            }
+
             if (project.creator.uid === context.user.uid) {
 
                 const edit = () => {

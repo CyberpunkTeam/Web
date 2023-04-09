@@ -11,21 +11,31 @@ import TemporalTeam from "../../components/TemporalTeam";
 export default function TeamRecommendation() {
     let context = useContext(AppContext);
     const {state} = useLocation();
-    const [buttonDisabled, setButtonDisabled] = useState(false);
-    console.log(state)
     const navigate = useNavigate();
     const goToProject = () => {
         navigate("/projects/" + state.project)
     }
 
+    const temporalTeams = () => {
+        if (state.temporal.length === 0) {
+            return
+        }
+
+        return (
+            <>
+                <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                    Temporal Teams
+                </div>
+                {state.temporal.map((team) => {
+                    return <TemporalTeam key={team.name} data={team} project={state.project}/>
+                })}
+            </>
+        )
+    }
 
     return (
         <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
-            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
-                Temporal Teams
-            </div>
-            <TemporalTeam key={"temporal 1"} data={state.temporal[0]} project={state.project} />
-            <TemporalTeam key={"temporal 2"} data={state.temporal[1]} project={state.project} />
+            {temporalTeams()}
             <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 Team Recommendations
             </div>
@@ -37,11 +47,6 @@ export default function TeamRecommendation() {
                 <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
                         onClick={goToProject}>
                     {state.again === undefined ? "Finish" :  "Go Back"}
-                </button>
-                <button disabled={buttonDisabled}
-                        className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
-                        >
-                    Create temporal team
                 </button>
             </div>
             <SearchBar/>

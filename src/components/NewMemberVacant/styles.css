@@ -43,7 +43,7 @@
 
 .new-vacant-button {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 49.5%;
     color: #014751;
     font-size: 12px;

@@ -9,6 +9,7 @@ import PreferenceTag from "../PreferenceTag";
 import {People, TickCircle, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
+import {createTeamTemporal} from "../../services/teamService";
 
 export default function TemporalTeam(params) {
     let context = useContext(AppContext);
@@ -23,10 +24,12 @@ export default function TemporalTeam(params) {
         }
 
         const body = {
-            tid: data.tid,
+            name: data.name,
+            members: data.members,
+            skills: data.skills,
             pid: params.project
         }
-        projectInvitation(body).then(
+        createTeamTemporal(body).then(
             () => {
                 setSendIt(true);
                 setLoading(false);

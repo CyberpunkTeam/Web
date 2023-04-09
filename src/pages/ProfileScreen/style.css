@@ -1153,6 +1153,7 @@
     background: #014751;
     font-size: 16px;
     cursor: pointer;
+    margin-left: 16px;
 }
 
 .save-edit-button-style-mobile {
@@ -1197,6 +1198,7 @@
     background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
     cursor: pointer;
+    margin-left: 16px;
 }
 
 .save-edit-button-style-disabled-mobile {
