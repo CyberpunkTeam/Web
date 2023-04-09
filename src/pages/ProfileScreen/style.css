@@ -358,7 +358,7 @@
 .teamInfoMobile {
     position: relative;
     margin: 32px;
-    width: 100%;
+    width: calc(100% - 64px);
     justify-content: space-between;
     color: #FAFAFA;
 }

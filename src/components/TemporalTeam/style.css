@@ -1,0 +1,57 @@
+.teamContainerTemporal {
+    width: 100%;
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    border-radius: 16px;
+    margin-bottom: 16px;
+    color: #FAFAFA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-image: linear-gradient(122.17deg, rgba(0, 82, 153, 0.7) 0%, rgba(1, 71, 81, 0.7) 100%);
+}
+
+.teamContainerMobileTemporal {
+    width: 100%;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    border-radius: 32px;
+    margin-bottom: 32px;
+    color: #FAFAFA;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    background-image: linear-gradient(122.17deg, #005299 0%, #014751 100%);
+}
+
+.members-container-recommendation {
+    overflow-x: auto;
+    width: 100%;
+    padding: 8px 0;
+    display: flex;
+}
+
+.profile-data-container-recommendation {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.members-info-container-mobile-recommendation  {
+    background: rgba(241, 241, 241, 0.4);
+    height: 160px;
+    color: #222222;
+    margin-right: 32px;
+    display: flex;
+    justify-content: center;
+    border-radius: 32px;
+    width: available;
+}
+
+.members-info-container-recommendation {
+    background: rgba(241, 241, 241, 0.4);
+    margin-right: 16px;
+    color: #222222;
+    display: flex;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+}

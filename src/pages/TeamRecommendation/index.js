@@ -6,6 +6,7 @@ import {useLocation, useNavigate} from "react-router-dom";
 import TeamRecommendationTile from "../../components/TeamRecommendationTile";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
+import TemporalTeam from "../../components/TemporalTeam";
 
 export default function TeamRecommendation() {
     let context = useContext(AppContext);
@@ -20,6 +21,11 @@ export default function TeamRecommendation() {
 
     return (
         <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                Temporal Teams
+            </div>
+            <TemporalTeam key={"temporal 1"} data={state.temporal[0]} project={state.project} />
+            <TemporalTeam key={"temporal 2"} data={state.temporal[1]} project={state.project} />
             <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 Team Recommendations
             </div>
