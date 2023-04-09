@@ -103,10 +103,6 @@ export default function MemberPostulationView(params) {
             return null
         })
 
-        if (list.includes(context.user.uid)) {
-            return
-        }
-
         return (
             <div key={params.data.tpid} className="vacantPostulationContainer">
                 <div className={isMobile ? "vacantDataMobile" : context.size ? "vacantDataReduce" : "vacantData"}>
@@ -128,9 +124,10 @@ export default function MemberPostulationView(params) {
                         </div>
                     </div>
                     <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"}
+                            disabled={list.includes(context.user.uid)}
                             onClick={openModalPostulations}>
                         <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
-                        Postulate
+                        {list.includes(context.user.uid) ? "Postulation sent" : "Postulate"}
                     </button>
                 </div>
                 {modal()}

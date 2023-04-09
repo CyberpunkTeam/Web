@@ -75,9 +75,10 @@ export default function TeamOpportunity(params) {
 
         return (
             <button className={isMobile ? "postulateVacantButtonMobile" : "postulateVacantButton"}
+                    disabled={params.data.candidates.includes(context.user.uid)}
                     onClick={openModalPostulations}>
                 <UserCirlceAdd color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/>
-                Postulate
+                {params.data.candidates.includes(context.user.uid) ? "Postulation sent" : "Postulate"}
             </button>
         )
     }

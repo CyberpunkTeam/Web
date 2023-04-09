@@ -15,20 +15,19 @@ import Select from "react-select";
 import {
     CloudOptions,
     databasesOptions,
-    frameworksOptionsDataAll, optionsIdioms,
-    optionsLanguages, optionsProjects,
+    frameworksOptionsDataAll,
+    optionsLanguages,
     platformsOptions
 } from "../../config/dictonary";
 import {
     selected4,
     selectedCloud,
     selectedColor5,
-    selectedDb, selectedFrameworks, selectedGreenStyle, selectedLanguages, selectedPlatform,
+    selectedDb, selectedFrameworks, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3, selectPref
+    selectedViolet3
 } from "../../styles/commonStyles";
-import {formatter} from "../../utils/budgetFormatter";
 
 export default function JobsScreen() {
     let context = useContext(AppContext);
@@ -45,7 +44,6 @@ export default function JobsScreen() {
 
     const recommendationsCount = recommendations.length;
 
-    const [filtersMobile, setFiltersMobile] = useState(false)
     const [toolsFilters, setToolsFilters] = useState(false)
     const [techs, setTechs] = useState([])
     const [techsDefaults, setTechsDefaults] = useState([])
@@ -55,13 +53,33 @@ export default function JobsScreen() {
     const [cloudDefault, setCloudDefault] = useState([])
     const [databases, setDatabases] = useState([])
     const [databasesDefault, setDatabasesDefault] = useState([])
-    const [preferencesFilters, setPreferencesFilters] = useState(false)
     const [platforms, setPlatforms] = useState([])
     const [platformsDefault, setPlatformsDefault] = useState([])
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
+    const queryParams = () => {
+
+        let params = ""
+
+        if (techs.length !== 0) {
+            params = params + "&programming_languages=" + techs.toString()
+        }
+        if (frameworks.length !== 0) {
+            params = params + "&frameworks=" + frameworks.toString()
+        }
+        if (databases.length !== 0) {
+            params = params + "&databases=" + databases.toString()
+        }
+        if (platforms.length !== 0) {
+            params = params + "&platforms=" + platforms.toString()
+        }
+
+        return params
+    }
+
     useEffect(() => {
-        getAllTeamPositions().then((response) => {
+        const params = queryParams()
+        getAllTeamPositions(params).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading jobs opportunities. Please, try again later") {
                     if (jobs === undefined) {
@@ -99,19 +117,12 @@ export default function JobsScreen() {
         };
     }, []);
 
-    const toolButton = () => {
-        setPreferencesFilters(false)
-        setToolsFilters(!toolsFilters)
-    }
-
     const filterButton = () => {
-        setFiltersMobile(!filtersMobile)
+        setToolsFilters(!toolsFilters)
     }
 
     const closeAll = () => {
         setToolsFilters(false);
-        setFiltersMobile(false);
-        setPreferencesFilters(false);
     }
 
     const setDBHandler = (event) => {
@@ -216,6 +227,26 @@ export default function JobsScreen() {
         setCloudDefault([])
     }
 
+    const find = () => {
+        setButtonDisabled(true);
+        const params = queryParams()
+        getAllTeamPositions(params).then((response) => {
+            if (response === undefined) {
+                if (context.errorMessage !== "An error has occurred while loading jobs opportunities. Please, try again later") {
+                    if (jobs === undefined) {
+                        setJobs([]);
+                    }
+                    context.setErrorMessage("An error has occurred while loading jobs opportunities. Please, try again later");
+                }
+                return
+            }
+            setJobs(response)
+            setIndex(0)
+            setButtonDisabled(false);
+            closeAll()
+        })
+    }
+
     const mobileFilters = () => {
         const tools = () => {
             return (
@@ -300,6 +331,7 @@ export default function JobsScreen() {
                             Clean All
                         </button>
                         <button disabled={buttonDisabled}
+                                onClick={find}
                                 className={buttonDisabled ? "button-style-disabled-mobile" : "button-style-mobile"}>
                             {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                             {buttonDisabled ? "" : "Apply"}
@@ -311,6 +343,7 @@ export default function JobsScreen() {
                     <div className={"filters-container-options-buttons-reduced"}>
                         <button className={"cancel-edit-button-style-reduced"} onClick={cleanAll}>Clean All</button>
                         <button disabled={buttonDisabled}
+                                onClick={find}
                                 className={buttonDisabled ? "filter-button-disabled-reduced" : "filter-button-reduced"}>
                             {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
                             {buttonDisabled ? "" : "Apply"}
@@ -327,14 +360,14 @@ export default function JobsScreen() {
                     <button className={isMobile ? "filters-buttons-mobile" : "filters-buttons-reduced-2"}
                             onClick={filterButton}>
                         Filters
-                        {filtersMobile ?
+                        {toolsFilters ?
                             <ArrowUp2 size={isMobile ? 48 : 16} color={"#222222"} className={"filters-buttons-icon"}/> :
                             <ArrowDown2 size={isMobile ? 48 : 16} color={"#222222"} className={"filters-buttons-icon"}/>
                         }
                     </button>
                 </div>
                 <div
-                    className={filtersMobile ? isMobile ? "filters-container-div-mobile" : "filters-container-div-mobile-reduced" : "filters-selector-container-hidden"}>
+                    className={toolsFilters ? isMobile ? "filters-container-div-mobile" : "filters-container-div-mobile-reduced" : "filters-selector-container-hidden"}>
                     <div className={"filters-container-options-mobile"}>
                         {tools()}
                     </div>
@@ -347,89 +380,86 @@ export default function JobsScreen() {
 
     const filters = () => {
         const tools = () => {
-            if (toolsFilters) {
-                return (
-                    <div className={"filters-selectors-container"}>
-                        <div className={"filters-selectors-column-container"}>
-                            <div className={"filters-selectors-input"}>
-                                Programming Languages ({techs.length}/5)
-                                <div className="modal-form-input-select">
-                                    <Select
-                                        isMulti
-                                        value={techsDefaults}
-                                        isOptionDisabled={(option) => techs.length === 5}
-                                        options={optionsLanguages}
-                                        styles={isMobile ? selectedLanguages : selectedViolet}
-                                        onChange={(choice) => setTechLanguagesHandler(choice)}
-                                    />
-                                </div>
-                            </div>
-                            <div className={"filters-selectors-input"}>
-                                Frameworks ({frameworks.length}/5)
-                                <div className="modal-form-input-select">
-                                    <Select
-                                        isMulti
-                                        value={frameworksDefault}
-                                        isOptionDisabled={(option) => frameworks.length === 5}
-                                        options={frameworksOptionsDataAll}
-                                        styles={isMobile ? selectedFrameworks : selectedViolet3}
-                                        onChange={(choice) => setFrameworkHandler(choice)}
-                                    />
-                                </div>
-                            </div>
-                            <div className={"filters-selectors-input"}>
-                                Platforms ({platforms.length}/5)
-                                <div className="modal-form-input-select">
-                                    <Select
-                                        isMulti
-                                        value={platformsDefault}
-                                        isOptionDisabled={(option) => platformsOptions.length === 5}
-                                        options={platformsOptions}
-                                        styles={isMobile ? selectedPlatform : selectedViolet2}
-                                        onChange={(choice) => setPlatformsHandler(choice)}
-                                    />
-                                </div>
+            return (
+                <div className={"filters-selectors-container"}>
+                    <div className={"filters-selectors-column-container"}>
+                        <div className={"filters-selectors-input"}>
+                            Programming Languages ({techs.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={techsDefaults}
+                                    isOptionDisabled={(option) => techs.length === 5}
+                                    options={optionsLanguages}
+                                    styles={isMobile ? selectedLanguages : selectedViolet}
+                                    onChange={(choice) => setTechLanguagesHandler(choice)}
+                                />
                             </div>
                         </div>
-                        <div className={"filters-selectors-column-container"}>
-                            <div className={"filters-selectors-input"}>
-                                Cloud Providers ({cloud.length}/5)
-                                <div className="modal-form-input-select">
-                                    <Select
-                                        isMulti
-                                        value={cloudDefault}
-                                        isOptionDisabled={(option) => cloud.length === 5}
-                                        options={CloudOptions}
-                                        styles={isMobile ? selectedCloud : selected4}
-                                        onChange={(choice) => setCloudHandler(choice)}
-                                    />
-                                </div>
+                        <div className={"filters-selectors-input"}>
+                            Frameworks ({frameworks.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={frameworksDefault}
+                                    isOptionDisabled={(option) => frameworks.length === 5}
+                                    options={frameworksOptionsDataAll}
+                                    styles={isMobile ? selectedFrameworks : selectedViolet3}
+                                    onChange={(choice) => setFrameworkHandler(choice)}
+                                />
                             </div>
-                            <div className={"filters-selectors-input"}>
-                                Databases ({databases.length}/5)
-                                <div className="modal-form-input-select">
-                                    <Select
-                                        isMulti
-                                        value={databasesDefault}
-                                        isOptionDisabled={(option) => databases.length === 5}
-                                        options={databasesOptions}
-                                        styles={isMobile ? selectedDb : selectedColor5}
-                                        onChange={(choice) => setDBHandler(choice)}
-                                    />
-                                </div>
+                        </div>
+                        <div className={"filters-selectors-input"}>
+                            Platforms ({platforms.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={platformsDefault}
+                                    isOptionDisabled={(option) => platformsOptions.length === 5}
+                                    options={platformsOptions}
+                                    styles={isMobile ? selectedPlatform : selectedViolet2}
+                                    onChange={(choice) => setPlatformsHandler(choice)}
+                                />
                             </div>
-
                         </div>
                     </div>
-                )
-            }
-        }
+                    <div className={"filters-selectors-column-container"}>
+                        <div className={"filters-selectors-input"}>
+                            Cloud Providers ({cloud.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={cloudDefault}
+                                    isOptionDisabled={(option) => cloud.length === 5}
+                                    options={CloudOptions}
+                                    styles={isMobile ? selectedCloud : selected4}
+                                    onChange={(choice) => setCloudHandler(choice)}
+                                />
+                            </div>
+                        </div>
+                        <div className={"filters-selectors-input"}>
+                            Databases ({databases.length}/5)
+                            <div className="modal-form-input-select">
+                                <Select
+                                    isMulti
+                                    value={databasesDefault}
+                                    isOptionDisabled={(option) => databases.length === 5}
+                                    options={databasesOptions}
+                                    styles={isMobile ? selectedDb : selectedColor5}
+                                    onChange={(choice) => setDBHandler(choice)}
+                                />
+                            </div>
+                        </div>
 
+                    </div>
+                </div>
+            )
+        }
 
         return (
             <div className={"filters-container"}>
                 <div className={"filters-jobs-container-buttons"}>
-                    <button className={"filters-buttons"} onClick={toolButton}>
+                    <button className={"filters-buttons"} onClick={filterButton}>
                         Filters
                         {toolsFilters ?
                             <ArrowUp2 size={16} color={"#222222"} className={"filters-buttons-icon"}/> :
@@ -438,13 +468,14 @@ export default function JobsScreen() {
                     </button>
                 </div>
                 <div
-                    className={toolsFilters || preferencesFilters ? "filters-container-div" : "filters-selector-container-hidden"}>
+                    className={toolsFilters ? "filters-container-div" : "filters-selector-container-hidden"}>
                     <div className={"filters-container-options"}>
                         {tools()}
                     </div>
                     <div className={"filters-container-options-buttons"}>
                         <button className={"cancel-edit-button-style"} onClick={cleanAll}>Clean All</button>
                         <button disabled={buttonDisabled}
+                                onClick={find}
                                 className={buttonDisabled ? "filter-button-disabled" : "filter-button"}
                         >
                             {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
@@ -491,7 +522,8 @@ export default function JobsScreen() {
 
         return (
             <div className={"recommendations-container"}>
-                <div className={isMobile ? "create-projects-header-mobile" : context.size ? "create-projects-header-reduced" : "create-projects-header"}>
+                <div
+                    className={isMobile ? "create-projects-header-mobile" : context.size ? "create-projects-header-reduced" : "create-projects-header"}>
                     Recommendations
                 </div>
                 <TeamOpportunity key={recommendations[recommendationsIndex].tid}
@@ -518,8 +550,7 @@ export default function JobsScreen() {
 
     return (
         <>
-            {toolsFilters || preferencesFilters || filtersMobile ?
-                <div onClick={closeAll} className="all-sidebar"/> : null}
+            {toolsFilters ? <div onClick={closeAll} className="all-sidebar"/> : null}
             <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
                 {isMobile || context.size ? coverMobile() : cover()}
                 {isMobile || context.size ? mobileFilters() : null}
