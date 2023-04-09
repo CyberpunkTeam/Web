@@ -17,7 +17,7 @@ export default function TeamRecommendation() {
     }
 
     const temporalTeams = () => {
-        if (state.temporal.length === 0) {
+        if (state.temporal === undefined || state.temporal.length === 0) {
             return
         }
 

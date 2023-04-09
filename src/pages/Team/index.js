@@ -49,7 +49,6 @@ export default function TeamScreen() {
 
     useEffect(() => {
         getTeam(params.id).then((response) => {
-            console.log(response)
             if (response === undefined) {
                 setError("An error has occurred while loading team's information. Please, try again later");
                 return

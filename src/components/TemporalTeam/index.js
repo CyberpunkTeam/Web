@@ -14,7 +14,6 @@ import {createTeamTemporal} from "../../services/teamService";
 export default function TemporalTeam(params) {
     let context = useContext(AppContext);
     const data = params.data
-    console.log(data)
     const [loading, setLoading] = useState(false);
     const [sendIt, setSendIt] = useState(data.sent_notification);
     const sendInvitation = () => {

@@ -181,11 +181,13 @@ export default function CreateProjectScreen() {
                         context.setErrorMessage(errorMessageCreate);
                     }
                 } else {
+                    console.log(r)
                     window.scrollTo(0, 0);
                     navigate("/projects/" + r.pid + "/teamRecommendation", {
                         state: {
                             teams: r.teams_recommendations,
-                            project: r.pid
+                            project: r.pid,
+                            temporal: r.temporal_teams_recommendations
                         }
                     })
                 }
