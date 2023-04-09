@@ -25,7 +25,7 @@ import {
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams, getTeamTemporal} from "../../services/teamService";
+import {getOwnerTeams} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -659,8 +659,8 @@ export default function ProjectScreen() {
         } else if (tagSelect === "postulations") {
             return (
                 <div className="project-data-container-reduce">
-                    <PostulationsModal postulations={postulations} closeModal={closeModal}
-                                       changePostulations={changePostulations}/>
+                    {postulations === undefined ? null : <PostulationsModal postulations={postulations} closeModal={closeModal}
+                                        changePostulations={changePostulations}/>}
                 </div>
             )
         } else if (tagSelect === "history") {

@@ -1,8 +1,7 @@
 import {useContext, useEffect, useState} from "react";
 import {CloseCircle, TickCircle} from "iconsax-react";
-import {finishProject, getRequestFinishProject, sendTeamPostulation} from "../../services/notificationService";
+import {sendTeamPostulation} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
-import {useNavigate} from "react-router-dom";
 import {getTeamTemporal} from "../../services/teamService";
 
 export default function TemporalTeamPostulate(params) {
