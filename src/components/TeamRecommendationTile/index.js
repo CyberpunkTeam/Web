@@ -62,12 +62,12 @@ export default function TeamRecommendationTile(params) {
                     })}
                 </div>
                 <div className="teamTagContainer">
-                    {data.idioms.map((data) => {
+                    {data.idioms === null ? null : data.idioms.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
                 </div>
                 <div className="teamTagContainer">
-                    {data.methodologies.map((data) => {
+                    {data.methodologies === null ? null : data.methodologies.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
                 </div>
@@ -82,7 +82,8 @@ export default function TeamRecommendationTile(params) {
 
         return (
             <div className={"teamInfoMobileButton"}>
-                <button disabled={sendIt || loading} className={"createProjectButtonCoverMobile"} onClick={sendInvitation}>
+                <button disabled={sendIt || loading} className={"createProjectButtonCoverMobile"}
+                        onClick={sendInvitation}>
                     {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
                         sendIt ?
                             <TickCircle color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className="icon"/> :
@@ -98,7 +99,7 @@ export default function TeamRecommendationTile(params) {
         const team_link = "/team/" + data.tid;
 
         const inviteButton = () => {
-            if (isMobile) {
+            if (isMobile || data.temporal) {
                 return
             }
 

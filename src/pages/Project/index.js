@@ -25,7 +25,7 @@ import {
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams} from "../../services/teamService";
+import {getOwnerTeams, getTeamTemporal} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -98,7 +98,14 @@ export default function ProjectScreen() {
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
-                        setTemporal(r)
+                        if (r.length === 0) {
+                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                                console.log(temporalTeamResponse)
+                                setTemporal(temporalTeamResponse)
+                            })
+                        } else {
+                            setTemporal(r)
+                        }
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
@@ -659,8 +666,9 @@ export default function ProjectScreen() {
         } else if (tagSelect === "postulations") {
             return (
                 <div className="project-data-container-reduce">
-                    {postulations === undefined ? null : <PostulationsModal postulations={postulations} closeModal={closeModal}
-                                        changePostulations={changePostulations}/>}
+                    {postulations === undefined ? null :
+                        <PostulationsModal postulations={postulations} closeModal={closeModal}
+                                           changePostulations={changePostulations}/>}
                 </div>
             )
         } else if (tagSelect === "history") {
@@ -693,7 +701,8 @@ export default function ProjectScreen() {
             <div className="team-container">
                 <ProjectFinish project={project}/>
                 <LeaveProject project={project}/>
-                {postulations === undefined  ? null : <TemporalTeamPostulate project={project} postulations={postulations}/>}
+                {postulations === undefined ? null :
+                    <TemporalTeamPostulate project={project} postulations={postulations}/>}
                 {cover()}
             </div>
             <div className={context.size ? "projectButtonsContainerReduced" : "projectButtonsContainer"}>
