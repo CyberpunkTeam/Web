@@ -85,6 +85,7 @@
     display: flex;
     align-items: center;
     z-index: 1;
+    font-weight: 400;
 }
 
 .navbar-mobile {
@@ -130,6 +131,7 @@
     bottom: 32px;
     width: 100%;
     display: flex;
+    font-weight: 400;
     align-items: center;
 }
 

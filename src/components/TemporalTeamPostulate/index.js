@@ -15,7 +15,6 @@ export default function TemporalTeamPostulate(params) {
 
     const closeModal = () => {
         setIsOpen(false);
-        setTeamTemporal(undefined)
         setLoading(false);
     }
 
@@ -32,21 +31,21 @@ export default function TemporalTeamPostulate(params) {
             } else {
                 let members = []
                 let teams = []
+                if (temporalTeamResponse.length !== 0) {
+                    temporalTeamResponse[0].members.map((user) => {
+                        members.push(user.uid)
+                        return null
+                    })
 
-                temporalTeamResponse[0].members.map((user) => {
-                    members.push(user.uid)
-                    return null
-                })
+                    params.postulations.map((team) => {
+                        teams.push(team.tid)
+                        return null
+                    })
 
-                params.postulations.map((team) => {
-                    teams.push(team.tid)
-                    return null
-                })
-
-                if (!teams.includes(temporalTeamResponse[0].tid) && members.includes(context.user.uid)) {
-                    setTeamTemporal(temporalTeamResponse[0]);
+                    if (!teams.includes(temporalTeamResponse[0].tid) && members.includes(context.user.uid)) {
+                        setTeamTemporal(temporalTeamResponse[0]);
+                    }
                 }
-
             }
         }).catch((error) => {
             console.log(error)

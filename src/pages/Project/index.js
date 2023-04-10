@@ -83,25 +83,26 @@ export default function ProjectScreen() {
                         if (teams === undefined) {
                             setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
-                            getTemporallyTeamRecommendations(response).then((r) => {
-                                if (r === undefined) {
-                                    setError("An error has occurred while loading temporally team. Please, try again later");
-                                } else {
-                                    if (r.length === 0) {
-                                        getTeamTemporal(response.pid).then((temporalTeamResponse) => {
-                                            setTemporal(temporalTeamResponse)
-                                            setUserTeam(teams.concat(temporalTeamResponse));
-                                        })
-                                    } else {
-                                        setTemporal(r)
-                                        setUserTeam(teams);
-                                    }
-                                }
-                            })
+                            setUserTeam(teams);
                         }
                     })
                 }
+                getTemporallyTeamRecommendations(response).then((r) => {
+                    console.log(r)
+                    if (r === undefined) {
+                        setError("An error has occurred while loading temporally team. Please, try again later");
+                    } else {
+                        if (r.length === 0) {
+                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                                setTemporal(temporalTeamResponse)
+                            })
+                        } else {
+                            setTemporal(r)
+                        }
+                    }
+                })
                 getProjectTeamRecommendations(response).then((r) => {
+                    console.log(r)
                     if (r === undefined) {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
@@ -264,7 +265,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (recommendations === undefined || recommendations.length === 0) {
+        if (recommendations === undefined) {
             return
         }
 
