@@ -1,3 +1,4 @@
+import './style.css'
 import {projectInvitation} from "../../services/notificationService";
 import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
@@ -5,12 +6,12 @@ import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import CloudTag from "../CloudTag";
 import PreferenceTag from "../PreferenceTag";
-import {Link} from "react-router-dom";
-import {People, Star1, TickCircle} from "iconsax-react";
+import {People, TickCircle, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
+import {createTeamTemporal} from "../../services/teamService";
 
-export default function TeamRecommendationTile(params) {
+export default function TemporalTeam(params) {
     let context = useContext(AppContext);
     const data = params.data
     const [loading, setLoading] = useState(false);
@@ -22,10 +23,12 @@ export default function TeamRecommendationTile(params) {
         }
 
         const body = {
-            tid: data.tid,
+            name: data.name,
+            members: data.members,
+            skills: data.skills,
             pid: params.project
         }
-        projectInvitation(body).then(
+        createTeamTemporal(body).then(
             () => {
                 setSendIt(true);
                 setLoading(false);
@@ -37,38 +40,23 @@ export default function TeamRecommendationTile(params) {
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
                 <div className="teamTagContainer">
-                    {data.technologies.programming_language.map((data) => {
+                    {data.skills.programming_language.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
                     })}
                 </div>
                 <div className="teamTagContainer">
-                    {data.technologies.frameworks.map((data) => {
+                    {data.skills.frameworks.map((data) => {
                         return <FrameworkTag key={data} framework={data}/>
                     })}
                 </div>
                 <div className="teamTagContainer">
-                    {data.technologies.platforms.map((data) => {
+                    {data.skills.platforms.map((data) => {
                         return <PlatformTag key={data} platform={data}/>
                     })}
                 </div>
                 <div className="teamTagContainer">
-                    {data.technologies.databases.map((data) => {
+                    {data.skills.databases.map((data) => {
                         return <CloudTag key={data} cloud={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.project_preferences.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.idioms === null ? null : data.idioms.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.methodologies === null ? null : data.methodologies.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
                     })}
                 </div>
             </div>
@@ -95,11 +83,8 @@ export default function TeamRecommendationTile(params) {
     }
 
     const teamView = (data) => {
-
-        const team_link = "/team/" + data.tid;
-
         const inviteButton = () => {
-            if (isMobile || data.temporal) {
+            if (isMobile) {
                 return
             }
 
@@ -118,12 +103,8 @@ export default function TeamRecommendationTile(params) {
             <div key={data.tid}
                  className={isMobile ? "teamDataInfoMobile" : "teamDataRecommendationInfo"}>
                 <div className={"teamRecommendationTitle"}>
-                    <Link to={team_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
+                    <div className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
                         {data.name}
-                    </Link>
-                    <div className={isMobile ? "rank-mobile" : "rank"}>
-                        <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
-                        {data.overall_rating.toFixed(1)}
                     </div>
                 </div>
                 {inviteButton()}
@@ -131,11 +112,57 @@ export default function TeamRecommendationTile(params) {
         )
     }
 
+    const member = (data) => {
+        const user_image = (data) => {
+            if (data.profile_image === "default") {
+                return (
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                        <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                    </div>
+                )
+            } else {
+                return <img src={data.profile_image} alt=''
+                            className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
+            }
+        }
+
+        if (isMobile) {
+            return (
+                <div key={data.uid} className="members-info-container-mobile-recommendation">
+                    <div className="members-info-mobile">
+                        {user_image(data)}
+                        <div className="member-name-mobile">
+                            {data.name} {data.lastname}
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+
+        return (
+            <div key={data.uid} className="members-info-container-recommendation">
+                <div className="members-info">
+                    {user_image(data)}
+                    <div className="member-name">
+                        {data.name} {data.lastname}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     return (
-        <div key={data.tid} className={isMobile ? "teamContainerMobile" : "teamContainerRecommendation"}>
+        <div key={data.tid} className={isMobile ? "teamContainerMobileTemporal" : "teamContainerTemporal"}>
             <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfoRecommendation"}>
                 {teamView(data)}
                 {teamTags(data)}
+                <div className="members-container-recommendation">
+                    {data.members.map((data) => {
+                            return member(data)
+                        }
+                    )}
+                </div>
                 {inviteButtonMobile()}
             </div>
         </div>

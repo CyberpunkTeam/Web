@@ -358,7 +358,7 @@
 .teamInfoMobile {
     position: relative;
     margin: 32px;
-    width: 100%;
+    width: calc(100% - 64px);
     justify-content: space-between;
     color: #FAFAFA;
 }
@@ -499,7 +499,7 @@
     justify-content: space-between;
     padding: 32px 16px;
     margin-top: 32px;
-    border-radius: 16px;
+    border-radius: 32px;
     background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -1153,6 +1153,7 @@
     background: #014751;
     font-size: 16px;
     cursor: pointer;
+    margin-left: 16px;
 }
 
 .save-edit-button-style-mobile {
@@ -1197,6 +1198,7 @@
     background: rgba(1, 71, 81, 0.5);
     font-size: 16px;
     cursor: pointer;
+    margin-left: 16px;
 }
 
 .save-edit-button-style-disabled-mobile {

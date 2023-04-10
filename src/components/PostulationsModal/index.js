@@ -79,7 +79,7 @@ export default function PostulationsModal(params) {
                         })}
                     </div>
                     <div className="tags-modal">
-                        {data.team.idioms.map((data) => {
+                        {data.team.idioms === null ? null :data.team.idioms.map((data) => {
                             return <PreferenceTag key={data + "-modal"} preference={data}/>
                         })}
                     </div>

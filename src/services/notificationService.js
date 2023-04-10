@@ -53,3 +53,7 @@ export const getTeamPosition = (tpid) => {
 export const projectInvitation = (body) => {
     return post(endpoint + "project_invitation/", body)
 }
+
+export const sendUserTeamInvitation = (body) => {
+    return post(endpoint + "teams_positions_invitations/", body)
+}

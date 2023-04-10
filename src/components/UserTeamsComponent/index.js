@@ -117,6 +117,9 @@ export default function UserTeamsComponent(params) {
         <div className={"user-team-container"}>
             {addButton()}
             {params.userData.teams.map((data) => {
+                if (data.temporal) {
+                    return null
+                }
                 return team(data)
             })}
         </div>

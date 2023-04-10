@@ -26,6 +26,7 @@ div.appear {
     padding: 16px 32px;
     background: #CD5B45;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1;
 }
 
 .closeButton {

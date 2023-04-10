@@ -66,10 +66,18 @@ export const deleteVacant = (tpid, body) => {
     return put("teams_positions/" + tpid, body)
 }
 
-export const getAllTeamPositions = () => {
-    return get(`teams_positions/?state=OPEN`)
+export const getAllTeamPositions = (params) => {
+    return get(`teams_positions/?state=OPEN` + params)
 }
 
 export const getUserOpportunities = (body) => {
     return post(`recommendations/users/`, body)
+}
+
+export const createTeamTemporal = (body) => {
+    return post(endpoint + `temporal`, body)
+}
+
+export const getTeamTemporal = (pid) => {
+    return get(endpoint + `temporal/?pid=` + pid)
 }

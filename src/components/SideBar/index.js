@@ -150,7 +150,7 @@ function SideBar() {
                 getRequestAbandonProjectWithID(id).then((response) => {
                     navigate("/projects/" + response.pid)
                 })
-            } else if (notification_type === "ABANDONED_PROJECT") {
+            } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
@@ -158,7 +158,7 @@ function SideBar() {
                 getTeamPosition(id).then((response) => {
                     navigate("/team/" + response.team.tid)
                 })
-            } else if (notification_type === "TEAM_POSITION_ACCEPTED") {
+            } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM") {
                 navigate("/team/" + id)
             }
         }

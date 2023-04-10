@@ -156,6 +156,46 @@ export default function TeamScreen() {
     }
     const cover = () => {
 
+        const tags = () => {
+            const preferencesTags = () => {
+                if (!teamData.temporal) {
+                    return (
+                        <div className="tags-container">
+                            {teamData.project_preferences.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                            {teamData.idioms.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                            {teamData.methodologies === null ? null : teamData.methodologies.map((data) => {
+                                return <PreferenceTag key={data} preference={data}/>
+                            })}
+                        </div>
+                    )
+                }
+            }
+
+            return(
+                <div className={"team-tags"}>
+                    <div className="tags-container">
+                        {teamData.technologies.programming_language.map((data) => {
+                            return <TechnologyTag key={data} technology={data}/>
+                        })}
+                        {teamData.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data} framework={data}/>
+                        })}
+                        {teamData.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data} platform={data}/>
+                        })}
+                        {teamData.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
+                        })}
+                    </div>
+                    {preferencesTags()}
+                </div>
+            )
+        }
+
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
@@ -167,41 +207,7 @@ export default function TeamScreen() {
                                 {teamData.overall_rating.toFixed(1)}
                             </div>
                         </div>
-                        <div className={"team-tags"}>
-                            <div className="tags-container">
-                                {teamData.technologies.programming_language.map((data) => {
-                                    return <TechnologyTag key={data} technology={data}/>
-                                })}
-                            </div>
-                            <div className="tags-container">
-                                {teamData.technologies.frameworks.map((data) => {
-                                    return <FrameworkTag key={data} framework={data}/>
-                                })}
-                            </div>
-                            <div className="tags-container">
-                                {teamData.technologies.platforms.map((data) => {
-                                    return <PlatformTag key={data} platform={data}/>
-                                })}
-                            </div>
-                            <div className="tags-container">
-                                {teamData.technologies.databases.map((data) => {
-                                    return <CloudTag key={data} cloud={data}/>
-                                })}
-                            </div>
-                            <div className="tags-container">
-                                {teamData.project_preferences.map((data) => {
-                                    return <PreferenceTag key={data} preference={data}/>
-                                })}
-                                {teamData.idioms.map((data) => {
-                                    return <PreferenceTag key={data} preference={data}/>
-                                })}
-                            </div>
-                            <div className="tags-container">
-                                {teamData.methodologies.map((data) => {
-                                    return <PreferenceTag key={data} preference={data}/>
-                                })}
-                            </div>
-                        </div>
+                        {tags()}
                         {editButton()}
                     </div>
                     <img src={IMAGE} className="team-image-container-mobile" alt=""/>
@@ -220,33 +226,7 @@ export default function TeamScreen() {
                             {teamData.overall_rating.toFixed(1)}
                         </div>
                     </div>
-                    <div className={"team-tags"}>
-                        <div className="tags-container">
-                            {teamData.technologies.programming_language.map((data) => {
-                                return <TechnologyTag key={data} technology={data}/>
-                            })}
-                            {teamData.technologies.frameworks.map((data) => {
-                                return <FrameworkTag key={data} framework={data}/>
-                            })}
-                            {teamData.technologies.platforms.map((data) => {
-                                return <PlatformTag key={data} platform={data}/>
-                            })}
-                            {teamData.technologies.databases.map((data) => {
-                                return <CloudTag key={data} cloud={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {teamData.project_preferences.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                            {teamData.idioms.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                            {teamData.methodologies.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                        </div>
-                    </div>
+                    {tags()}
                     {editButton()}
                 </div>
                 <img src={IMAGE} className="image-container" alt=""/>
@@ -263,12 +243,13 @@ export default function TeamScreen() {
         const user_image = (data) => {
             if (data.profile_image === "default") {
                 return (
-                    <div className={isMobile ? "member-photo-mobile": "member-photo"}>
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
                         <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
                     </div>
                 )
             } else {
-                return <img src={data.profile_image} alt='' className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
+                return <img src={data.profile_image} alt=''
+                            className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
             }
         }
 
@@ -339,12 +320,17 @@ export default function TeamScreen() {
     }
 
     const postulationsTag = () => {
+        if (teamData.owner === null) {
+            return
+        }
+
         if (context.user.uid === teamData.owner) {
             return (
-                <div className={tagSelect === "projects" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
-                     onClick={() => {
-                         setTagSelect("projects")
-                     }}>
+                <div
+                    className={tagSelect === "projects" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("projects")
+                    }}>
                     Project Postulations
                 </div>
             )
@@ -354,10 +340,11 @@ export default function TeamScreen() {
     const membersTag = () => {
         if (context.user.uid === teamData.owner) {
             return (
-                <div className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
-                     onClick={() => {
-                         setTagSelect("members")
-                     }}>
+                <div
+                    className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("members")
+                    }}>
                     Member Postulations
                 </div>
             )
@@ -365,10 +352,11 @@ export default function TeamScreen() {
 
         if (!membersList.includes(context.user.uid)) {
             return (
-                <div className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
-                     onClick={() => {
-                         setTagSelect("members")
-                     }}>
+                <div
+                    className={tagSelect === "members" ? isMobile ? "tagSelectorSelectMobile" : "tagSelectorSelect" : isMobile ? "tagSelectorMobile" : "tagSelector"}
+                    onClick={() => {
+                        setTagSelect("members")
+                    }}>
                     Opportunities
                 </div>
             )
@@ -424,9 +412,10 @@ export default function TeamScreen() {
                     </div>
                 </div>
                 <div className="tagsFilterContainer">
-                    <div className={tagSelect === "info" ? "tagSelectorSelectMobile" : "tagSelectorMobile"} onClick={() => {
-                        setTagSelect("info")
-                    }}>
+                    <div className={tagSelect === "info" ? "tagSelectorSelectMobile" : "tagSelectorMobile"}
+                         onClick={() => {
+                             setTagSelect("info")
+                         }}>
                         Information
                     </div>
                     {membersTag()}

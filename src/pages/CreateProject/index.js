@@ -185,7 +185,8 @@ export default function CreateProjectScreen() {
                     navigate("/projects/" + r.pid + "/teamRecommendation", {
                         state: {
                             teams: r.teams_recommendations,
-                            project: r.pid
+                            project: r.pid,
+                            temporal: r.temporal_teams_recommendations
                         }
                     })
                 }

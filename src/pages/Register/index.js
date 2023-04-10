@@ -25,7 +25,6 @@ function Register(params) {
     const errorMessageCreate = "An error has occurred while creating user. Please, try again later"
 
     const setCitySearchHandler = (value) => {
-        console.log(value)
         if (value === null) {
             setCity("")
             setCities([])
@@ -34,7 +33,6 @@ function Register(params) {
         setCity(value.value)
     }
     const setSearchHandler = (value) => {
-        console.log(value)
         if (value.length >= 3) {
             setLoading(true);
             searchCity(value).then((response) => {

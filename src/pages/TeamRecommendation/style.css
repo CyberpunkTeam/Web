@@ -18,7 +18,7 @@
 .teamInfoRecommendation {
     position: relative;
     margin: 16px;
-    width: 100%;
+    width: calc(100% - 32px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

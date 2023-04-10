@@ -5,7 +5,12 @@ import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
-import {getProjectPostulations, getProject, getProjectTeamRecommendations} from "../../services/projectService";
+import {
+    getProjectPostulations,
+    getProject,
+    getProjectTeamRecommendations,
+    getTemporallyTeamRecommendations
+} from "../../services/projectService";
 import {
     AddCircle,
     ArrowCircleDown, DollarSquare,
@@ -20,7 +25,7 @@ import {
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams} from "../../services/teamService";
+import {getOwnerTeams, getTeamTemporal} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -38,6 +43,7 @@ import BudgetTag from "../../components/BudgetTag";
 import {formatter} from "../../utils/budgetFormatter";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
+import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -45,11 +51,12 @@ export default function ProjectScreen() {
     let context = useContext(AppContext);
     const [project, setProject] = useState(undefined)
     const [logs, setLogs] = useState([])
-    const [postulations, setPostulations] = useState([])
+    const [postulations, setPostulations] = useState(undefined)
     const [userTeams, setUserTeam] = useState(undefined)
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [recommendations, setRecommendations] = useState([]);
+    const [temporal, setTemporal] = useState(undefined);
     const [isCancelProject, setIsCancelProject] = useState(false)
     const [isFinishProject, setIsFinishProject] = useState(false)
     const [isDeleteProject, setIsDeleteProject] = useState(false)
@@ -85,6 +92,19 @@ export default function ProjectScreen() {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
+                    }
+                })
+                getTemporallyTeamRecommendations(response).then((r) => {
+                    if (r === undefined) {
+                        setError("An error has occurred while loading temporally team. Please, try again later");
+                    } else {
+                        if (r.length === 0) {
+                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                                setTemporal(temporalTeamResponse)
+                            })
+                        } else {
+                            setTemporal(r)
+                        }
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
@@ -126,11 +146,11 @@ export default function ProjectScreen() {
     }
 
     const recommendationButton = () => {
-        console.log("entra")
         navigate("/projects/" + project.pid + "/teamRecommendation", {
             state: {
                 teams: recommendations,
                 project: project.pid,
+                temporal: temporal,
                 again: true
             }
         })
@@ -244,6 +264,10 @@ export default function ProjectScreen() {
         }
 
         if (recommendations === undefined || recommendations.length === 0) {
+            return
+        }
+
+        if (temporal === undefined) {
             return
         }
 
@@ -412,6 +436,10 @@ export default function ProjectScreen() {
 
     const cover = () => {
         const editButton = () => {
+            if (project.state !== "PENDING") {
+                return
+            }
+
             if (project.creator.uid === context.user.uid) {
 
                 const edit = () => {
@@ -637,8 +665,9 @@ export default function ProjectScreen() {
         } else if (tagSelect === "postulations") {
             return (
                 <div className="project-data-container-reduce">
-                    <PostulationsModal postulations={postulations} closeModal={closeModal}
-                                       changePostulations={changePostulations}/>
+                    {postulations === undefined ? null :
+                        <PostulationsModal postulations={postulations} closeModal={closeModal}
+                                           changePostulations={changePostulations}/>}
                 </div>
             )
         } else if (tagSelect === "history") {
@@ -671,6 +700,8 @@ export default function ProjectScreen() {
             <div className="team-container">
                 <ProjectFinish project={project}/>
                 <LeaveProject project={project}/>
+                {postulations === undefined ? null :
+                    <TemporalTeamPostulate project={project} postulations={postulations}/>}
                 {cover()}
             </div>
             <div className={context.size ? "projectButtonsContainerReduced" : "projectButtonsContainer"}>
