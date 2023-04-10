@@ -100,7 +100,6 @@ export default function ProjectScreen() {
                     } else {
                         if (r.length === 0) {
                             getTeamTemporal(response.pid).then((temporalTeamResponse) => {
-                                console.log(temporalTeamResponse)
                                 setTemporal(temporalTeamResponse)
                             })
                         } else {

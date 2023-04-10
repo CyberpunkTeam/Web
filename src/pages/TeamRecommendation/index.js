@@ -4,7 +4,7 @@ import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import {useLocation, useNavigate} from "react-router-dom";
 import TeamRecommendationTile from "../../components/TeamRecommendationTile";
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 import TemporalTeam from "../../components/TemporalTeam";
 
