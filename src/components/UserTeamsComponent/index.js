@@ -59,6 +59,7 @@ export default function UserTeamsComponent(params) {
             </div>
         )
     }
+
     const teamView = (data) => {
 
         const team_link = "/team/" + data.tid;

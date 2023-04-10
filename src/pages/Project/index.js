@@ -87,14 +87,8 @@ export default function ProjectScreen() {
                         }
                     })
                 }
-                getProjectTeamRecommendations(response).then((r) => {
-                    if (r === undefined) {
-                        setError("An error has occurred while loading recommended teams. Please, try again later");
-                    } else {
-                        setRecommendations(r)
-                    }
-                })
                 getTemporallyTeamRecommendations(response).then((r) => {
+                    console.log(r)
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
@@ -105,6 +99,14 @@ export default function ProjectScreen() {
                         } else {
                             setTemporal(r)
                         }
+                    }
+                })
+                getProjectTeamRecommendations(response).then((r) => {
+                    console.log(r)
+                    if (r === undefined) {
+                        setError("An error has occurred while loading recommended teams. Please, try again later");
+                    } else {
+                        setRecommendations(r)
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
@@ -263,7 +265,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (recommendations === undefined || recommendations.length === 0) {
+        if (recommendations === undefined) {
             return
         }
 

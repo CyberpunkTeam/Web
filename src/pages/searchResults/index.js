@@ -1,7 +1,7 @@
 import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {User} from "iconsax-react";
@@ -10,10 +10,13 @@ import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import PlatformTag from "../../components/PlatformTag";
+import {isMobile} from "react-device-detect";
+import CloudTag from "../../components/CloudTag";
 
 export default function SearchResults() {
     let context = useContext(AppContext);
-    const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "users" : "teams" )
+    const navigate = useNavigate();
+    const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "users" : "teams")
 
     if (context.search === undefined) {
         return <NotFound/>
@@ -21,38 +24,58 @@ export default function SearchResults() {
 
     const teamView = (data) => {
         const link_url = "/team/" + data.tid
+        const goTo = () => {
+            navigate(link_url)
+        }
+
+        const teamTags = (data) => {
+            return (
+                <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
+                    <div className="teamTagContainer">
+                        {data.technologies.programming_language.map((data) => {
+                            return <TechnologyTag key={data} technology={data}/>
+                        })}
+                    </div>
+                    <div className="teamTagContainer">
+                        {data.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data} framework={data}/>
+                        })}
+                    </div>
+                    <div className="teamTagContainer">
+                        {data.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data} platform={data}/>
+                        })}
+                    </div>
+                    <div className="teamTagContainer">
+                        {data.technologies.databases.map((data) => {
+                            return <CloudTag key={data} cloud={data}/>
+                        })}
+                    </div>
+                    <div className="teamTagContainer">
+                        {data.project_preferences.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
+                        {data.idioms === null ? null : data.idioms.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
+                    </div>
+                    <div className="teamTagContainer">
+                        {data.methodologies === null ? null : data.methodologies.map((data) => {
+                            return <PreferenceTag key={data} preference={data}/>
+                        })}
+                    </div>
+                </div>
+            )
+        }
 
         return (
-            <div key={data.uid} className={context.size ? "search-result-view-reduced" : "search-result-view"}>
-                <div className="search-result-view-info">
+            <div key={data.tid} className={isMobile ? "teamContainerMobile" : "teamContainer"} onClick={goTo}>
+                <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfo"}>
                     <div className="search-result-view-data">
                         <Link to={link_url} className="search-link">
                             {data.name}
                         </Link>
-                        <div className="search-result-view-data-location">
-                            <div className="tags-modal">
-                                {data.technologies.programming_language.map((data) => {
-                                    return <TechnologyTag key={data + "-modal"} technology={data}/>
-                                })}
-                                {data.technologies.frameworks.map((data) => {
-                                    return <FrameworkTag key={data + "-modal"} framework={data}/>
-                                })}
-                                {data.technologies.programming_language.map((data) => {
-                                    return <PlatformTag key={data + "-modal"} platform={data}/>
-                                })}
-                            </div>
-                            <div className="tags-modal">
-                                {data.project_preferences.map((data) => {
-                                    return <PreferenceTag key={data + "-modal"} preference={data}/>
-                                })}
-                                {data.idioms.map((data) => {
-                                    return <PreferenceTag key={data + "-modal"} preference={data}/>
-                                })}
-                                {data.methodologies.map((data) => {
-                                    return <PreferenceTag key={data + "-modal"} preference={data}/>
-                                })}
-                            </div>
-                        </div>
+                        {teamTags(data)}
                     </div>
                 </div>
             </div>
@@ -60,7 +83,7 @@ export default function SearchResults() {
     }
 
     const userView = (data) => {
-        if(context.user.uid === data.uid){
+        if (context.user.uid === data.uid) {
             return
         }
         const user_image = (data) => {
@@ -82,7 +105,7 @@ export default function SearchResults() {
                 <div className="search-result-view-info">
                     {user_image(data)}
                     <div to={link_url} className="search-result-view-data">
-                        <Link to={link_url} className="search-link">
+                        <Link to={link_url} className="search-link-user">
                             {data.name} {data.lastname}
                         </Link>
                         <div className="search-result-view-data-location">
@@ -108,20 +131,22 @@ export default function SearchResults() {
 
     return (
         <div className="screen">
-                <div className="search-header">
-                    <div className="search-header-buttons">
-                        <button className={filter === "users" ? "button-members-selected" : "button-members"} onClick={() => {
-                            setFilter("users")
-                        }}>
-                            Users
-                        </button>
-                        <button className={filter === "users" ? "button-members" : "button-members-selected"} onClick={() => {
-                            setFilter("teams")
-                        }}>
-                            Teams
-                        </button>
-                    </div>
+            <div className="search-header">
+                <div className="search-header-buttons">
+                    <button className={filter === "users" ? "button-members-selected" : "button-members"}
+                            onClick={() => {
+                                setFilter("users")
+                            }}>
+                        Users
+                    </button>
+                    <button className={filter === "users" ? "button-members" : "button-members-selected"}
+                            onClick={() => {
+                                setFilter("teams")
+                            }}>
+                        Teams
+                    </button>
                 </div>
+            </div>
             <div className="search-result-page-container">
                 {filter === "users" ? showUsers() : showTeams()}
             </div>

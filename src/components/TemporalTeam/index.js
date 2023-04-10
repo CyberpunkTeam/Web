@@ -31,6 +31,7 @@ export default function TemporalTeam(params) {
         createTeamTemporal(body).then(
             () => {
                 setSendIt(true);
+                params.setTeamSelected(data.name)
                 setLoading(false);
             }
         )
@@ -85,6 +86,9 @@ export default function TemporalTeam(params) {
     const teamView = (data) => {
         const inviteButton = () => {
             if (isMobile) {
+                return
+            }
+            if (params.teamSelected !== undefined && params.teamSelected !== data.name) {
                 return
             }
 
