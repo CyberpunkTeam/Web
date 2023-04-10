@@ -4,7 +4,7 @@ import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import {useLocation, useNavigate} from "react-router-dom";
 import TeamRecommendationTile from "../../components/TeamRecommendationTile";
-import {useContext} from "react";
+import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import TemporalTeam from "../../components/TemporalTeam";
 
@@ -12,6 +12,7 @@ export default function TeamRecommendation() {
     let context = useContext(AppContext);
     const {state} = useLocation();
     const navigate = useNavigate();
+    const [teamSelected, setTeamSelected] = useState(undefined)
     const goToProject = () => {
         navigate("/projects/" + state.project)
     }
@@ -29,7 +30,7 @@ export default function TeamRecommendation() {
                 {state.temporal.length === 1 ?
                     <TeamRecommendationTile key={state.temporal[0].tid} data={state.temporal[0]}
                                             project={state.project}/> : state.temporal.map((team) => {
-                        return <TemporalTeam key={team.name} data={team} project={state.project}/>
+                        return <TemporalTeam key={team.name} data={team} project={state.project} setTeamSelected={setTeamSelected} teamSelected={teamSelected}/>
                     })}
             </>
         )
