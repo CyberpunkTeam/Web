@@ -1,16 +1,23 @@
 import {useContext, useEffect, useState} from "react";
 import {CloseCircle, TickCircle} from "iconsax-react";
-import {sendTeamPostulation} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
 import {getTeamTemporal} from "../../services/teamService";
+import {modalStyle} from "../../styles/commonStyles";
+import PostulationModal from "../PostulationModal";
+import Modal from "react-modal";
 
 export default function TemporalTeamPostulate(params) {
     let context = useContext(AppContext);
     const [loading, setLoading] = useState(false)
+    const [modalIsOpen, setIsOpen] = useState(false);
     const [teamTemporal, setTeamTemporal] = useState(undefined)
     const errorMessage = "An error has occurred loading temporal team. Please, try again later"
-    const errorMessageRequest = "An error has occurred while postulation temporal team. Please, try again later"
 
+    const closeModal = () => {
+        setIsOpen(false);
+        setTeamTemporal(undefined)
+        setLoading(false);
+    }
 
     useEffect(() => {
         if (params.project.team_assigned !== null) {
@@ -47,6 +54,7 @@ export default function TemporalTeamPostulate(params) {
     }, [context.user.uid, params.project.pid, params.project.team_assigned]);
 
     const finishRejectButton = () => {
+        setLoading(true);
         setTeamTemporal(undefined)
     }
 
@@ -68,25 +76,8 @@ export default function TemporalTeamPostulate(params) {
     const acceptButton = () => {
 
         const postulate = () => {
-            setLoading(true)
-            const body = {
-                tid: teamTemporal.tid,
-                pid: params.project.pid,
-                estimated_budget: params.project.tentative_budget,
-                currency: "DOLAR",
-                proposal_description: "Your temporal team accept your offer"
-            }
-
-            sendTeamPostulation(body).then((response) => {
-                if (response === undefined) {
-                    if (context.errorMessage !== errorMessageRequest) {
-                        context.setErrorMessage(errorMessageRequest);
-                    }
-                } else {
-                    setTeamTemporal(undefined)
-                }
-                setLoading(false)
-            })
+            setLoading(true);
+            setIsOpen(true)
         }
 
         if (loading) {
@@ -114,6 +105,10 @@ export default function TemporalTeamPostulate(params) {
                         {acceptButton()}
                     </div>
                 </div>
+                <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
+                    <PostulationModal teams={[teamTemporal]} closeModal={closeModal} pid={params.project.pid}
+                                      budget={params.project.tentative_budget}/>
+                </Modal>
             </div>
         )
     }

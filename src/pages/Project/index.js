@@ -83,7 +83,21 @@ export default function ProjectScreen() {
                         if (teams === undefined) {
                             setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
-                            setUserTeam(teams);
+                            getTemporallyTeamRecommendations(response).then((r) => {
+                                if (r === undefined) {
+                                    setError("An error has occurred while loading temporally team. Please, try again later");
+                                } else {
+                                    if (r.length === 0) {
+                                        getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                                            setTemporal(temporalTeamResponse)
+                                            setUserTeam(teams.concat(temporalTeamResponse));
+                                        })
+                                    } else {
+                                        setTemporal(r)
+                                        setUserTeam(teams);
+                                    }
+                                }
+                            })
                         }
                     })
                 }
@@ -92,19 +106,6 @@ export default function ProjectScreen() {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
-                    }
-                })
-                getTemporallyTeamRecommendations(response).then((r) => {
-                    if (r === undefined) {
-                        setError("An error has occurred while loading temporally team. Please, try again later");
-                    } else {
-                        if (r.length === 0) {
-                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
-                                setTemporal(temporalTeamResponse)
-                            })
-                        } else {
-                            setTemporal(r)
-                        }
                     }
                 })
                 getProjectPostulations(params.id).then((postulationResponse) => {
