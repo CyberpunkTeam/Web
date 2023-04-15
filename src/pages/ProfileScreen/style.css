@@ -563,6 +563,7 @@
     align-items: flex-start;
     justify-content: space-between;
 }
+
 .project-tile-title-container-mobile {
     font-size: 36px;
     font-weight: 700;
@@ -869,6 +870,7 @@
     align-self: center;
     padding-bottom: 20px;
 }
+
 .container-button-modal-mobile {
     display: flex;
     justify-content: space-between;
@@ -1326,4 +1328,60 @@
     margin-bottom: 16px;
     background: #CD5B45;
     border: 0;
+}
+
+.followButton {
+    min-width: 200px;
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #FAFAFA;
+    height: 60px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+    cursor: pointer;
+    align-self: flex-end;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+.followButtonMobile {
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #FAFAFA;
+    display: flex;
+    padding: 0 32px;
+    font-size: 32px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    cursor: pointer;
+    align-self: center;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
+}
+
+
+.followReducedButton {
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 16px;
+    bottom: 16px;
 }

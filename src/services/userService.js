@@ -21,3 +21,7 @@ export const getUsers = () => {
 export const updateUser = (uid, body) => {
     return put(endpoint + uid, body)
 }
+
+export const followUser = (uid, followUid) => {
+    return post(endpoint + uid + "/following/" + followUid, null)
+}

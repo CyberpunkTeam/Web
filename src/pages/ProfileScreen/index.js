@@ -3,10 +3,10 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {Edit, User} from "iconsax-react";
+import {AddCircle, Edit, TickCircle, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
-import {getProfile} from "../../services/userService";
+import {followUser, getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
 import EditProfileModal from "../../components/EditProfileModal";
@@ -24,6 +24,7 @@ function ProfileScreen() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [followButtonStatus, setFollowButtonStatus] = useState(false);
     const [time, setTime] = useState(Date.now());
     const [modalIsOpen, setIsOpen] = useState(false);
     const [tagSelect, setTagSelect] = useState("profile")
@@ -31,8 +32,18 @@ function ProfileScreen() {
 
     const [userData, setUserData] = useState({})
 
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
     useEffect(() => {
         getProfile(id).then((response) => {
+            if (response === undefined) {
+                setError("An error has occurred while loading user's information. Please, try again later");
+                return
+            }
             setUserData(response);
             setLoading(false)
         }).catch((error) => {
@@ -46,6 +57,22 @@ function ProfileScreen() {
             clearInterval(interval);
         };
     }, []);
+
+    const followUserButton = () => {
+        if (context.user.following.includes(id)) {
+            return;
+        }
+        setFollowButtonStatus(true);
+        followUser(context.user.uid, id).then((userdata) => {
+            if (userdata === undefined) {
+                setError("An error has occurred while following the user. Please, try again later");
+                return
+            }
+            context.setUser(userdata);
+            localStorage.setItem("user", JSON.stringify(userdata))
+            setFollowButtonStatus(false);
+        })
+    }
 
     const user_image = () => {
         if (userData.user.profile_image === "default") {
@@ -102,6 +129,28 @@ function ProfileScreen() {
         )
     }
 
+    const followButton = () => {
+        if (id !== context.user.uid) {
+            return (
+                <button
+                    className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                    disabled={followButtonStatus}
+                    onClick={followUserButton}>
+                    {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"></i> :
+                        context.user.following.includes(id) ?
+                            <TickCircle color="#FAFAFA"
+                                        size={isMobile ? 48 : 24}
+                                        className={isMobile || context.size ? null : "icon"}/> :
+                            <AddCircle color="#FAFAFA"
+                                       size={isMobile ? 48 : 24}
+                                       className={isMobile || context.size ? null : "icon"}/>
+                    }
+                    {isMobile || context.size || followButtonStatus ? null : context.user.following.includes(id) ? "Following" : "Follow"}
+                </button>
+            )
+        }
+    }
+
     const cover = () => {
 
         const editButton = () => {
@@ -124,6 +173,7 @@ function ProfileScreen() {
                         {user_data()}
                     </div>
                     {editButton()}
+                    {followButton()}
                 </div>
                 {coverImage()}
             </div>
@@ -156,6 +206,7 @@ function ProfileScreen() {
                         {user_data()}
                     </div>
                     {editButton()}
+                    {followButton()}
                 </div>
                 {coverImage()}
             </div>
