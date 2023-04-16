@@ -432,7 +432,6 @@ ul.paginationMobile li a:hover {
     padding-top: 32px;
     width: 100%;
     display: flex;
-    background: #0F2830;
     justify-content: space-between;
     align-items: center;
     z-index: 1;

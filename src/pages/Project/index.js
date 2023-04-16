@@ -88,7 +88,6 @@ export default function ProjectScreen() {
                     })
                 }
                 getTemporallyTeamRecommendations(response).then((r) => {
-                    console.log(r)
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
