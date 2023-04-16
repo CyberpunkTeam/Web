@@ -59,7 +59,7 @@ function ProfileScreen() {
     }, []);
 
     const followUserButton = () => {
-        if (context.user.following.includes(id)) {
+        if (context.user.following.users.includes(id)) {
             return;
         }
         setFollowButtonStatus(true);
@@ -137,7 +137,7 @@ function ProfileScreen() {
                     disabled={followButtonStatus}
                     onClick={followUserButton}>
                     {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                        context.user.following.includes(id) ?
+                        context.user.following.users.includes(id) ?
                             <TickCircle color="#FAFAFA"
                                         size={isMobile ? 48 : 24}
                                         className={isMobile || context.size ? null : "icon"}/> :
@@ -145,7 +145,7 @@ function ProfileScreen() {
                                        size={isMobile ? 48 : 24}
                                        className={isMobile || context.size ? null : "icon"}/>
                     }
-                    {isMobile || context.size || followButtonStatus ? null : context.user.following.includes(id) ? "Following" : "Follow"}
+                    {isMobile || context.size || followButtonStatus ? null : context.user.following.users.includes(id) ? "Following" : "Follow"}
                 </button>
             )
         }
