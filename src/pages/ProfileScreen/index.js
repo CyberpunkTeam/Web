@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, People, User} from "iconsax-react";
+import {AddCircle, Edit, ArrowForward, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
@@ -197,8 +197,7 @@ function ProfileScreen() {
                 onClick={recommendUserButton}>
                 {followButtonStatus ?
                     <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <People color="#FAFAFA"
-                            variant="Bold"
+                    <ArrowForward color="#FAFAFA"
                             size={isMobile ? 48 : 24}
                             className={isMobile || context.size ? null : "icon"}/>
                 }
@@ -264,6 +263,7 @@ function ProfileScreen() {
                     </div>
                     {editButton()}
                     {followButton()}
+                    {recommendUser()}
                 </div>
                 {coverImage()}
             </div>

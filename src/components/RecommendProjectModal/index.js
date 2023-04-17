@@ -2,9 +2,9 @@ import {ArrowDown2, CloseCircle} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
-import {sendUserRecommendation} from "../../services/notificationService";
+import {sendProjectRecommendation} from "../../services/notificationService";
 
-export function RecommendUserModal(params) {
+export function RecommendProjectModal(params) {
     let context = useContext(AppContext);
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const [team, setTeam] = useState(params.teams[0].name)
@@ -28,10 +28,10 @@ export function RecommendUserModal(params) {
             "sender_id": context.user.uid,
             "receiver_id": teamData.owner,
             "tid": teamData.tid,
-            "uid_recommendation": params.uid
+            "pid_recommendation": params.project.pid
         }
 
-        sendUserRecommendation(body).then((response) => {
+        sendProjectRecommendation(body).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
@@ -47,7 +47,7 @@ export function RecommendUserModal(params) {
     return (
         <div className={isMobile ? "abandonModalMobile" : "abandonModal"}>
             <div className={isMobile ? "form-text-modal-mobile" : "form-text-modal"}>
-                Which team do you want to recommend this user to?
+                Which team do you want to recommend this project to?
             </div>
             <form className={isMobile ? "modal-form-modal" : "modal-form"}>
                 <label className={isMobile ? "modal-label-options" : "create-project-label"}>
