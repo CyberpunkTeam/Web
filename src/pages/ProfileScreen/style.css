@@ -113,11 +113,13 @@
 .name {
     font-weight: bold;
     font-size: 28px;
+    display: flex;
 }
 
 .name-mobile {
     font-weight: bold;
     font-size: 44px;
+    display: flex;
 }
 
 .extra-data {
@@ -256,6 +258,7 @@
 
 .postulate-button {
     min-width: 200px;
+    min-height: 70px;
     background: #014751;
     border-width: 0;
     margin-right: 16px;
@@ -267,6 +270,37 @@
     justify-content: center;
     border-radius: 16px;
     width: available;
+    cursor: pointer;
+}
+
+.recommend-button {
+    min-width: 200px;
+    min-height: 70px;
+    background: #014751;
+    border-width: 0;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+    cursor: pointer;
+}
+
+.recommend-button-reduced {
+    width: 60px;
+    height: 80px;
+    background: #014751;
+    border-width: 0;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
     cursor: pointer;
 }
 

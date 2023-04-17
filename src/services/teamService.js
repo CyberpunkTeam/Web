@@ -10,6 +10,10 @@ export const getOwnerTeams = (uid) => {
     return get(endpoint + `?owner=${uid}`)
 }
 
+export const getMyTeams = (uid) => {
+    return get(endpoint + `?mid=${uid}`)
+}
+
 export const getTeam = (uid) => {
     return get(endpoint + uid)
 }
