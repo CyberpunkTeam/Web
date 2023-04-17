@@ -25,6 +25,7 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
+import FollowingTag from "../../components/FollowingTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -150,7 +151,12 @@ export default function TeamScreen() {
     }
 
     const followTeamButton = () => {
-        if (teamData.members.includes(context.user.uid) || teamData.temporal) {
+        let members = []
+        teamData.members.forEach((member) => {
+            members.push(member.uid)
+        })
+
+        if (members.includes(context.user.uid) || teamData.temporal || context.user.following.teams.includes(params.id)) {
             return
         }
 
@@ -247,6 +253,7 @@ export default function TeamScreen() {
                                 <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
                                 {teamData.overall_rating.toFixed(1)}
                             </div>
+                            {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                         </div>
                         {tags()}
                         {editButton()}
@@ -267,6 +274,7 @@ export default function TeamScreen() {
                             <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
                             {teamData.overall_rating.toFixed(1)}
                         </div>
+                        {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                     </div>
                     {tags()}
                     {editButton()}
