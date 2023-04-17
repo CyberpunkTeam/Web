@@ -160,6 +160,10 @@ function SideBar() {
                 })
             } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM") {
                 navigate("/team/" + id)
+            } else if (notification_type === "TEAM_PROJECT_INTERNAL_RECOMMENDATION") {
+                navigate("/projects/" + id)
+            } else if (notification_type === "TEAM_MEMBER_INTERNAL_RECOMMENDATION") {
+                navigate("/user/" + id)
             }
         }
 

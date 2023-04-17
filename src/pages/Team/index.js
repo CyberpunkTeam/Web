@@ -4,12 +4,12 @@ import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
-import {Edit, Star1, User, UserCirlceAdd} from "iconsax-react";
+import {AddCircle, Edit, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import Modal from "react-modal";
-import {getUsers} from "../../services/userService";
+import {followTeams, getUsers} from "../../services/userService";
 import AddMemberModal from "../../components/AddMemberModal";
 import TeamInvitation from "../../components/TeamInvitation";
 import {getTeamInvitations} from "../../services/invitationService";
@@ -25,6 +25,7 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
+import FollowingTag from "../../components/FollowingTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -40,6 +41,7 @@ export default function TeamScreen() {
     const [postulations, setPostulations] = useState([])
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
+    const [followButtonStatus, setFollowButtonStatus] = useState(false);
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -132,6 +134,51 @@ export default function TeamScreen() {
 
     const IMAGE = 'https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg'
 
+    const followTeam = () => {
+        if (context.user.following.teams.includes(params.id)) {
+            return;
+        }
+        setFollowButtonStatus(true);
+        followTeams(context.user.uid, params.id).then((userdata) => {
+            if (userdata === undefined) {
+                setError("An error has occurred while following the user. Please, try again later");
+                return
+            }
+            context.setUser(userdata);
+            localStorage.setItem("user", JSON.stringify(userdata))
+            setFollowButtonStatus(false);
+        })
+    }
+
+    const followTeamButton = () => {
+        let members = []
+        teamData.members.forEach((member) => {
+            members.push(member.uid)
+        })
+
+        if (members.includes(context.user.uid) || teamData.temporal || context.user.following.teams.includes(params.id)) {
+            return
+        }
+
+        return (
+            <button
+                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                disabled={followButtonStatus}
+                onClick={followTeam}>
+                {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    context.user.following.teams.includes(params.id) ?
+                        <TickCircle color="#FAFAFA"
+                                    size={isMobile ? 48 : 24}
+                                    className={isMobile || context.size ? null : "icon"}/> :
+                        <AddCircle color="#FAFAFA"
+                                   size={isMobile ? 48 : 24}
+                                   className={isMobile || context.size ? null : "icon"}/>
+                }
+                {isMobile || context.size || followButtonStatus ? null : context.user.following.teams.includes(params.id) ? "Following" : "Follow"}
+            </button>
+        )
+    }
+
     const editButton = () => {
         if (teamData.owner === context.user.uid) {
 
@@ -175,7 +222,7 @@ export default function TeamScreen() {
                 }
             }
 
-            return(
+            return (
                 <div className={"team-tags"}>
                     <div className="tags-container">
                         {teamData.technologies.programming_language.map((data) => {
@@ -206,9 +253,11 @@ export default function TeamScreen() {
                                 <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
                                 {teamData.overall_rating.toFixed(1)}
                             </div>
+                            {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                         </div>
                         {tags()}
                         {editButton()}
+                        {followTeamButton()}
                     </div>
                     <img src={IMAGE} className="team-image-container-mobile" alt=""/>
                 </div>
@@ -225,9 +274,11 @@ export default function TeamScreen() {
                             <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
                             {teamData.overall_rating.toFixed(1)}
                         </div>
+                        {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                     </div>
                     {tags()}
                     {editButton()}
+                    {followTeamButton()}
                 </div>
                 <img src={IMAGE} className="image-container" alt=""/>
             </div>

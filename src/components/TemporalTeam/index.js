@@ -1,11 +1,9 @@
 import './style.css'
-import {projectInvitation} from "../../services/notificationService";
 import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import CloudTag from "../CloudTag";
-import PreferenceTag from "../PreferenceTag";
 import {People, TickCircle, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";

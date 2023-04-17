@@ -20,12 +20,12 @@ import {
     TickCircle,
     Trash,
     Document,
-    User
+    User, ArrowForward
 } from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
 import PostulationModal from "../../components/PostulationModal";
-import {getOwnerTeams, getTeamTemporal} from "../../services/teamService";
+import {getMyTeams, getOwnerTeams, getTeamTemporal} from "../../services/teamService";
 import PostulationsModal from "../../components/PostulationsModal";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
@@ -44,6 +44,7 @@ import {formatter} from "../../utils/budgetFormatter";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
+import {RecommendProjectModal} from "../../components/RecommendProjectModal";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -62,6 +63,9 @@ export default function ProjectScreen() {
     const [isDeleteProject, setIsDeleteProject] = useState(false)
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
+
+    const [modalRecommend, setModalRecommend] = useState(false);
+    const [allTeams, setAllTeams] = useState(undefined);
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -87,8 +91,20 @@ export default function ProjectScreen() {
                         }
                     })
                 }
+                getMyTeams(context.user.uid).then((teams) => {
+                    if (teams === undefined) {
+                        setError("An error has occurred while loading user's teams. Please, try again later");
+                    } else {
+                        let t = []
+                        teams.forEach((team) => {
+                            if (!team.temporal && team.owner !== context.user.uid) {
+                                t.push(team)
+                            }
+                        })
+                        setAllTeams(t);
+                    }
+                })
                 getTemporallyTeamRecommendations(response).then((r) => {
-                    console.log(r)
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
@@ -102,7 +118,6 @@ export default function ProjectScreen() {
                     }
                 })
                 getProjectTeamRecommendations(response).then((r) => {
-                    console.log(r)
                     if (r === undefined) {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
@@ -141,6 +156,7 @@ export default function ProjectScreen() {
     }
 
     const openModal = () => {
+        setModalRecommend(false);
         setIsFinishProject(false);
         setIsCancelProject(false);
         setIsDeleteProject(false)
@@ -468,6 +484,32 @@ export default function ProjectScreen() {
             }
         }
 
+        const recommendProject = () => {
+            if (project.owner === context.user.uid || allTeams === undefined || allTeams.length === 0) {
+                return
+            }
+
+            const recommendProjectButton = () => {
+                setModalRecommend(true);
+                setIsFinishProject(false);
+                setIsCancelProject(false);
+                setIsDeleteProject(false)
+                setIsOpen(true);
+            }
+
+            return (
+                <button
+                    className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                    onClick={recommendProjectButton}>
+                    <ArrowForward color="#FAFAFA"
+                                  size={isMobile ? 48 : 24}
+                                  className={isMobile || context.size ? null : "icon"}/>
+
+                    {isMobile || context.size ? null : "Recommend"}
+                </button>
+            )
+        }
+
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
@@ -507,6 +549,7 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                     {editButton()}
+                    {recommendProject()}
                 </div>
             )
         }
@@ -543,6 +586,7 @@ export default function ProjectScreen() {
                     </div>
                 </div>
                 {editButton()}
+                {recommendProject()}
             </div>
         )
     }
@@ -639,8 +683,10 @@ export default function ProjectScreen() {
                 {isCancelProject ? <AbandonProjectModal closeModal={closeModal} project={project}/> :
                     isFinishProject ? <CompleteProjectModal closeModal={closeModal} project={project}/> :
                         isDeleteProject ? <DeleteProjectModal closeModal={closeModal} project={project}/> :
-                            <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}
-                                              budget={project.tentative_budget}/>}
+                            modalRecommend ?
+                                <RecommendProjectModal teams={allTeams} closeModal={closeModal} project={project}/> :
+                                <PostulationModal teams={userTeams} closeModal={closeModal} pid={project.pid}
+                                                  budget={project.tentative_budget}/>}
             </Modal>
         )
     }

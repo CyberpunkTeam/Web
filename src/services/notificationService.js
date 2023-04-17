@@ -57,3 +57,11 @@ export const projectInvitation = (body) => {
 export const sendUserTeamInvitation = (body) => {
     return post(endpoint + "teams_positions_invitations/", body)
 }
+
+export const sendUserRecommendation = (body) => {
+    return post(endpoint + "teams_member_internal_recommendations/", body)
+}
+
+export const sendProjectRecommendation = (body) => {
+    return post(endpoint + "teams_project_internal_recommendations/", body)
+}

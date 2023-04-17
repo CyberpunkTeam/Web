@@ -3,10 +3,10 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {Edit, User} from "iconsax-react";
+import {AddCircle, Edit, ArrowForward, User} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
-import {getProfile} from "../../services/userService";
+import {followUser, getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
 import EditProfileModal from "../../components/EditProfileModal";
@@ -18,22 +18,57 @@ import UserProjectMobileComponent from "../../components/UserProjectMobileCompon
 import {modalStyle} from "../../styles/commonStyles";
 import UserSkills from "../../components/UserSkills";
 import AlertMessage from "../../components/AlertMessage";
+import {getMyTeams} from "../../services/teamService";
+import FollowingTag from "../../components/FollowingTag";
+import {RecommendUserModal} from "../../components/RecommendUserModal";
 
 function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [followButtonStatus, setFollowButtonStatus] = useState(false);
     const [time, setTime] = useState(Date.now());
     const [modalIsOpen, setIsOpen] = useState(false);
+    const [modalRecommend, setModalRecommend] = useState(false);
     const [tagSelect, setTagSelect] = useState("profile")
+    const [allTeams, setAllTeams] = useState(undefined);
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
 
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
     useEffect(() => {
         getProfile(id).then((response) => {
+            if (response === undefined) {
+                setError("An error has occurred while loading user's information. Please, try again later");
+                return
+            }
             setUserData(response);
+            getMyTeams(context.user.uid).then((teams) => {
+                if (teams === undefined) {
+                    setError("An error has occurred while loading user's teams. Please, try again later");
+                } else {
+                    let t = []
+                    teams.forEach((team) => {
+                        if (team.owner !== context.user.uid && !team.temporal) {
+                            t.push(team)
+                            for (let i = 0; i < team.members.length; i++) {
+                                if (team.members[i].uid === id) {
+                                    t.pop();
+                                    break
+                                }
+                            }
+                        }
+                    })
+                    setAllTeams(t);
+                }
+            })
             setLoading(false)
         }).catch((error) => {
             console.log(error)
@@ -46,6 +81,28 @@ function ProfileScreen() {
             clearInterval(interval);
         };
     }, []);
+
+    const followUserButton = () => {
+        if (context.user.following.users.includes(id)) {
+            return;
+        }
+        setFollowButtonStatus(true);
+        followUser(context.user.uid, id).then((userdata) => {
+            if (userdata === undefined) {
+                setError("An error has occurred while following the user. Please, try again later");
+                return
+            }
+            context.setUser(userdata);
+            localStorage.setItem("user", JSON.stringify(userdata))
+            setFollowButtonStatus(false);
+        })
+    }
+
+    const recommendUserButton = () => {
+        setFollowButtonStatus(true);
+        setModalRecommend(true)
+        setIsOpen(true);
+    }
 
     const user_image = () => {
         if (userData.user.profile_image === "default") {
@@ -65,6 +122,7 @@ function ProfileScreen() {
             <div className="user-data-container">
                 <div className={isMobile ? "name-mobile" : "name"}>
                     {id !== context.user.uid ? userData.user.name : context.user.name} {id !== context.user.uid ? userData.user.lastname : context.user.lastname}
+                    {context.user.following.users.includes(id) ? <FollowingTag/> : null}
                 </div>
                 <div className={isMobile ? "extra-data-mobile" : "extra-data"}>
                     {id !== context.user.uid ? userData.user.location : context.user.location}
@@ -87,18 +145,64 @@ function ProfileScreen() {
     }
 
     const openModal = () => {
+        setModalRecommend(false)
         setIsOpen(true);
     }
 
     const closeModal = () => {
+        setModalRecommend(false);
+        setFollowButtonStatus(false);
         setIsOpen(false);
     }
 
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <EditProfileModal closeModal={closeModal}/>
+                {modalRecommend ? <RecommendUserModal uid={id} closeModal={closeModal} teams={allTeams}/> :
+                    <EditProfileModal closeModal={closeModal}/>}
             </Modal>
+        )
+    }
+
+    const followButton = () => {
+        if (id === context.user.uid || context.user.following.users.includes(id)) {
+            return
+        }
+
+        return (
+            <button
+                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                disabled={followButtonStatus}
+                onClick={followUserButton}>
+                {followButtonStatus ?
+                    <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    <AddCircle color="#FAFAFA"
+                               size={isMobile ? 48 : 24}
+                               className={isMobile || context.size ? null : "icon"}/>
+                }
+                {isMobile || context.size || followButtonStatus ? null : "Follow"}
+            </button>
+        )
+    }
+
+    const recommendUser = () => {
+        if (id === context.user.uid || !context.user.following.users.includes(id) || allTeams === undefined || allTeams.length === 0) {
+            return
+        }
+
+        return (
+            <button
+                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                disabled={followButtonStatus}
+                onClick={recommendUserButton}>
+                {followButtonStatus ?
+                    <i className="fa fa-circle-o-notch fa-spin"></i> :
+                    <ArrowForward color="#FAFAFA"
+                            size={isMobile ? 48 : 24}
+                            className={isMobile || context.size ? null : "icon"}/>
+                }
+                {isMobile || context.size || followButtonStatus ? null : "Recommend"}
+            </button>
         )
     }
 
@@ -124,6 +228,8 @@ function ProfileScreen() {
                         {user_data()}
                     </div>
                     {editButton()}
+                    {followButton()}
+                    {recommendUser()}
                 </div>
                 {coverImage()}
             </div>
@@ -156,6 +262,8 @@ function ProfileScreen() {
                         {user_data()}
                     </div>
                     {editButton()}
+                    {followButton()}
+                    {recommendUser()}
                 </div>
                 {coverImage()}
             </div>
@@ -217,6 +325,7 @@ function ProfileScreen() {
                 <div className="profile-data-container-mobile">
                     {showUserInfo()}
                 </div>
+                {modal()}
                 <SearchBar/>
                 <SideBar/>
             </div>
