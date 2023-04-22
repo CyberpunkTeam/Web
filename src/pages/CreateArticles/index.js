@@ -1,8 +1,55 @@
 import './style.css'
-import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
-import React from "react";
+import {Editor, EditorState, RichUtils} from 'draft-js';
+import {stateToHTML} from 'draft-js-export-html';
+import React, {useContext, useState} from "react";
+import {isMobile} from "react-device-detect";
+import SearchBar from "../../components/SearchBar";
+import SideBar from "../../components/SideBar";
+import AlertMessage from "../../components/AlertMessage";
+import AppContext from "../../utils/AppContext";
 
-export default class CreateArticles extends React.Component {
+export default function CreateArticles() {
+    let context = useContext(AppContext);
+    const [buttonDisabled, setButtonDisabled] = useState(false);
+
+    const createFile = (contentState) => {
+        const fileData = stateToHTML(contentState);
+        const blob = new Blob([fileData], {type: "text/html"});
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.download = "page.html";
+        link.href = url;
+        link.click();
+    }
+
+    return (
+        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                New Article
+            </div>
+            <ArticlesEditor/>
+            <div
+                className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}>
+                    Cancel
+                </button>
+                <button disabled={buttonDisabled}
+                        className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
+                        onClick={createFile}>
+                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
+                    {buttonDisabled ? "" : "Publish"}
+                </button>
+            </div>
+            <SearchBar/>
+            <SideBar/>
+            <AlertMessage/>
+        </div>
+    )
+
+}
+
+
+class ArticlesEditor extends React.Component {
     constructor(props) {
         super(props);
         this.state = {editorState: EditorState.createEmpty()};
@@ -84,9 +131,6 @@ export default class CreateArticles extends React.Component {
                         ref="editor"
                         spellCheck={true}
                     />
-                </div>
-                <div>
-                    {JSON.stringify(convertToRaw(editorState.getCurrentContent()))}
                 </div>
             </div>
         );
