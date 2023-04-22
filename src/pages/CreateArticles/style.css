@@ -40,14 +40,22 @@
 
 .RichEditor-styleButton {
     color: #222222;
+    background: #E9E9E9;
+    padding: 4px 8px;
+    border-radius: 4px;
     cursor: pointer;
     margin-right: 16px;
-    padding: 2px 0;
     display: inline-block;
 }
 
 .RichEditor-activeButton {
-    color: #2E9999;
+    color: #FAFAFA;
+    background: #2E9999;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 16px;
+    display: inline-block;
 }
 
 .controllers {
