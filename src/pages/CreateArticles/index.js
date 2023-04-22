@@ -7,10 +7,12 @@ import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
 import AppContext from "../../utils/AppContext";
+import {GalleryImport} from "iconsax-react";
 
 export default function CreateArticles() {
     let context = useContext(AppContext);
     const editorRef = useRef(null);
+    const [coverImg, setCoverImg] = useState(undefined);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -69,32 +71,71 @@ export default function CreateArticles() {
         );
     };
 
+    const cover = () => {
+        function handleCoverChange(e) {
+            setCoverImg(e.target.files[0]);
+        }
+
+        const coverImage = () => {
+            if (coverImg === undefined) {
+                return (
+                    <div className="cover-article-edit-container"/>
+                )
+            }
+
+            let url;
+            try {
+                url = URL.createObjectURL(coverImg);
+            } catch (e) {
+                url = coverImg;
+            }
+
+            return <img src={url} className="image-article-edit-container" alt=""/>
+        }
+
+        return (
+            <div className="cover-article-container">
+                <div className="article-background-container">
+                    <input type="text" className={"input-article-title"} placeholder={"Write title here"}/>
+                    <label className="custom-cover-article-file-upload">
+                        <input type="file" onChange={handleCoverChange} accept="image/jpeg, image/png"/>
+                        <GalleryImport size="24" color="#014751"/>
+                    </label>
+                </div>
+                {coverImage()}
+            </div>
+        )
+    }
+
     return (
         <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
             <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                 New Article
             </div>
-            <div className="RichEditor-root">
-                <div className={"controllers"}>
-                    <BlockStyleControls
-                        editorState={editorState}
-                        onToggle={toggleBlockType}
-                    />
-                    <InlineStyleControls
-                        editorState={editorState}
-                        onToggle={toggleInlineStyle}
-                    />
-                </div>
-                <div className={className} onClick={focus}>
-                    <Editor
-                        blockStyleFn={getBlockStyle}
-                        editorState={editorState}
-                        handleKeyCommand={handleKeyCommand}
-                        onChange={onChange}
-                        onTab={onTab}
-                        ref={editorRef}
-                        spellCheck={true}
-                    />
+            {cover()}
+            <div className={"create-article-text-container"}>
+                <div className="RichEditor-root">
+                    <div className={"controllers"}>
+                        <BlockStyleControls
+                            editorState={editorState}
+                            onToggle={toggleBlockType}
+                        />
+                        <InlineStyleControls
+                            editorState={editorState}
+                            onToggle={toggleInlineStyle}
+                        />
+                    </div>
+                    <div className={className} onClick={focus}>
+                        <Editor
+                            blockStyleFn={getBlockStyle}
+                            editorState={editorState}
+                            handleKeyCommand={handleKeyCommand}
+                            onChange={onChange}
+                            onTab={onTab}
+                            ref={editorRef}
+                            spellCheck={true}
+                        />
+                    </div>
                 </div>
             </div>
             <div
@@ -197,7 +238,7 @@ const BlockStyleControls = (props) => {
     );
 };
 
-var INLINE_STYLES = [
+const INLINE_STYLES = [
     {label: 'Bold', style: 'BOLD'},
     {label: 'Italic', style: 'ITALIC'},
     {label: 'Underline', style: 'UNDERLINE'},
