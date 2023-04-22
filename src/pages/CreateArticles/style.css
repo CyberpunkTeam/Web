@@ -89,7 +89,7 @@
     border-radius: 16px;
     width: 100%;
     height: 200px;
-    background-image: linear-gradient(0deg, rgba(15, 40, 48, 0.78), rgb(157, 36, 11)), linear-gradient(268.12deg, rgba(0, 128, 142, 0.5) 0%, rgba(15, 40, 48, 0.8) 100%);
+    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
 }
 
 .image-article-edit-container {
@@ -121,6 +121,7 @@
     background: #F1F1F1;
     width: calc(100% - 64px);
     border-radius: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .input-article-title {

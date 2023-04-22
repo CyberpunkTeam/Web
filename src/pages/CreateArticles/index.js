@@ -8,10 +8,13 @@ import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
 import AppContext from "../../utils/AppContext";
 import {GalleryImport} from "iconsax-react";
+import {saveArticle} from "../../services/firebaseStorage";
+import {createArticle} from "../../services/contentService";
 
 export default function CreateArticles() {
     let context = useContext(AppContext);
     const editorRef = useRef(null);
+    const [title, setTitle] = useState("");
     const [coverImg, setCoverImg] = useState(undefined);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -24,14 +27,40 @@ export default function CreateArticles() {
         }
     }
 
-    const createFile = () => {
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
+    const createFile = async () => {
+        if (title.length === 0) {
+            setError("Title can not be empty")
+            return
+        }
+
+        if (contentState.getPlainText('\u0001').length === 0) {
+            setError("The article can not be empty")
+            return
+        }
+
+        setButtonDisabled(true)
         const fileData = stateToHTML(contentState);
         const blob = new Blob([fileData], {type: "text/html"});
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.download = "page.html";
-        link.href = url;
-        link.click();
+        const file = await saveArticle(context.app, blob,`${title}.html`, context.user.uid )
+
+        const body = {
+            "title": title,
+            "author_uid": context.user.uid,
+            "href": file,
+        }
+        createArticle(body).then((r) => {
+            console.log(r)
+        }).catch((e) => {
+            console.log(e)
+        }).finally(() =>
+            setButtonDisabled(false)
+        )
     }
 
     const focus = () => editorRef.current.focus();
@@ -76,6 +105,10 @@ export default function CreateArticles() {
             setCoverImg(e.target.files[0]);
         }
 
+        const setTitleHandler = (event) => {
+            setTitle(event.target.value);
+        }
+
         const coverImage = () => {
             if (coverImg === undefined) {
                 return (
@@ -96,7 +129,7 @@ export default function CreateArticles() {
         return (
             <div className="cover-article-container">
                 <div className="article-background-container">
-                    <input type="text" className={"input-article-title"} placeholder={"Write title here"}/>
+                    <input type="text" className={"input-article-title"} placeholder={"Write title here"} onChange={setTitleHandler}/>
                     <label className="custom-cover-article-file-upload">
                         <input type="file" onChange={handleCoverChange} accept="image/jpeg, image/png"/>
                         <GalleryImport size="24" color="#014751"/>
