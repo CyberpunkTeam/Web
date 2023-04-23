@@ -12,7 +12,7 @@ import HTMLRenderer from 'react-html-renderer'
 import {People, User} from "iconsax-react";
 
 
-export default function Articles() {
+export default function Article() {
     const params = useParams();
     const navigate = useNavigate();
     let context = useContext(AppContext);

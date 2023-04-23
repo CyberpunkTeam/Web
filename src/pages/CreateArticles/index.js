@@ -42,7 +42,7 @@ export default function CreateArticles() {
         }
 
         if (contentState.getPlainText('\u0001').length === 0) {
-            setError("The article can not be empty")
+            setError("The Article can not be empty")
             return
         }
 

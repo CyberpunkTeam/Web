@@ -7,11 +7,11 @@ import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
 import {isMobile} from 'react-device-detect';
 
+import AppContext from "./utils/AppContext";
 import MainScreen from "./pages/MainScreen";
 import Login from "./pages/Login";
 import ProfileScreen from "./pages/ProfileScreen";
 import NotFound from "./pages/NotFound";
-import AppContext from "./utils/AppContext";
 import TeamScreen from "./pages/Team";
 import ProjectsScreen from "./pages/Projects";
 import CreateProjectScreen from "./pages/CreateProject";
@@ -28,7 +28,8 @@ import TeamRecommendation from "./pages/TeamRecommendation";
 import PostulateTeam from "./pages/PostulateTeam";
 import JobsScreen from "./pages/JobsScreen";
 import CreateArticles from "./pages/CreateArticles";
-import Articles from "./pages/articles";
+import Article from "./pages/Article";
+import Home from "./pages/Home";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -71,6 +72,7 @@ function App() {
         if (user !== null) {
             return (
                 <>
+                    <Route path="/Home" element={<Home/>}/>
                     {/*user*/}
                     <Route path="me" element={<ProfileScreen/>}/>
                     <Route path="/user/:id" element={<ProfileScreen/>}/>
@@ -89,9 +91,9 @@ function App() {
                     <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/data" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/type" element={<SelectTypeProject/>}/>
-                    {/*Articles*/}
+                    {/*Home*/}
                     <Route path="/new/articles" element={<CreateArticles/>}/>
-                    <Route path="/articles/:id" element={<Articles/>}/>
+                    <Route path="/articles/:id" element={<Article/>}/>
                     {/*extra*/}
                     <Route path="/search" element={<SearchResults/>}/>
                 </>
