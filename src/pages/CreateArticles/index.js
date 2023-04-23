@@ -10,9 +10,11 @@ import AppContext from "../../utils/AppContext";
 import {GalleryImport} from "iconsax-react";
 import {saveArticle} from "../../services/firebaseStorage";
 import {createArticle} from "../../services/contentService";
+import {useNavigate} from "react-router-dom";
 
 export default function CreateArticles() {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
     const editorRef = useRef(null);
     const [title, setTitle] = useState("");
     const [coverImg, setCoverImg] = useState(undefined);
@@ -56,6 +58,7 @@ export default function CreateArticles() {
         }
         createArticle(body).then((r) => {
             console.log(r)
+            navigate("/articles/" + r.cid)
         }).catch((e) => {
             console.log(e)
         }).finally(() =>
