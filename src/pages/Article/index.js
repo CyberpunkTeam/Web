@@ -24,7 +24,6 @@ export default function Article() {
             console.log(ArticleResponse)
             fetch(ArticleResponse.href).then((response) => {
                 response.text().then((body) => {
-                    console.log(typeof body)
                     setText(body)
                 })
             })
@@ -62,6 +61,11 @@ export default function Article() {
     }
 
     const team = (data) => {
+
+        if (data === null) {
+            return
+        }
+
         const teamNavigate = () => {
             navigate('/teams/' + data.tid);
         }
@@ -143,7 +147,7 @@ export default function Article() {
 
 
         return (
-            <div key={data.uid} className={context.size ? "author-info-container-reduced" : "author-info-container"}>
+            <div key={data.uid} className={context.size && article.tid !== null ? "author-info-container-reduced" : "author-info-container"}>
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>
@@ -165,8 +169,8 @@ export default function Article() {
             </div>
             <div className={context.size || isMobile ? "article-container-reduced" : "article-container"}>
                 <div className={isMobile || context.size ? "author-data-container-reduced" : "author-data-container"}>
-                    {author(context.user)}
-                    {team(context.user)}
+                    {author(article.author)}
+                    {team(article.tid)}
                 </div>
                 <div className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
                     <HTMLRenderer html={text}/>
