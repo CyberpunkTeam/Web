@@ -88,7 +88,7 @@ export default function Article() {
                         <div className="member-name-mobile" onClick={teamNavigate}>
                             {team.name}
                             <div className="owner-mobile">
-                                Published as
+                                Published by
                             </div>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ export default function Article() {
                     <div className="member-name" onClick={teamNavigate}>
                         {team.name}
                         <div className="owner">
-                            Published as
+                            Published by
                         </div>
                     </div>
                 </div>

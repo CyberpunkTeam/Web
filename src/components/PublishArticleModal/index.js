@@ -53,7 +53,7 @@ export function PublishArticleModal(params) {
     return (
         <div className={isMobile ? "abandonModalMobile" : "abandonModal"}>
             <div className={isMobile ? "form-text-modal-mobile" : "form-text-modal"}>
-                Are you sure you publish this article?
+                Are you sure you want to publish this article?
             </div>
             <form className={isMobile ? "modal-form-modal" : "modal-form"}>
                 <label className={isMobile ? "modal-label-options" : "create-project-label"}>
