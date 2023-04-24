@@ -32,3 +32,20 @@ export const saveFile = async (app, file, name) => {
         return r
     })
 }
+
+export const saveArticle = async (app, file, name, user, team) => {
+    if (!file) {
+        alert("Please choose a file first!")
+        return;
+    }
+
+    const storage = getStorage(app);
+
+    const refName = team !== user ? `/articles/teams/${team}/${name}` : `/articles/users/${user}/${name}`
+
+    const storageRef = ref(storage, refName)
+    await uploadBytes(storageRef, file);
+    return getDownloadURL(storageRef).then((r) => {
+        return r
+    })
+}

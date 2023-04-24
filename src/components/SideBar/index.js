@@ -6,7 +6,6 @@ import {
     User,
     Notification,
     Message,
-    Notepad2,
     LampCharge,
     Logout,
     People,
@@ -64,6 +63,10 @@ function SideBar() {
 
     const projects = () => {
         navigate("/projects")
+    }
+
+    const homeScreen = () => {
+        navigate("/home")
     }
 
     const jobs = () => {
@@ -260,7 +263,7 @@ function SideBar() {
                 <div className="navbar-container">
                     <div className="navbar">
                         <div className="top">
-                            <div className="navbar-icon" onClick={home}>
+                            <div className="navbar-icon" onClick={homeScreen}>
                                 <img src={logo} className="logo-side" alt="logo"/>
                                 <div className={"navbar-text"}>
                                     Home
@@ -290,12 +293,6 @@ function SideBar() {
                                 <Briefcase className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 <div className={"navbar-text"}>
                                     Opportunities
-                                </div>
-                            </div>
-                            <div className="navbar-icon">
-                                <Notepad2 className="settings" color="#FAFAFA" variant="Outline" size={28}/>
-                                <div className={"navbar-text"}>
-                                    Articles
                                 </div>
                             </div>
                         </div>
@@ -339,13 +336,13 @@ function SideBar() {
                             Projects
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
-                            <Notepad2 className="settings-mobile" color="#FAFAFA" variant="Outline"
-                                      size={context.size ? 28 : 60}/>
-                            Articles
+                            <Briefcase className="settings-mobile" color="#FAFAFA" variant="Outline"
+                                      size={context.size ? 28 : 60} onClick={jobs}/>
+                            Opportunities
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
                             <Home2 className="settings-mobile" color="#FAFAFA" variant="Outline"
-                                   size={context.size ? 28 : 60}/>
+                                   size={context.size ? 28 : 60} onClick={homeScreen}/>
                             Home
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}
