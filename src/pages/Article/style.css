@@ -95,3 +95,15 @@
     margin-left: 8px;
     width: calc(50% - 8px);
 }
+
+.publish-date {
+    display: flex;
+    font-size: 12px;
+    font-weight: 300;
+    color: #FAFAFA;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}

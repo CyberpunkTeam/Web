@@ -33,7 +33,7 @@ export const saveFile = async (app, file, name) => {
     })
 }
 
-export const saveArticle = async (app, file, name, user) => {
+export const saveArticle = async (app, file, name, user, team) => {
     if (!file) {
         alert("Please choose a file first!")
         return;
@@ -41,7 +41,9 @@ export const saveArticle = async (app, file, name, user) => {
 
     const storage = getStorage(app);
 
-    const storageRef = ref(storage, `/articles/${user}/${name}`)
+    const refName = team !== user ? `/articles/teams/${team}/${name}` : `/articles/users/${user}/${name}`
+
+    const storageRef = ref(storage, refName)
     await uploadBytes(storageRef, file);
     return getDownloadURL(storageRef).then((r) => {
         return r

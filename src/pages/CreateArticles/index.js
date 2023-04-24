@@ -1,37 +1,55 @@
 import './style.css'
 import {Editor, EditorState, RichUtils} from 'draft-js';
-import {stateToHTML} from 'draft-js-export-html';
-import React, {useContext, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {isMobile} from "react-device-detect";
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
 import AppContext from "../../utils/AppContext";
 import {GalleryImport} from "iconsax-react";
-import {saveArticle} from "../../services/firebaseStorage";
-import {createArticle} from "../../services/contentService";
-import {useNavigate} from "react-router-dom";
+import Modal from "react-modal";
+import {modalStyle} from "../../styles/commonStyles";
+import {PublishArticleModal} from "../../components/PublishArticleModal";
+import {getMyTeams} from "../../services/teamService";
+import Loading from "../../components/loading";
 
 export default function CreateArticles() {
     let context = useContext(AppContext);
-    const navigate = useNavigate();
     const editorRef = useRef(null);
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [allTeams, setAllTeams] = useState(undefined);
     const [title, setTitle] = useState("");
     const [coverImg, setCoverImg] = useState(undefined);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [buttonDisabled, setButtonDisabled] = useState(false);
+
+    const setError = (msg) => {
+        if (context.errorMessage !== msg) {
+            context.setErrorMessage(msg);
+        }
+    }
+
+    useEffect((() => {
+        getMyTeams(context.user.uid).then((teams) => {
+            if (teams === undefined) {
+                setError("An error has occurred while loading user's teams. Please, try again later");
+            } else {
+                let t = []
+                teams.forEach((team) => {
+                    if (!team.temporal) {
+                        t.push(team)
+                    }
+                })
+                setAllTeams(t);
+            }
+        })
+    }), [])
 
     let className = 'RichEditor-editor';
     let contentState = editorState.getCurrentContent();
     if (!contentState.hasText()) {
         if (contentState.getBlockMap().first().getType() !== 'unstyled') {
             className += ' RichEditor-hidePlaceholder';
-        }
-    }
-
-    const setError = (msg) => {
-        if (context.errorMessage !== msg) {
-            context.setErrorMessage(msg);
         }
     }
 
@@ -46,24 +64,7 @@ export default function CreateArticles() {
             return
         }
 
-        setButtonDisabled(true)
-        const fileData = stateToHTML(contentState);
-        const blob = new Blob([fileData], {type: "text/html"});
-        const file = await saveArticle(context.app, blob,`${title}.html`, context.user.uid )
-
-        const body = {
-            "title": title,
-            "author_uid": context.user.uid,
-            "href": file,
-        }
-        createArticle(body).then((r) => {
-            console.log(r)
-            navigate("/articles/" + r.cid)
-        }).catch((e) => {
-            console.log(e)
-        }).finally(() =>
-            setButtonDisabled(false)
-        )
+        setIsOpen(true)
     }
 
     const focus = () => editorRef.current.focus();
@@ -132,7 +133,8 @@ export default function CreateArticles() {
         return (
             <div className="cover-article-container">
                 <div className="article-background-container">
-                    <input type="text" className={"input-article-title"} placeholder={"Write title here"} onChange={setTitleHandler}/>
+                    <input type="text" className={"input-article-title"} placeholder={"Write title here"}
+                           onChange={setTitleHandler}/>
                     <label className="custom-cover-article-file-upload">
                         <input type="file" onChange={handleCoverChange} accept="image/jpeg, image/png"/>
                         <GalleryImport size="24" color="#014751"/>
@@ -141,6 +143,22 @@ export default function CreateArticles() {
                 {coverImage()}
             </div>
         )
+    }
+
+    const closeModal = () => {
+        setIsOpen(false)
+    }
+
+    const modal = () => {
+        return (
+            <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
+                <PublishArticleModal title={title} closeModal={closeModal} contentState={contentState} teams={allTeams}/>
+            </Modal>
+        )
+    }
+
+    if (allTeams === undefined) {
+        return <Loading/>
     }
 
     return (
@@ -186,6 +204,7 @@ export default function CreateArticles() {
                     {buttonDisabled ? "" : "Publish"}
                 </button>
             </div>
+            {modal()}
             <SearchBar/>
             <SideBar/>
             <AlertMessage/>

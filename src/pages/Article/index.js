@@ -10,6 +10,7 @@ import Loading from "../../components/loading";
 import {getArticle} from "../../services/contentService";
 import HTMLRenderer from 'react-html-renderer'
 import {People, User} from "iconsax-react";
+import {formatDate} from "../../utils/dateFormat";
 
 
 export default function Article() {
@@ -21,7 +22,6 @@ export default function Article() {
 
     useEffect(() => {
         getArticle(params.id).then((ArticleResponse) => {
-            console.log(ArticleResponse)
             fetch(ArticleResponse.href).then((response) => {
                 response.text().then((body) => {
                     setText(body)
@@ -55,13 +55,15 @@ export default function Article() {
                     <div className="team-name">
                         {article.title}
                     </div>
+                    <div className="publish-date">
+                        Created: {article.created_date.split(':')[0].replaceAll("-", "/")}
+                    </div>
                 </div>
             </div>
         )
     }
 
-    const team = (data) => {
-
+    const team = (data, team) => {
         if (data === null) {
             return
         }
@@ -73,7 +75,7 @@ export default function Article() {
         const image = () => {
             return (
                 <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
-                    <People color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                    <People color="#FAFAFA" size={isMobile ? "32" : "18"} variant="Bold"/>
                 </div>
             )
         }
@@ -84,7 +86,7 @@ export default function Article() {
                     <div className="members-info-mobile">
                         {image()}
                         <div className="member-name-mobile" onClick={teamNavigate}>
-                            {data.name}
+                            {team.name}
                             <div className="owner-mobile">
                                 Published as
                             </div>
@@ -100,7 +102,7 @@ export default function Article() {
                 <div className="members-info">
                     {image()}
                     <div className="member-name" onClick={teamNavigate}>
-                        {data.name}
+                        {team.name}
                         <div className="owner">
                             Published as
                         </div>
@@ -170,7 +172,7 @@ export default function Article() {
             <div className={context.size || isMobile ? "article-container-reduced" : "article-container"}>
                 <div className={isMobile || context.size ? "author-data-container-reduced" : "author-data-container"}>
                     {author(article.author)}
-                    {team(article.tid)}
+                    {team(article.tid, article.team)}
                 </div>
                 <div className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
                     <HTMLRenderer html={text}/>
