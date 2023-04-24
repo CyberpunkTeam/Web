@@ -10,7 +10,6 @@ import Loading from "../../components/loading";
 import {getArticle} from "../../services/contentService";
 import HTMLRenderer from 'react-html-renderer'
 import {People, User} from "iconsax-react";
-import {formatDate} from "../../utils/dateFormat";
 
 
 export default function Article() {

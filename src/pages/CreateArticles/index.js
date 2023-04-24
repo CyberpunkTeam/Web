@@ -21,7 +21,7 @@ export default function CreateArticles() {
     const [title, setTitle] = useState("");
     const [coverImg, setCoverImg] = useState(undefined);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [buttonDisabled, setButtonDisabled] = useState(false);
+
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -197,11 +197,9 @@ export default function CreateArticles() {
                 <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}>
                     Cancel
                 </button>
-                <button disabled={buttonDisabled}
-                        className={buttonDisabled ? isMobile ? "button-style-disabled-mobile" : "save-edit-button-style-disabled" : isMobile ? "button-style-mobile" : "save-edit-button-style"}
+                <button className={ isMobile ? "button-style-mobile" : "save-edit-button-style"}
                         onClick={createFile}>
-                    {buttonDisabled ? <i className="fa fa-circle-o-notch fa-spin"></i> : null}
-                    {buttonDisabled ? "" : "Publish"}
+                    Publish
                 </button>
             </div>
             {modal()}

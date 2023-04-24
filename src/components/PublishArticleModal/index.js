@@ -1,7 +1,6 @@
 import './style.css'
 import {ArrowDown2, CloseCircle} from "iconsax-react";
 import {useContext, useState} from "react";
-import {abandonProject, abandonProjectRequest} from "../../services/notificationService";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {stateToHTML} from "draft-js-export-html";

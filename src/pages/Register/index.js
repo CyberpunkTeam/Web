@@ -85,7 +85,7 @@ function Register(params) {
             } else {
                 context.setUser(userLogin);
                 localStorage.setItem("user", JSON.stringify(r))
-                navigate('/me')
+                navigate('/home')
             }
             setButtonDisabled(false);
         }).catch((error) => {
