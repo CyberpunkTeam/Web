@@ -13,3 +13,7 @@ export const getArticle = (cid) => {
 export const getMyArticles = (uid) => {
     return get(endpoint + `?author_uid=${uid}`)
 }
+
+export const getArticles = () => {
+    return get(endpoint)
+}

@@ -68,12 +68,18 @@
 }
 
 .author-info-container {
-    background: #F1F1F1;
     display: flex;
     justify-content: flex-start;
     border-radius: 16px;
     margin-bottom: 16px;
     width: available;
+}
+
+.author-publication-info-container {
+    display: flex;
+    width: 100%;
+    justify-content: flex-start;
+    border-radius: 16px;
 }
 
 .author-info-container-reduced {

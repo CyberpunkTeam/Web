@@ -53,7 +53,7 @@ export default function PublicationTile(params) {
 
 
         return (
-            <div key={data.uid} className={context.size ? "author-info-container-reduced" : "author-info-container"}>
+            <div key={data.uid} className={"author-publication-info-container"}>
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>
