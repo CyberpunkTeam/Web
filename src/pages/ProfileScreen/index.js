@@ -46,6 +46,14 @@ function ProfileScreen() {
         }
     }
 
+    const resetUserData = () => {
+        setUserData({});
+        setLoading(true);
+        window.location.reload()
+    };
+
+    useEffect(() =>  resetUserData, [params.id])
+
     useEffect(() => {
         getProfile(id).then((response) => {
             if (response === undefined) {
@@ -58,8 +66,9 @@ function ProfileScreen() {
                     return
                 }
                 setArticles(articlesResponse)
+                setUserData(response);
+                setLoading(false);
             })
-            setUserData(response);
             getMyTeams(context.user.uid).then((teams) => {
                 if (teams === undefined) {
                     setError("An error has occurred while loading user's teams. Please, try again later");
@@ -79,18 +88,15 @@ function ProfileScreen() {
                     setAllTeams(t);
                 }
             })
-            setLoading(false)
         }).catch((error) => {
             console.log(error)
         });
     }, [id, time]);
 
     useEffect(() => {
-        const interval = setInterval(() => setTime(Date.now()), 2000);
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
+        const timeoutId = setTimeout(() => setTime(Date.now()), 2000);
+        return () => clearTimeout(timeoutId);
+    }, [time]);
 
     const followUserButton = () => {
         if (context.user.following.users.includes(id)) {
@@ -300,7 +306,7 @@ function ProfileScreen() {
                             </div>
                         </div>
                         {articles.map((article) => {
-                            return <PublicationTile publication={article}/>
+                            return <PublicationTile key={article.cid} publication={article}/>
                         })}
                     </div>
                 </div>
@@ -314,7 +320,7 @@ function ProfileScreen() {
         }
     }
 
-    if (loading) {
+    if (loading && Object.keys(userData).length === 0) {
         return <Loading/>
     }
 

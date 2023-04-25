@@ -72,7 +72,7 @@ export default function Article() {
         }
 
         const teamNavigate = () => {
-            navigate('/teams/' + data.tid);
+            navigate('/teams/' + team.tid);
         }
 
         const image = () => {

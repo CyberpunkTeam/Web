@@ -8,7 +8,7 @@
 
 .publicationTileInformation{
     width: calc(100% - 32px);
-    padding: 0 16px 0 16px;
+    padding: 0 16px;
     cursor: pointer;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .publishButtons {
-    margin: 24px 0;
+    padding: 24px 8px;
     display: flex;
     font-weight: 600;
     font-size: 14px;
