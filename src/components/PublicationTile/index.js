@@ -1,0 +1,71 @@
+import './style.css'
+import {isMobile} from "react-device-detect";
+import {User} from "iconsax-react";
+import React, {useContext} from "react";
+import AppContext from "../../utils/AppContext";
+import {useNavigate} from "react-router-dom";
+import {formatDatePublish} from "../../utils/dateFormat";
+export default function PublicationTile(params) {
+    let context = useContext(AppContext);
+    const navigate = useNavigate();
+
+    const author = (data) => {
+        const userNavigate = () => {
+            const user_link = data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
+            navigate(user_link);
+        }
+
+        const date = formatDatePublish(params.publication.created_date)
+
+        const user_image = (data) => {
+            if (data.profile_image === "default") {
+                return (
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                        <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                    </div>
+                )
+            } else {
+                return <img src={data.profile_image} alt=''
+                            className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
+            }
+        }
+
+        if (isMobile) {
+            return (
+                <div key={data.uid} className="members-info-container-mobile">
+                    <div className="members-info-mobile">
+                        {user_image(data)}
+                        <div className="member-name-mobile" onClick={userNavigate}>
+                            {data.name} {data.lastname}
+                            <div className="owner-mobile">
+                                {date}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )
+        }
+
+
+        return (
+            <div key={data.uid} className={context.size ? "author-info-container-reduced" : "author-info-container"}>
+                <div className="members-info">
+                    {user_image(data)}
+                    <div className="member-name" onClick={userNavigate}>
+                        {data.name} {data.lastname}
+                        <div className="owner">
+                            {date}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    return (
+        <div className={"publicationTileContainer"}>
+            {author(params.publication.author)}
+            {params.publication.title}
+        </div>
+    )
+}

@@ -1272,7 +1272,7 @@
 .column {
     display: flex;
     flex-direction: column;
-    width: 49.5%;
+    width: calc(50% - 8px);
 }
 
 .column-skills-left {
@@ -1417,4 +1417,17 @@
     position: absolute;
     right: 16px;
     bottom: 16px;
+}
+
+.userInformationContainer {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.userInformationContainerReduced {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
 }
