@@ -68,6 +68,7 @@
 }
 
 .author-info-container {
+    background: #F1F1F1;
     display: flex;
     justify-content: flex-start;
     border-radius: 16px;
