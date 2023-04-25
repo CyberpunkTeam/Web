@@ -45,7 +45,7 @@ export default function Article() {
                             {article.title}
                         </div>
                         <div className="publish-date">
-                            Created: {formatDatePublish(article.created_date)}
+                            {formatDatePublish(article.created_date)}
                         </div>
                     </div>
                 </div>
@@ -59,7 +59,7 @@ export default function Article() {
                         {article.title}
                     </div>
                     <div className="publish-date">
-                        Created: {formatDatePublish(article.created_date)}
+                        {formatDatePublish(article.created_date)}
                     </div>
                 </div>
             </div>
