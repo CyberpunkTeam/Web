@@ -9,6 +9,7 @@
 .publicationTileInformation{
     width: calc(100% - 32px);
     padding: 0 16px 0 16px;
+    cursor: pointer;
 }
 
 .publicationTileInformationCover{

@@ -10,6 +10,10 @@ export default function PublicationTile(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
 
+    const goTo = () => {
+        navigate("/articles/" + params.publication.cid)
+    }
+
     const author = (data) => {
         const userNavigate = () => {
             const user_link = data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
@@ -66,7 +70,7 @@ export default function PublicationTile(params) {
     return (
         <div className={"publicationTileContainer"}>
             {author(params.publication.author)}
-            <div className={"publicationTileInformation"}>
+            <div className={"publicationTileInformation"} onClick={goTo}>
                 <div className={"publicationTileInformationCover"}>
 
                 </div>
