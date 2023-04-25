@@ -66,13 +66,13 @@ export default function GoogleLoginButton(params) {
                                 createUser(userLogin).then((r) => {
                                     context.setUser(r);
                                     localStorage.setItem("user", JSON.stringify(r))
-                                    navigate('/me')
+                                    navigate('/home')
                                     setLoadingGoogle(false)
                                 })
                             } else {
                                 context.setUser(r)
                                 localStorage.setItem("user", JSON.stringify(r))
-                                navigate("/me")
+                                navigate("/home")
                                 setLoadingGoogle(false)
                             }
                         })

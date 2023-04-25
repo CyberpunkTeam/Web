@@ -1,9 +1,9 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, ArrowForward, User} from "iconsax-react";
+import {AddCircle, Edit, ArrowForward, User, Notepad2} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
@@ -21,6 +21,8 @@ import AlertMessage from "../../components/AlertMessage";
 import {getMyTeams} from "../../services/teamService";
 import FollowingTag from "../../components/FollowingTag";
 import {RecommendUserModal} from "../../components/RecommendUserModal";
+import PublicationTile from "../../components/PublicationTile";
+import {getMyArticles} from "../../services/contentService";
 
 function ProfileScreen() {
     const params = useParams();
@@ -36,6 +38,7 @@ function ProfileScreen() {
     const id = params.id ? params.id : context.user.uid
 
     const [userData, setUserData] = useState({})
+    const [articles, setArticles] = useState([])
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -49,6 +52,13 @@ function ProfileScreen() {
                 setError("An error has occurred while loading user's information. Please, try again later");
                 return
             }
+            getMyArticles(id).then((articlesResponse) => {
+                if (response === undefined) {
+                    setError("An error has occurred while loading user's information. Please, try again later");
+                    return
+                }
+                setArticles(articlesResponse)
+            })
             setUserData(response);
             getMyTeams(context.user.uid).then((teams) => {
                 if (teams === undefined) {
@@ -198,8 +208,8 @@ function ProfileScreen() {
                 {followButtonStatus ?
                     <i className="fa fa-circle-o-notch fa-spin"></i> :
                     <ArrowForward color="#FAFAFA"
-                            size={isMobile ? 48 : 24}
-                            className={isMobile || context.size ? null : "icon"}/>
+                                  size={isMobile ? 48 : 24}
+                                  className={isMobile || context.size ? null : "icon"}/>
                 }
                 {isMobile || context.size || followButtonStatus ? null : "Recommend"}
             </button>
@@ -273,10 +283,26 @@ function ProfileScreen() {
     const showUserInfo = () => {
         if (tagSelect === "profile") {
             return (
-                <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
-                    <EducationComponent userData={userData}/>
-                    <WorkExperienceComponent userData={userData}/>
-                    <UserSkills userData={userData}/>
+                <div
+                    className={isMobile || context.size ? "userInformationContainerReduced" : "userInformationContainer"}>
+                    <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
+                        <EducationComponent userData={userData}/>
+                        <WorkExperienceComponent userData={userData}/>
+                        <UserSkills userData={userData}/>
+                    </div>
+                    <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
+                        <div className={"teamProjectsInProgressContainerReduced"}>
+                            <div className={"teamInformationTitleContainer"}>
+                                <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
+                                    <Notepad2 size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>
+                                    Articles
+                                </div>
+                            </div>
+                        </div>
+                        {articles.map((article) => {
+                            return <PublicationTile publication={article}/>
+                        })}
+                    </div>
                 </div>
             )
         } else if (tagSelect === "teams") {

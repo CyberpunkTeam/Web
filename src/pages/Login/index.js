@@ -106,7 +106,7 @@ function Login() {
             }
             context.setUser(userdata);
             localStorage.setItem("user", JSON.stringify(userdata))
-            navigate('/me')
+            navigate('/home')
         })).catch((error) => {
             console.log(error)
             if (error.status === 404) {

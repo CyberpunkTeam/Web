@@ -10,7 +10,7 @@ import Loading from "../../components/loading";
 import {getArticle} from "../../services/contentService";
 import HTMLRenderer from 'react-html-renderer'
 import {People, User} from "iconsax-react";
-import {formatDate} from "../../utils/dateFormat";
+import {formatDatePublish} from "../../utils/dateFormat";
 
 
 export default function Article() {
@@ -44,6 +44,9 @@ export default function Article() {
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
+                        <div className="publish-date">
+                            Created: {formatDatePublish(article.created_date)}
+                        </div>
                     </div>
                 </div>
             )
@@ -56,7 +59,7 @@ export default function Article() {
                         {article.title}
                     </div>
                     <div className="publish-date">
-                        Created: {article.created_date.split(':')[0].replaceAll("-", "/")}
+                        Created: {formatDatePublish(article.created_date)}
                     </div>
                 </div>
             </div>

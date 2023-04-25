@@ -73,10 +73,6 @@ function SideBar() {
         navigate("/opportunities")
     }
 
-    const home = () => {
-        navigate("/")
-    }
-
     const user = () => {
         navigate("/me")
     }

@@ -9,3 +9,7 @@ export const createArticle = (body) => {
 export const getArticle = (cid) => {
     return get(endpoint + `${cid}`)
 }
+
+export const getMyArticles = (uid) => {
+    return get(endpoint + `?author_uid=${uid}`)
+}
