@@ -7,5 +7,5 @@ export const formatDate = (date) => {
 
 export const formatDatePublish = (date) => {
     const d = date.replace(/:/, ' ');
-    return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').format("DD MMM YYYY");
+    return moment.utc(d, 'DD/MM/YYYY hh:mm:ss').format("DD MMMM YYYY");
 }

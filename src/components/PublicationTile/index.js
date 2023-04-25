@@ -1,10 +1,11 @@
 import './style.css'
 import {isMobile} from "react-device-detect";
-import {User} from "iconsax-react";
+import {EmojiHappy, Share, User} from "iconsax-react";
 import React, {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {formatDatePublish} from "../../utils/dateFormat";
+
 export default function PublicationTile(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
@@ -65,7 +66,24 @@ export default function PublicationTile(params) {
     return (
         <div className={"publicationTileContainer"}>
             {author(params.publication.author)}
-            {params.publication.title}
+            <div className={"publicationTileInformation"}>
+                <div className={"publicationTileInformationCover"}>
+
+                </div>
+                <div className={"publicationTileInformationTitle"}>
+                    {params.publication.title}
+                </div>
+                <div className={"publishButtons"}>
+                    <div className={"publishButtonsLike"}>
+                        <EmojiHappy size="24" color="#014751" className={"icon"}/>
+                        2k
+                    </div>
+                    <div className={"publishButtonsShare"}>
+                        <Share size="24" color="#014751" className={"icon"}/>
+                        Share
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
