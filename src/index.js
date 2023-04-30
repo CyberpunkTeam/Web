@@ -30,6 +30,7 @@ import JobsScreen from "./pages/JobsScreen";
 import CreateArticles from "./pages/CreateArticles";
 import Article from "./pages/Article";
 import Home from "./pages/Home";
+import ChatScreen from "./pages/ChatScreen";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -96,6 +97,7 @@ function App() {
                     <Route path="/articles/:id" element={<Article/>}/>
                     {/*extra*/}
                     <Route path="/search" element={<SearchResults/>}/>
+                    <Route path="/chat/:id" element={<ChatScreen/>}/>
                 </>
             )
         }

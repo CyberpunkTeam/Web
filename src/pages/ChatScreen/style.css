@@ -1,0 +1,137 @@
+.chatContainer {
+    width: 100%;
+    height: calc(100vh - 30px);
+    display: flex;
+}
+
+.chatSScrollerContainer {
+    width: calc(30% - 16px);
+    border-radius: 16px;
+    margin-right: 16px;
+    margin-top: 70px;
+    background: red;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100vh - 100px);
+    display: flex;
+}
+
+.chatSScrollerReduced{
+    display: none;
+}
+
+.chatDiv {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    background: #F1F1F1;
+    border-radius: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 70px;
+    height: calc(100vh - 100px);
+}
+
+.chatDivReduced {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background: #F1F1F1;
+    border-radius: 16px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin-top: 70px;
+    height: calc(100vh - 172px);
+}
+
+.chatHeader {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    width: 100%;
+    background: #E9E9E9;
+    height: 70px;
+}
+
+.chatUserNameHeader {
+    padding: 0 8px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.chatInputContainer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 20px;
+    align-items: center;
+    width: calc(100% - 40px);
+    min-height: 70px;
+}
+
+.chatInput {
+    padding: 0 8px;
+    border-radius: 16px;
+    width: 90%;
+    background: #E3E3E3;
+    min-height: 40px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    font-family: "Inter", sans-serif;
+    outline: none;
+    font-size: 16px;
+}
+
+
+.chatMessageContainer {
+    display: flex;
+    flex-direction: column-reverse;
+    position: relative;
+    margin-bottom: 70px;
+    min-height: calc(90% - 86px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 8px 20px;
+    align-items: center;
+    width: calc(100% - 40px);
+}
+
+.messageContainer {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    min-height: 32px;
+    padding: 8px;
+    border-radius: 16px;
+    min-width: 320px;
+    max-width: 70px;
+    margin-bottom: 8px;
+    background: #E3E3E3;
+}
+
+.messageOtherUserContainer {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    min-height: 32px;
+    padding: 8px;
+    border-radius: 16px;
+    min-width: 320px;
+    margin-bottom: 8px;
+    max-width: 70px;
+    color: #FAFAFA;
+    background: #2E9999;
+}
+
+.messageDate {
+    align-self: flex-end;
+    font-weight: 200;
+    font-size: 12px;
+}
+
+.sendMessage {
+    cursor: pointer;
+}
