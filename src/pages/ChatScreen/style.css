@@ -62,6 +62,7 @@
 }
 
 .chatInputContainer {
+    border-top: 1px solid #E3E3E3;
     position: absolute;
     bottom: 0;
     display: flex;

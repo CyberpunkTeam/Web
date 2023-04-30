@@ -2,16 +2,17 @@ import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {isMobile} from "react-device-detect";
 import {ArrowCircleRight2, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {formatDateMessage} from "../../utils/dateFormat";
+import moment from "moment/moment";
 
 export default function ChatScreen() {
     let context = useContext(AppContext);
-
-    const messages = [
+    const [newMessage, setNewMessage] = useState("")
+    const [messages, setMessages] = useState([
         {
             user: context.user.uid,
             message: "Hola como va?",
@@ -32,7 +33,35 @@ export default function ChatScreen() {
             message: "Bueno, que queres?",
             date: '30-04-2023:16:28:00'
         },
-    ]
+    ].reverse())
+
+    const setMessageHandler = (event) => {
+        setNewMessage(event.target.value);
+    }
+
+    const submit = (event) => {
+        if (event.key === "Enter") {
+            addMessage();
+        }
+    }
+
+    const addMessage = () => {
+        if (newMessage.length === 0) {
+            return
+        }
+
+        const messageToAdd = {
+            user: context.user.uid,
+            message: newMessage,
+            date: moment.utc().format('DD-MM-YYYY:hh:mm')
+        }
+
+        const messagesList = [...messages]
+
+        messagesList.reverse().push(messageToAdd)
+        setMessages(messagesList.reverse())
+        setNewMessage("")
+    }
 
     const user_image = (data) => {
         if (data.profile_image === "default") {
@@ -62,8 +91,9 @@ export default function ChatScreen() {
     const chatInput = () => {
         return (
             <div className={"chatInputContainer"}>
-                <input type={"text"} className={"chatInput"}/>
-                <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}/>
+                <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"} onChange={setMessageHandler}/>
+                <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
+                                   onClick={addMessage}/>
             </div>
         )
 
@@ -96,8 +126,8 @@ export default function ChatScreen() {
 
         return (
             <div className={"chatMessageContainer"}>
-                {messages.reverse().map((message) => {
-                    if(message.user === context.user.uid) {
+                {messages.map((message) => {
+                    if (message.user === context.user.uid) {
                         return yourMessages(message)
                     } else {
                         return otherMessages(message)

@@ -97,7 +97,7 @@ function App() {
                     <Route path="/articles/:id" element={<Article/>}/>
                     {/*extra*/}
                     <Route path="/search" element={<SearchResults/>}/>
-                    <Route path="/chat/:id" element={<ChatScreen/>}/>
+                    <Route path="/chats" element={<ChatScreen/>}/>
                 </>
             )
         }
