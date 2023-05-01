@@ -24,6 +24,7 @@ import {RecommendUserModal} from "../../components/RecommendUserModal";
 import PublicationTile from "../../components/PublicationTile";
 import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
+import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 
 function ProfileScreen() {
     const params = useParams();
@@ -226,8 +227,14 @@ function ProfileScreen() {
         }
 
         const create = () => {
-            createChat(context.user, userData.user).then(() => {
-                navigate("/chats");
+            createChat(context.user, userData.user).then((combinedId) => {
+                const db = getFirestore()
+                onSnapshot(doc(db, "usersChats", context.user.uid), (docResponse) => {
+                    navigate("/chats", {state: {actualChat: [combinedId, docResponse.data()[combinedId]
+                ], chats: Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
+                }})
+                })
+
             })
         }
 

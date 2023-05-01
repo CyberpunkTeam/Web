@@ -1,5 +1,14 @@
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {getFirestore, setDoc, doc, getDoc, updateDoc, serverTimestamp, arrayUnion, Timestamp} from "firebase/firestore"
+import {
+    getFirestore,
+    setDoc,
+    doc,
+    getDoc,
+    updateDoc,
+    serverTimestamp,
+    arrayUnion,
+    Timestamp, collection, query, where, getDocs, onSnapshot
+} from "firebase/firestore"
 import * as imageConversion from 'image-conversion';
 import {v4 as uuid} from "uuid"
 
@@ -85,6 +94,7 @@ export const createChat = async (userInfo, otherUserInfo) => {
             [combinedId + ".date"]: serverTimestamp()
         })
     }
+    return combinedId
 }
 
 export const sendMessage = async (chatId, senderId, receivedUid, text) => {

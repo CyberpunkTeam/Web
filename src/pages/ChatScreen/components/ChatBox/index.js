@@ -5,6 +5,7 @@ import {formatDateMessage} from "../../../../utils/dateFormat";
 import {sendMessage} from "../../../../services/firebaseStorage";
 import AppContext from "../../../../utils/AppContext";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+import {useNavigate} from "react-router-dom";
 
 const Message = ({message, context}) => {
     const ref = useRef()
@@ -25,6 +26,7 @@ const Message = ({message, context}) => {
 }
 
 export default function ChatBox(params) {
+    const navigate = useNavigate();
     const db = getFirestore()
     let context = useContext(AppContext);
     const {actualChat} = params
@@ -36,7 +38,6 @@ export default function ChatBox(params) {
         const getChat = () => {
             const unsub = onSnapshot(doc(db, "chats", actualChat[0]), (doc) => {
                 setMessages(doc.data().messages)
-
             });
             return () => {
                 unsub()
@@ -87,8 +88,12 @@ export default function ChatBox(params) {
             return
         }
 
+        const goToProfile = () => {
+            navigate("/user/" + actualChat[1].userInfo.uid)
+        }
+
         return (
-            <div className={"chatHeader"}>
+            <div className={"chatHeader"} onClick={goToProfile}>
                 {user_image(actualChat[1].userInfo)}
                 <div className={"chatUserNameHeader"}>
                     {actualChat[1].userInfo.displayName}

@@ -3,12 +3,13 @@ import React, {useContext, useEffect, useState} from "react";
 import AppContext from "../../../../utils/AppContext";
 import {Message2, User} from "iconsax-react";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+import {formatDateMessage} from "../../../../utils/dateFormat";
 
 export default function ChatsSideBar(params) {
     const db = getFirestore()
     let context = useContext(AppContext);
-    const [chats, setChats] = useState(undefined)
-    const [loading, setLoading] = useState(true)
+    const [chats, setChats] = useState(params.chatsLoad)
+    const [loading, setLoading] = useState(params.chatsLoad === undefined)
     const {actualChat, setActualChat} = params
 
     useEffect(() => {
@@ -40,7 +41,7 @@ export default function ChatsSideBar(params) {
     }
 
     const chatsView = () => {
-        if (chats === undefined || chats.length === 0) {
+        if (chats === undefined || chats === null || chats.length === 0) {
             return (
                 <div className={"chatNoListMessage"}>
                     {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
@@ -66,13 +67,15 @@ export default function ChatsSideBar(params) {
                         <div className={"chatsLisName"}>
                             {data.userInfo.displayName}
                             <div className={"chatsListMessage"}>
-                                {data.lastMessage !== undefined ? data.lastMessage.message : ""}
+                                {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : ""}
                             </div>
                         </div>
-
+                        <div className={"messageListDate"}>
+                            {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                        </div>
                     </div>
-
-                </div>)
+                </div>
+            )
         }
 
         return (
