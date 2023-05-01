@@ -6,6 +6,7 @@ import {createUser, getUser} from "../../services/userService";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {createToken} from "../../services/authenticationService";
+import {createUserChat} from "../../services/firebaseStorage";
 
 export default function GoogleLoginButton(params) {
     let context = useContext(AppContext);
@@ -48,8 +49,9 @@ export default function GoogleLoginButton(params) {
     const loginGoogle = () => {
         setLoadingGoogle(true)
         signInWithPopup(context.auth, provider)
-            .then((result) => {
+            .then(async (result) => {
                 const user = result.user
+                await createUserChat(user.uid)
                 result.user.getIdToken().then((token) => {
                     let tokenBody = {"auth_google_token": token, "user_id": user.uid}
                     createToken(tokenBody).then((authToken) => {

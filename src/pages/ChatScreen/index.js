@@ -57,7 +57,6 @@ export default function ChatScreen() {
         }
 
         const messagesList = [...messages]
-
         messagesList.reverse().push(messageToAdd)
         setMessages(messagesList.reverse())
         setNewMessage("")
@@ -91,7 +90,9 @@ export default function ChatScreen() {
     const chatInput = () => {
         return (
             <div className={"chatInputContainer"}>
-                <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"} onChange={setMessageHandler}/>
+                <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"}
+                       placeholder={"Type somethings..."}
+                       onChange={setMessageHandler}/>
                 <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
                                    onClick={addMessage}/>
             </div>

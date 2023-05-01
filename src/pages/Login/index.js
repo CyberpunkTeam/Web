@@ -12,6 +12,7 @@ import {createToken} from "../../services/authenticationService";
 import {updatePassword} from "../../services/recoveryService";
 import {isMobile} from "react-device-detect";
 import GoogleLoginButton from "../../components/GoogleLoginButton";
+import {createUserChat} from "../../services/firebaseStorage";
 
 function Login() {
     // eslint-disable-next-line
@@ -129,6 +130,7 @@ function Login() {
         setButtonDisabled(true)
         signInWithEmailAndPassword(context.auth, email, password)
             .then(async (userCredential) => {
+                await createUserChat(userCredential.user.uid)
                 userCredential.user.getIdToken().then((token) => {
                     let body = {"auth_google_token": token, "user_id": userCredential.user.uid}
                     createToken(body).then((authToken) => {

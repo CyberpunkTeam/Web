@@ -1,4 +1,5 @@
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
+import {getFirestore, setDoc, doc, getDoc} from "firebase/firestore"
 import * as imageConversion from 'image-conversion';
 
 export const savePhoto = async (app, file, name) => {
@@ -48,4 +49,12 @@ export const saveArticle = async (app, file, name, user, team) => {
     return getDownloadURL(storageRef).then((r) => {
         return r
     })
+}
+
+export const createUserChat = async (uid) => {
+    const db = getFirestore()
+    const res = await getDoc(doc(db, "usersChats", uid))
+    if(!res.exists()) {
+        await setDoc(doc(db, "usersChats", uid), {})
+    }
 }

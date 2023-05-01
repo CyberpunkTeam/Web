@@ -90,7 +90,7 @@ function Register(params) {
             setButtonDisabled(false);
         }).catch((error) => {
             setLoginError(true);
-            setErrorMessage("se produjo un error inesperado, intente más tarde")
+            setErrorMessage("Something went wrong. Please, try again later")
             console.log(error.code);
             console.log(error.message);
             setButtonDisabled(false);
