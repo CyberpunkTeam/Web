@@ -1,5 +1,5 @@
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {getFirestore, setDoc, doc, getDoc} from "firebase/firestore"
+import {getFirestore, setDoc, doc, getDoc, updateDoc, serverTimestamp} from "firebase/firestore"
 import * as imageConversion from 'image-conversion';
 
 export const savePhoto = async (app, file, name) => {
@@ -54,7 +54,37 @@ export const saveArticle = async (app, file, name, user, team) => {
 export const createUserChat = async (uid) => {
     const db = getFirestore()
     const res = await getDoc(doc(db, "usersChats", uid))
-    if(!res.exists()) {
+    if (!res.exists()) {
         await setDoc(doc(db, "usersChats", uid), {})
+    }
+}
+
+export const createChat = async (userInfo, otherUserInfo) => {
+
+    console.log(userInfo, otherUserInfo)
+
+    const combinedId = userInfo.uid < otherUserInfo.uid ? userInfo.uid + otherUserInfo.uid : otherUserInfo.uid + userInfo.uid
+    const db = getFirestore()
+    const res = await getDoc(doc(db, "chats", combinedId))
+    if (!res.exists()) {
+        await setDoc(doc(db, "chats", combinedId), {messages: []})
+
+        await updateDoc(doc(db, "usersChats", userInfo.uid), {
+            [combinedId + ".userInfo"]: {
+                uid: otherUserInfo.uid,
+                displayName: otherUserInfo.name + " " + otherUserInfo.lastname,
+                photoUrl: otherUserInfo.profile_image
+            },
+            [combinedId + ".date"]: serverTimestamp()
+        })
+
+        await updateDoc(doc(db, "usersChats", otherUserInfo.uid), {
+            [combinedId + ".userInfo"]: {
+                uid: userInfo.uid,
+                displayName: userInfo.name + " " + userInfo.lastname,
+                photoUrl: userInfo.profile_image
+            },
+            [combinedId + ".date"]: serverTimestamp()
+        })
     }
 }

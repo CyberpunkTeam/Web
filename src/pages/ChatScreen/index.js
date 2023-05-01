@@ -2,15 +2,35 @@ import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
-import React, {useContext, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {isMobile} from "react-device-detect";
 import {ArrowCircleRight2, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {formatDateMessage} from "../../utils/dateFormat";
 import moment from "moment/moment";
+import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 
 export default function ChatScreen() {
     let context = useContext(AppContext);
+
+    const [chats, setChats] = useState([])
+
+    useEffect(() => {
+        const getChats = () => {
+            const db = getFirestore()
+            const unsub = onSnapshot(doc(db, "usersChats", context.user.uid), (doc) => {
+                console.log("Current data: ", doc.data());
+                setChats(doc.data())
+            });
+            return () => {
+                unsub()
+            }
+        }
+
+        context.user && getChats()
+
+    }, [context.user.uid])
+
     const [newMessage, setNewMessage] = useState("")
     const [messages, setMessages] = useState([
         {
@@ -91,7 +111,7 @@ export default function ChatScreen() {
         return (
             <div className={"chatInputContainer"}>
                 <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"}
-                       placeholder={"Type somethings..."}
+                       placeholder={"Type something..."}
                        onChange={setMessageHandler}/>
                 <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
                                    onClick={addMessage}/>
@@ -139,11 +159,22 @@ export default function ChatScreen() {
 
     }
 
+    const chatsView = () => {
+        console.log(chats)
+        if (chats === undefined || chats.length === 0) {
+            return (
+                <div>
+                    No messages
+                </div>
+            )
+        }
+    }
+
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className={"chatContainer"}>
                 <div className={isMobile || context.size ? "chatSScrollerReduced" : "chatSScrollerContainer"}>
-                    Chats
+                    {chatsView()}
                 </div>
                 <div className={isMobile || context.size ? "chatDivReduced" : "chatDiv"}>
                     {header()}

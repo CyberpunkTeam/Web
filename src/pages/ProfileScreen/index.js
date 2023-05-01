@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, ArrowForward, User, Notepad2} from "iconsax-react";
+import {AddCircle, Edit, ArrowForward, User, Notepad2, Message} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
@@ -23,6 +23,7 @@ import FollowingTag from "../../components/FollowingTag";
 import {RecommendUserModal} from "../../components/RecommendUserModal";
 import PublicationTile from "../../components/PublicationTile";
 import {getMyArticles} from "../../services/contentService";
+import {createChat} from "../../services/firebaseStorage";
 
 function ProfileScreen() {
     const params = useParams();
@@ -52,7 +53,7 @@ function ProfileScreen() {
         window.location.reload()
     };
 
-    useEffect(() =>  resetUserData, [params.id])
+    useEffect(() => resetUserData, [params.id])
 
     useEffect(() => {
         getProfile(id).then((response) => {
@@ -187,7 +188,7 @@ function ProfileScreen() {
 
         return (
             <button
-                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                className={isMobile ? "followButtonMobile" : context.size ? "follow2ReducedButton" : "follow2Button"}
                 disabled={followButtonStatus}
                 onClick={followUserButton}>
                 {followButtonStatus ?
@@ -208,17 +209,34 @@ function ProfileScreen() {
 
         return (
             <button
-                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
+                className={isMobile ? "followButtonMobile" : "followReducedButton"}
                 disabled={followButtonStatus}
                 onClick={recommendUserButton}>
                 {followButtonStatus ?
                     <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <ArrowForward color="#FAFAFA"
-                                  size={isMobile ? 48 : 24}
-                                  className={isMobile || context.size ? null : "icon"}/>
+                    <ArrowForward color="#FAFAFA" size={isMobile ? 48 : 24}/>
                 }
-                {isMobile || context.size || followButtonStatus ? null : "Recommend"}
             </button>
+        )
+    }
+
+    const chatUser = () => {
+        if (id === context.user.uid || !context.user.following.users.includes(id)) {
+            return
+        }
+
+        const create = () => {
+            createChat(context.user, userData.user).then(() => {
+                navigate("/chats");
+            })
+        }
+
+        return (
+            <div className="cover-buttons" onClick={create}>
+                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
+                    <Message size={isMobile ? 48 : 24} color="#014751"/>
+                </div>
+            </div>
         )
     }
 
@@ -246,6 +264,7 @@ function ProfileScreen() {
                     {editButton()}
                     {followButton()}
                     {recommendUser()}
+                    {chatUser()}
                 </div>
                 {coverImage()}
             </div>
@@ -280,6 +299,7 @@ function ProfileScreen() {
                     {editButton()}
                     {followButton()}
                     {recommendUser()}
+                    {chatUser()}
                 </div>
                 {coverImage()}
             </div>
