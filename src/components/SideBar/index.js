@@ -77,6 +77,10 @@ function SideBar() {
         navigate("/me")
     }
 
+    const chat = () => {
+        navigate("/chats")
+    }
+
     const closeNotification = () => {
         closeAll();
         setWatchNotifications(!watchNotifications);
@@ -273,7 +277,7 @@ function SideBar() {
                                     Notifications
                                 </div>
                             </div>
-                            <div className="navbar-icon">
+                            <div className="navbar-icon" onClick={chat}>
                                 <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
                                 <div className={"navbar-text"}>
                                     Messages

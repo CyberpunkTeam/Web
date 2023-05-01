@@ -30,6 +30,8 @@ import JobsScreen from "./pages/JobsScreen";
 import CreateArticles from "./pages/CreateArticles";
 import Article from "./pages/Article";
 import Home from "./pages/Home";
+import ChatScreen from "./pages/ChatScreen";
+import {createUserChat} from "./services/firebaseStorage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -46,6 +48,12 @@ function App() {
 
     useEffect(() => {
         window.addEventListener("resize", handleResize)
+    })
+
+    useEffect(() => {
+        if (user !== null) {
+            createUserChat(user.uid).then()
+        }
     })
 
     const handleResize = () => {
@@ -96,6 +104,7 @@ function App() {
                     <Route path="/articles/:id" element={<Article/>}/>
                     {/*extra*/}
                     <Route path="/search" element={<SearchResults/>}/>
+                    <Route path="/chats" element={<ChatScreen/>}/>
                 </>
             )
         }
