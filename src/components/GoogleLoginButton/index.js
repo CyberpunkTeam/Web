@@ -42,7 +42,7 @@ export default function GoogleLoginButton(params) {
                 })
             }).catch((error) => {
                 console.log(error.code);
-                console.log(error.message);
+                console.log(error.Message);
             });
     }*/
 

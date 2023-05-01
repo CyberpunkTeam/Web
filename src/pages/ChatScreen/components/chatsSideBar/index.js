@@ -8,6 +8,7 @@ export default function ChatsSideBar(params) {
     const db = getFirestore()
     let context = useContext(AppContext);
     const [chats, setChats] = useState(undefined)
+    const [loading, setLoading] = useState(true)
     const {actualChat, setActualChat} = params
 
     useEffect(() => {
@@ -15,9 +16,7 @@ export default function ChatsSideBar(params) {
             const unsub = onSnapshot(doc(db, "usersChats", context.user.uid), (docResponse) => {
                 const orderChats = Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
                 setChats(orderChats)
-                if (orderChats.length !== 0 && actualChat.length === 0) {
-                    setActualChat(orderChats[0])
-                }
+                setLoading(false)
 
             });
             return () => {
@@ -44,8 +43,9 @@ export default function ChatsSideBar(params) {
         if (chats === undefined || chats.length === 0) {
             return (
                 <div className={"chatNoListMessage"}>
-                    <Message2 size="32" variant={"Bold"} color="#2E9999"/>
-                    Without messages
+                    {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                        <Message2 size="32" variant={"Bold"} color="#2E9999"/>}
+                    {loading ? null : "Without messages"}
                 </div>
             )
         }

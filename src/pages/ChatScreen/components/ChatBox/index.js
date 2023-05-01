@@ -1,10 +1,28 @@
 import {isMobile} from "react-device-detect";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import {ArrowCircleRight2, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
 import {sendMessage} from "../../../../services/firebaseStorage";
 import AppContext from "../../../../utils/AppContext";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+
+const Message = ({message, context}) => {
+    const ref = useRef()
+
+    useEffect(() => {
+        ref.current?.scrollIntoView({behavior: "smooth"})
+    }, [])
+
+    return (
+        <div ref={ref} key={message.id}
+             className={message.senderId === context.user.uid ? "messageContainer" : "messageOtherUserContainer"}>
+            {message.message}
+            <div className={"messageDate"}>
+                {formatDateMessage(message.date)}
+            </div>
+        </div>
+    )
+}
 
 export default function ChatBox(params) {
     const db = getFirestore()
@@ -13,10 +31,12 @@ export default function ChatBox(params) {
     const [newMessage, setNewMessage] = useState("")
     const [messages, setMessages] = useState([])
 
+
     useEffect(() => {
         const getChat = () => {
             const unsub = onSnapshot(doc(db, "chats", actualChat[0]), (doc) => {
-                setMessages(doc.data().messages.reverse())
+                setMessages(doc.data().messages)
+
             });
             return () => {
                 unsub()
@@ -83,10 +103,8 @@ export default function ChatBox(params) {
                 <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"}
                        placeholder={"Type something..."}
                        onChange={setMessageHandler}/>
-                <div className={"chatInputButton"}>
-                    <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
-                                       onClick={addMessage}/>
-                </div>
+                <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
+                                   onClick={addMessage}/>
             </div>
         )
 
@@ -94,37 +112,10 @@ export default function ChatBox(params) {
 
     const chat = () => {
 
-        const yourMessages = (message) => {
-            return (
-                <div key={message.id} className={"messageContainer"}>
-                    {message.message}
-                    <div className={"messageDate"}>
-                        {formatDateMessage(message.date)}
-                    </div>
-                </div>
-            )
-        }
-
-        const otherMessages = (message) => {
-            return (
-                <div key={message.id} className={"messageOtherUserContainer"}>
-                    {message.message}
-                    <div className={"messageDate"}>
-                        {formatDateMessage(message.date)}
-                    </div>
-                </div>
-            )
-        }
-
-
         return (
             <div className={"chatMessageContainer"}>
                 {messages.map((message) => {
-                    if (message.senderId === context.user.uid) {
-                        return yourMessages(message)
-                    } else {
-                        return otherMessages(message)
-                    }
+                    return <Message key={message.id} message={message} context={context}/>
                 })}
             </div>
         )
@@ -132,7 +123,10 @@ export default function ChatBox(params) {
     }
 
     if (actualChat.length === 0) {
-        return
+        return (
+            <div className={isMobile || context.size ? "chatDivReducedEmpty" : "chatDivEmpty"}>
+            </div>
+        )
     }
 
     return (
