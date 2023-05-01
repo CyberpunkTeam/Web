@@ -4,23 +4,35 @@ import SideBar from "../../components/SideBar";
 import AlertMessage from "../../components/AlertMessage";
 import React, {useContext, useEffect, useState} from "react";
 import {isMobile} from "react-device-detect";
-import {ArrowCircleRight2, User} from "iconsax-react";
+import {ArrowCircleRight2, Message2, User} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import {formatDateMessage} from "../../utils/dateFormat";
-import moment from "moment/moment";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+import Loading from "../../components/loading";
+import {sendMessage} from "../../services/firebaseStorage";
 
 export default function ChatScreen() {
     let context = useContext(AppContext);
+    const db = getFirestore()
+    const [chats, setChats] = useState(undefined)
+    const [actualChat, setActualChat] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [newMessage, setNewMessage] = useState("")
+    const [messages, setMessages] = useState([])
 
-    const [chats, setChats] = useState([])
 
     useEffect(() => {
         const getChats = () => {
-            const db = getFirestore()
-            const unsub = onSnapshot(doc(db, "usersChats", context.user.uid), (doc) => {
-                console.log("Current data: ", doc.data());
-                setChats(doc.data())
+            const unsub = onSnapshot(doc(db, "usersChats", context.user.uid), (docResponse) => {
+                const orderChats = Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
+                setChats(orderChats)
+                if (orderChats.length !== 0) {
+                    setActualChat(orderChats[0])
+                    onSnapshot(doc(db, "chats", orderChats[0][0]), (doc2) => {
+                        setMessages(doc2.data().messages.reverse())
+                    });
+                }
+
             });
             return () => {
                 unsub()
@@ -29,31 +41,21 @@ export default function ChatScreen() {
 
         context.user && getChats()
 
-    }, [context.user.uid])
+    }, [context.user])
 
-    const [newMessage, setNewMessage] = useState("")
-    const [messages, setMessages] = useState([
-        {
-            user: context.user.uid,
-            message: "Hola como va?",
-            date: '30-04-2023:12:33:29'
-        },
-        {
-            user: "asd",
-            message: "Todo bien, vos?",
-            date: '30-04-2023:12:35:00'
-        },
-        {
-            user: context.user.uid,
-            message: "Bien",
-            date: '30-04-2023:13:01:00'
-        },
-        {
-            user: "asd",
-            message: "Bueno, que queres?",
-            date: '30-04-2023:16:28:00'
-        },
-    ].reverse())
+    useEffect(() => {
+        const getChat = () => {
+            const unsub = onSnapshot(doc(db, "chats", actualChat[0]), (doc) => {
+                setMessages(doc.data().messages.reverse())
+
+            });
+            return () => {
+                unsub()
+            }
+        }
+        actualChat.length !== 0 && getChat()
+
+    }, [actualChat])
 
     const setMessageHandler = (event) => {
         setNewMessage(event.target.value);
@@ -69,26 +71,23 @@ export default function ChatScreen() {
         if (newMessage.length === 0) {
             return
         }
-
-        const messageToAdd = {
-            user: context.user.uid,
-            message: newMessage,
-            date: moment.utc().format('DD-MM-YYYY:hh:mm')
-        }
-
-        const messagesList = [...messages]
-        messagesList.reverse().push(messageToAdd)
-        setMessages(messagesList.reverse())
+        const lastMessage = newMessage
+        setLoading(true)
         setNewMessage("")
+        sendMessage(actualChat[0], context.user.uid, actualChat[1].userInfo.uid, newMessage).then((id) => {
+            setLoading(false)
+        }).catch((e) => {
+            console.log(e)
+            setLoading(false)
+            setNewMessage(lastMessage)
+        })
     }
 
     const user_image = (data) => {
         if (data.profile_image === "default") {
-            return (
-                <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
-                    <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
-                </div>
-            )
+            return (<div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+            </div>)
         } else {
             return <img src={data.profile_image} alt=''
                         className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
@@ -96,15 +95,18 @@ export default function ChatScreen() {
     }
 
     const header = () => {
+        if (actualChat.length === 0) {
+            return
+        }
+
         return (
             <div className={"chatHeader"}>
-                {user_image({profile_image: "default"})}
+                {user_image(actualChat[1].userInfo)}
                 <div className={"chatUserNameHeader"}>
-                    Header
+                    {actualChat[1].userInfo.displayName}
                 </div>
             </div>
         )
-
     }
 
     const chatInput = () => {
@@ -113,8 +115,11 @@ export default function ChatScreen() {
                 <input type={"text"} onKeyUp={submit} value={newMessage} className={"chatInput"}
                        placeholder={"Type something..."}
                        onChange={setMessageHandler}/>
-                <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
-                                   onClick={addMessage}/>
+                <div className={"chatInputButton"}>
+                    {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                        <ArrowCircleRight2 size={32} variant="Bold" color={'#2E9999'} className={"sendMessage"}
+                                           onClick={addMessage}/>}
+                </div>
             </div>
         )
 
@@ -124,7 +129,7 @@ export default function ChatScreen() {
 
         const yourMessages = (message) => {
             return (
-                <div className={"messageContainer"}>
+                <div key={message.id} className={"messageContainer"}>
                     {message.message}
                     <div className={"messageDate"}>
                         {formatDateMessage(message.date)}
@@ -135,7 +140,7 @@ export default function ChatScreen() {
 
         const otherMessages = (message) => {
             return (
-                <div className={"messageOtherUserContainer"}>
+                <div key={message.id}  className={"messageOtherUserContainer"}>
                     {message.message}
                     <div className={"messageDate"}>
                         {formatDateMessage(message.date)}
@@ -145,46 +150,79 @@ export default function ChatScreen() {
         }
 
 
-        return (
-            <div className={"chatMessageContainer"}>
-                {messages.map((message) => {
-                    if (message.user === context.user.uid) {
-                        return yourMessages(message)
-                    } else {
-                        return otherMessages(message)
-                    }
-                })}
-            </div>
-        )
+        return (<div className={"chatMessageContainer"}>
+            {messages.map((message) => {
+                if (message.senderId === context.user.uid) {
+                    return yourMessages(message)
+                } else {
+                    return otherMessages(message)
+                }
+            })}
+        </div>)
 
     }
 
     const chatsView = () => {
-        console.log(chats)
         if (chats === undefined || chats.length === 0) {
             return (
-                <div>
-                    No messages
+                <div className={"chatNoListMessage"}>
+                    <Message2 size="32" variant={"Bold"} color="#2E9999"/>
+                    Without messages
                 </div>
             )
         }
+
+        const chat = (chatInfo) => {
+            const id = chatInfo[0]
+            const data = chatInfo[1]
+            const changeChat = () => {
+                setActualChat(chatInfo)
+            }
+
+            return (
+                <div key={id}
+                     className={id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
+                     onClick={changeChat}>
+                    <div className={"chatsListObject"}>
+                        {user_image(data.userInfo)}
+                        <div className={"chatsLisName"}>
+                            {data.userInfo.displayName}
+                            <div className={"chatsListMessage"}>
+                                {data.lastMessage !== undefined ? data.lastMessage.message : ""}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>)
+        }
+
+        return (
+            <div className={"chatsListDiv"}>
+                {chats.map((chatData) => {
+                    return chat(chatData)
+                })}
+            </div>
+        )
     }
 
-    return (
-        <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
-            <div className={"chatContainer"}>
-                <div className={isMobile || context.size ? "chatSScrollerReduced" : "chatSScrollerContainer"}>
-                    {chatsView()}
-                </div>
-                <div className={isMobile || context.size ? "chatDivReduced" : "chatDiv"}>
-                    {header()}
-                    {chat()}
-                    {chatInput()}
-                </div>
+    if (chats === undefined && actualChat.length === 0) {
+        return <Loading/>
+    }
+
+    return (<div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
+        <div className={"chatContainer"}>
+            <div className={isMobile || context.size ? "chatSScrollerReduced" : "chatSScrollerContainer"}>
+                {chatsView()}
             </div>
-            <SearchBar/>
-            <SideBar/>
-            <AlertMessage/>
+            <div className={isMobile || context.size ? "chatDivReduced" : "chatDiv"}>
+                {header()}
+                {chat()}
+                {chatInput()}
+            </div>
         </div>
-    )
+        <SearchBar/>
+        <SideBar/>
+        <AlertMessage/>
+    </div>)
 }

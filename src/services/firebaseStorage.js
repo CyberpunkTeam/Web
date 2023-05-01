@@ -1,6 +1,7 @@
 import {getDownloadURL, getStorage, ref, uploadBytes} from "firebase/storage";
-import {getFirestore, setDoc, doc, getDoc, updateDoc, serverTimestamp} from "firebase/firestore"
+import {getFirestore, setDoc, doc, getDoc, updateDoc, serverTimestamp, arrayUnion, Timestamp} from "firebase/firestore"
 import * as imageConversion from 'image-conversion';
+import {v4 as uuid} from "uuid"
 
 export const savePhoto = async (app, file, name) => {
     if (!file) {
@@ -60,9 +61,6 @@ export const createUserChat = async (uid) => {
 }
 
 export const createChat = async (userInfo, otherUserInfo) => {
-
-    console.log(userInfo, otherUserInfo)
-
     const combinedId = userInfo.uid < otherUserInfo.uid ? userInfo.uid + otherUserInfo.uid : otherUserInfo.uid + userInfo.uid
     const db = getFirestore()
     const res = await getDoc(doc(db, "chats", combinedId))
@@ -73,7 +71,7 @@ export const createChat = async (userInfo, otherUserInfo) => {
             [combinedId + ".userInfo"]: {
                 uid: otherUserInfo.uid,
                 displayName: otherUserInfo.name + " " + otherUserInfo.lastname,
-                photoUrl: otherUserInfo.profile_image
+                profile_image: otherUserInfo.profile_image
             },
             [combinedId + ".date"]: serverTimestamp()
         })
@@ -82,9 +80,39 @@ export const createChat = async (userInfo, otherUserInfo) => {
             [combinedId + ".userInfo"]: {
                 uid: userInfo.uid,
                 displayName: userInfo.name + " " + userInfo.lastname,
-                photoUrl: userInfo.profile_image
+                profile_image: userInfo.profile_image
             },
             [combinedId + ".date"]: serverTimestamp()
         })
     }
+}
+
+export const sendMessage = async (chatId, senderId, receivedUid, text) => {
+    const db = getFirestore()
+    const combinedId = senderId < receivedUid ? senderId + receivedUid : receivedUid + senderId
+    const id = uuid();
+    await updateDoc(doc(db, "chats", chatId), {
+        messages: arrayUnion({
+            id: id,
+            message: text,
+            senderId: senderId,
+            date: Timestamp.now(),
+        })
+    })
+
+    await updateDoc(doc(db, "usersChats", senderId), {
+        [combinedId + ".lastMessage"]: {
+            message: text,
+        },
+        [combinedId + ".date"]: serverTimestamp()
+    })
+
+    await updateDoc(doc(db, "usersChats", receivedUid), {
+        [combinedId + ".lastMessage"]: {
+            message: text,
+        },
+        [combinedId + ".date"]: serverTimestamp()
+    })
+
+    return id
 }

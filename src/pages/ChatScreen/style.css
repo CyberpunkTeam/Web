@@ -9,11 +9,12 @@
     border-radius: 16px;
     margin-right: 16px;
     margin-top: 70px;
-    background: red;
+    background: #F1F1F1;
     overflow-x: hidden;
     overflow-y: auto;
     height: calc(100vh - 100px);
     display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .chatSScrollerReduced{
@@ -31,6 +32,7 @@
     overflow-y: auto;
     margin-top: 70px;
     height: calc(100vh - 100px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .chatDivReduced {
@@ -44,6 +46,7 @@
     overflow-y: auto;
     margin-top: 70px;
     height: calc(100vh - 172px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .chatHeader {
@@ -53,6 +56,7 @@
     width: 100%;
     background: #E9E9E9;
     height: 70px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .chatUserNameHeader {
@@ -71,6 +75,13 @@
     align-items: center;
     width: calc(100% - 40px);
     min-height: 70px;
+}
+
+.chatInputButton {
+    width: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .chatInput {
@@ -105,7 +116,7 @@
     flex-direction: column;
     align-self: flex-end;
     min-height: 32px;
-    padding: 8px;
+    padding: 8px 16px;
     border-radius: 16px;
     min-width: 320px;
     max-width: 70px;
@@ -118,7 +129,7 @@
     flex-direction: column;
     align-self: flex-start;
     min-height: 32px;
-    padding: 8px;
+    padding: 8px 16px;
     border-radius: 16px;
     min-width: 320px;
     margin-bottom: 8px;
@@ -135,4 +146,64 @@
 
 .sendMessage {
     cursor: pointer;
+}
+
+.chatsListDiv {
+    width: 100%;
+    margin: 8px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.chatsListObjectContainer {
+    border-bottom: 1px solid #E3E3E3;
+    width: calc(100% - 32px);
+    padding: 8px;
+    margin: 8px;
+    border-radius: 16px;
+}
+
+.chatsListObjectContainerSelected {
+    border-bottom: 1px solid #E3E3E3;
+    background: rgba(15, 40, 48, 0.2);
+    width: calc(100% - 32px);
+    padding: 8px;
+    margin: 8px;
+    border-radius: 16px;
+}
+
+.chatsListObjectContainer:last-child {
+    border-bottom: none;
+}
+
+.chatsListObjectContainer:hover {
+   background: rgba(15, 40, 48, 0.2);
+    cursor: pointer;
+}
+
+.chatsListObject {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chatsLisName {
+    display: flex;
+    flex-direction: column;
+   padding-left: 8px;
+}
+
+.chatsListMessage {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.chatNoListMessage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #2E9999;
 }
