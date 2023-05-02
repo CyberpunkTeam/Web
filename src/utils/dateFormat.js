@@ -11,6 +11,10 @@ export const formatDatePublish = (date) => {
 }
 
 export const formatDateMessage = (date) => {
+    if (date === null || date.seconds === null || date.seconds === undefined) {
+        return "Now"
+    }
+
     const today = moment.utc().valueOf()
     if (date.seconds <= today) {
         return moment.unix(date.seconds).format("hh:mm A");
