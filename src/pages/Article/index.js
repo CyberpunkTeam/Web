@@ -37,10 +37,21 @@ export default function Article() {
 
     const cover = () => {
 
+        const coverImage = () => {
+            if (article.cover_image === null || article.cover_image === "default") {
+                return (
+                    <div className={isMobile ? "cover-user-container-mobile" : "cover-user-container"}/>
+                )
+            }
+            return <img src={article.cover_image} className={isMobile ? "image-container-mobile" : "image-container"}
+                        alt=""/>
+        }
+
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
-                    <div className="article-title-container-mobile">
+                    <div
+                        className={article.cover_image === null || article.cover_image === "default" ? "article-title-container-mobile" : "article-title-container-mobile-WithCover"}>
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
@@ -48,13 +59,15 @@ export default function Article() {
                             {formatDatePublish(article.created_date)}
                         </div>
                     </div>
+                    {coverImage()}
                 </div>
             )
         }
 
         return (
             <div className="cover-container">
-                <div className="article-title-container">
+                <div
+                    className={article.cover_image === null || article.cover_image === "default" ? "article-title-container" : "article-title-container-withCover"}>
                     <div className="team-name">
                         {article.title}
                     </div>
@@ -62,6 +75,7 @@ export default function Article() {
                         {formatDatePublish(article.created_date)}
                     </div>
                 </div>
+                {coverImage()}
             </div>
         )
     }
@@ -152,7 +166,8 @@ export default function Article() {
 
 
         return (
-            <div key={data.uid} className={context.size && article.tid !== null ? "author-info-container-reduced" : "author-info-container"}>
+            <div key={data.uid}
+                 className={context.size && article.tid !== null ? "author-info-container-reduced" : "author-info-container"}>
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>

@@ -17,6 +17,20 @@
     justify-content: flex-start;
 }
 
+.article-title-container-mobile-WithCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 32px;
+    background-image: linear-gradient(122.17deg, rgba(141, 34, 68, 0.2) 0%, rgba(1, 71, 81, 0.5) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
 .article-title-container {
     position: absolute;
     width: 100%;
@@ -25,6 +39,20 @@
     top: 0;
     border-radius: 16px;
     background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.article-title-container-withCover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 16px;
+    background-image: linear-gradient(122.17deg, rgba(141, 34, 68, 0.2) 0%, rgba(1, 71, 81, 0.5) 100%);
     display: flex;
     flex-direction: column;
     align-items: flex-start;

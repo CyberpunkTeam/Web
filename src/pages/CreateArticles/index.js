@@ -152,7 +152,7 @@ export default function CreateArticles() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <PublishArticleModal title={title} closeModal={closeModal} contentState={contentState} teams={allTeams}/>
+                <PublishArticleModal title={title} closeModal={closeModal} contentState={contentState} teams={allTeams} coverImg={coverImg}/>
             </Modal>
         )
     }
