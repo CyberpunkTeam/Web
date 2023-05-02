@@ -1379,6 +1379,26 @@
     cursor: pointer;
     align-self: flex-end;
     position: absolute;
+    right: 70px;
+    bottom: 16px;
+}
+
+.follow2Button {
+    min-width: 200px;
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #FAFAFA;
+    height: 60px;
+    display: flex;
+    padding: 0 16px;
+    font-size: 16px;
+    align-items: center;
+    color: #FAFAFA;
+    justify-content: center;
+    border-radius: 16px;
+    width: available;
+    cursor: pointer;
+    align-self: flex-end;
+    position: absolute;
     right: 16px;
     bottom: 16px;
 }
@@ -1404,6 +1424,22 @@
 
 
 .followReducedButton {
+    background: rgba(132, 132, 132, 0.5);
+    border: 1px solid #FAFAFA;
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    height: 44px;
+    width: 44px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    right: 70px;
+    bottom: 16px;
+}
+
+.follow2ReducedButton {
     background: rgba(132, 132, 132, 0.5);
     border: 1px solid #FAFAFA;
     display: flex;

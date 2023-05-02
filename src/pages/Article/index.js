@@ -7,9 +7,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
 import Loading from "../../components/loading";
-import {getArticle} from "../../services/contentService";
+import {getArticle, likeArticle, unlikeArticle} from "../../services/contentService";
 import HTMLRenderer from 'react-html-renderer'
-import {People, User} from "iconsax-react";
+import {EmojiHappy, People, Share, User} from "iconsax-react";
 import {formatDatePublish} from "../../utils/dateFormat";
 
 
@@ -31,37 +31,84 @@ export default function Article() {
         })
     }, [params.id]);
 
+    const like = async () => {
+        if (article.likes.includes(context.user.uid)) {
+            await unlikeArticle(article.cid, context.user.uid)
+
+        } else {
+            await likeArticle(article.cid, context.user.uid)
+        }
+
+        getArticle(params.id).then((ArticleResponse) => {
+            setArticle(ArticleResponse)
+        })
+    }
+
     if (article === undefined || text === undefined) {
         return <Loading/>
     }
 
     const cover = () => {
 
+        const coverImage = () => {
+            if (article.cover_image === null || article.cover_image === "default") {
+                return (
+                    <div className={isMobile ? "cover-user-container-mobile" : "cover-user-container"}/>
+                )
+            }
+            return <img src={article.cover_image} className={isMobile ? "image-container-mobile" : "image-container"}
+                        alt=""/>
+        }
+
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
-                    <div className="article-title-container-mobile">
+                    <div
+                        className={article.cover_image === null || article.cover_image === "default" ? "article-title-container-mobile" : "article-title-container-mobile-WithCover"}>
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
                         <div className="publish-date">
+                            <div className={"publishButtonsLike"} onClick={like}>
+                                <EmojiHappy size="24" color="#014751"
+                                            variant={article.likes.includes(context.user.uid) ? "Bold" : null}
+                                            className={"icon"}/>
+                                {article.likes.length}
+                            </div>
+                            <div className={"publishButtonsShare"}>
+                                <Share size="24" color="#014751" className={"icon"}/>
+                                Share
+                            </div>
                             {formatDatePublish(article.created_date)}
                         </div>
                     </div>
+                    {coverImage()}
                 </div>
             )
         }
 
         return (
             <div className="cover-container">
-                <div className="article-title-container">
+                <div
+                    className={article.cover_image === null || article.cover_image === "default" ? "article-title-container" : "article-title-container-withCover"}>
                     <div className="team-name">
                         {article.title}
                     </div>
                     <div className="publish-date">
+                        <div className={"publishButtonsLike"} onClick={like}>
+                            <EmojiHappy size="24" color="#FAFAFA"
+                                        variant={article.likes.includes(context.user.uid) ? "Bold" : ""}
+                                        className={"icon"}/>
+                            {article.likes.length}
+                        </div>
+                        <div className={"publishButtonsShare"}>
+                            <Share size="24" color="#FAFAFA" className={"icon"}/>
+                            Share
+                        </div>
                         {formatDatePublish(article.created_date)}
                     </div>
                 </div>
+                {coverImage()}
             </div>
         )
     }
@@ -152,7 +199,8 @@ export default function Article() {
 
 
         return (
-            <div key={data.uid} className={context.size && article.tid !== null ? "author-info-container-reduced" : "author-info-container"}>
+            <div key={data.uid}
+                 className={context.size && article.tid !== null ? "author-info-container-reduced" : "author-info-container"}>
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>

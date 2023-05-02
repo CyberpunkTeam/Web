@@ -1,14 +1,29 @@
 import './style.css'
 import {isMobile} from "react-device-detect";
 import {EmojiHappy, Share, User} from "iconsax-react";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {formatDatePublish} from "../../utils/dateFormat";
+import {likeArticle, unlikeArticle} from "../../services/contentService";
 
 export default function PublicationTile(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
+    const [liked, setLike] = useState(params.publication.likes.includes(context.user.uid))
+    const [likeLength, setLikeLength] = useState(params.publication.likes.length)
+
+    const like = async () => {
+        if (liked) {
+            await unlikeArticle(params.publication.cid, context.user.uid)
+            setLike(false)
+            setLikeLength(likeLength - 1)
+        } else {
+            await likeArticle(params.publication.cid, context.user.uid)
+            setLike(true)
+            setLikeLength(likeLength + 1)
+        }
+    }
 
     const goTo = () => {
         navigate("/articles/" + params.publication.cid)
@@ -67,20 +82,31 @@ export default function PublicationTile(params) {
         )
     }
 
+    const cover = () => {
+        if (params.publication.cover_image === null || params.publication.cover_image === "default") {
+            return (
+                <div className={"publicationTileInformationCover"} onClick={goTo}/>
+            )
+        }
+        return (
+            <div className={"publicationTileInformationCoverWithImage"} onClick={goTo}>
+                <img src={params.publication.cover_image} alt="" className={"publicationTileImage"}/>
+            </div>
+        )
+    }
+
     return (
         <div className={"publicationTileContainer"}>
             {author(params.publication.author)}
-            <div className={"publicationTileInformation"} onClick={goTo}>
-                <div className={"publicationTileInformationCover"}>
-
-                </div>
-                <div className={"publicationTileInformationTitle"}>
+            <div className={"publicationTileInformation"}>
+                {cover()}
+                <div className={"publicationTileInformationTitle"} onClick={goTo}>
                     {params.publication.title}
                 </div>
                 <div className={"publishButtons"}>
-                    <div className={"publishButtonsLike"}>
-                        <EmojiHappy size="24" color="#014751" className={"icon"}/>
-                        2k
+                    <div className={"publishButtonsLike"} onClick={like}>
+                        <EmojiHappy size="24" color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
+                        {likeLength}
                     </div>
                     <div className={"publishButtonsShare"}>
                         <Share size="24" color="#014751" className={"icon"}/>

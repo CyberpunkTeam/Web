@@ -4,7 +4,7 @@ import {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import {stateToHTML} from "draft-js-export-html";
-import {saveArticle} from "../../services/firebaseStorage";
+import {saveArticle, savePhoto} from "../../services/firebaseStorage";
 import {createArticle} from "../../services/contentService";
 import {useNavigate} from "react-router-dom";
 
@@ -22,19 +22,29 @@ export function PublishArticleModal(params) {
 
     const abandon = async () => {
         setButtonDisabled(true)
+
         const fileData = stateToHTML(params.contentState);
         const blob = new Blob([fileData], {type: "text/html"});
         const file = await saveArticle(context.app, blob, `${params.title}.html`, context.user.uid, reason)
 
-        const body = {
+        let body = {
             "title": params.title,
             "author_uid": context.user.uid,
-            "href": file,
+            "href": file
         }
+
+        if (params.coverImg !== undefined) {
+            body.cover_image = await savePhoto(context.app, params.coverImg, `/articles/${params.title}-cover`)
+        } else {
+            body.cover_image = "default"
+        }
+
+        console.log(body)
 
         if (reason !== user) {
             body.tid = reason
         }
+
         createArticle(body).then((r) => {
             if (r === undefined) {
                 context.setErrorMessage(errorMessage);

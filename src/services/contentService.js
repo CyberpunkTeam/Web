@@ -1,4 +1,4 @@
-import {get, post} from "./baseService";
+import {get, post, erase} from "./baseService";
 
 const endpoint = "contents/"
 
@@ -16,4 +16,12 @@ export const getMyArticles = (uid) => {
 
 export const getArticles = () => {
     return get(endpoint)
+}
+
+export const likeArticle = (cid, uid) => {
+    return post(endpoint + `${cid}/likes/${uid}`)
+}
+
+export const unlikeArticle = (cid, uid) => {
+    return erase(endpoint + `${cid}/likes/${uid}`)
 }
