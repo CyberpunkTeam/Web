@@ -7,7 +7,7 @@ import {
     updateDoc,
     serverTimestamp,
     arrayUnion,
-    Timestamp, collection, query, where, getDocs, onSnapshot
+    Timestamp
 } from "firebase/firestore"
 import * as imageConversion from 'image-conversion';
 import {v4 as uuid} from "uuid"
