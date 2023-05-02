@@ -7,9 +7,9 @@ import React, {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
 import Loading from "../../components/loading";
-import {getArticle} from "../../services/contentService";
+import {getArticle, likeArticle, unlikeArticle} from "../../services/contentService";
 import HTMLRenderer from 'react-html-renderer'
-import {People, User} from "iconsax-react";
+import {EmojiHappy, People, Share, User} from "iconsax-react";
 import {formatDatePublish} from "../../utils/dateFormat";
 
 
@@ -30,6 +30,19 @@ export default function Article() {
             setArticle(ArticleResponse)
         })
     }, [params.id]);
+
+    const like = async () => {
+        if (article.likes.includes(context.user.uid)) {
+            await unlikeArticle(article.cid, context.user.uid)
+
+        } else {
+            await likeArticle(article.cid, context.user.uid)
+        }
+
+        getArticle(params.id).then((ArticleResponse) => {
+            setArticle(ArticleResponse)
+        })
+    }
 
     if (article === undefined || text === undefined) {
         return <Loading/>
@@ -56,6 +69,16 @@ export default function Article() {
                             {article.title}
                         </div>
                         <div className="publish-date">
+                            <div className={"publishButtonsLike"} onClick={like}>
+                                <EmojiHappy size="24" color="#014751"
+                                            variant={article.likes.includes(context.user.uid) ? "Bold" : null}
+                                            className={"icon"}/>
+                                {article.likes.length}
+                            </div>
+                            <div className={"publishButtonsShare"}>
+                                <Share size="24" color="#014751" className={"icon"}/>
+                                Share
+                            </div>
                             {formatDatePublish(article.created_date)}
                         </div>
                     </div>
@@ -72,6 +95,16 @@ export default function Article() {
                         {article.title}
                     </div>
                     <div className="publish-date">
+                        <div className={"publishButtonsLike"} onClick={like}>
+                            <EmojiHappy size="24" color="#FAFAFA"
+                                        variant={article.likes.includes(context.user.uid) ? "Bold" : ""}
+                                        className={"icon"}/>
+                            {article.likes.length}
+                        </div>
+                        <div className={"publishButtonsShare"}>
+                            <Share size="24" color="#FAFAFA" className={"icon"}/>
+                            Share
+                        </div>
                         {formatDatePublish(article.created_date)}
                     </div>
                 </div>
