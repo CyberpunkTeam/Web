@@ -67,13 +67,24 @@ export default function PublicationTile(params) {
         )
     }
 
+    const cover = () => {
+        if (params.publication.cover_image === null || params.publication.cover_image === "default") {
+            return (
+                <div className={"publicationTileInformationCover"}/>
+            )
+        }
+        return (
+            <div className={"publicationTileInformationCoverWithImage"}>
+                <img src={params.publication.cover_image}  alt="" className={"publicationTileImage"}/>
+            </div>
+        )
+    }
+
     return (
         <div className={"publicationTileContainer"}>
             {author(params.publication.author)}
             <div className={"publicationTileInformation"} onClick={goTo}>
-                <div className={"publicationTileInformationCover"}>
-
-                </div>
+                {cover()}
                 <div className={"publicationTileInformationTitle"}>
                     {params.publication.title}
                 </div>
