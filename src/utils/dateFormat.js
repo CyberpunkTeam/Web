@@ -15,8 +15,8 @@ export const formatDateMessage = (date) => {
         return "Now"
     }
 
-    const today = moment.utc().valueOf()
-    if (date.seconds <= today) {
+    const today = moment().subtract(1, 'days').unix()
+    if (date.seconds > today) {
         return moment.unix(date.seconds).format("hh:mm A");
     } else {
         return moment.unix(date.seconds).format("DD MMMM YYYY");

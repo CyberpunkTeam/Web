@@ -15,11 +15,12 @@ const Message = ({message, context}) => {
     }, [])
 
     return (
-        <div ref={ref} key={message.id}
-             className={message.senderId === context.user.uid ? "messageContainer" : "messageOtherUserContainer"}>
-            {message.message}
-            <div className={"messageDate"}>
-                {formatDateMessage(message.date)}
+        <div ref={ref} key={message.id} className={"messagesChatContainer"}>
+            <div className={message.senderId === context.user.uid ? "messageContainer" : "messageOtherUserContainer"}>
+                {message.message}
+                <div className={"messageDate"}>
+                    {formatDateMessage(message.date)}
+                </div>
             </div>
         </div>
     )
