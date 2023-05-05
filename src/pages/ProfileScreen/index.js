@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, ArrowForward, User, Notepad2, Message} from "iconsax-react";
+import {AddCircle, Edit, User, Notepad2, Message, Share} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
@@ -24,7 +24,6 @@ import {RecommendUserModal} from "../../components/RecommendUserModal";
 import PublicationTile from "../../components/PublicationTile";
 import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
-import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 
 function ProfileScreen() {
     const params = useParams();
@@ -209,15 +208,11 @@ function ProfileScreen() {
         }
 
         return (
-            <button
-                className={isMobile ? "followButtonMobile" : "followReducedButton"}
-                disabled={followButtonStatus}
-                onClick={recommendUserButton}>
-                {followButtonStatus ?
-                    <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <ArrowForward color="#FAFAFA" size={isMobile ? 48 : 24}/>
-                }
-            </button>
+            <div className="cover-recommend-buttons" onClick={recommendUserButton}>
+                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
+                    <Share size={isMobile ? 48 : 24} color="#014751"/>
+                </div>
+            </div>
         )
     }
 
@@ -228,13 +223,12 @@ function ProfileScreen() {
 
         const create = () => {
             createChat(context.user, userData.user).then((combinedId) => {
-                const db = getFirestore()
-                onSnapshot(doc(db, "usersChats", context.user.uid), (docResponse) => {
-                    navigate("/chats", {state: {actualChat: [combinedId, docResponse.data()[combinedId]
-                ], chats: Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
-                }})
-                })
+                context.chats.forEach((chat) => {
+                    if (chat[0] === combinedId) {
+                        navigate("/chats", {state: {actualChat: chat}})
+                    }
 
+                })
             })
         }
 

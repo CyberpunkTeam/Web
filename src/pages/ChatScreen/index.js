@@ -15,8 +15,7 @@ export default function ChatScreen() {
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className={"chatContainer"}>
-                <ChatsSideBar setActualChat={setActualChat} actualChat={actualChat}
-                              chatsLoad={state === null ? undefined : state.chats}/>
+                <ChatsSideBar setActualChat={setActualChat} actualChat={actualChat}/>
                 <ChatBox actualChat={actualChat}/>
             </div>
             <SearchBar/>

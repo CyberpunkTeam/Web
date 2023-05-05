@@ -32,6 +32,7 @@ import Article from "./pages/Article";
 import Home from "./pages/Home";
 import ChatScreen from "./pages/ChatScreen";
 import {createUserChat} from "./services/firebaseStorage";
+import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -43,8 +44,26 @@ function App() {
 
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
     const [search, setSearch] = useState(undefined);
+    const [chats, setChats] = useState(undefined)
     const [size, setSize] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState(undefined);
+    const db = getFirestore()
+
+    useEffect(() => {
+        const getChats = () => {
+            const unsub = onSnapshot(doc(db, "usersChats", user.uid), (docResponse) => {
+                const orderChats = Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
+                setChats(orderChats)
+
+            });
+            return () => {
+                unsub()
+            }
+        }
+
+        user && getChats()
+
+    }, [user])
 
     useEffect(() => {
         window.addEventListener("resize", handleResize)
@@ -68,6 +87,7 @@ function App() {
         user,
         setUser,
         search,
+        chats,
         errorMessage,
         setErrorMessage,
         setSearch,
