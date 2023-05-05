@@ -2,7 +2,7 @@ import './style.css';
 import SideBar from "../../components/SideBar";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
 import {
@@ -20,7 +20,8 @@ import {
     TickCircle,
     Trash,
     Document,
-    User, ArrowForward
+    User,
+    Share
 } from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -498,15 +499,11 @@ export default function ProjectScreen() {
             }
 
             return (
-                <button
-                    className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
-                    onClick={recommendProjectButton}>
-                    <ArrowForward color="#FAFAFA"
-                                  size={isMobile ? 48 : 24}
-                                  className={isMobile || context.size ? null : "icon"}/>
-
-                    {isMobile || context.size ? null : "Recommend"}
-                </button>
+                <div className="cover-buttons" onClick={recommendProjectButton}>
+                    <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
+                        <Share size={isMobile ? 48 : 24} color="#014751"/>
+                    </div>
+                </div>
             )
         }
 

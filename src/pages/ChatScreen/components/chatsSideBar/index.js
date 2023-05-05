@@ -1,39 +1,21 @@
 import {isMobile} from "react-device-detect";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext} from "react";
 import AppContext from "../../../../utils/AppContext";
-import {Message2, User} from "iconsax-react";
-import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+import {Message2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
 
 export default function ChatsSideBar(params) {
-    const db = getFirestore()
     let context = useContext(AppContext);
-    const [chats, setChats] = useState(params.chatsLoad)
-    const [loading, setLoading] = useState(params.chatsLoad === undefined)
+    const loading = context.chats === undefined
     const {actualChat, setActualChat} = params
-
-    useEffect(() => {
-        const getChats = () => {
-            const unsub = onSnapshot(doc(db, "usersChats", context.user.uid), (docResponse) => {
-                const orderChats = Object.entries(docResponse.data())?.sort((a, b) => b[1].date - a[1].date)
-                setChats(orderChats)
-                setLoading(false)
-
-            });
-            return () => {
-                unsub()
-            }
-        }
-
-        context.user && getChats()
-
-    }, [context.user])
 
     const user_image = (data) => {
         if (data.profile_image === "default") {
-            return (<div className={isMobile ? "member-photo-mobile" : "member-photo"}>
-                <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
-            </div>)
+            return (
+                <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                    <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                </div>
+            )
         } else {
             return <img src={data.profile_image} alt=''
                         className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
@@ -41,7 +23,7 @@ export default function ChatsSideBar(params) {
     }
 
     const chatsView = () => {
-        if (chats === undefined || chats === null || chats.length === 0) {
+        if (context.chats === undefined || context.chats === null || context.chats.length === 0) {
             return (
                 <div className={"chatNoListMessage"}>
                     {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
@@ -56,6 +38,30 @@ export default function ChatsSideBar(params) {
             const data = chatInfo[1]
             const changeChat = () => {
                 setActualChat(chatInfo)
+            }
+
+            if (data.userInfo === undefined) {
+                return (
+                    <div key={id}
+                         className={id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
+                         onClick={changeChat}>
+                        <div className={"chatsListObject"}>
+                            <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                                <People color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                            </div>
+                            <div className={"chatsLisName"}>
+                                {data.teamInfo.displayName}
+                                <div className={"chatsListMessage"}>
+                                    {data.lastMessage !== undefined ? data.lastMessage.userId === context.user.uid ? "You: " : data.lastMessage.displayName + ": " : ""}
+                                    {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : "No messages"}
+                                </div>
+                            </div>
+                            <div className={"messageListDate"}>
+                                {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                            </div>
+                        </div>
+                    </div>
+                )
             }
 
             return (
@@ -80,7 +86,7 @@ export default function ChatsSideBar(params) {
 
         return (
             <div className={"chatsListDiv"}>
-                {chats.map((chatData) => {
+                {context.chats.map((chatData) => {
                     return chat(chatData)
                 })}
             </div>

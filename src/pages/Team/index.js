@@ -2,9 +2,9 @@ import './style.css';
 import SideBar from "../../components/SideBar";
 import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
-import {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
-import {AddCircle, Edit, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
+import {AddCircle, Edit, Message, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
@@ -26,6 +26,7 @@ import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import FollowingTag from "../../components/FollowingTag";
+import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -179,6 +180,31 @@ export default function TeamScreen() {
         )
     }
 
+    const teamChat = () => {
+        if (!membersList.includes(context.user.uid)) {
+            return
+        }
+
+        const create = () => {
+            createTeamChat(teamData).then(() => {
+                context.chats.forEach((chat) => {
+                    if (chat[0] === teamData.tid) {
+                        navigate("/chats", {state: {actualChat: chat}})
+                    }
+
+                })
+            })
+        }
+
+        return (
+            <div className={context.user.uid === teamData.owner ? "cover-recommend-buttons" : "cover-buttons"}
+                 onClick={create}>
+                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
+                    <Message size={isMobile ? 48 : 24} color="#014751"/>
+                </div>
+            </div>
+        )
+    }
     const editButton = () => {
         if (teamData.owner === context.user.uid) {
 
@@ -258,6 +284,7 @@ export default function TeamScreen() {
                         {tags()}
                         {editButton()}
                         {followTeamButton()}
+                        {teamChat()}
                     </div>
                     <img src={IMAGE} className="team-image-container-mobile" alt=""/>
                 </div>
@@ -279,6 +306,7 @@ export default function TeamScreen() {
                     {tags()}
                     {editButton()}
                     {followTeamButton()}
+                    {teamChat()}
                 </div>
                 <img src={IMAGE} className="image-container" alt=""/>
             </div>
@@ -418,7 +446,7 @@ export default function TeamScreen() {
         return (
             <div className={"team-screen"}>
                 <div className="team-container">
-                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]}/>
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData} />
                     {cover()}
                 </div>
                 <div className="profile-data-container">
