@@ -149,6 +149,15 @@
     bottom: 16px;
 }
 
+.cover-recommend-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 70px;
+    bottom: 16px;
+}
+
 .postulations-button {
     color: #222222;
     padding: 0 20px;
