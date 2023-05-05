@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, ArrowForward, User, Notepad2, Message, Share} from "iconsax-react";
+import {AddCircle, Edit, User, Notepad2, Message, Share} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
