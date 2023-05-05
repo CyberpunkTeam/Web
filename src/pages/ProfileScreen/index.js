@@ -223,7 +223,6 @@ function ProfileScreen() {
 
         const create = () => {
             createChat(context.user, userData.user).then((combinedId) => {
-                console.log(context.chats, context.chats[combinedId])
                 context.chats.forEach((chat) => {
                     if (chat[0] === combinedId) {
                         navigate("/chats", {state: {actualChat: chat}})

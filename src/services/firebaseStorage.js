@@ -97,6 +97,26 @@ export const createChat = async (userInfo, otherUserInfo) => {
     return combinedId
 }
 
+export const createTeamChat = async (team) => {
+    const db = getFirestore()
+    const res = await getDoc(doc(db, "chats", team.tid))
+    if (!res.exists()) {
+        await setDoc(doc(db, "chats", team.tid), {messages: []})
+
+        for (const member of team.members) {
+            await updateDoc(doc(db, "usersChats", member.uid), {
+                [team.tid + ".teamInfo"]: {
+                    tid: team.tid,
+                    displayName: team.name,
+                    members: team.members
+                },
+                [team.tid + ".date"]: serverTimestamp()
+            })
+        }
+    }
+    return team.tid
+}
+
 export const sendMessage = async (chatId, senderId, receivedUid, text) => {
     const db = getFirestore()
     const combinedId = senderId < receivedUid ? senderId + receivedUid : receivedUid + senderId
@@ -120,9 +140,39 @@ export const sendMessage = async (chatId, senderId, receivedUid, text) => {
     await updateDoc(doc(db, "usersChats", receivedUid), {
         [combinedId + ".lastMessage"]: {
             message: text,
+            read: false,
         },
         [combinedId + ".date"]: serverTimestamp()
     })
+
+    return id
+}
+
+export const sendTeamMessage = async (chatId, userInfo, members, text) => {
+    const db = getFirestore()
+    const id = uuid();
+    await updateDoc(doc(db, "chats", chatId), {
+        messages: arrayUnion({
+            id: id,
+            message: text,
+            senderId: userInfo.uid,
+            displayName: userInfo.name + " " + userInfo.lastname,
+            profile_image: userInfo.profile_image,
+            date: Timestamp.now(),
+        })
+    })
+
+    for (const member of members) {
+        await updateDoc(doc(db, "usersChats", member.uid), {
+            [chatId + ".lastMessage"]: {
+                displayName: userInfo.name + " " + userInfo.lastname,
+                userId: userInfo.uid,
+                message: text,
+                read: false,
+            },
+            [chatId + ".date"]: serverTimestamp()
+        })
+    }
 
     return id
 }

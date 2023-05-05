@@ -71,13 +71,15 @@
 
 .chatHeader {
     position: absolute;
-    top: 0;
+    top: 0px;
     display: flex;
     align-items: center;
     padding: 0 20px;
-    width: 100%;
+    width: calc(100% - 40px);
+    border-top-right-radius: 16px;
+    border-top-left-radius: 16px;
     background: #E9E9E9;
-    height: 70px;
+    height: 60px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     z-index: 1;
 }
@@ -131,7 +133,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     padding: 8px 20px;
-    margin-top: 80px;
+    margin-top: 70px;
     width: calc(100% - 40px);
 }
 
@@ -145,13 +147,25 @@
     min-width: 320px;
     max-width: 70px;
     margin-bottom: 8px;
-    background: #E3E3E3;
+    color: #FAFAFA;
+    background: #2E9999;
 }
 
 .messagesChatContainer{
     display: flex;
-    flex-direction: column;
+    flex-direction: row-reverse;
     width: 100%;
+    margin-bottom: 8px;
+}
+
+.messagesChatOtherUserContainer{
+    display: flex;
+    width: 100%;
+    margin-bottom: 8px;
+}
+
+.messagesChatImageContainer{
+    padding-right: 8px;
 }
 
 .messageOtherUserContainer {
@@ -164,8 +178,20 @@
     min-width: 320px;
     margin-bottom: 8px;
     max-width: 70px;
+    color: #222222;
+    background: #E3E3E3;
+}
+
+.messageNameUser{
+    font-size: 12px;
+    font-weight: 600;
     color: #FAFAFA;
-    background: #2E9999;
+}
+
+.messageNameOtherUser{
+    font-size: 12px;
+    font-weight: 600;
+    color: #2E9999;
 }
 
 .messageDate {
