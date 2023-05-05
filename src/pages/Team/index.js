@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import React, {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
-import {AddCircle, Edit, Message, Share, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
+import {AddCircle, Edit, Message, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
@@ -26,7 +26,7 @@ import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import FollowingTag from "../../components/FollowingTag";
-import {createChat, createTeamChat} from "../../services/firebaseStorage";
+import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamScreen() {
     const params = useParams();

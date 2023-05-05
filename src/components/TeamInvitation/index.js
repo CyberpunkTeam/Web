@@ -42,11 +42,8 @@ export default function TeamInvitation(params) {
     }, [loading]);
     const invitationButton = (status) => {
         setLoading(true)
-        const body = {
-            "state": status
-        }
 
-        updateInvitation(invitation.tiid, body).then(async (r) => {
+        updateInvitation(invitation.tiid, {"state": status}).then(async (r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
