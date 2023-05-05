@@ -446,7 +446,7 @@ export default function TeamScreen() {
         return (
             <div className={"team-screen"}>
                 <div className="team-container">
-                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]}/>
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData} />
                     {cover()}
                 </div>
                 <div className="profile-data-container">

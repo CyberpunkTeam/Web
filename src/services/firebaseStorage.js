@@ -102,13 +102,24 @@ export const createTeamChat = async (team) => {
     const res = await getDoc(doc(db, "chats", team.tid))
     if (!res.exists()) {
         await setDoc(doc(db, "chats", team.tid), {messages: []})
+        let memberFormat = []
+
+        for (const member of team.members) {
+            memberFormat.push({
+                uid: member.uid,
+                name: member.name,
+                lastname: member.lastname,
+                profile_image: member.profile_image
+            })
+        }
+
 
         for (const member of team.members) {
             await updateDoc(doc(db, "usersChats", member.uid), {
                 [team.tid + ".teamInfo"]: {
                     tid: team.tid,
                     displayName: team.name,
-                    members: team.members
+                    members: memberFormat
                 },
                 [team.tid + ".date"]: serverTimestamp()
             })
@@ -175,4 +186,47 @@ export const sendTeamMessage = async (chatId, userInfo, members, text) => {
     }
 
     return id
+}
+
+export const addMemberOnTeamChat = async (team, newMember) => {
+    const db = getFirestore()
+    const res = await getDoc(doc(db, "chats", team.tid))
+    const messages = res.data().messages
+    const lastMessage = messages[messages.length - 1]
+    let newMembers = [...team.members]
+    newMembers.push(newMember)
+
+    let memberFormat = []
+
+    for (const member of newMembers) {
+        memberFormat.push({
+            uid: member.uid,
+            name: member.name,
+            lastname: member.lastname,
+            profile_image: member.profile_image
+        })
+    }
+
+    for (const member of newMembers) {
+        await updateDoc(doc(db, "usersChats", member.uid), {
+            [team.tid + ".teamInfo"]: {
+                tid: team.tid,
+                displayName: team.name,
+                members: memberFormat
+            },
+            [team.tid + ".date"]: serverTimestamp()
+        })
+    }
+
+    await updateDoc(doc(db, "usersChats", newMember.uid), {
+        [team.tid + ".lastMessage"]: {
+            displayName: lastMessage.displayName,
+            userId: lastMessage.userId,
+            message: lastMessage.text,
+            read: false,
+        },
+        [team.tid + ".date"]: serverTimestamp()
+    })
+
+    return team.tid
 }

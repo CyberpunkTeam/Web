@@ -4,6 +4,7 @@ import {getPostulantTeamInvitations, updateInvitation} from "../../services/invi
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {CloseCircle, TickCircle} from "iconsax-react";
+import {addMemberOnTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamInvitation(params) {
     let context = useContext(AppContext);
@@ -44,12 +45,16 @@ export default function TeamInvitation(params) {
         const body = {
             "state": status
         }
-        updateInvitation(invitation.tiid, body).then((r) => {
+
+        updateInvitation(invitation.tiid, body).then(async (r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                if (status === "ACCEPTED") {
+                    await addMemberOnTeamChat(params.team, context.user)
+                }
                 setInvitation(undefined)
             }
             setLoading(false)
@@ -105,5 +110,4 @@ export default function TeamInvitation(params) {
             </div>
         )
     }
-
 }
