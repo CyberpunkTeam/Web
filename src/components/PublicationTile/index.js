@@ -90,7 +90,7 @@ export default function PublicationTile(params) {
         }
         return (
             <div className={isMobile ? "publicationTileInformationCoverWithImageMobile" : "publicationTileInformationCoverWithImage"} onClick={goTo}>
-                <img src={params.publication.cover_image} alt="" className={"publicationTileImage"}/>
+                <img src={params.publication.cover_image} alt="" className={isMobile ? "publicationTileImageMobile" : "publicationTileImage"}/>
             </div>
         )
     }

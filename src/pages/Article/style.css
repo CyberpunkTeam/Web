@@ -84,6 +84,11 @@
     width: 100%;
 }
 
+.article-data-container-mobile {
+    width: 100%;
+    font-size: 32px;
+}
+
 .author-data-container {
     width: calc(30% - 16px);
     margin-right: 16px;
@@ -134,6 +139,18 @@
 .publish-date {
     display: flex;
     font-size: 12px;
+    font-weight: 300;
+    color: #FAFAFA;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+}
+
+.publish-date-mobile {
+    display: flex;
+    font-size: 32px;
     font-weight: 300;
     color: #FAFAFA;
     justify-content: center;

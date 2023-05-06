@@ -37,7 +37,7 @@
 
 .publicationTileInformationCoverMobile{
     width: 100%;
-    height: 200px;
+    height: 320px;
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
     background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
@@ -53,7 +53,7 @@
 
 .publicationTileInformationCoverWithImageMobile{
     width: 100%;
-    height: 200px;
+    height: 320px;
     background-image: linear-gradient(122.17deg, rgba(141, 34, 68, 0.2) 0%, rgba(1, 71, 81, 0.5) 100%);
     border-top-left-radius: 32px;
     border-top-right-radius: 32px;
@@ -65,6 +65,14 @@
     max-height: 100%;
     border-top-left-radius: 16px;
     border-top-right-radius: 16px;
+}
+
+.publicationTileImageMobile{
+    object-fit: cover;
+    width: 100%;
+    max-height: 100%;
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
 }
 
 .publicationTileInformationTitle{
@@ -79,11 +87,12 @@
 }
 
 .publicationTileInformationTitleMobile{
-    width: calc(100% - 16px);
-    min-height: 80px;
-    padding: 8px;
+    width: calc(100% - 32px);
+    min-height: 100px;
+    padding: 16px;
     font-size: 32px;
     font-weight: 600;
+    text-align: justify-all;
     border-bottom-left-radius: 32px;
     border-bottom-right-radius: 32px;
     background: #E3E3E3;
@@ -106,6 +115,14 @@
 
 .publishButtonsLikeMobile {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 16px;
+    cursor: pointer;
+}
+
+.publishButtonsLikeMobile {
+    display: flex;
     font-size: 32px;
     align-items: center;
     justify-content: center;
@@ -118,5 +135,13 @@
     align-items: center;
     justify-content: center;
     margin-right: 8px;
+    cursor: pointer;
+}
+
+.publishButtonsShareMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 32px;
     cursor: pointer;
 }
