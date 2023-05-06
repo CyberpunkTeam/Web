@@ -13,13 +13,13 @@ export default function ChatScreen() {
     const [actualChat, setActualChat] = useState(state === null ? [] : state.actualChat)
 
     return (
-        <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
+        <div className={isMobile ? "profile-screen-mobile" : "chat-screen"}>
             <div className={"chatContainer"}>
                 <ChatsSideBar setActualChat={setActualChat} actualChat={actualChat}/>
-                <ChatBox actualChat={actualChat}/>
+                <ChatBox actualChat={actualChat} setActualChat={setActualChat}/>
             </div>
             <SearchBar/>
-            <SideBar/>
+            {isMobile && state === null ? null : <SideBar/>}
             <AlertMessage/>
         </div>
     )

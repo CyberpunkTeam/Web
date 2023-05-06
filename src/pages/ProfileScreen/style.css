@@ -738,6 +738,11 @@
     padding-right: 8px;
 }
 
+.icon-b {
+    padding-right: 8px;
+    cursor: pointer;
+}
+
 .iconMobile {
     padding-right: 15px;
 }

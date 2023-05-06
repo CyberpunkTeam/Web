@@ -94,7 +94,7 @@ export default function ChatsSideBar(params) {
     }
 
     return (
-        <div className={isMobile || context.size ? "chatSScrollerReduced" : "chatSScrollerContainer"}>
+        <div className={isMobile || context.size ? actualChat.length === 0 ? "chatSScrollerContainerReducedAll" :"chatSScrollerReduced" : "chatSScrollerContainer"}>
             {chatsView()}
         </div>
     )

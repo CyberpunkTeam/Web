@@ -1,6 +1,6 @@
 import {isMobile} from "react-device-detect";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {ArrowCircleRight2, People, User} from "iconsax-react";
+import {ArrowCircleRight2, ArrowLeft2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
 import {sendMessage, sendTeamMessage} from "../../../../services/firebaseStorage";
 import AppContext from "../../../../utils/AppContext";
@@ -51,7 +51,7 @@ export default function ChatBox(params) {
     const navigate = useNavigate();
     const db = getFirestore()
     let context = useContext(AppContext);
-    const {actualChat} = params
+    const {actualChat, setActualChat} = params
     const [newMessage, setNewMessage] = useState("")
     const [messages, setMessages] = useState([])
 
@@ -119,17 +119,30 @@ export default function ChatBox(params) {
             return
         }
 
+        const backButton = () => {
+            const goBack = () => {
+                setActualChat([])
+            }
+
+            if (isMobile || context.size) {
+                return (
+                    <ArrowLeft2 color="#222222" size={isMobile ? "48" : "24"} className={"icon-b"} onClick={goBack}/>
+                )
+            }
+        }
+
         if (actualChat[1].userInfo === undefined) {
             const goToTeam = () => {
                 navigate("/team/" + actualChat[0])
             }
 
             return (
-                <div className={"chatHeader"} onClick={goToTeam}>
+                <div className={"chatHeader"}>
+                    {backButton()}
                     <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
                         <People color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
                     </div>
-                    <div className={"chatUserNameHeader"}>
+                    <div className={"chatUserNameHeader"} onClick={goToTeam}>
                         {actualChat[1].teamInfo.displayName}
                     </div>
                 </div>
@@ -141,9 +154,10 @@ export default function ChatBox(params) {
         }
 
         return (
-            <div className={"chatHeader"} onClick={goToProfile}>
+            <div className={"chatHeader"}>
+                {backButton()}
                 {user_image(actualChat[1].userInfo)}
-                <div className={"chatUserNameHeader"}>
+                <div className={"chatUserNameHeader"} onClick={goToProfile}>
                     {actualChat[1].userInfo.displayName}
                 </div>
             </div>
@@ -175,15 +189,9 @@ export default function ChatBox(params) {
 
     }
 
-    if (actualChat.length === 0) {
-        return (
-            <div className={isMobile || context.size ? "chatDivReducedEmpty" : "chatDivEmpty"}>
-            </div>
-        )
-    }
 
     return (
-        <div className={isMobile || context.size ? "chatDivReduced" : "chatDiv"}>
+        <div className={actualChat.length === 0 ? "chatSScrollerReduced" : isMobile || context.size ? "chatDivReduced" : "chatDiv"}>
             {header()}
             {chat()}
             {chatInput()}
