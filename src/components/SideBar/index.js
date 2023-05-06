@@ -37,6 +37,7 @@ function SideBar() {
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
             setNotifications(response.reverse());
+            console.log(response)
             let notifications = []
             response.forEach((data) => {
                 if (!data.viewed) {
@@ -165,7 +166,7 @@ function SideBar() {
                 navigate("/team/" + id)
             } else if (notification_type === "TEAM_PROJECT_INTERNAL_RECOMMENDATION") {
                 navigate("/projects/" + id)
-            } else if (notification_type === "TEAM_MEMBER_INTERNAL_RECOMMENDATION") {
+            } else if (notification_type === "TEAM_MEMBER_INTERNAL_RECOMMENDATION" || notification_type === "NEW_FOLLOWER") {
                 navigate("/user/" + id)
             }
         }

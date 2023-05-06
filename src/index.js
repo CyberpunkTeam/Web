@@ -119,7 +119,7 @@ function App() {
                     <Route path="/projects/:id/edit" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/data" element={<CreateProjectScreen/>}/>
                     <Route path="/new/projects/type" element={<SelectTypeProject/>}/>
-                    {/*Home*/}
+                    {/*articles*/}
                     <Route path="/new/articles" element={<CreateArticles/>}/>
                     <Route path="/articles/:id" element={<Article/>}/>
                     {/*extra*/}
@@ -147,7 +147,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
-                            <Route index element={<MainScreen/>}/>
+                            <Route index element={user ? <Home /> : <MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
                             <Route path="recovery" element={<RecoveryPassword/>}/>
                             {ifUserLogs()}
