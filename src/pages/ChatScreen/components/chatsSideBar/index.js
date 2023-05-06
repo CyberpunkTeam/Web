@@ -12,20 +12,20 @@ export default function ChatsSideBar(params) {
     const user_image = (data) => {
         if (data.profile_image === "default") {
             return (
-                <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                <div className={isMobile ? "chat-photo-mobile" : "member-photo"}>
                     <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
                 </div>
             )
         } else {
             return <img src={data.profile_image} alt=''
-                        className={isMobile ? "user-mobile-image" : "user-sidebar"}/>
+                        className={isMobile ? "chat-user-mobile-image" : "user-sidebar"}/>
         }
     }
 
     const chatsView = () => {
         if (context.chats === undefined || context.chats === null || context.chats.length === 0) {
             return (
-                <div className={"chatNoListMessage"}>
+                <div className={isMobile ? "chatNoListMessageMobile" : "chatNoListMessage"}>
                     {loading ? <i className="fa fa-circle-o-notch fa-spin"/> :
                         <Message2 size="32" variant={"Bold"} color="#2E9999"/>}
                     {loading ? null : "Without messages"}
@@ -43,20 +43,22 @@ export default function ChatsSideBar(params) {
             if (data.userInfo === undefined) {
                 return (
                     <div key={id}
-                         className={id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
+                         className={isMobile ? "chatsListObjectContainerMobile" : id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
                          onClick={changeChat}>
                         <div className={"chatsListObject"}>
-                            <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
-                                <People color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
-                            </div>
-                            <div className={"chatsLisName"}>
-                                {data.teamInfo.displayName}
-                                <div className={"chatsListMessage"}>
-                                    {data.lastMessage !== undefined ? data.lastMessage.userId === context.user.uid ? "You: " : data.lastMessage.displayName + ": " : ""}
-                                    {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : "No messages"}
+                            <div className={"chatsListObject2"}>
+                                <div className={isMobile ? "chat-photo-mobile" : "member-photo"}>
+                                    <People color="#FAFAFA" size={isMobile ? "48" : "16"} variant="Bold"/>
+                                </div>
+                                <div className={isMobile ? "chatsLisNameMobile" : "chatsLisName"}>
+                                    {data.teamInfo.displayName}
+                                    <div className={isMobile ? "chatsListMessageMobile" : "chatsListMessage"}>
+                                        {data.lastMessage !== undefined ? data.lastMessage.userId === context.user.uid ? "You: " : data.lastMessage.displayName + ": " : ""}
+                                        {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : "No messages"}
+                                    </div>
                                 </div>
                             </div>
-                            <div className={"messageListDate"}>
+                            <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
                                 {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                             </div>
                         </div>
@@ -66,17 +68,19 @@ export default function ChatsSideBar(params) {
 
             return (
                 <div key={id}
-                     className={id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
+                     className={isMobile ? "chatsListObjectContainerMobile" : id === actualChat[0] ? "chatsListObjectContainerSelected" : "chatsListObjectContainer"}
                      onClick={changeChat}>
                     <div className={"chatsListObject"}>
-                        {user_image(data.userInfo)}
-                        <div className={"chatsLisName"}>
-                            {data.userInfo.displayName}
-                            <div className={"chatsListMessage"}>
-                                {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : ""}
+                        <div className={"chatsListObject2"}>
+                            {user_image(data.userInfo)}
+                            <div className={isMobile ? "chatsLisNameMobile" : "chatsLisName"}>
+                                {data.userInfo.displayName}
+                                <div className={isMobile ? "chatsListMessageMobile" : "chatsListMessage"}>
+                                    {data.lastMessage !== undefined ? data.lastMessage.message.substring(0, 20) : ""}
+                                </div>
                             </div>
                         </div>
-                        <div className={"messageListDate"}>
+                        <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
                             {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                         </div>
                     </div>
@@ -85,7 +89,7 @@ export default function ChatsSideBar(params) {
         }
 
         return (
-            <div className={"chatsListDiv"}>
+            <div className={isMobile ? "chatsListDivMobile" : "chatsListDiv"}>
                 {context.chats.map((chatData) => {
                     return chat(chatData)
                 })}
@@ -94,7 +98,8 @@ export default function ChatsSideBar(params) {
     }
 
     return (
-        <div className={isMobile || context.size ? "chatSScrollerReduced" : "chatSScrollerContainer"}>
+        <div
+            className={actualChat.length !== 0 ? "chatSScrollerReduced" : isMobile ? "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
             {chatsView()}
         </div>
     )

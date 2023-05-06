@@ -1,3 +1,7 @@
+.chat-screen {
+    width: 100%;
+}
+
 .chatContainer {
     width: 100%;
     height: calc(100vh - 30px);
@@ -13,6 +17,19 @@
     overflow-x: hidden;
     overflow-y: auto;
     height: calc(100vh - 100px);
+    display: flex;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.chatSScrollerContainerReducedAll {
+    width: calc(100% - 16px);
+    border-radius: 16px;
+    margin-right: 16px;
+    margin-top: 70px;
+    background: #F1F1F1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: calc(100vh - 172px);
     display: flex;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
@@ -91,16 +108,37 @@
     cursor: pointer;
 }
 
+.chatUserNameHeaderMobile {
+    padding: 0 16px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 48px;
+}
+
 .chatInputContainer {
     border-top: 1px solid #E3E3E3;
     position: absolute;
     bottom: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 0 20px;
     align-items: center;
     width: calc(100% - 40px);
     min-height: 70px;
+}
+
+.chatInputContainerMobile {
+    position: fixed;
+    margin: 0 16px;
+    padding-top: 16px;
+    border-top: 4px solid #E3E3E3;
+    bottom: 16px;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 32px);
+    min-height: 120px;
 }
 
 .chatInputButton {
@@ -113,7 +151,7 @@
 .chatInput {
     padding: 0 8px;
     border-radius: 16px;
-    width: 90%;
+    width: calc(100% - 60px);
     background: #E3E3E3;
     min-height: 40px;
     border-color: #E3E3E3;
@@ -121,6 +159,18 @@
     font-family: "Inter", sans-serif;
     outline: none;
     font-size: 16px;
+}
+
+.chatInputMobile {
+    border-radius: 32px;
+    width: calc(100% - 120px);
+    background: #E3E3E3;
+    min-height: 100px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    font-family: "Inter", sans-serif;
+    outline: none;
+    font-size: 32px;
 }
 
 
@@ -135,6 +185,32 @@
     padding: 8px 20px;
     margin-top: 70px;
     width: calc(100% - 40px);
+}
+
+.chatMessageContainerMobile {
+    display: flex;
+    padding: 220px 16px 0 16px;
+    flex-direction: column;
+    align-items: flex-end;
+    height: calc(90vh - 370px);
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: calc(100% - 32px);
+}
+
+.messageContainerMobile {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-end;
+    min-height: 80px;
+    padding: 16px 32px;
+    border-radius: 32px;
+    min-width: 500px;
+    margin-bottom: 16px;
+    color: #FAFAFA;
+    background: #2E9999;
+    max-width: 120px;
+    font-size: 32px;
 }
 
 .messageContainer {
@@ -158,14 +234,31 @@
     margin-bottom: 8px;
 }
 
+.messagesChatContainerMobile{
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
 .messagesChatOtherUserContainer{
     display: flex;
     width: 100%;
     margin-bottom: 8px;
 }
 
+.messagesChatOtherUserContainerMobile{
+    display: flex;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
 .messagesChatImageContainer{
     padding-right: 8px;
+}
+
+.messagesChatImageContainerMobile{
+    padding-right: 16px;
 }
 
 .messageOtherUserContainer {
@@ -182,6 +275,21 @@
     background: #E3E3E3;
 }
 
+.messageOtherUserContainerMobile {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    min-height: 80px;
+    padding: 16px 32px;
+    border-radius: 32px;
+    min-width: 500px;
+    margin-bottom: 16px;
+    max-width: 120px;
+    font-size: 32px;
+    color: #222222;
+    background: #E3E3E3;
+}
+
 .messageNameUser{
     font-size: 12px;
     font-weight: 600;
@@ -194,19 +302,35 @@
     color: #2E9999;
 }
 
+.messageNameOtherUserMobile{
+    font-size: 24px;
+    font-weight: 600;
+    color: #2E9999;
+}
+
 .messageDate {
     align-self: flex-end;
     font-weight: 200;
     font-size: 12px;
 }
 
+.messageDateMobile {
+    align-self: flex-end;
+    font-weight: 200;
+    font-size: 24px;
+}
+
 .messageListDate {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
     align-self: flex-end;
     font-weight: 200;
     font-size: 12px;
+}
+
+.messageListDateMobile {
+    align-self: flex-end;
+    font-weight: 200;
+    font-size: 32px;
+    color: #222222;
 }
 
 .sendMessage {
@@ -220,11 +344,24 @@
     overflow-y: auto;
 }
 
+.chatsListDivMobile {
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
 .chatsListObjectContainer {
     border-bottom: 1px solid #E3E3E3;
     width: calc(100% - 32px);
     padding: 8px;
     margin: 8px;
+    border-radius: 16px;
+}
+
+.chatsListObjectContainerMobile {
+    border-bottom: 1px solid #E3E3E3;
+    width: calc(100% - 16px);
+    margin: 32px 8px;
     border-radius: 16px;
 }
 
@@ -235,6 +372,10 @@
     padding: 8px;
     margin: 8px;
     border-radius: 16px;
+}
+
+.chatsListObjectContainerMobile:last-child {
+    border-bottom: none;
 }
 
 .chatsListObjectContainer:last-child {
@@ -249,6 +390,13 @@
 .chatsListObject {
     position: relative;
     width: 100%;
+    justify-content: space-between;
+    display: flex;
+}
+
+.chatsListObject2 {
+    position: relative;
+    width: 80%;
     display: flex;
     font-size: 16px;
     font-weight: 600;
@@ -256,13 +404,28 @@
 
 .chatsLisName {
     display: flex;
+    width: 60%;
     flex-direction: column;
    padding-left: 8px;
+}
+
+.chatsLisNameMobile {
+    display: flex;
+    width: 60%;
+    font-size: 36px;
+    flex-direction: column;
+    padding-left: 16px;
 }
 
 .chatsListMessage {
     font-size: 12px;
     font-weight: 400;
+}
+
+.chatsListMessageMobile {
+    font-size: 32px;
+    font-weight: 400;
+    color: #555555;
 }
 
 .chatNoListMessage {
@@ -272,4 +435,72 @@
     align-items: center;
     justify-content: center;
     color: #2E9999;
+}
+
+.chatNoListMessageMobile {
+    width: 100%;
+    height: 80vh;
+    font-size: 64px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #2E9999;
+}
+
+.chatSScrollerContainerMobile {
+    width: 100%;
+    margin-top: 70px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+}
+
+.chat-photo-mobile {
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    color: #FAFAFA;
+    border: 2px solid rgb(46, 153, 153);
+}
+
+.chat-user-mobile-image {
+    background: #0F2830;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    height: 120px;
+    width: 120px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 2px solid rgb(46, 153, 153);
+}
+
+.chatDivMobile{
+    position: relative;
+    width: 100%;
+    height: 90vh;
+}
+
+.header-mobile-container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 30px;
+}
+
+.chatMessagesContainerMobile {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
 }

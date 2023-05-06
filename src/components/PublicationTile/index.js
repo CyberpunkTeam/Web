@@ -52,8 +52,8 @@ export default function PublicationTile(params) {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile">
-                    <div className="members-info-mobile">
+                <div key={data.uid} className="tile-publication-mobile">
+                    <div className="publication-info-mobile">
                         {user_image(data)}
                         <div className="member-name-mobile" onClick={userNavigate}>
                             {data.name} {data.lastname}
@@ -85,31 +85,31 @@ export default function PublicationTile(params) {
     const cover = () => {
         if (params.publication.cover_image === null || params.publication.cover_image === "default") {
             return (
-                <div className={"publicationTileInformationCover"} onClick={goTo}/>
+                <div className={isMobile ? "publicationTileInformationCoverMobile" : "publicationTileInformationCover"} onClick={goTo}/>
             )
         }
         return (
-            <div className={"publicationTileInformationCoverWithImage"} onClick={goTo}>
-                <img src={params.publication.cover_image} alt="" className={"publicationTileImage"}/>
+            <div className={isMobile ? "publicationTileInformationCoverWithImageMobile" : "publicationTileInformationCoverWithImage"} onClick={goTo}>
+                <img src={params.publication.cover_image} alt="" className={isMobile ? "publicationTileImageMobile" : "publicationTileImage"}/>
             </div>
         )
     }
 
     return (
-        <div className={"publicationTileContainer"}>
+        <div className={isMobile ? "publicationTileContainerMobile" : "publicationTileContainer"}>
             {author(params.publication.author)}
-            <div className={"publicationTileInformation"}>
+            <div className={isMobile ? "publicationTileInformationMobile" : "publicationTileInformation"}>
                 {cover()}
-                <div className={"publicationTileInformationTitle"} onClick={goTo}>
+                <div className={isMobile ? "publicationTileInformationTitleMobile" : "publicationTileInformationTitle"} onClick={goTo}>
                     {params.publication.title}
                 </div>
                 <div className={"publishButtons"}>
-                    <div className={"publishButtonsLike"} onClick={like}>
-                        <EmojiHappy size="24" color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
+                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"} onClick={like}>
+                        <EmojiHappy size={isMobile ? "48" : "24"} color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
                         {likeLength}
                     </div>
-                    <div className={"publishButtonsShare"}>
-                        <Share size="24" color="#014751" className={"icon"}/>
+                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"}>
+                        <Share size={isMobile ? "48" : "24"} color="#014751" className={"icon"}/>
                         Share
                     </div>
                 </div>

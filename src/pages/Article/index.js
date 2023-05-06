@@ -68,15 +68,15 @@ export default function Article() {
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
-                        <div className="publish-date">
-                            <div className={"publishButtonsLike"} onClick={like}>
-                                <EmojiHappy size="24" color="#014751"
+                        <div className={"publish-date-mobile"}>
+                            <div className={"publishButtonsLikeMobile"} onClick={like}>
+                                <EmojiHappy size={48} color="#FAFAFA"
                                             variant={article.likes.includes(context.user.uid) ? "Bold" : null}
-                                            className={"icon"}/>
+                                            className={"iconMobile"}/>
                                 {article.likes.length}
                             </div>
-                            <div className={"publishButtonsShare"}>
-                                <Share size="24" color="#014751" className={"icon"}/>
+                            <div className={"publishButtonsShareMobile"}>
+                                <Share size="48" color="#FAFAFA" className={"iconMobile"}/>
                                 Share
                             </div>
                             {formatDatePublish(article.created_date)}
@@ -225,7 +225,7 @@ export default function Article() {
                     {author(article.author)}
                     {team(article.tid, article.team)}
                 </div>
-                <div className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
+                <div className={isMobile ? "article-data-container-mobile" : context.size ? "article-data-container-reduced" : "article-data-container"}>
                     <HTMLRenderer html={text}/>
                 </div>
             </div>
