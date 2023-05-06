@@ -1,6 +1,6 @@
 import {isMobile} from "react-device-detect";
 import React, {useContext, useEffect, useRef, useState} from "react";
-import {ArrowCircleRight2, ArrowLeft2, People, SearchNormal1, User} from "iconsax-react";
+import {ArrowCircleRight2, ArrowLeft2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
 import {sendMessage, sendTeamMessage} from "../../../../services/firebaseStorage";
 import AppContext from "../../../../utils/AppContext";
