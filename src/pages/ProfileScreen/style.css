@@ -9,6 +9,10 @@
     margin-bottom: 300px;
 }
 
+.profile-screen-mobileChatsSelected {
+    width: 100%;
+}
+
 .user-cover-container {
     position: absolute;
     width: 100%;
