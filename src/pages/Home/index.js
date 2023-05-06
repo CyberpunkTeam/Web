@@ -64,7 +64,7 @@ export default function Home() {
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={create}>
+                <button className="createProjectButtonMobile" onClick={create}>
                     <LampCharge color="#FAFAFA" size={48}/>
                 </button>
             )
@@ -85,7 +85,7 @@ export default function Home() {
 
         if (isMobile) {
             return (
-                <button className="createTeamButtonMobile" onClick={create}>
+                <button className="createArticleButtonMobile" onClick={create}>
                     <Notepad2 color="#FAFAFA" size={48}/>
                 </button>
             )
@@ -107,9 +107,11 @@ export default function Home() {
                         <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
                             Welcome {context.user.name}
                         </div>
-                        {createTeam()}
-                        {createProject()}
-                        {createArticle()}
+                        <div className={isMobile || context.size ? "buttonsMobileCreations" : null}>
+                            {createTeam()}
+                            {createProject()}
+                            {createArticle()}
+                        </div>
                     </div>
                     <div className={"home-data-container-reduced"}>
                         <div

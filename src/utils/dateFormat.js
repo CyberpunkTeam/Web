@@ -19,6 +19,6 @@ export const formatDateMessage = (date) => {
     if (date.seconds > today) {
         return moment.unix(date.seconds).format("hh:mm A");
     } else {
-        return moment.unix(date.seconds).format("DD MMMM YYYY");
+        return moment.unix(date.seconds).format("DD MMMM");
     }
 }

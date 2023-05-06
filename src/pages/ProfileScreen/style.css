@@ -9,6 +9,10 @@
     margin-bottom: 300px;
 }
 
+.profile-screen-mobileChatsSelected {
+    width: 100%;
+}
+
 .user-cover-container {
     position: absolute;
     width: 100%;
@@ -738,8 +742,13 @@
     padding-right: 8px;
 }
 
+.icon-b {
+    padding-right: 8px;
+    cursor: pointer;
+}
+
 .iconMobile {
-    padding-right: 15px;
+    padding-right: 16px;
 }
 
 .star {
@@ -1344,8 +1353,42 @@
     justify-content: center;
     display: flex;
     padding: 16px;
-    margin: 16px 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
     background: #014751;
+    border: 0;
+    cursor: pointer;
+}
+
+.createArticleButtonMobile {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    background: #8d2244;
+    border: 0;
+    cursor: pointer;
+}
+
+.createProjectButtonMobile {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding: 16px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    margin-left: 16px;
+    background: #605890;
     border: 0;
     cursor: pointer;
 }

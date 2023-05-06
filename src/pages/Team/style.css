@@ -47,7 +47,7 @@
 
 .image-container-mobile {
     width: 100%;
-    height: 400px;
+    height: 100%;
     object-fit: cover;
     border-radius: 32px;
     background-position: 0 50%;
@@ -156,11 +156,24 @@
 .members-info-container-mobile {
     background: #F1F1F1;
     height: 160px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 32px;
+    width: calc(50% - 16px);
+}
+
+.article-mobile {
+    background: #F1F1F1;
+    height: 160px;
     margin-right: 32px;
     display: flex;
-    justify-content: center;
     border-radius: 32px;
     width: available;
+}
+
+.tile-publication-mobile {
+    display: flex;
+    justify-content: flex-start;
 }
 
 .members-info-container-reduced {
@@ -262,6 +275,14 @@
     display: flex;
     flex-direction: row;
     margin: 32px 48px;
+    width: max-content;
+    align-items: center;
+}
+
+.publication-info-mobile {
+    display: flex;
+    flex-direction: row;
+    margin: 32px;
     width: max-content;
     align-items: center;
 }
