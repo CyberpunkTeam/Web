@@ -113,7 +113,7 @@
     position: absolute;
     bottom: 0;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     padding: 0 20px;
     align-items: center;
     width: calc(100% - 40px);
@@ -130,7 +130,7 @@
 .chatInput {
     padding: 0 8px;
     border-radius: 16px;
-    width: 90%;
+    width: calc(100% - 60px);
     background: #E3E3E3;
     min-height: 40px;
     border-color: #E3E3E3;
@@ -218,9 +218,6 @@
 }
 
 .messageListDate {
-    position: absolute;
-    bottom: 8px;
-    right: 8px;
     align-self: flex-end;
     font-weight: 200;
     font-size: 12px;
@@ -266,6 +263,13 @@
 .chatsListObject {
     position: relative;
     width: 100%;
+    justify-content: space-between;
+    display: flex;
+}
+
+.chatsListObject2 {
+    position: relative;
+    width: 80%;
     display: flex;
     font-size: 16px;
     font-weight: 600;
@@ -273,6 +277,7 @@
 
 .chatsLisName {
     display: flex;
+    width: 60%;
     flex-direction: column;
    padding-left: 8px;
 }

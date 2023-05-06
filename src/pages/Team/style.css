@@ -163,6 +163,20 @@
     width: available;
 }
 
+.article-mobile {
+    background: #F1F1F1;
+    height: 160px;
+    margin-right: 32px;
+    display: flex;
+    border-radius: 32px;
+    width: available;
+}
+
+.tile-publication-mobile {
+    display: flex;
+    justify-content: flex-start;
+}
+
 .members-info-container-reduced {
     background: #F1F1F1;
     height: 80px;
@@ -262,6 +276,14 @@
     display: flex;
     flex-direction: row;
     margin: 32px 48px;
+    width: max-content;
+    align-items: center;
+}
+
+.publication-info-mobile {
+    display: flex;
+    flex-direction: row;
+    margin: 32px;
     width: max-content;
     align-items: center;
 }
