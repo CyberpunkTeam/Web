@@ -21,9 +21,9 @@ import AlertMessage from "../../components/AlertMessage";
 import {getMyTeams} from "../../services/teamService";
 import FollowingTag from "../../components/FollowingTag";
 import {RecommendUserModal} from "../../components/RecommendUserModal";
-import PublicationTile from "../../components/PublicationTile";
 import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
+import ArticleTile from "../../components/ArticleTile";
 
 function ProfileScreen() {
     const params = useParams();
@@ -327,7 +327,7 @@ function ProfileScreen() {
                             </div>
                         </div>
                         {articles.map((article) => {
-                            return <PublicationTile key={article.cid} publication={article}/>
+                            return <ArticleTile key={article.cid} publication={article}/>
                         })}
                     </div>
                 </div>

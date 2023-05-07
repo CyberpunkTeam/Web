@@ -234,8 +234,6 @@ export const addMemberOnTeamChat = async (team, newMember) => {
 export const readChat = async (user, lastMessage) => {
     const db = getFirestore()
 
-    console.log(lastMessage[0], lastMessage[1])
-
     if (lastMessage[1].teamInfo) {
         await updateDoc(doc(db, "usersChats", user.uid), {
             [lastMessage[0] + ".lastMessage"]: {

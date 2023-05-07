@@ -1,43 +1,45 @@
 import './style.css'
 import {isMobile} from "react-device-detect";
-import {EmojiHappy, Share, User} from "iconsax-react";
-import React, {useContext, useState} from "react";
+import {User, People, LampCharge, Notepad2} from "iconsax-react";
+import React, {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
 import {formatDatePublish} from "../../utils/dateFormat";
-import {likeArticle, unlikeArticle} from "../../services/contentService";
 
 export default function PublicationTile(params) {
     let context = useContext(AppContext);
     const navigate = useNavigate();
-    const [liked, setLike] = useState(params.publication.likes.includes(context.user.uid))
-    const [likeLength, setLikeLength] = useState(params.publication.likes.length)
 
-    const like = async () => {
-        if (liked) {
-            await unlikeArticle(params.publication.cid, context.user.uid)
-            setLike(false)
-            setLikeLength(likeLength - 1)
+    const goTo = () => {
+        if (params.publication.content_type === "new_team") {
+            navigate("/team/" + params.publication.content.tid)
+        } else if (params.publication.content_type === "new_project") {
+            navigate("/project/" + params.publication.content.pid)
         } else {
-            await likeArticle(params.publication.cid, context.user.uid)
-            setLike(true)
-            setLikeLength(likeLength + 1)
+            navigate("/articles/" + params.publication.content.cid)
         }
     }
 
-    const goTo = () => {
-        navigate("/articles/" + params.publication.cid)
-    }
-
     const author = (data) => {
+
+        const displayName = params.publication.content_type === "content_by_team" ? data.name : data.name + " " + data.lastname
         const userNavigate = () => {
-            const user_link = data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
+            const user_link = params.publication.content_type === "content_by_team" ? '/team/' + data.tid : data.uid === context.user.uid ? '/me' : '/user/' + data.uid;
             navigate(user_link);
         }
 
         const date = formatDatePublish(params.publication.created_date)
 
         const user_image = (data) => {
+            if (params.publication.content_type === "content_by_team") {
+                return (
+                    <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
+                        <People color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                    </div>
+                )
+            }
+
+
             if (data.profile_image === "default") {
                 return (
                     <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
@@ -72,7 +74,7 @@ export default function PublicationTile(params) {
                 <div className="members-info">
                     {user_image(data)}
                     <div className="member-name" onClick={userNavigate}>
-                        {data.name} {data.lastname}
+                        {displayName}
                         <div className="owner">
                             {date}
                         </div>
@@ -82,38 +84,54 @@ export default function PublicationTile(params) {
         )
     }
 
-    const cover = () => {
-        if (params.publication.cover_image === null || params.publication.cover_image === "default") {
+
+    const contentView = () => {
+        if (params.publication.content_type === "new_team") {
             return (
-                <div className={isMobile ? "publicationTileInformationCoverMobile" : "publicationTileInformationCover"} onClick={goTo}/>
+                <div className={isMobile ? "publicationAllTileInformationMobile" : "publicationAllTileInformation"}>
+                    <div
+                        className={isMobile ? "publicationTileTeamInformationCoverMobile" : "publicationTileTeamInformationCover"}
+                        onClick={goTo}>
+                        <div>
+                            Created a new team <br/> <b>"{params.publication.content.name}"</b>
+                        </div>
+                        <People color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className={"tileIcon"}/>
+                    </div>
+                </div>
+            )
+        } else if (params.publication.content_type === "new_project") {
+            return (
+                <div className={isMobile ? "publicationAllTileInformationMobile" : "publicationAllTileInformation"}>
+                    <div
+                        className={isMobile ? "publicationTileProjectInformationCoverMobile" : "publicationTileProjectInformationCover"}
+                        onClick={goTo}>
+                        <div>
+                            Created a new project <br/> <b>"{params.publication.content.name}"</b>
+                        </div>
+                        <LampCharge color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className={"tileIcon"}/>
+                    </div>
+                </div>
+            )
+        } else {
+            return (
+                <div className={isMobile ? "publicationAllTileInformationMobile" : "publicationAllTileInformation"}>
+                    <div
+                        className={isMobile ? "publicationTileArticleInformationCoverMobile" : "publicationTileArticleInformationCover"}
+                        onClick={goTo}>
+                        <div>
+                            Created a new article <br/> <b>"{params.publication.content.title}"</b>
+                        </div>
+                        <Notepad2 color="#FAFAFA" variant="Bold" size={isMobile ? 48 : 24} className={"tileIcon"}/>
+                    </div>
+                </div>
             )
         }
-        return (
-            <div className={isMobile ? "publicationTileInformationCoverWithImageMobile" : "publicationTileInformationCoverWithImage"} onClick={goTo}>
-                <img src={params.publication.cover_image} alt="" className={isMobile ? "publicationTileImageMobile" : "publicationTileImage"}/>
-            </div>
-        )
     }
 
     return (
         <div className={isMobile ? "publicationTileContainerMobile" : "publicationTileContainer"}>
-            {author(params.publication.author)}
-            <div className={isMobile ? "publicationTileInformationMobile" : "publicationTileInformation"}>
-                {cover()}
-                <div className={isMobile ? "publicationTileInformationTitleMobile" : "publicationTileInformationTitle"} onClick={goTo}>
-                    {params.publication.title}
-                </div>
-                <div className={"publishButtons"}>
-                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"} onClick={like}>
-                        <EmojiHappy size={isMobile ? "48" : "24"} color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
-                        {likeLength}
-                    </div>
-                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"}>
-                        <Share size={isMobile ? "48" : "24"} color="#014751" className={"icon"}/>
-                        Share
-                    </div>
-                </div>
-            </div>
+            {author(params.publication.creator)}
+            {contentView()}
         </div>
     )
 }

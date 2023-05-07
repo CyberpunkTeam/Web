@@ -61,7 +61,6 @@ function SideBar() {
         }
 
         setMessages(count)
-        console.log(count)
 
     }, [context.chats]);
 
