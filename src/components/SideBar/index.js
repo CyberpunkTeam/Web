@@ -33,6 +33,7 @@ function SideBar() {
     const [unreadNotifications, setUnreadNotifications] = useState([])
     const [watchNotifications, setWatchNotifications] = useState(false)
     const [watchSettings, setWatchSettings] = useState(false)
+    const [messages, setMessages] = useState(0)
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
@@ -48,6 +49,20 @@ function SideBar() {
             console.log(error)
         });
     }, [context.user.uid, time]);
+
+    useEffect(() => {
+        let count = 0
+        if (context.chats !== undefined) {
+            context.chats.forEach((msg) => {
+                if (msg[1].lastMessage.read === false) {
+                    count++;
+                }
+            })
+        }
+
+        setMessages(count)
+
+    }, [context.chats]);
 
     useEffect(() => {
         const interval = setInterval(() => setTime(Date.now()), 30000);
@@ -279,6 +294,8 @@ function SideBar() {
                             </div>
                             <div className="navbar-icon" onClick={chat}>
                                 <Message className="settings" color="#FAFAFA" variant="Outline" size={28}/>
+                                {messages !== 0 ?
+                                    <span className="notification-numbers">{messages}</span> : null}
                                 <div className={"navbar-text"}>
                                     Messages
                                 </div>
@@ -337,7 +354,7 @@ function SideBar() {
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>
                             <Briefcase className="settings-mobile" color="#FAFAFA" variant="Outline"
-                                      size={context.size ? 28 : 60} onClick={jobs}/>
+                                       size={context.size ? 28 : 60} onClick={jobs}/>
                             Opportunities
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}>

@@ -7,14 +7,14 @@ import React, {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {LampCharge, Notepad2, People} from "iconsax-react";
 import {useNavigate} from "react-router-dom";
-import {getArticles} from "../../services/contentService";
+import {getHome} from "../../services/contentService";
 import PublicationTile from "../../components/PublicationTile";
 import Loading from "../../components/loading";
 
 export default function Home() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
-    const [articles, setArticles] = useState(undefined)
+    const [publications, setPublications] = useState(undefined)
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -22,17 +22,17 @@ export default function Home() {
         }
     }
 
-    useEffect(() => {
-        getArticles().then((articlesResponse) => {
-            if (articlesResponse === undefined) {
-                setError("An error has occurred while loading user's information. Please, try again later");
-                return
-            }
-            setArticles(articlesResponse)
-        })
+    useEffect( () => {
+            getHome(context.user.uid).then((publicationsResponse)=> {
+                if (publicationsResponse === undefined) {
+                    setError("An error has occurred while loading home screen. Please, try again later");
+                    return
+                }
+                setPublications(publicationsResponse)
+            })
     }, [])
 
-    if (articles === undefined) {
+    if (publications === undefined) {
         return <Loading/>
     }
 
@@ -116,8 +116,8 @@ export default function Home() {
                     <div className={"home-data-container-reduced"}>
                         <div
                             className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
-                            {articles.map((article) => {
-                                return <PublicationTile key={article.cid} publication={article}/>
+                            {publications.map((data, index) => {
+                                return <PublicationTile key={index} publication={data}/>
                             })}
                         </div>
                     </div>

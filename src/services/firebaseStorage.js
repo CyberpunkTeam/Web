@@ -179,7 +179,7 @@ export const sendTeamMessage = async (chatId, userInfo, members, text) => {
                 displayName: userInfo.name + " " + userInfo.lastname,
                 userId: userInfo.uid,
                 message: text,
-                read: false,
+                read: userInfo.uid === member.uid,
             },
             [chatId + ".date"]: serverTimestamp()
         })
@@ -229,4 +229,26 @@ export const addMemberOnTeamChat = async (team, newMember) => {
     })
 
     return team.tid
+}
+
+export const readChat = async (user, lastMessage) => {
+    const db = getFirestore()
+
+    if (lastMessage[1].teamInfo) {
+        await updateDoc(doc(db, "usersChats", user.uid), {
+            [lastMessage[0] + ".lastMessage"]: {
+                displayName: lastMessage[1].lastMessage.displayName,
+                userId: lastMessage[1].lastMessage.userId,
+                message: lastMessage[1].lastMessage.message,
+                read: true,
+            }
+        })
+    } else {
+        await updateDoc(doc(db, "usersChats", user.uid), {
+            [lastMessage[0] + ".lastMessage"]: {
+                message: lastMessage[1].lastMessage.message,
+                read: true,
+            }
+        })
+    }
 }

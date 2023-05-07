@@ -3,6 +3,7 @@ import React, {useContext} from "react";
 import AppContext from "../../../../utils/AppContext";
 import {Message2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
+import {readChat} from "../../../../services/firebaseStorage";
 
 export default function ChatsSideBar(params) {
     let context = useContext(AppContext);
@@ -36,7 +37,10 @@ export default function ChatsSideBar(params) {
         const chat = (chatInfo) => {
             const id = chatInfo[0]
             const data = chatInfo[1]
-            const changeChat = () => {
+            const changeChat = async () => {
+                if (!data.lastMessage.read) {
+                    await readChat(context.user, chatInfo)
+                }
                 setActualChat(chatInfo)
             }
 
@@ -61,6 +65,7 @@ export default function ChatsSideBar(params) {
                             <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
                                 {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                             </div>
+                            {!data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                         </div>
                     </div>
                 )
@@ -84,6 +89,7 @@ export default function ChatsSideBar(params) {
                             {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                         </div>
                     </div>
+                    {!data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                 </div>
             )
         }
@@ -99,7 +105,7 @@ export default function ChatsSideBar(params) {
 
     return (
         <div
-            className={actualChat.length !== 0 ? "chatSScrollerReduced" : isMobile ? "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
+            className={actualChat.length !== 0 && context.size ? "chatSScrollerReduced" : isMobile ? "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
             {chatsView()}
         </div>
     )

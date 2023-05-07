@@ -39,8 +39,6 @@ export function PublishArticleModal(params) {
             body.cover_image = "default"
         }
 
-        console.log(body)
-
         if (reason !== user) {
             body.tid = reason
         }

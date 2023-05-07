@@ -1,147 +1,100 @@
-.publicationTileContainer{
-    width: 100%;
-    margin-bottom: 16px;
-    background: #F1F1F1;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.publicationTileContainerMobile{
-    width: 100%;
-    background: #F1F1F1;
-    margin-bottom: 32px;
-    border-radius: 32px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
-.publicationTileInformation{
+.publicationAllTileInformation{
     width: calc(100% - 32px);
-    padding: 0 16px;
+    padding: 0 16px 16px 16px;
     cursor: pointer;
 }
 
-.publicationTileInformationMobile{
+.publicationAllTileInformationMobile{
     width: calc(100% - 64px);
-    padding: 0 32px;
+    padding: 0 32px 32px 32px;
     font-size: 48px;
     cursor: pointer;
 }
 
-.publicationTileInformationCover{
-    width: 100%;
-    height: 140px;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
-}
-
-.publicationTileInformationCoverMobile{
-    width: 100%;
-    height: 320px;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
-}
-
-.publicationTileInformationCoverWithImage{
-    width: 100%;
-    height: 140px;
-    background-image: linear-gradient(122.17deg, rgba(141, 34, 68, 0.2) 0%, rgba(1, 71, 81, 0.5) 100%);
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-}
-
-.publicationTileInformationCoverWithImageMobile{
-    width: 100%;
-    height: 320px;
-    background-image: linear-gradient(122.17deg, rgba(141, 34, 68, 0.2) 0%, rgba(1, 71, 81, 0.5) 100%);
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-}
-
-.publicationTileImage{
-    object-fit: cover;
-    width: 100%;
-    max-height: 100%;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-}
-
-.publicationTileImageMobile{
-    object-fit: cover;
-    width: 100%;
-    max-height: 100%;
-    border-top-left-radius: 32px;
-    border-top-right-radius: 32px;
-}
-
-.publicationTileInformationTitle{
-    width: calc(100% - 16px);
-    min-height: 60px;
-    padding: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
-    background: #E3E3E3;
-}
-
-.publicationTileInformationTitleMobile{
+.publicationTileTeamInformationCover{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: calc(100% - 32px);
-    min-height: 100px;
+    font-size: 18px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
     padding: 16px;
-    font-size: 32px;
-    font-weight: 600;
-    text-align: justify-all;
-    border-bottom-left-radius: 32px;
-    border-bottom-right-radius: 32px;
-    background: #E3E3E3;
+    border-radius: 16px;
+    background-image: linear-gradient(122.17deg, #005299 0%, #014751 100%);
 }
 
-.publishButtons {
-    padding: 24px 8px;
-    display: flex;
-    font-weight: 600;
-    font-size: 14px;
-}
-
-.publishButtonsLike {
+.publicationTileTeamInformationCoverMobile{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    cursor: pointer;
+    justify-content: space-between;
+    width: calc(100% - 64px);
+    padding: 32px;
+    font-size: 40px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
+    border-radius: 32px;
+    background-image: linear-gradient(122.17deg, #005299 0%, #014751 100%);
 }
 
-.publishButtonsLikeMobile {
+.publicationTileArticleInformationCover{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-right: 16px;
-    cursor: pointer;
+    justify-content: space-between;
+    width: calc(100% - 32px);
+    font-size: 18px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
+    padding: 16px;
+    border-radius: 16px;
+    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
 }
 
-.publishButtonsLikeMobile {
+.publicationTileArticleInformationCoverMobile{
     display: flex;
-    font-size: 32px;
     align-items: center;
-    justify-content: center;
-    margin-right: 64px;
-    cursor: pointer;
+    justify-content: space-between;
+    width: calc(100% - 64px);
+    padding: 32px;
+    font-size: 40px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
+    border-radius: 32px;
+    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
 }
 
-.publishButtonsShare {
+.publicationTileProjectInformationCover{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-right: 8px;
-    cursor: pointer;
+    justify-content: space-between;
+    width: calc(100% - 32px);
+    font-size: 18px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
+    padding: 16px;
+    border-radius: 16px;
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
 }
 
-.publishButtonsShareMobile {
+.publicationTileProjectInformationCoverMobile{
     display: flex;
     align-items: center;
-    justify-content: center;
-    margin-right: 32px;
-    cursor: pointer;
+    justify-content: space-between;
+    width: calc(100% - 64px);
+    padding: 32px;
+    font-size: 40px;
+    line-height: 170%;
+    font-weight: 200;
+    color: #FAFAFA;
+    border-radius: 32px;
+    background-image: linear-gradient(122.17deg, #605890 0%, #014751 100%);
+}
+
+.tileIcon {
+    width: 60px;
 }
