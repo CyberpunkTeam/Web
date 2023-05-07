@@ -207,8 +207,10 @@ function ProfileScreen() {
             return
         }
 
+        const condition = !context.user.following.users.includes(id) || !userData.user.following.users.includes(context.user.uid)
+
         return (
-            <div className="cover-recommend-buttons" onClick={recommendUserButton}>
+            <div className={condition ? "cover-buttons" : "cover-recommend-buttons"} onClick={recommendUserButton}>
                 <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
                     <Share size={isMobile ? 48 : 24} color="#014751"/>
                 </div>
@@ -217,7 +219,7 @@ function ProfileScreen() {
     }
 
     const chatUser = () => {
-        if (id === context.user.uid || !context.user.following.users.includes(id)) {
+        if (id === context.user.uid || !context.user.following.users.includes(id) || !userData.user.following.users.includes(context.user.uid)) {
             return
         }
 

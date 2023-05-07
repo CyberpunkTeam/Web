@@ -54,7 +54,7 @@ function SideBar() {
         let count = 0
         if (context.chats !== undefined) {
             context.chats.forEach((msg) => {
-                if (msg[1].lastMessage.read === false) {
+                if (msg[1].lastMessage && msg[1].lastMessage.read === false) {
                     count++;
                 }
             })

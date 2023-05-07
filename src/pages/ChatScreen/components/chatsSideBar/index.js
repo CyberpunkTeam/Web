@@ -38,7 +38,7 @@ export default function ChatsSideBar(params) {
             const id = chatInfo[0]
             const data = chatInfo[1]
             const changeChat = async () => {
-                if (!data.lastMessage.read) {
+                if (data.lastMessage && !data.lastMessage.read) {
                     await readChat(context.user, chatInfo)
                 }
                 setActualChat(chatInfo)
@@ -65,7 +65,7 @@ export default function ChatsSideBar(params) {
                             <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
                                 {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                             </div>
-                            {!data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
+                            {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                         </div>
                     </div>
                 )
@@ -89,7 +89,7 @@ export default function ChatsSideBar(params) {
                             {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
                         </div>
                     </div>
-                    {!data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
+                    {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                 </div>
             )
         }
