@@ -38,16 +38,16 @@ export default function TemporalTeam(params) {
     const teamTags = (data) => {
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
-                {data.technologies.programming_language.map((data) => {
+                {data.technologies === undefined ? null : data.technologies.programming_language.map((data) => {
                     return <TechnologyTag key={data} technology={data}/>
                 })}
-                {data.technologies.frameworks.map((data) => {
+                {data.technologies === undefined ? null : data.technologies.frameworks.map((data) => {
                     return <FrameworkTag key={data} framework={data}/>
                 })}
-                {data.technologies.platforms.map((data) => {
+                {data.technologies === undefined ? null : data.technologies.platforms.map((data) => {
                     return <PlatformTag key={data} platform={data}/>
                 })}
-                {data.technologies.databases.map((data) => {
+                {data.technologies === undefined ? null : data.technologies.databases.map((data) => {
                     return <CloudTag key={data} cloud={data}/>
                 })}
             </div>
