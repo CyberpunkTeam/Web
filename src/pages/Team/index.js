@@ -197,7 +197,7 @@ export default function TeamScreen() {
         }
 
         return (
-            <div className={context.user.uid === teamData.owner ? "cover-recommend-buttons" : "cover-buttons"}
+            <div className={context.user.uid === teamData.owner ? isMobile ? "cover-chats-buttons" : "cover-recommend-buttons" : "cover-buttons"}
                  onClick={create}>
                 <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
                     <Message size={isMobile ? 48 : 24} color="#014751"/>
@@ -230,41 +230,30 @@ export default function TeamScreen() {
     const cover = () => {
 
         const tags = () => {
-            const preferencesTags = () => {
-                if (!teamData.temporal) {
-                    return (
-                        <div className="tags-container">
-                            {teamData.project_preferences.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                            {teamData.idioms.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                            {teamData.methodologies === null ? null : teamData.methodologies.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                        </div>
-                    )
-                }
-            }
 
             return (
-                <div className={"team-tags"}>
-                    <div className="tags-container">
-                        {teamData.technologies.programming_language.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                        {teamData.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                        {teamData.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                        {teamData.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    {preferencesTags()}
+                <div className={isMobile || context.size ? "teamCoverTagsMobile" : "team-tags"}>
+                    {teamData.technologies.programming_language.map((data) => {
+                        return <TechnologyTag key={data} technology={data}/>
+                    })}
+                    {teamData.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                    {teamData.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
+                    })}
+                    {teamData.technologies.databases.map((data) => {
+                        return <CloudTag key={data} cloud={data}/>
+                    })}
+                    {teamData.project_preferences.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {teamData.idioms.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {teamData.methodologies.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
                 </div>
             )
         }
@@ -446,7 +435,7 @@ export default function TeamScreen() {
         return (
             <div className={"team-screen"}>
                 <div className="team-container">
-                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData} />
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData}/>
                     {cover()}
                 </div>
                 <div className="profile-data-container">

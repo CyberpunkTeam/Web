@@ -110,8 +110,30 @@
 }
 
 .team-tags {
-    width: 100%;
+    width: calc(90% - 64px);
+    margin: 0 32px;
+    position: relative;
     overflow-x: auto;
+    flex-direction: row;
+    align-items: baseline;
+    font-weight: 700;
+    color: #222222;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
+.teamCoverTagsMobile {
+    font-weight: 700;
+    width: calc(90% - 64px);
+    margin: 0 32px;
+    overflow-x: auto;
+    color: #222222;
+    flex-direction: row;
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
 .team-rating {
