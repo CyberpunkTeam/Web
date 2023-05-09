@@ -7,7 +7,7 @@ import PlatformTag from "../PlatformTag";
 import {formatter} from "../../utils/budgetFormatter";
 import {Bitcoin, Box1, ChartSquare, CpuSetting, Hex, Mobile, Monitor, Scroll} from "iconsax-react";
 import CloudTag from "../CloudTag";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import AppContext from "../../utils/AppContext";
 
 export default function ProjectTileMobileComponent(params) {
@@ -50,60 +50,26 @@ export default function ProjectTileMobileComponent(params) {
     }
 
     const tags = () => {
-        if (isMobile) {
-            return (
-                <div className={"tags-container-tile"}>
-                    <div className="tags-project">
-                        {data.technologies.programming_language.map((technology) => {
-                            return <TechnologyTag key={technology} technology={technology}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    <div className="tags-project">
-                        {data.idioms.map((preference) => {
-                            return <PreferenceTag key={preference} preference={preference}/>
-                        })}
-                    </div>
-                </div>
-            )
-        }
         return (
-            <div className={"tags-container-tile"}>
-                <div className="tags-project">
-                    {data.technologies.programming_language.map((technology) => {
-                        return <TechnologyTag key={technology} technology={technology}/>
-                    })}
-                    {data.technologies.frameworks.map((data) => {
-                        return <FrameworkTag key={data} framework={data}/>
-                    })}
-                </div>
-                <div className="tags-project">
-                    {data.technologies.platforms.map((data) => {
-                        return <PlatformTag key={data} platform={data}/>
-                    })}
-                    {data.technologies.databases.map((data) => {
-                        return <CloudTag key={data} cloud={data}/>
-                    })}
-                </div>
-                <div className="tags-project">
-                    {data.idioms.map((preference) => {
-                        return <PreferenceTag key={preference} preference={preference}/>
-                    })}
-                </div>
+            <div className={"project-tile-tags"}>
+                {data.technologies.programming_language.map((data) => {
+                    return <TechnologyTag key={data} technology={data}/>
+                })}
+                {data.technologies.frameworks.map((data) => {
+                    return <FrameworkTag key={data} framework={data}/>
+                })}
+                {data.technologies.platforms.map((data) => {
+                    return <PlatformTag key={data} platform={data}/>
+                })}
+                {data.technologies.databases.map((data) => {
+                    return <CloudTag key={data} cloud={data}/>
+                })}
+                {data.idioms.map((data) => {
+                    return <PreferenceTag key={data} preference={data}/>
+                })}
+                {data.description.non_function_requirements.map((data) => {
+                    return <PreferenceTag key={data} preference={data}/>
+                })}
             </div>
         )
     }
