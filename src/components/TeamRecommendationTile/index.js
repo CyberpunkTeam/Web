@@ -36,41 +36,27 @@ export default function TeamRecommendationTile(params) {
     const teamTags = (data) => {
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
-                <div className="teamTagContainer">
-                    {data.technologies.programming_language.map((data) => {
-                        return <TechnologyTag key={data} technology={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.technologies.frameworks.map((data) => {
-                        return <FrameworkTag key={data} framework={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.technologies.platforms.map((data) => {
-                        return <PlatformTag key={data} platform={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.technologies.databases.map((data) => {
-                        return <CloudTag key={data} cloud={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.project_preferences.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.idioms === null ? null : data.idioms.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.methodologies === null ? null : data.methodologies.map((data) => {
-                        return <PreferenceTag key={data} preference={data}/>
-                    })}
-                </div>
+                {data.technologies.programming_language.map((data) => {
+                    return <TechnologyTag key={data} technology={data}/>
+                })}
+                {data.technologies.frameworks.map((data) => {
+                    return <FrameworkTag key={data} framework={data}/>
+                })}
+                {data.technologies.platforms.map((data) => {
+                    return <PlatformTag key={data} platform={data}/>
+                })}
+                {data.technologies.databases.map((data) => {
+                    return <CloudTag key={data} cloud={data}/>
+                })}
+                {data.project_preferences.map((data) => {
+                    return <PreferenceTag key={data} preference={data}/>
+                })}
+                {data.idioms === null ? null : data.idioms.map((data) => {
+                    return <PreferenceTag key={data} preference={data}/>
+                })}
+                {data.methodologies === null ? null : data.methodologies.map((data) => {
+                    return <PreferenceTag key={data} preference={data}/>
+                })}
             </div>
         )
     }
