@@ -159,7 +159,14 @@
     display: flex;
     justify-content: flex-start;
     border-radius: 32px;
-    width: calc(50% - 16px);
+}
+
+.members-info-container-mobile-article {
+    background: #F1F1F1;
+    height: 160px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 32px;
 }
 
 .article-mobile {

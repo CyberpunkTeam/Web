@@ -38,26 +38,18 @@ export default function TemporalTeam(params) {
     const teamTags = (data) => {
         return (
             <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
-                <div className="teamTagContainer">
-                    {data.skills.programming_language.map((data) => {
-                        return <TechnologyTag key={data} technology={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.skills.frameworks.map((data) => {
-                        return <FrameworkTag key={data} framework={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.skills.platforms.map((data) => {
-                        return <PlatformTag key={data} platform={data}/>
-                    })}
-                </div>
-                <div className="teamTagContainer">
-                    {data.skills.databases.map((data) => {
-                        return <CloudTag key={data} cloud={data}/>
-                    })}
-                </div>
+                {data.technologies.programming_language.map((data) => {
+                    return <TechnologyTag key={data} technology={data}/>
+                })}
+                {data.technologies.frameworks.map((data) => {
+                    return <FrameworkTag key={data} framework={data}/>
+                })}
+                {data.technologies.platforms.map((data) => {
+                    return <PlatformTag key={data} platform={data}/>
+                })}
+                {data.technologies.databases.map((data) => {
+                    return <CloudTag key={data} cloud={data}/>
+                })}
             </div>
         )
     }

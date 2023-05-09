@@ -18,52 +18,55 @@ export default function SearchResults() {
     const navigate = useNavigate();
     const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "users" : "teams")
 
+    console.log(context.search)
+
     if (context.search === undefined) {
         return <NotFound/>
     }
 
     const teamView = (data) => {
-        const link_url = "/team/" + data.tid
         const goTo = () => {
-            navigate(link_url)
+            navigate("/team/" + data.tid)
         }
 
         const teamTags = (data) => {
             return (
                 <div className={isMobile || context.size ? "teamTagsMobile" : "teamTags"}>
-                    <div className="teamTagContainer">
-                        {data.technologies.programming_language.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                    </div>
-                    <div className="teamTagContainer">
-                        {data.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                    </div>
-                    <div className="teamTagContainer">
-                        {data.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                    </div>
-                    <div className="teamTagContainer">
-                        {data.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    <div className="teamTagContainer">
-                        {data.project_preferences.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                        {data.idioms === null ? null : data.idioms.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                    </div>
-                    <div className="teamTagContainer">
-                        {data.methodologies === null ? null : data.methodologies.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                    </div>
+                    {data.technologies.programming_language.map((data) => {
+                        return <TechnologyTag key={data} technology={data}/>
+                    })}
+                    {data.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                    {data.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
+                    })}
+                    {data.technologies.databases.map((data) => {
+                        return <CloudTag key={data} cloud={data}/>
+                    })}
+                    {data.project_preferences.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {data.idioms === null ? null : data.idioms.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {data.methodologies === null ? null : data.methodologies.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                </div>
+            )
+        }
+
+        const teamViewTitle = (data) => {
+
+            const team_link = "/team/" + data.tid;
+
+            return (
+                <div key={data.tid}
+                     className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
+                    <Link to={team_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
+                        {data.name}
+                    </Link>
                 </div>
             )
         }
@@ -71,12 +74,8 @@ export default function SearchResults() {
         return (
             <div key={data.tid} className={isMobile ? "teamContainerMobile" : "teamContainer"} onClick={goTo}>
                 <div className={isMobile || context.size ? "teamInfoMobile" : "teamInfo"}>
-                    <div className="search-result-view-data">
-                        <Link to={link_url} className="search-link">
-                            {data.name}
-                        </Link>
-                        {teamTags(data)}
-                    </div>
+                    {teamViewTitle(data)}
+                    {teamTags(data)}
                 </div>
             </div>
         )

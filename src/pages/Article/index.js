@@ -132,7 +132,7 @@ export default function Article() {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile">
+                <div key={data.uid} className="members-info-container-mobile-article">
                     <div className="members-info-mobile">
                         {image()}
                         <div className="member-name-mobile" onClick={teamNavigate}>
@@ -183,7 +183,7 @@ export default function Article() {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile">
+                <div key={data.uid} className="members-info-container-mobile-article">
                     <div className="members-info-mobile">
                         {user_image(data)}
                         <div className="member-name-mobile" onClick={userNavigate}>
