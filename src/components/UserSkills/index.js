@@ -1,7 +1,7 @@
 import {AddCircle, Award} from "iconsax-react";
 import {isMobile} from "react-device-detect";
 import AppContext from "../../utils/AppContext";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import Modal from "react-modal";
 import {modalStyle} from "../../styles/commonStyles";
 import AddSkillModal from "../AddSkillModal";
@@ -56,37 +56,25 @@ export default function UserSkills(params) {
 
     const skills = () => {
         return (
-            <div className={"user-skills-tags"}>
-                <div className="tags-projects">
-                    {params.userData.user.skills.programming_language.map((technology) => {
-                        return <TechnologyTag key={params.userData.user.uid + technology} technology={technology}/>
-                    })}
-                </div>
-                <div className="tags-projects">
-                    {params.userData.user.skills.frameworks.map((framework) => {
-                        return <FrameworkTag key={params.userData.user.uid + framework} framework={framework}/>
-                    })}
-                </div>
-                <div className="tags-projects">
-                    {params.userData.user.skills.platforms.map((data) => {
-                        return <PlatformTag key={params.userData.user.uid + data} platform={data}/>
-                    })}
-                </div>
-                <div className="tags-projects">
-                    {params.userData.user.skills.cloud_providers.map((cloud) => {
-                        return <CloudTag key={params.userData.user.uid + cloud} cloud={cloud}/>
-                    })}
-                </div>
-                <div className="tags-projects">
-                    {params.userData.user.skills.databases.map((database) => {
-                        return <DataBaseTag key={params.userData.user.uid + database} database={database}/>
-                    })}
-                </div>
-                <div className="tags-projects">
-                    {params.userData.user.skills.methodologies.map((preference) => {
-                        return <PreferenceTag key={params.userData.user.uid + preference} preference={preference}/>
-                    })}
-                </div>
+            <div className={"jobs-tile-tags"}>
+                {params.userData.user.skills.programming_language.map((technology) => {
+                    return <TechnologyTag key={params.userData.user.uid + technology} technology={technology}/>
+                })}
+                {params.userData.user.skills.frameworks.map((framework) => {
+                    return <FrameworkTag key={params.userData.user.uid + framework} framework={framework}/>
+                })}
+                {params.userData.user.skills.platforms.map((data) => {
+                    return <PlatformTag key={params.userData.user.uid + data} platform={data}/>
+                })}
+                {params.userData.user.skills.cloud_providers.map((cloud) => {
+                    return <CloudTag key={params.userData.user.uid + cloud} cloud={cloud}/>
+                })}
+                {params.userData.user.skills.databases.map((database) => {
+                    return <DataBaseTag key={params.userData.user.uid + database} database={database}/>
+                })}
+                {params.userData.user.skills.methodologies.map((preference) => {
+                    return <PreferenceTag key={params.userData.user.uid + preference} preference={preference}/>
+                })}
             </div>
         )
     }

@@ -256,6 +256,7 @@ function SideBar() {
         const logout = () => {
             localStorage.removeItem("user");
             localStorage.removeItem("auth_token")
+            window.location.reload()
             navigate("/")
         }
 

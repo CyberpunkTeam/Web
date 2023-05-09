@@ -198,7 +198,7 @@
 
 .teamContainerMobile {
     width: 100%;
-    min-height: 300px;
+    min-height: 200px;
     display: flex;
     align-items: center;
     border-radius: 32px;
@@ -692,15 +692,16 @@
 
 .teamTags {
     position: relative;
-    width: 70%;
+    width: 60%;
     overflow-x: auto;
     min-height: 100%;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: flex-start;
+    flex-direction: row;
+    align-items: baseline;
     font-weight: 700;
     color: #222222;
-    display: inline-block;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
 .teamTagContainer {
@@ -709,11 +710,16 @@
 }
 
 .teamTagsMobile {
-    align-items: center;
     font-weight: 700;
-    width: calc(100% - 32px);
+    width: 100%;
     overflow-x: auto;
     color: #222222;
+    min-height: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
 }
 
 .data-info-mobile {

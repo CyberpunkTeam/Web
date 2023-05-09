@@ -507,6 +507,32 @@ export default function ProjectScreen() {
             )
         }
 
+        const tags = () => {
+
+            return (
+                <div className={isMobile || context.size ? "teamCoverTagsMobile" : "team-tags"}>
+                    {project.technologies.programming_language.map((data) => {
+                        return <TechnologyTag key={data} technology={data}/>
+                    })}
+                    {project.technologies.frameworks.map((data) => {
+                        return <FrameworkTag key={data} framework={data}/>
+                    })}
+                    {project.technologies.platforms.map((data) => {
+                        return <PlatformTag key={data} platform={data}/>
+                    })}
+                    {project.technologies.databases.map((data) => {
+                        return <CloudTag key={data} cloud={data}/>
+                    })}
+                    {project.idioms.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                    {project.description.non_function_requirements.map((data) => {
+                        return <PreferenceTag key={data} preference={data}/>
+                    })}
+                </div>
+            )
+        }
+
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
@@ -514,36 +540,7 @@ export default function ProjectScreen() {
                         <div className="team-name-mobile">
                             {project.name}
                         </div>
-                        <div className="tags-container">
-                            {project.technologies.programming_language.map((data) => {
-                                return <TechnologyTag key={data} technology={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {project.technologies.frameworks.map((data) => {
-                                return <FrameworkTag key={data} framework={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {project.technologies.platforms.map((data) => {
-                                return <PlatformTag key={data} platform={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {project.technologies.databases.map((data) => {
-                                return <CloudTag key={data} cloud={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {project.idioms.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                        </div>
-                        <div className="tags-container">
-                            {project.description.non_function_requirements.map((data) => {
-                                return <PreferenceTag key={data} preference={data}/>
-                            })}
-                        </div>
+                        {tags()}
                     </div>
                     {editButton()}
                     {recommendProject()}
@@ -557,30 +554,7 @@ export default function ProjectScreen() {
                     <div className="team-name">
                         {project.name}
                     </div>
-                    <div className="tags-container">
-                        {project.technologies.programming_language.map((data) => {
-                            return <TechnologyTag key={data} technology={data}/>
-                        })}
-                        {project.technologies.frameworks.map((data) => {
-                            return <FrameworkTag key={data} framework={data}/>
-                        })}
-                    </div>
-                    <div className="tags-container">
-                        {project.technologies.platforms.map((data) => {
-                            return <PlatformTag key={data} platform={data}/>
-                        })}
-                        {project.technologies.databases.map((data) => {
-                            return <CloudTag key={data} cloud={data}/>
-                        })}
-                    </div>
-                    <div className="tags-container">
-                        {project.idioms.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                        {project.description.non_function_requirements.map((data) => {
-                            return <PreferenceTag key={data} preference={data}/>
-                        })}
-                    </div>
+                    {tags()}
                 </div>
                 {editButton()}
                 {recommendProject()}

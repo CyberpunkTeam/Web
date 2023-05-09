@@ -158,6 +158,15 @@
     bottom: 16px;
 }
 
+.cover-chats-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 140px;
+    bottom: 16px;
+}
+
 .postulations-button {
     color: #222222;
     padding: 0 20px;

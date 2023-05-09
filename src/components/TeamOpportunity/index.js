@@ -1,6 +1,6 @@
 import {isMobile} from "react-device-detect";
 import {UserCirlceAdd} from "iconsax-react";
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {modalStyle} from "../../styles/commonStyles";
 import {PostulateInTeamModal} from "../PostulateInTeamModal";
 import Modal from "react-modal";
@@ -31,33 +31,23 @@ export default function TeamOpportunity(params) {
     const requirements = () => {
         if (params.data.requirements !== null) {
             return (
-                <>
-                    <div className="tags-projects">
-                        {params.data.requirements.programming_language.map((technology) => {
-                            return <TechnologyTag key={params.data.tpid + technology} technology={technology}/>
-                        })}
-                    </div>
-                    <div className="tags-projects">
-                        {params.data.requirements.frameworks.map((framework) => {
-                            return <FrameworkTag key={params.data.tpid + framework} framework={framework}/>
-                        })}
-                    </div>
-                    <div className="tags-projects">
-                        {params.data.requirements.platforms.map((data) => {
-                            return <PlatformTag key={params.data.tpid + data} platform={data}/>
-                        })}
-                    </div>
-                    <div className="tags-projects">
-                        {params.data.requirements.cloud_providers.map((cloud) => {
-                            return <CloudTag key={params.data.tpid + cloud} cloud={cloud}/>
-                        })}
-                    </div>
-                    <div className="tags-projects">
-                        {params.data.requirements.databases.map((database) => {
-                            return <DataBaseTag key={params.data.tpid + database} database={database}/>
-                        })}
-                    </div>
-                </>
+                <div className={"jobs-tile-tags"}>
+                    {params.data.requirements.programming_language.map((technology) => {
+                        return <TechnologyTag key={params.data.tpid + technology} technology={technology}/>
+                    })}
+                    {params.data.requirements.frameworks.map((framework) => {
+                        return <FrameworkTag key={params.data.tpid + framework} framework={framework}/>
+                    })}
+                    {params.data.requirements.platforms.map((data) => {
+                        return <PlatformTag key={params.data.tpid + data} platform={data}/>
+                    })}
+                    {params.data.requirements.cloud_providers.map((cloud) => {
+                        return <CloudTag key={params.data.tpid + cloud} cloud={cloud}/>
+                    })}
+                    {params.data.requirements.databases.map((database) => {
+                        return <DataBaseTag key={params.data.tpid + database} database={database}/>
+                    })}
+                </div>
             )
         } else {
             return (
