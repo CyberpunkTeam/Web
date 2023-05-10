@@ -197,8 +197,9 @@ export default function TeamScreen() {
         }
 
         return (
-            <div className={context.user.uid === teamData.owner ? isMobile ? "cover-chats-buttons" : "cover-recommend-buttons" : "cover-buttons"}
-                 onClick={create}>
+            <div
+                className={context.user.uid === teamData.owner ? isMobile ? "cover-chats-buttons" : "cover-recommend-buttons" : "cover-buttons"}
+                onClick={create}>
                 <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
                     <Message size={isMobile ? 48 : 24} color="#014751"/>
                 </div>
@@ -245,13 +246,13 @@ export default function TeamScreen() {
                     {teamData.technologies.databases.map((data) => {
                         return <CloudTag key={data} cloud={data}/>
                     })}
-                    {teamData.project_preferences.map((data) => {
+                    {teamData.project_preferences === null ? null : teamData.project_preferences.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
-                    {teamData.idioms.map((data) => {
+                    {teamData.idioms === null ? null : teamData.idioms.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
-                    {teamData.methodologies.map((data) => {
+                    {teamData.methodologies === null ? null : teamData.methodologies.map((data) => {
                         return <PreferenceTag key={data} preference={data}/>
                     })}
                 </div>
