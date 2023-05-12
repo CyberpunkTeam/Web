@@ -1,4 +1,4 @@
-const serviceUrl = "https://apigateway-a64ymxbbqq-uc.a.run.app/"
+const serviceUrl = "https://apigateway-wpyxm22hfq-uc.a.run.app/"
 
 export const post = (endpoint, body) => {
     const token = localStorage.getItem("auth_token")
