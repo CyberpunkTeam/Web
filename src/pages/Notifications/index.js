@@ -152,7 +152,7 @@ export default function Notifications() {
                 </div>
             </div>
             {notificationContainer()}
-            {<SideBar/>}
+            <SideBar/>
         </div>
     )
 }

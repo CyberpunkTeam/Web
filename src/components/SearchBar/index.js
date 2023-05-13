@@ -152,6 +152,10 @@ export default function SearchBar() {
         navigate("/chats")
     }
 
+    const search = () => {
+        navigate("/search")
+    }
+
     if (isMobile) {
         return (
             <div className="searchbar-mobile">
@@ -161,7 +165,7 @@ export default function SearchBar() {
                         <div className="search-button" onClick={chat}>
                             <Message color="#222222" variant="Outline" size={48}/>
                         </div>
-                        <div className="search-button">
+                        <div className="search-button" onClick={search}>
                             <SearchNormal1 color="#222222" variant="Outline" size={48}/>
                         </div>
                     </div>
