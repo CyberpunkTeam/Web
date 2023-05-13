@@ -7,7 +7,7 @@ import AppContext from "../../utils/AppContext";
 import {isMobile} from "react-device-detect";
 import Logo from "../logo";
 
-export default function SearchBar() {
+export default function SearchBar(params) {
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [isSearch, setIsSearch] = useState(false)
@@ -23,6 +23,7 @@ export default function SearchBar() {
         }
         search(event.target.value).then((response) => {
             setResult(response)
+            context.setSearch(response)
             setIsSearch(true);
         })
     }
@@ -80,7 +81,7 @@ export default function SearchBar() {
         const user_link = "/team/" + data.tid
 
         return (
-            <div key={data.uid} className="user-search">
+            <div key={data.tid} className="user-search">
                 <div className="user-info-search">
                     <div className="member-photo">
                         <People color="#FAFAFA" size="24px" variant="Bold"/>
@@ -152,7 +153,7 @@ export default function SearchBar() {
         navigate("/chats")
     }
 
-    const search = () => {
+    const goToSearch = () => {
         navigate("/search")
     }
 
@@ -160,12 +161,12 @@ export default function SearchBar() {
         return (
             <div className="searchbar-mobile">
                 <div className="searchbar-mobile-container">
-                    <Logo />
+                    <Logo/>
                     <div className="searchbar-mobile-buttons">
                         <div className="search-button" onClick={chat}>
                             <Message color="#222222" variant="Outline" size={48}/>
                         </div>
-                        <div className="search-button" onClick={search}>
+                        <div className="search-button" onClick={goToSearch}>
                             <SearchNormal1 color="#222222" variant="Outline" size={48}/>
                         </div>
                     </div>
@@ -179,7 +180,7 @@ export default function SearchBar() {
         <div className="searchbar-container" onFocus={openSearch}>
             <div className="searchbar">
                 {isSearch ? <div onClick={closeSearch} className="all"/> : null}
-                {searchResults()}
+                {params.show !== undefined ? null : searchResults()}
                 <div className="search-input">
                     <input type="text" value={searchWord}
                            onKeyUp={submit}

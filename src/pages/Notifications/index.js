@@ -68,11 +68,11 @@ export default function Notifications() {
         const icon = (notification_type) => {
             if (notification_type === "TEAM_INVITATION" || notification_type === "NEW_TEAM_CANDIDATE" || notification_type === "TEAM_POSITION_ACCEPTED") {
                 return (
-                    <People color="#FAFAFA" size="48px" variant="Bold"/>
+                    <People color="#FAFAFA" size="48" variant="Bold"/>
                 )
             } else {
                 return (
-                    <LampCharge color="#FAFAFA" size="48px" variant="Bold"/>
+                    <LampCharge color="#FAFAFA" size="48" variant="Bold"/>
                 )
             }
         }
@@ -82,7 +82,7 @@ export default function Notifications() {
                     buttonNavigation(data.resource_id, data.notification_type, data.content, data.metadata)
                 }}>
                     <div className="notification-list-data">
-                        <div className="user-notification-mobile">
+                        <div className={"chat-photo-mobile"}>
                             {icon(data.notification_type)}
                         </div>
                         <div className="notification-list-data-message-mobile">

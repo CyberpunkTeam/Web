@@ -4,8 +4,7 @@ import SideBar from "../../components/SideBar";
 import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {CloseCircle, SearchNormal1, User} from "iconsax-react";
-import NotFound from "../NotFound";
+import {CloseCircle, People, SearchNormal1, User} from "iconsax-react";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import FrameworkTag from "../../components/FrameworkTag";
@@ -14,13 +13,12 @@ import {isMobile} from "react-device-detect";
 import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import {search} from "../../services/searchService";
+import FollowingTag from "../../components/FollowingTag";
 
 export default function SearchResults() {
     let context = useContext(AppContext);
     const navigate = useNavigate();
-
-    const [filter, setFilter] = useState(context.search === undefined ? "" : context.search.users.length !== 0 ? "users" : "teams")
-
+    const [filter, setFilter] = useState(context.search === undefined ? "users" : context.search.users.length !== 0 ? "users" : "teams")
     const [searchWord, setSearchWord] = useState("")
 
     const teamView = (data) => {
@@ -83,54 +81,84 @@ export default function SearchResults() {
         if (context.user.uid === data.uid) {
             return
         }
-        const user_image = (data) => {
+
+        const goToUser = () => {
+            navigate("/user/" + data.uid)
+        }
+
+        const user_data = () => {
+            return (
+                <div key={data.uid} className="user-data-container">
+                    <div className={isMobile ? "name-mobile" : "name"}>
+                        {data.name} {data.lastname}
+                        {context.user.following.users.includes(data.uid) ? <FollowingTag/> : null}
+                    </div>
+                    <div className={isMobile ? "extra-data-mobile" : "extra-data"}>
+                        {data.email}
+                    </div>
+                </div>
+            )
+        }
+
+        const user_image = () => {
             if (data.profile_image === "default") {
                 return (
-                    <div className={isMobile ? "search_user_image-mobile" : "search_user_image"}>
-                        <User color="#FAFAFA" size={isMobile ? "40" : "40px"} variant="Bold"/>
+                    <div className={isMobile ? "user-svg-mobile" : "user-svg"}>
+                        <User color="#FAFAFA" size={isMobile ? "100px" : "50px"} variant="Bold"/>
                     </div>
                 )
             } else {
-                return <img src={data.profile_image} alt=''
-                            className={isMobile ? "search_user_image-mobile" : "search_user_image"}/>
+                return <img src={data.profile_image} alt={'user'}
+                            className={isMobile ? "user-svg-mobile" : "user"}/>
             }
         }
 
-        const link_url = "/user/" + data.uid
+        const coverImage = () => {
+            if (data.cover_image === "default") {
+                return (
+                    <div className={isMobile ? "cover-user-container-mobile" : "cover-user-container"}/>
+                )
+            }
+            return <img src={data.cover_image} className={isMobile ? "image-container-mobile" : "image-container"}
+                        alt=""/>
+        }
 
         return (
-            <div key={data.uid}
-                 className={isMobile ? "search-result-view-mobile" : context.size ? "search-result-view-reduced" : "search-result-view"}>
-                <div className={isMobile ? "search-result-view-info-mobile" : "search-result-view-info"}>
-                    {user_image(data)}
-                    <div to={link_url}
-                         className={isMobile ? "search-result-view-data-mobile" : "search-result-view-data"}>
-                        <Link to={link_url} className="search-link-user">
-                            {data.name} {data.lastname}
-                        </Link>
-                        <div
-                            className={isMobile ? "search-result-view-data-location-mobile" : "search-result-view-data-location"}>
-                            {data.location}
-                        </div>
+            <div key={data.uid} className={isMobile ? "cover-container-mobile-search" : "cover-container-search"}
+                 onClick={goToUser}>
+                <div className={isMobile ? "user-cover-container-mobile" : "user-cover-container"}>
+                    <div className={context.size ? "user-data-reduce" : "user-data"}>
+                        {user_image()}
+                        {user_data()}
                     </div>
                 </div>
+                {coverImage()}
             </div>
         )
     }
 
     const showUsers = () => {
+        if (context.search === undefined) {
+            return
+        }
+
         return context.search.users.map((user) => {
             return userView(user)
         })
     }
 
     const showTeams = () => {
+        if (context.search === undefined) {
+            return
+        }
+
         return context.search.teams.map((team) => {
             return teamView(team)
         })
     }
 
-    if (isMobile) {
+    const searchMobile = () => {
+
         const setSearchHandler = (event) => {
             setSearchWord(event.target.value);
             if (event.target.value === "") {
@@ -146,85 +174,86 @@ export default function SearchResults() {
             setSearchWord("")
         }
 
-        const showResults = () => {
-            if (context.search === undefined || Object.keys(context.search).length === 0) {
-
-            } else {
-                return (
-                    <div>
-                        <div className="search-header-buttons-mobile">
-                            <button
-                                className={filter === "users" ? "button-members-selected-mobile" : "button-members-mobile"}
-                                onClick={() => {
-                                    setFilter("users")
-                                }}>
-                                Users
-                            </button>
-                            <button
-                                className={filter === "users" ? "button-members-mobile" : "button-members-selected-mobile"}
-                                onClick={() => {
-                                    setFilter("teams")
-                                }}>
-                                Teams
-                            </button>
-                        </div>
-                        <div className="search-result-page-mobile-container">
-                            {filter === "users" ? showUsers() : showTeams()}
-                        </div>
-                    </div>
-                )
-            }
-        }
-
-
         return (
-            <div className={"chatDivMobile"}>
-                <div className={"search-mobile-container"}>
-                    <div className="search-input-mobile">
-                        <input type="text" value={searchWord}
-                               className="search-input-text-mobile"
-                               onChange={setSearchHandler}/>
-                        <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={48}/>
-                        {searchWord !== "" ?
-                            <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={48}
-                                         onClick={clearSearch}/> : null}
-                    </div>
-                    {showResults()}
-                </div>
-                <SearchBar/>
-                <SideBar/>
-                <AlertMessage/>
+            <div className="search-input-mobile">
+                <input type="text" value={searchWord}
+                       className="search-input-text-mobile"
+                       onChange={setSearchHandler}/>
+                <SearchNormal1 className="search-icon" color="#B1B1B1" variant="Outline" size={48}/>
+                {searchWord !== "" ?
+                    <CloseCircle className="clear-icon" color="#B1B1B1" variant="Outline" size={48}
+                                 onClick={clearSearch}/> : null}
             </div>
         )
     }
 
-    if (context.search === undefined) {
-        return <NotFound/>
+    const users = () => {
+        const create = () => {
+            setFilter("users")
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createProjectButtonMobile" onClick={create}>
+                    <User color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className={context.size ? "homeButtonUserReduced" : "homeButtonUsers"} onClick={create}>
+                <User color="#FAFAFA" size={24} variant="Bold" className={context.size ? null : "icon"}/>
+                {context.size ? null : "Users"}
+            </button>
+        )
+    }
+
+    const team = () => {
+        const change = () => {
+            setFilter("teams")
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createTeamButtonMobile" onClick={change}>
+                    <People color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className={context.size ? "homeButtonTeamReduced" : "homeButtonTeam"} onClick={change}>
+                <People color="#FAFAFA" variant="Bold" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Teams"}
+            </button>
+        )
     }
 
     return (
-        <div className="screen">
-            <div className="search-header">
-                <div className="search-header-buttons">
-                    <button className={filter === "users" ? "button-members-selected" : "button-members"}
-                            onClick={() => {
-                                setFilter("users")
-                            }}>
-                        Users
-                    </button>
-                    <button className={filter === "users" ? "button-members" : "button-members-selected"}
-                            onClick={() => {
-                                setFilter("teams")
-                            }}>
-                        Teams
-                    </button>
+        <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
+            <div>
+                {isMobile ? searchMobile() : null}
+                <div className={context.size || isMobile ? "article-container-reduced" : "article-container"}>
+                    <div className={isMobile || context.size ? "buttonsCreations" : "buttons-home-container"}>
+                        <div className={isMobile ? "create-projects-header-mobile" : "create-projects-header"}>
+                            Filter by: {filter.slice(0, 1).toUpperCase() + filter.slice(1, filter.length)}
+                        </div>
+                        <div className={isMobile || context.size ? "buttonsMobileCreations" : null}>
+                            {users()}
+                            {team()}
+                        </div>
+                    </div>
+                    <div className={"home-data-container-reduced"}>
+                        <div
+                            className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
+                            {filter === "users" ? showUsers() : showTeams()}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div className="search-result-page-container">
-                {filter === "users" ? showUsers() : showTeams()}
-            </div>
-            <SearchBar/>
+            <SearchBar show={false}/>
             <SideBar/>
+            <AlertMessage/>
         </div>
     )
 }
