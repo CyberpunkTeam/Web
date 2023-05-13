@@ -17,7 +17,7 @@ export default function PostulateTeam() {
     const [coin, setCoin] = useState("DOLAR")
 
     const goBack = () => {
-        navigate("/projects/" + params.pid)
+        navigate(-1)
     }
 
     const setTeamHandler = (event) => {

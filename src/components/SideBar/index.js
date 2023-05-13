@@ -96,6 +96,10 @@ function SideBar() {
         navigate("/chats")
     }
 
+    const notification = () => {
+        navigate("/notifications", {state: {list: notifications}})
+    }
+
     const closeNotification = () => {
         closeAll();
         setWatchNotifications(!watchNotifications);
@@ -364,7 +368,7 @@ function SideBar() {
                             Home
                         </div>
                         <div className={context.size ? "navbar-web-icon" : "navbar-mobile-icon"}
-                             onClick={context.size ? closeNotification : null}>
+                             onClick={context.size ? closeNotification : notification}>
                             <Notification className="settings-mobile" color="#FAFAFA" variant="Outline"
                                           size={context.size ? 28 : 60}/>
                             {unreadNotifications.length !== 0 ?

@@ -142,13 +142,15 @@ export default function ChatBox(params) {
                 return (
                     <div className="searchbar-mobile">
                         <div className="header-mobile-container">
-                            {backButton()}
-                            <div className={"chat-photo-mobile"}>
-                                <People color="#FAFAFA" size={"48"} variant="Bold"/>
-                            </div>
-                            <div className={isMobile ? "chatUserNameHeaderMobile" : "chatUserNameHeader"}
-                                 onClick={goToTeam}>
-                                {actualChat[1].teamInfo.displayName}
+                            <div className={"header-title-mobile-container"}>
+                                {backButton()}
+                                <div className={"chat-photo-mobile"}>
+                                    <People color="#FAFAFA" size={"48"} variant="Bold"/>
+                                </div>
+                                <div className={isMobile ? "chatUserNameHeaderMobile" : "chatUserNameHeader"}
+                                     onClick={goToTeam}>
+                                    {actualChat[1].teamInfo.displayName}
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -33,6 +33,7 @@ import Home from "./pages/Home";
 import ChatScreen from "./pages/ChatScreen";
 import {createUserChat} from "./services/firebaseStorage";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
+import Notifications from "./pages/Notifications";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -136,6 +137,7 @@ function App() {
                 <>
                     <Route path="/user/edit" element={<EditProfile/>}/>
                     <Route path="/projects/:id/postulate" element={<PostulateTeam/>}/>
+                    <Route path={"/notifications"} element={<Notifications/>}/>
                 </>
             )
         }
@@ -147,7 +149,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/">
-                            <Route index element={user ? <Home /> : <MainScreen/>}/>
+                            <Route index element={user ? <Home/> : <MainScreen/>}/>
                             <Route path="login" element={<Login/>}/>
                             <Route path="recovery" element={<RecoveryPassword/>}/>
                             {ifUserLogs()}
