@@ -329,11 +329,7 @@ export default function CreateProjectScreen() {
     }
 
     const goBack = () => {
-        if (state.project !== undefined) {
-            navigate("/projects/" + state.project.pid)
-            return
-        }
-        navigate("/projects")
+        navigate(-1)
     }
 
     const details = () => {

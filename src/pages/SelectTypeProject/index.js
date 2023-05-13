@@ -151,6 +151,9 @@ export default function SelectTypeProject() {
         }
     }
 
+    const goBack = () => {
+        navigate(-1)
+    }
 
     return (
         <div className={isMobile ? "profile-screen-mobile" :"profile-screen"}>
@@ -159,6 +162,13 @@ export default function SelectTypeProject() {
                     Select a Project Type
                 </div>
                 {type()}
+                <div
+                    className={isMobile ? "new-vacant-button-mobile" : context.size ? "new-vacant-button-reduced" : "new-vacant-button"}>
+                    <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}
+                            onClick={goBack}>
+                        Cancel
+                    </button>
+                </div>
             </div>
             <SearchBar/>
             <SideBar/>

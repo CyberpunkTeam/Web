@@ -42,7 +42,7 @@ export default function ReviewScreen() {
     }
 
     const goBack = () => {
-        navigate("/projects/" + state.project.pid)
+        navigate(-1)
     }
 
     const finishButton = () => {

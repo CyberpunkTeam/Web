@@ -514,3 +514,15 @@
     right: 0;
     width: 100%;
 }
+
+.header-notification-mobile-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    padding: 0 30px;
+}
+
+.header-title-mobile-container {
+    display: flex;
+}

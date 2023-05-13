@@ -72,11 +72,7 @@ export default function TeamModal(params) {
     const [db, setDb] = useState(params.team === undefined ? [] : [...params.team.technologies.databases])
 
     const goBack = () => {
-        if (params.team !== undefined) {
-            navigate("/team/" + params.team.tid)
-            return
-        }
-        navigate("/me")
+        navigate(-1)
     }
 
     const setLanguageHandler = (event) => {

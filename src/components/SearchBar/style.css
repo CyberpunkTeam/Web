@@ -185,3 +185,32 @@
     justify-content: space-between;
     padding: 10px 0px 20px 10px;
 }
+
+.search-mobile-container {
+    margin-top: 200px;
+    padding-bottom: 300px;
+}
+
+.search-input-mobile {
+    padding-top: 10px;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.search-input-text-mobile {
+    font-family: "Inter", sans-serif;
+    border-radius: 32px;
+    border: 1px solid #E9E9E9;
+    outline: none;
+    height: 80px;
+    background: #E3E3E3;
+    padding-left: 80px;
+    padding-right: 80px;
+    width: 100%;
+    min-height: 100px;
+    font-size: 32px;
+}
