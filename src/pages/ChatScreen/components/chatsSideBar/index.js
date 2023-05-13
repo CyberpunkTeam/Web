@@ -14,7 +14,7 @@ export default function ChatsSideBar(params) {
         if (data.profile_image === "default") {
             return (
                 <div className={isMobile ? "chat-photo-mobile" : "member-photo"}>
-                    <User color="#FAFAFA" size={isMobile ? "32" : "16"} variant="Bold"/>
+                    <User color="#FAFAFA" size={isMobile ? "48" : "16"} variant="Bold"/>
                 </div>
             )
         } else {

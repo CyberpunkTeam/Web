@@ -31,7 +31,7 @@
 
 .create-projects-header-mobile {
     display: flex;
-    align-items: center;
+    width: 100%;
     font-size: 48px;
     padding-top: 16px;
     font-weight: 700;

@@ -1,0 +1,43 @@
+.notification-mobile-list {
+    padding-bottom: 300px;
+    margin-top: 200px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    align-self: center;
+    width: 100%;
+}
+
+.user-notification-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    width: 100px;
+    background: #0F2830;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    border: 2px solid rgb(46, 153, 153);
+}
+
+.notification-mobile-list li {
+    font-size: 40px;
+    font-weight: 300;
+    list-style: none;
+    margin-bottom: 36px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.notification-mobile-list li:last-child {
+    border-bottom: none;
+}
+
+.notification-list-data-message-mobile {
+    width: 85%;
+}
+
+.dateMobile {
+    font-size: 24px;
+    padding-bottom: 16px;
+    text-align: right;
+}
