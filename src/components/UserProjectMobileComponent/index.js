@@ -39,7 +39,7 @@ export default function UserProjectMobileComponent(params) {
         <div className={"user-team-container"}>
             {addButton()}
             {params.userData.projects.map((data) => {
-                return <ProjectTileMobileComponent data={data}/>
+                return <ProjectTileMobileComponent key={data.pid} data={data}/>
             })}
         </div>
     )

@@ -3,7 +3,7 @@ import SideBar from "../../components/SideBar";
 import AppContext from "../../utils/AppContext";
 import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
-import {AddCircle, Edit, User, Notepad2, Message, Share} from "iconsax-react";
+import {Edit, User, Notepad2, Message, Share, UserAdd} from "iconsax-react";
 import Modal from 'react-modal';
 import {useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
@@ -24,6 +24,7 @@ import {RecommendUserModal} from "../../components/RecommendUserModal";
 import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
 import ArticleTile from "../../components/ArticleTile";
+import FollowersComponent from "../../components/FollowersComponent";
 
 function ProfileScreen() {
     const params = useParams();
@@ -186,19 +187,23 @@ function ProfileScreen() {
             return
         }
 
+        if (isMobile) {
+            return (
+                <div className={"edit-button-mobile"} onClick={followUserButton}>
+                    {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                        <UserAdd size={48} color="#014751"/>}
+                </div>
+            )
+        }
+
         return (
-            <button
-                className={isMobile ? "followButtonMobile" : context.size ? "follow2ReducedButton" : "follow2Button"}
-                disabled={followButtonStatus}
-                onClick={followUserButton}>
-                {followButtonStatus ?
-                    <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    <AddCircle color="#FAFAFA"
-                               size={isMobile ? 48 : 24}
-                               className={isMobile || context.size ? null : "icon"}/>
-                }
-                {isMobile || context.size || followButtonStatus ? null : "Follow"}
-            </button>
+            <div className={"edit-button"} onClick={followUserButton}>
+                {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                    <UserAdd size={24} color="#014751"/>}
+                <div className={followButtonStatus ? null : "LockButtonText"}>
+                    {followButtonStatus ? null : "Follow"}
+                </div>
+            </div>
         )
     }
 
@@ -207,12 +212,19 @@ function ProfileScreen() {
             return
         }
 
-        const condition = !context.user.following.users.includes(id) || !userData.user.following.users.includes(context.user.uid)
+        if (isMobile) {
+            return (
+                <div className={"edit-button-mobile"} onClick={recommendUserButton}>
+                    <Share size={48} color="#014751"/>
+                </div>
+            )
+        }
 
         return (
-            <div className={condition ? "cover-buttons" : "cover-recommend-buttons"} onClick={recommendUserButton}>
-                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
-                    <Share size={isMobile ? 48 : 24} color="#014751"/>
+            <div className={"edit-button"} onClick={recommendUserButton}>
+                <Share size={24} color="#014751"/>
+                <div className={"LockButtonText"}>
+                    Share
                 </div>
             </div>
         )
@@ -234,10 +246,19 @@ function ProfileScreen() {
             })
         }
 
+        if (isMobile) {
+            return (
+                <div className={"edit-button-mobile"} onClick={create}>
+                    <Message size={48} color="#014751"/>
+                </div>
+            )
+        }
+
         return (
-            <div className="cover-buttons" onClick={create}>
-                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
-                    <Message size={isMobile ? 48 : 24} color="#014751"/>
+            <div className={"edit-button"} onClick={create}>
+                <Message size={24} color="#014751"/>
+                <div className={"LockButtonText"}>
+                    Message
                 </div>
             </div>
         )
@@ -248,9 +269,10 @@ function ProfileScreen() {
         const editButton = () => {
             if (id === context.user.uid) {
                 return (
-                    <div className="cover-buttons">
-                        <div className="edit-button" onClick={openModal}>
-                            <Edit size="24" color="#014751"/>
+                    <div className="edit-button" onClick={openModal}>
+                        <Edit size="24" color="#014751"/>
+                        <div className={"LockButtonText"}>
+                            Edit
                         </div>
                     </div>
                 )
@@ -264,10 +286,12 @@ function ProfileScreen() {
                         {user_image()}
                         {user_data()}
                     </div>
-                    {editButton()}
-                    {followButton()}
-                    {recommendUser()}
-                    {chatUser()}
+                    <div className="cover-buttons">
+                        {followButton()}
+                        {recommendUser()}
+                        {chatUser()}
+                        {editButton()}
+                    </div>
                 </div>
                 {coverImage()}
             </div>
@@ -283,10 +307,8 @@ function ProfileScreen() {
         const editButton = () => {
             if (id === context.user.uid) {
                 return (
-                    <div className="cover-buttons">
-                        <div className="edit-button-mobile" onClick={editProfile}>
-                            <Edit size="48" color="#014751"/>
-                        </div>
+                    <div className="edit-button-mobile" onClick={editProfile}>
+                        <Edit size="48" color="#014751"/>
                     </div>
                 )
             }
@@ -299,10 +321,12 @@ function ProfileScreen() {
                         {user_image()}
                         {user_data()}
                     </div>
-                    {editButton()}
-                    {followButton()}
-                    {recommendUser()}
-                    {chatUser()}
+                    <div className="cover-buttons">
+                        {followButton()}
+                        {recommendUser()}
+                        {chatUser()}
+                        {editButton()}
+                    </div>
                 </div>
                 {coverImage()}
             </div>
@@ -315,12 +339,13 @@ function ProfileScreen() {
                 <div
                     className={isMobile || context.size ? "userInformationContainerReduced" : "userInformationContainer"}>
                     <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
+                        <FollowersComponent userData={userData}/>
                         <EducationComponent userData={userData}/>
                         <WorkExperienceComponent userData={userData}/>
                         <UserSkills userData={userData}/>
                     </div>
                     <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
-                        <div className={"teamProjectsInProgressContainerReduced"}>
+                        <div className={isMobile ? "teamProjectsInProgressContainerMobile" : "teamProjectsInProgressContainerReduced"}>
                             <div className={"teamInformationTitleContainer"}>
                                 <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
                                     <Notepad2 size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>

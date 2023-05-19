@@ -1,5 +1,5 @@
 import './style.css';
-import {CloseCircle, Message, People, SearchNormal1, User} from "iconsax-react";
+import {CloseCircle, Message, Notepad2, People, SearchNormal1, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import {search} from "../../services/searchService";
 import {useNavigate} from "react-router-dom";
@@ -23,8 +23,8 @@ export default function SearchBar(params) {
         }
         search(event.target.value).then((response) => {
             setResult(response)
-            context.setSearch(response)
             setIsSearch(true);
+            context.setSearch(response)
         })
     }
 
@@ -98,6 +98,27 @@ export default function SearchBar(params) {
         )
     }
 
+    const contentView = (data) => {
+        const link = "/articles/" + data.cid
+
+        return (
+            <div key={data.cid} className="user-search">
+                <div className="user-info-search">
+                    <div className="member-photo">
+                        <Notepad2 color="#FAFAFA" size="24px" variant="Bold"/>
+                    </div>
+                    <div className="user-name-search" onClick={() => {
+                        navigate(link)
+                        closeSearch()
+                        clearSearch()
+                    }}>
+                        {data.title}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const viewResults = () => {
         context.setSearch(result);
         navigate("/search")
@@ -137,6 +158,12 @@ export default function SearchBar(params) {
                             return teamView(team)
                         })}
                     </div>
+                    <div className="teams-search">
+                        {result.contents.length !== 0 ? "Articles" : ""}
+                        {result.contents.slice(0, 5).map((article) => {
+                            return contentView(article)
+                        })}
+                    </div>
                 </div>
                 {viewMore()}
             </div>
@@ -144,7 +171,7 @@ export default function SearchBar(params) {
     }
 
     const submit = (event) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && params.show === undefined) {
             viewResults();
         }
     }
@@ -175,12 +202,11 @@ export default function SearchBar(params) {
         )
     }
 
-
     return (
         <div className="searchbar-container" onFocus={openSearch}>
             <div className="searchbar">
                 {isSearch ? <div onClick={closeSearch} className="all"/> : null}
-                {params.show !== undefined ? null : searchResults()}
+                {params.show === undefined ? searchResults() : null}
                 <div className="search-input">
                     <input type="text" value={searchWord}
                            onKeyUp={submit}

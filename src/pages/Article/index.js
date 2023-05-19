@@ -71,7 +71,7 @@ export default function Article() {
                         <div className={"publish-date-mobile"}>
                             <div className={"publishButtonsLikeMobile"} onClick={like}>
                                 <EmojiHappy size={48} color="#FAFAFA"
-                                            variant={article.likes.includes(context.user.uid) ? "Bold" : null}
+                                            variant={article.likes.includes(context.user.uid) ? "Bold" : "Outline"}
                                             className={"iconMobile"}/>
                                 {article.likes.length}
                             </div>
@@ -97,7 +97,7 @@ export default function Article() {
                     <div className="publish-date">
                         <div className={"publishButtonsLike"} onClick={like}>
                             <EmojiHappy size="24" color="#FAFAFA"
-                                        variant={article.likes.includes(context.user.uid) ? "Bold" : ""}
+                                        variant={article.likes.includes(context.user.uid) ? "Bold" : "Outline"}
                                         className={"icon"}/>
                             {article.likes.length}
                         </div>

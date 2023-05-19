@@ -1,0 +1,70 @@
+.socialContainer{
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 20px;
+    font-weight: 700;
+    color: #222222;
+    cursor: pointer;
+}
+
+.socialContainerMobile{
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 20px;
+    font-weight: 700;
+    color: #222222;
+    cursor: pointer;
+    font-size: 32px;
+}
+
+.socialFollowingContainer{
+    width: calc(33% - 16px);
+    display: flex;
+    padding: 0 8px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #222222;
+    border-right: 1px solid #E3E3E3;
+}
+
+.socialTeamsContainer{
+    width: calc(33% - 16px);
+    display: flex;
+    padding: 0 8px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #222222;
+    border-right: 1px solid #E3E3E3;
+    border-left: 1px solid #E3E3E3;
+}
+
+.socialFollowerContainer{
+    width: calc(33% - 16px);
+    display: flex;
+    padding: 0 8px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    color: #222222;
+    border-left: 1px solid #E3E3E3;
+}
+
+.socialNumber{
+    padding-top: 24px;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.socialNumberMobile{
+    padding-top: 24px;
+    font-weight: 300;
+    font-size: 30px;
+}

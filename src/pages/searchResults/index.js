@@ -4,7 +4,7 @@ import SideBar from "../../components/SideBar";
 import {Link, useNavigate} from "react-router-dom";
 import React, {useContext, useState} from "react";
 import AppContext from "../../utils/AppContext";
-import {CloseCircle, People, SearchNormal1, User} from "iconsax-react";
+import {CloseCircle, Notepad2, People, SearchNormal1, User} from "iconsax-react";
 import TechnologyTag from "../../components/TechnologyTag";
 import PreferenceTag from "../../components/PreferenceTag";
 import FrameworkTag from "../../components/FrameworkTag";
@@ -73,6 +73,49 @@ export default function SearchResults() {
                     {teamViewTitle(data)}
                     {teamTags(data)}
                 </div>
+            </div>
+        )
+    }
+
+    const ArticleView = (data) => {
+        const goTo = () => {
+            navigate("/articles/" + data.cid)
+        }
+
+        const coverImage = () => {
+            if (data.cover_image === "default") {
+                return (
+                    <div className={isMobile ? "article-cover-container-mobile" : "article-cover-container"}/>
+                )
+            }
+            return <img src={data.cover_image} className={isMobile ? "image-container-mobile" : "image-container"}
+                        alt=""/>
+        }
+
+        const articleViewTitle = (data) => {
+
+            const article_link = "/article/" + data.cid;
+
+            return (
+                <div key={data.cid}
+                     className={isMobile ? "teamDataInfoMobile" : context.size ? "teamDataInfoReduce" : "teamDataInfo"}>
+                    <Link to={article_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
+                        {data.title}
+                    </Link>
+                </div>
+            )
+        }
+
+
+        return (
+            <div key={data.cid} className={isMobile ? "cover-container-mobile-search" : "cover-container-search"}
+                 onClick={goTo}>
+                <div className={isMobile ? "user-cover-container-mobile" : "user-cover-container"}>
+                    <div className={isMobile || context.size ? "teamInfoMobile" : "articleInfo"}>
+                        {articleViewTitle(data)}
+                    </div>
+                </div>
+                {coverImage()}
             </div>
         )
     }
@@ -157,6 +200,16 @@ export default function SearchResults() {
         })
     }
 
+    const showArticles = () => {
+        if (context.search === undefined) {
+            return
+        }
+
+        return context.search.contents.map((article) => {
+            return ArticleView(article)
+        })
+    }
+
     const searchMobile = () => {
 
         const setSearchHandler = (event) => {
@@ -229,6 +282,27 @@ export default function SearchResults() {
         )
     }
 
+    const articles = () => {
+        const change = () => {
+            setFilter("articles")
+        }
+
+        if (isMobile) {
+            return (
+                <button className="createArticleButtonMobile" onClick={change}>
+                    <Notepad2 color="#FAFAFA" variant="Bold" size={48}/>
+                </button>
+            )
+        }
+
+        return (
+            <button className={context.size ? "homeButtonReduced" : "homeButton"} onClick={change}>
+                <Notepad2 color="#FAFAFA" variant="Bold" size={24} className={context.size ? null : "icon"}/>
+                {context.size ? null : "Articles"}
+            </button>
+        )
+    }
+
     return (
         <div className={isMobile ? "projects-screen-mobile" : "projects-screen"}>
             <div>
@@ -241,12 +315,13 @@ export default function SearchResults() {
                         <div className={isMobile || context.size ? "buttonsMobileCreations" : null}>
                             {users()}
                             {team()}
+                            {articles()}
                         </div>
                     </div>
                     <div className={"home-data-container-reduced"}>
                         <div
                             className={isMobile || context.size ? "article-data-container-reduced" : "article-data-container"}>
-                            {filter === "users" ? showUsers() : showTeams()}
+                            {filter === "users" ? showUsers() : filter === "teams" ? showTeams() : showArticles()}
                         </div>
                     </div>
                 </div>
