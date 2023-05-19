@@ -1,5 +1,5 @@
 import './style.css';
-import {CloseCircle, Message, People, SearchNormal1, User} from "iconsax-react";
+import {CloseCircle, Message, Notepad2, People, SearchNormal1, User} from "iconsax-react";
 import {useContext, useState} from "react";
 import {search} from "../../services/searchService";
 import {useNavigate} from "react-router-dom";
@@ -22,7 +22,7 @@ export default function SearchBar(params) {
             return
         }
         search(event.target.value).then((response) => {
-            setResult(response)
+            console.log(result)
             context.setSearch(response)
             setIsSearch(true);
         })
@@ -98,6 +98,27 @@ export default function SearchBar(params) {
         )
     }
 
+    const contentView = (data) => {
+        const link = "/articles/" + data.cid
+
+        return (
+            <div key={data.cid} className="user-search">
+                <div className="user-info-search">
+                    <div className="member-photo">
+                        <Notepad2 color="#FAFAFA" size="24px" variant="Bold"/>
+                    </div>
+                    <div className="user-name-search" onClick={() => {
+                        navigate(link)
+                        closeSearch()
+                        clearSearch()
+                    }}>
+                        {data.title}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
     const viewResults = () => {
         context.setSearch(result);
         navigate("/search")
@@ -135,6 +156,12 @@ export default function SearchBar(params) {
                         {result.teams.length !== 0 ? "Teams" : ""}
                         {result.teams.slice(0, 5).map((team) => {
                             return teamView(team)
+                        })}
+                    </div>
+                    <div className="teams-search">
+                        {result.contents.length !== 0 ? "Articles" : ""}
+                        {result.contents.slice(0, 5).map((article) => {
+                            return contentView(article)
                         })}
                     </div>
                 </div>

@@ -1,6 +1,5 @@
 
 
-<img src="./public/fmg_full_logo_fondo_color.svg" alt="drawing" width="400px"/>
 
 ## Develoment
 

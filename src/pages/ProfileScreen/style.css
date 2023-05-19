@@ -186,7 +186,7 @@
 
 .teamContainer {
     width: 100%;
-    min-height: 120px;
+    min-height: 152px;
     display: flex;
     align-items: center;
     border-radius: 16px;
@@ -392,10 +392,21 @@
     color: #FAFAFA;
 }
 
+.articleInfo {
+    position: relative;
+    margin: 16px;
+    width: calc(100% - 32px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #FAFAFA;
+}
+
 .teamInfoMobile {
     position: relative;
     margin: 32px;
     width: calc(100% - 64px);
+    text-align: center;
     justify-content: space-between;
     color: #FAFAFA;
 }

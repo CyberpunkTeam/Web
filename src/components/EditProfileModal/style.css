@@ -123,6 +123,20 @@ input[type="file"] {
     background-image: linear-gradient(0deg, rgba(15, 40, 48, 0.78), rgba(15, 40, 48, 0.78)), linear-gradient(268.12deg, rgba(15, 40, 48, 0) 0%, rgba(15, 40, 48, 0.8) 100%);
 }
 
+.article-cover-container {
+    border-radius: 16px;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
+}
+
+.article-cover-container-mobile {
+    border-radius: 32px;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(122.17deg, #8d2244 0%, #014751 100%);
+}
+
 .mobileView {
     display: flex;
     width: 100%;
