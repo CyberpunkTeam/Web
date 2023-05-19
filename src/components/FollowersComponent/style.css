@@ -10,6 +10,19 @@
     cursor: pointer;
 }
 
+.socialContainerMobile{
+    width: calc(100% - 40px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding: 20px;
+    font-weight: 700;
+    color: #222222;
+    cursor: pointer;
+    font-size: 32px;
+}
+
 .socialFollowingContainer{
     width: calc(33% - 16px);
     display: flex;
@@ -48,4 +61,10 @@
     padding-top: 24px;
     font-size: 20px;
     font-weight: 300;
+}
+
+.socialNumberMobile{
+    padding-top: 24px;
+    font-weight: 300;
+    font-size: 30px;
 }

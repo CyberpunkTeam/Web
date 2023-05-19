@@ -293,7 +293,7 @@ export default function ProjectScreen() {
         if (isMobile) {
             return (
                 <button className="createTeamButtonMobile" onClick={recommendationButton}>
-                    <AddCircle color="#FAFAFA" variant="Bold" size={48}/>
+                    <People color="#FAFAFA" variant="Bold" size={48}/>
                 </button>
             )
         }

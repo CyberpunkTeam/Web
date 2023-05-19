@@ -39,8 +39,27 @@ export default function FollowersComponent(params) {
                         <Profile2User size="56" color="#014751" className="icon"/>
                         Social
                     </div>
+                    <div className={"socialContainerMobile"}>
+                        <div className={"socialFollowingContainer"}>
+                            Following
+                            <div className={"socialNumberMobile"}>
+                                {params.userData.user.following.users.length}
+                            </div>
+                        </div>
+                        <div className={"socialTeamsContainer"}>
+                            Teams
+                            <div className={"socialNumberMobile"}>
+                                {params.userData.user.following.teams.length}
+                            </div>
+                        </div>
+                        <div className={"socialFollowerContainer"}>
+                            Followers
+                            <div className={"socialNumberMobile"}>
+                                {params.userData.user.followers.length}
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                {modal()}
             </div>
         )
     }
@@ -59,7 +78,6 @@ export default function FollowersComponent(params) {
                             {params.userData.user.following.users.length}
                         </div>
                     </div>
-
                     <div className={"socialTeamsContainer"}>
                         Teams
                         <div className={"socialNumber"}>
@@ -72,7 +90,6 @@ export default function FollowersComponent(params) {
                             {params.userData.user.followers.length}
                         </div>
                     </div>
-
                 </div>
             </div>
             {modal()}

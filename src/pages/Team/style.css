@@ -162,6 +162,7 @@
     display: flex;
     flex-wrap: wrap;
     align-content: flex-end;
+    padding-bottom: 64px;
 }
 
 .team-rating {
@@ -209,6 +210,15 @@
     display: flex;
     justify-content: flex-start;
     border-radius: 32px;
+}
+
+.members-info-container-mobile-3 {
+    background: #F1F1F1;
+    height: 160px;
+    display: flex;
+    justify-content: flex-start;
+    border-radius: 32px;
+    margin-right: 16px;
 }
 
 .members-info-container-mobile-article {

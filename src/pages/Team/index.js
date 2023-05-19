@@ -335,7 +335,7 @@ export default function TeamScreen() {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile">
+                <div key={data.uid} className="members-info-container-mobile-3">
                     <div className="members-info-mobile">
                         {user_image(data)}
                         <div className="member-name-mobile" onClick={userNavigate}>
