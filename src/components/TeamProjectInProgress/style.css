@@ -20,6 +20,16 @@
 }
 
 .teamProjectsInProgressContainerMobile {
+    margin-bottom: 16px;
+    position: relative;
+    display: flex;
+    background: #2E9999;
+    border-radius: 32px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.teamProjectsInProgressContainerMobile {
     margin-bottom: 32px;
     position: relative;
     display: flex;

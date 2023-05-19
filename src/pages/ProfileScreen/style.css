@@ -1115,6 +1115,21 @@
     width: 44px;
     border-radius: 50%;
     cursor: pointer;
+    margin-left: 8px;
+    font-size: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.edit-button:hover {
+    font-size: 14px;
+    width: 120px;
+    display: flex;
+    border-radius: 8px;
+}
+
+.edit-button:hover .LockButtonText {
+    padding-left: 8px;
+    font-weight: 600;
 }
 
 .edit-button-mobile {
@@ -1125,6 +1140,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 16px;
 }
 
 .edit-button-mobile-cover {

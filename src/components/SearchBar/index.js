@@ -22,9 +22,9 @@ export default function SearchBar(params) {
             return
         }
         search(event.target.value).then((response) => {
-            console.log(result)
-            context.setSearch(response)
+            setResult(response)
             setIsSearch(true);
+            context.setSearch(response)
         })
     }
 
@@ -171,7 +171,7 @@ export default function SearchBar(params) {
     }
 
     const submit = (event) => {
-        if (event.key === "Enter") {
+        if (event.key === "Enter" && params.show === undefined) {
             viewResults();
         }
     }
@@ -202,12 +202,11 @@ export default function SearchBar(params) {
         )
     }
 
-
     return (
         <div className="searchbar-container" onFocus={openSearch}>
             <div className="searchbar">
                 {isSearch ? <div onClick={closeSearch} className="all"/> : null}
-                {params.show !== undefined ? null : searchResults()}
+                {params.show === undefined ? searchResults() : null}
                 <div className="search-input">
                     <input type="text" value={searchWord}
                            onKeyUp={submit}

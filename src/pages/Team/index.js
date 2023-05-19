@@ -4,7 +4,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import React, {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
-import {AddCircle, Edit, Message, Star1, TickCircle, User, UserCirlceAdd} from "iconsax-react";
+import {Edit, Message, Star1, User, UserAdd, UserCirlceAdd} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import SearchBar from "../../components/SearchBar";
 import NotFound from "../NotFound";
@@ -161,22 +161,23 @@ export default function TeamScreen() {
             return
         }
 
+        if (isMobile) {
+            return (
+                <div className={"edit-button-mobile"} onClick={followTeam}>
+                    {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                        <UserAdd size={48} color="#014751"/>}
+                </div>
+            )
+        }
+
         return (
-            <button
-                className={isMobile ? "followButtonMobile" : context.size ? "followReducedButton" : "followButton"}
-                disabled={followButtonStatus}
-                onClick={followTeam}>
-                {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"></i> :
-                    context.user.following.teams.includes(params.id) ?
-                        <TickCircle color="#FAFAFA"
-                                    size={isMobile ? 48 : 24}
-                                    className={isMobile || context.size ? null : "icon"}/> :
-                        <AddCircle color="#FAFAFA"
-                                   size={isMobile ? 48 : 24}
-                                   className={isMobile || context.size ? null : "icon"}/>
-                }
-                {isMobile || context.size || followButtonStatus ? null : context.user.following.teams.includes(params.id) ? "Following" : "Follow"}
-            </button>
+            <div className={"edit-button"} onClick={followTeam}>
+                {followButtonStatus ? <i className="fa fa-circle-o-notch fa-spin"/> :
+                    <UserAdd size={24} color="#014751"/>}
+                <div className={followButtonStatus ? null : "LockButtonText"}>
+                    {followButtonStatus ? null : "Follow"}
+                </div>
+            </div>
         )
     }
 
@@ -196,12 +197,19 @@ export default function TeamScreen() {
             })
         }
 
+        if (isMobile) {
+            return (
+                <div className={"edit-button-mobile"} onClick={create}>
+                    <Message size={48} color="#014751"/>
+                </div>
+            )
+        }
+
         return (
-            <div
-                className={context.user.uid === teamData.owner ? isMobile ? "cover-chats-buttons" : "cover-recommend-buttons" : "cover-buttons"}
-                onClick={create}>
-                <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
-                    <Message size={isMobile ? 48 : 24} color="#014751"/>
+            <div className={"edit-button"} onClick={create}>
+                <Message size={24} color="#014751"/>
+                <div className={"LockButtonText"}>
+                    Message
                 </div>
             </div>
         )
@@ -211,18 +219,17 @@ export default function TeamScreen() {
 
             if (isMobile) {
                 return (
-                    <div className="cover-buttons">
-                        <div className="edit-button-mobile" onClick={editButtonNavigation}>
-                            <Edit size="48" color="#014751"/>
-                        </div>
+                    <div className="edit-button-mobile" onClick={editButtonNavigation}>
+                        <Edit size="48" color="#014751"/>
                     </div>
                 )
             }
 
             return (
-                <div className="cover-buttons">
-                    <div className="edit-button" onClick={editButtonNavigation}>
-                        <Edit size="24" color="#014751"/>
+                <div className="edit-button" onClick={editButtonNavigation}>
+                    <Edit size="24" color="#014751"/>
+                    <div className={"LockButtonText"}>
+                        Edit
                     </div>
                 </div>
             )
@@ -272,9 +279,11 @@ export default function TeamScreen() {
                             {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                         </div>
                         {tags()}
-                        {editButton()}
-                        {followTeamButton()}
-                        {teamChat()}
+                        <div className="cover-buttons">
+                            {followTeamButton()}
+                            {teamChat()}
+                            {editButton()}
+                        </div>
                     </div>
                     <img src={IMAGE} className="team-image-container-mobile" alt=""/>
                 </div>
@@ -294,9 +303,11 @@ export default function TeamScreen() {
                         {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                     </div>
                     {tags()}
-                    {editButton()}
-                    {followTeamButton()}
-                    {teamChat()}
+                    <div className="cover-buttons">
+                        {followTeamButton()}
+                        {teamChat()}
+                        {editButton()}
+                    </div>
                 </div>
                 <img src={IMAGE} className="image-container" alt=""/>
             </div>

@@ -467,18 +467,17 @@ export default function ProjectScreen() {
 
                 if (isMobile) {
                     return (
-                        <div className="cover-buttons">
-                            <div className="edit-button-mobile" onClick={edit}>
-                                <Edit size="48" color="#014751"/>
-                            </div>
+                        <div className="edit-button-mobile" onClick={edit}>
+                            <Edit size="48" color="#014751"/>
                         </div>
                     )
                 }
 
                 return (
-                    <div className="cover-buttons">
-                        <div className="edit-button" onClick={edit}>
-                            <Edit size="24" color="#014751"/>
+                    <div className="edit-button" onClick={edit}>
+                        <Edit size="24" color="#014751"/>
+                        <div className={"LockButtonText"}>
+                            Edit
                         </div>
                     </div>
                 )
@@ -498,10 +497,19 @@ export default function ProjectScreen() {
                 setIsOpen(true);
             }
 
+            if (isMobile) {
+                return (
+                    <div className={"edit-button-mobile"} onClick={recommendProjectButton}>
+                        <Share size={48} color="#014751"/>
+                    </div>
+                )
+            }
+
             return (
-                <div className="cover-buttons" onClick={recommendProjectButton}>
-                    <div className={isMobile ? "edit-button-mobile" : "edit-button"}>
-                        <Share size={isMobile ? 48 : 24} color="#014751"/>
+                <div className={"edit-button"} onClick={recommendProjectButton}>
+                    <Share size={24} color="#014751"/>
+                    <div className={"LockButtonText"}>
+                        Share
                     </div>
                 </div>
             )
@@ -542,8 +550,12 @@ export default function ProjectScreen() {
                         </div>
                         {tags()}
                     </div>
+                    <div className="cover-buttons">
+                        {recommendProject()}
+                        {editButton()}
+                    </div>
                     {editButton()}
-                    {recommendProject()}
+
                 </div>
             )
         }
@@ -556,8 +568,10 @@ export default function ProjectScreen() {
                     </div>
                     {tags()}
                 </div>
-                {editButton()}
-                {recommendProject()}
+                <div className="cover-buttons">
+                    {recommendProject()}
+                    {editButton()}
+                </div>
             </div>
         )
     }
