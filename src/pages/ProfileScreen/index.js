@@ -24,6 +24,7 @@ import {RecommendUserModal} from "../../components/RecommendUserModal";
 import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
 import ArticleTile from "../../components/ArticleTile";
+import FollowersComponent from "../../components/FollowersComponent";
 
 function ProfileScreen() {
     const params = useParams();
@@ -315,6 +316,7 @@ function ProfileScreen() {
                 <div
                     className={isMobile || context.size ? "userInformationContainerReduced" : "userInformationContainer"}>
                     <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
+                        <FollowersComponent userData={userData}/>
                         <EducationComponent userData={userData}/>
                         <WorkExperienceComponent userData={userData}/>
                         <UserSkills userData={userData}/>
