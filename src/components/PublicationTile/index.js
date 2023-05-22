@@ -14,7 +14,7 @@ export default function PublicationTile(params) {
         if (params.publication.content_type === "new_team") {
             navigate("/team/" + params.publication.content.tid)
         } else if (params.publication.content_type === "new_project") {
-            navigate("/project/" + params.publication.content.pid)
+            navigate("/projects/" + params.publication.content.pid)
         } else {
             navigate("/articles/" + params.publication.content.cid)
         }
