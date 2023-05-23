@@ -1,6 +1,6 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import React, {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
@@ -30,6 +30,7 @@ import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamScreen() {
     const params = useParams();
+    const {state} = useLocation();
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -41,7 +42,7 @@ export default function TeamScreen() {
     const [loading, setLoading] = useState(true);
     const [postulations, setPostulations] = useState([])
     const [loadingPostulations, setLoadingPostulations] = useState(true)
-    const [tagSelect, setTagSelect] = useState("info")
+    const [tagSelect, setTagSelect] = useState(state === null ? "info" : "members")
     const [time, setTime] = useState(Date.now());
     const [followButtonStatus, setFollowButtonStatus] = useState(false);
 

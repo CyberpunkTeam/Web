@@ -37,7 +37,7 @@ export default function NewMemberVacant(params) {
     const errorMessage = "An error has occurred while creating this opportunity. Please, try again later"
 
     const goBack = () => {
-        navigate(-1)
+        navigate("/team/" + params.tid, {state: "members"})
     }
 
     const setLanguageHandler = (event) => {
