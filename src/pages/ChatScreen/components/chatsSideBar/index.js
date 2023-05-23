@@ -1,5 +1,5 @@
 import {isMobile} from "react-device-detect";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import AppContext from "../../../../utils/AppContext";
 import {Message2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
@@ -9,6 +9,11 @@ export default function ChatsSideBar(params) {
     let context = useContext(AppContext);
     const loading = context.chats === undefined
     const {actualChat, setActualChat} = params
+    const [search, setSearch] = useState("")
+
+    const setSearchHandler = (event) => {
+        setSearch(event.target.value);
+    }
 
     const user_image = (data) => {
         if (data.profile_image === "default") {
@@ -96,8 +101,20 @@ export default function ChatsSideBar(params) {
 
         return (
             <div className={isMobile ? "chatsListDivMobile" : "chatsListDiv"}>
+                <input type={"text"} value={search}
+                       className={"chatSearchInput"}
+                       placeholder={"Search"}
+                       onChange={setSearchHandler}/>
                 {context.chats.map((chatData) => {
-                    return chat(chatData)
+                    if (search.length === 0) {
+                        if (chatData[1].lastMessage === undefined) {
+                            return
+                        }
+                    }
+                    if (chatData[1].userInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
+                        return chat(chatData)
+                    }
+                    return null
                 })}
             </div>
         )

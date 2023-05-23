@@ -34,7 +34,7 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-.chatSScrollerReduced{
+.chatSScrollerReduced {
     display: none;
 }
 
@@ -161,6 +161,20 @@
     font-size: 16px;
 }
 
+.chatSearchInput {
+    padding: 0 8px;
+    border-radius: 16px;
+    margin: 8px;
+    width: calc(100% - 32px);
+    background: #E3E3E3;
+    min-height: 40px;
+    border-color: #E3E3E3;
+    border-width: 0;
+    font-family: "Inter", sans-serif;
+    outline: none;
+    font-size: 16px;
+}
+
 .chatInputMobile {
     border-radius: 32px;
     width: calc(100% - 120px);
@@ -227,37 +241,37 @@
     background: #2E9999;
 }
 
-.messagesChatContainer{
+.messagesChatContainer {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
     margin-bottom: 8px;
 }
 
-.messagesChatContainerMobile{
+.messagesChatContainerMobile {
     display: flex;
     flex-direction: row-reverse;
     width: 100%;
     margin-bottom: 16px;
 }
 
-.messagesChatOtherUserContainer{
+.messagesChatOtherUserContainer {
     display: flex;
     width: 100%;
     margin-bottom: 8px;
 }
 
-.messagesChatOtherUserContainerMobile{
+.messagesChatOtherUserContainerMobile {
     display: flex;
     width: 100%;
     margin-bottom: 16px;
 }
 
-.messagesChatImageContainer{
+.messagesChatImageContainer {
     padding-right: 8px;
 }
 
-.messagesChatImageContainerMobile{
+.messagesChatImageContainerMobile {
     padding-right: 16px;
 }
 
@@ -290,19 +304,19 @@
     background: #E3E3E3;
 }
 
-.messageNameUser{
+.messageNameUser {
     font-size: 12px;
     font-weight: 600;
     color: #FAFAFA;
 }
 
-.messageNameOtherUser{
+.messageNameOtherUser {
     font-size: 12px;
     font-weight: 600;
     color: #2E9999;
 }
 
-.messageNameOtherUserMobile{
+.messageNameOtherUserMobile {
     font-size: 24px;
     font-weight: 600;
     color: #2E9999;
@@ -383,7 +397,7 @@
 }
 
 .chatsListObjectContainer:hover {
-   background: rgba(15, 40, 48, 0.2);
+    background: rgba(15, 40, 48, 0.2);
     cursor: pointer;
 }
 
@@ -406,7 +420,7 @@
     display: flex;
     width: 60%;
     flex-direction: column;
-   padding-left: 8px;
+    padding-left: 8px;
 }
 
 .chatsUnread {
@@ -495,7 +509,7 @@
     border: 2px solid rgb(46, 153, 153);
 }
 
-.chatDivMobile{
+.chatDivMobile {
     position: relative;
     width: 100%;
     height: 90vh;
