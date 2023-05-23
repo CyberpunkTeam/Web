@@ -337,10 +337,10 @@ export default function TeamScreen() {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile-3">
+                <div key={data.uid} className="members-info-container-mobile-3" onClick={userNavigate}>
                     <div className="members-info-mobile">
                         {user_image(data)}
-                        <div className="member-name-mobile" onClick={userNavigate}>
+                        <div className="member-name-mobile">
                             {data.name} {data.lastname}
                             <div className="owner-mobile">
                                 {data.uid === teamData.owner ? 'Owner' : ''}
@@ -353,10 +353,10 @@ export default function TeamScreen() {
 
 
         return (
-            <div key={data.uid} className="members-info-container">
+            <div key={data.uid} className="members-info-container" onClick={userNavigate}>
                 <div className="members-info">
                     {user_image(data)}
-                    <div className="member-name" onClick={userNavigate}>
+                    <div className="member-name" >
                         {data.name} {data.lastname}
                         <div className="owner">
                             {data.uid === teamData.owner ? 'Owner' : ''}

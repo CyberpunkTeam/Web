@@ -414,10 +414,10 @@ export default function ProjectScreen() {
 
         return (
             <div
-                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}>
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"} onClick={userNavigate}>
                 <div className={isMobile ? "members-info-mobile" : "members-info"}>
                     {user_image(data)}
-                    <div className={isMobile ? "member-name-mobile" : "member-name"} onClick={userNavigate}>
+                    <div className={isMobile ? "member-name-mobile" : "member-name"}>
                         {data.name} {data.lastname}
                         <div className={isMobile ? "owner-mobile" : "owner"}>
                             Owner
@@ -440,12 +440,12 @@ export default function ProjectScreen() {
 
         return (
             <div
-                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}>
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"} onClick={userNavigate}>
                 <div className={isMobile ? "members-info-mobile" : "members-info"}>
                     <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
                         <People color="#FAFAFA" size={isMobile ? 32 : 24} variant="Bold"/>
                     </div>
-                    <div className={isMobile ? "member-name-mobile" : "member-name"} onClick={userNavigate}>
+                    <div className={isMobile ? "member-name-mobile" : "member-name"}>
                         {data.name}
                     </div>
                 </div>
