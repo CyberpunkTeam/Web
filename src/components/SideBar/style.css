@@ -370,7 +370,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-end;
-    height: 30%;
+    height: 50%;
 }
 
 .top {
@@ -380,7 +380,7 @@
     width: 100%;
     align-items: center;
     justify-content: flex-start;
-    height: 70%;
+    height: 50%;
 }
 .without{
     display: flex;
