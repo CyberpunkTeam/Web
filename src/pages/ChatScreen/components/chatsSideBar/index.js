@@ -102,7 +102,7 @@ export default function ChatsSideBar(params) {
         return (
             <div className={isMobile ? "chatsListDivMobile" : "chatsListDiv"}>
                 <input type={"text"} value={search}
-                       className={"chatSearchInput"}
+                       className={isMobile ? "chatInputSearchMobile" : "chatSearchInput"}
                        placeholder={"Search"}
                        onChange={setSearchHandler}/>
                 {context.chats.map((chatData) => {
