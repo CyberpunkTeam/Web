@@ -1,6 +1,6 @@
 import {AddCircle, Star1} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {Link, useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import TechnologyTag from "../TechnologyTag";
@@ -102,9 +102,27 @@ export default function UserTeamsComponent(params) {
         )
     }
 
+    const noData = () => {
+        let count = 0;
+        params.userData.teams.forEach((data) => {
+            if (!data.temporal) {
+                count++;
+            }
+        })
+
+        if (count === 0) {
+            return (
+                <div className={"no-data-tag"}>
+                    No teams available
+                </div>
+            )
+        }
+    }
+
     return (
         <div className={"user-team-container"}>
             {addButton()}
+            {noData()}
             {params.userData.teams.map((data) => {
                 if (data.temporal) {
                     return null

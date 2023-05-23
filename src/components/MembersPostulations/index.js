@@ -66,15 +66,30 @@ export default function MembersPostulations(params) {
 
     const showPostulations = () => {
         if (vacants === undefined) {
-            return;
+            return (
+                <div className={"loading-tag"}>
+                    <i className="fa fa-circle-o-notch fa-spin"/>)
+                </div>
+            )
         }
 
         if (params.members.includes(context.user.uid) && context.user.uid !== params.owner) {
             return
         }
 
+        const noData = () => {
+            if (vacants.length === 0) {
+                return (
+                    <div className={"no-data-tag"}>
+                        No vacants available
+                    </div>
+                )
+            }
+        }
+
         return (
             <div>
+                {noData()}
                 {vacants.map((data) => {
                     return <MemberPostulationView key={data.tpid}
                                                   data={data}

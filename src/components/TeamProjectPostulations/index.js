@@ -7,6 +7,34 @@ export default function TeamProjectPostulations(params) {
     const postulations = params.postulations
     const [filter, setFilter] = useState("PENDING")
 
+    const showData = () => {
+        let count = 0;
+        postulations.forEach((value) => {
+            if (value.state === filter) {
+                count++;
+            }
+        })
+      return count
+    }
+
+    const noData = () => {
+        if (showData() === 0) {
+            return (
+                <div className={"no-data-tag"}>
+                    No postulations available
+                </div>
+            )
+        }
+    }
+
+    if (params.loadingPostulations) {
+        return (
+            <div className={"loading-tag"}>
+                <i className="fa fa-circle-o-notch fa-spin"/>)
+            </div>
+        )
+    }
+
     const filters = () => {
         return (
             <div className={isMobile ? "filterButtonsContainerMobile" : "filterButtonsContainer"}>
@@ -35,6 +63,7 @@ export default function TeamProjectPostulations(params) {
     return (
         <div className="postulations-container">
             {filters()}
+            {noData()}
             {postulations.map((data) => {
                 return <TeamPostulationView key={data.ppid} data={data} filter={filter}/>
             })}

@@ -40,6 +40,7 @@ export default function TeamScreen() {
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
     const [postulations, setPostulations] = useState([])
+    const [loadingPostulations, setLoadingPostulations] = useState(true)
     const [tagSelect, setTagSelect] = useState("info")
     const [time, setTime] = useState(Date.now());
     const [followButtonStatus, setFollowButtonStatus] = useState(false);
@@ -98,6 +99,7 @@ export default function TeamScreen() {
                         } else {
                             setPostulations(response)
                         }
+                        setLoadingPostulations(false)
                         setLoading(false);
                     })
                 })
@@ -386,7 +388,7 @@ export default function TeamScreen() {
 
     const tagsInfo = () => {
         if (tagSelect === "projects") {
-            return <TeamProjectPostulations postulations={postulations}/>
+            return <TeamProjectPostulations postulations={postulations} loadingPostulations={loadingPostulations}/>
         }
 
         if (tagSelect === "members") {

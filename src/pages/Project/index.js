@@ -578,20 +578,16 @@ export default function ProjectScreen() {
 
     const budget = () => {
 
-        return (
-            <div
-                className={context.size || isMobile ? "project-information-container-reduce" : "project-information-container-left"}>
-                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
-                    <div className="project-information-card">
-                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
-                            <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
-                            Budget
-                        </div>
-                        <div className={isMobile ? "budget-container-mobile" : "budget-container"}>
-                            <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
-                        </div>
-                    </div>
-                </div>
+        const filesContainer = () => {
+            if (project.description.files_attached.files === undefined && project.description.files_attached.images === undefined) {
+                return
+            }
+
+            if (project.description.files_attached.files.length === 0 && project.description.files_attached.images.length === 0) {
+                return
+            }
+
+            return (
                 <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
                     <div className="project-information-card">
                         <div className={isMobile ? "data-title-mobile" : "data-title"}>
@@ -612,6 +608,25 @@ export default function ProjectScreen() {
                         </div>
                     </div>
                 </div>
+            )
+        }
+
+
+        return (
+            <div
+                className={context.size || isMobile ? "project-information-container-reduce" : "project-information-container-left"}>
+                <div className={isMobile ? "info-container-mobile" : "information-container-reduce"}>
+                    <div className="project-information-card">
+                        <div className={isMobile ? "data-title-mobile" : "data-title"}>
+                            <DollarSquare size={isMobile ? "80" : "32"} color="#014751" className="icon"/>
+                            Budget
+                        </div>
+                        <div className={isMobile ? "budget-container-mobile" : "budget-container"}>
+                            <BudgetTag budget={formatter.format(project.tentative_budget) + " USD"}/>
+                        </div>
+                    </div>
+                </div>
+                {filesContainer()}
             </div>
         )
     }
@@ -698,7 +713,7 @@ export default function ProjectScreen() {
         } else if (tagSelect === "postulations") {
             return (
                 <div className="project-data-container-reduce">
-                    {postulations === undefined ? null :
+                    {postulations === undefined ? noData() :
                         <PostulationsModal postulations={postulations} closeModal={closeModal}
                                            changePostulations={changePostulations}/>}
                 </div>
@@ -726,6 +741,14 @@ export default function ProjectScreen() {
                 </div>
             )
         }
+    }
+
+    const noData = () => {
+            return (
+                <div className={"no-data-tag"}>
+                    No postulations available
+                </div>
+            )
     }
 
     return (

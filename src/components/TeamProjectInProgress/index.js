@@ -8,6 +8,16 @@ import ProjectTileMobileComponent from "../ProjectTileMobileComponent";
 export default function TeamProjectInProgress(params) {
     let context = useContext(AppContext);
 
+    const activeProjects = () => {
+        let count = 0
+        params.projects.forEach((value) => {
+            if (value.project.state !== "PENDING" && value.project.state !== "FINISHED" && value.state === "ACCEPTED") {
+                count++;
+            }
+        })
+        return count
+    }
+
     return (
         <div
             className={isMobile || context.size ? "teamProjectsInProgressInfoContainerReduced" : "teamProjectsInProgressInfoContainer"}>
@@ -16,7 +26,7 @@ export default function TeamProjectInProgress(params) {
                 <div className={"teamInformationTitleContainer"}>
                     <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
                         <LampCharge size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>
-                        Projects In Progress
+                        {activeProjects() === 0 ? "Without Projects In Progress" : "Projects In Progress"}
                     </div>
                 </div>
             </div>
