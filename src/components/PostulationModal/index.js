@@ -13,6 +13,25 @@ export default function PostulationModal(params) {
     const [estimatedBudget, setEstimatedBudget] = useState(params.budget)
     const [coin, setCoin] = useState("DOLAR")
     const errorMessage = "An error has occurred while sending the postulation. Please, try again later"
+    const errorMessageCompleteData = "Please complete the required fields"
+
+    const [errorBudget, setErrorBudget] = useState(false);
+    const [errorDescription, setErrorDescription] = useState(false);
+    const validateFields = () => {
+        let error = false;
+
+        if (estimatedBudget === "0" || estimatedBudget === "") {
+            error = true;
+            setErrorBudget(true)
+        }
+
+        if (description === "" || description.length <= 10) {
+            error = true;
+            setErrorDescription(true)
+        }
+
+        return error;
+    }
 
     const setTeamHandler = (event) => {
         params.teams.map((team, index) => {
@@ -29,16 +48,22 @@ export default function PostulationModal(params) {
     }
 
     const setEstimatedBudgetHandler = (event) => {
+        if (event.target.value !== "") {
+            setErrorBudget(false)
+        }
         setEstimatedBudget(event.target.value);
     }
     const setDescriptionHandler = (event) => {
+        if (event.target.value.length > 10) {
+            setErrorDescription(false)
+        }
         setDescription(event.target.value);
     }
 
     const showTeamMembers = (data) => {
         if (data.profile_image === "default") {
             return (
-                <div  key={data.uid} className="member-photo-postulation">
+                <div key={data.uid} className="member-photo-postulation">
                     <div className="photo-postulation">
                         <User color="#FAFAFA" size="24px" variant="Bold"/>
                     </div>
@@ -54,6 +79,11 @@ export default function PostulationModal(params) {
     }
 
     const sendTeamPostulationButton = () => {
+        if (validateFields()) {
+            context.setErrorMessage(errorMessageCompleteData);
+            return;
+        }
+
         setButtonDisabled(true)
         const body = {
             tid: params.teams[teamIndex].tid,
@@ -97,19 +127,22 @@ export default function PostulationModal(params) {
                         })}
                     </div>
                 </label>
-                <label className="label">
-                    Budget
+                <label className={errorBudget ? "label-error" : "label"}>
+                    Budget *
                     <div className="budget-input-container">
-                        <input type="number" min="0" value={estimatedBudget} className="budget-input"
+                        <input type="number" min="0" value={estimatedBudget}
+                               className={errorBudget ? "budget-input-error" : "budget-input"}
                                onChange={setEstimatedBudgetHandler}/>
-                        <select value={coin} className="select-coin" onChange={setCoinHandler}>
+                        <select value={coin} className={errorBudget ? "select-coin-error" : "select-coin"}
+                                onChange={setCoinHandler}>
                             <option value="DOLAR">USD</option>
                         </select>
                     </div>
                 </label>
-                <div className="text-area-postulation-label">
-                    Description
-                    <textarea className="textarea-style-modal" value={description} onChange={setDescriptionHandler} name="Text1"
+                <div className={errorDescription ? "text-area-postulation-label-error" : "text-area-postulation-label"}>
+                    Description *
+                    <textarea className={errorDescription ? "textarea-style-modal-error" : "textarea-style-modal"}
+                              value={description} onChange={setDescriptionHandler} name="Text1"
                               cols="40"
                               rows="5"/>
                 </div>

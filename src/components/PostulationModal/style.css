@@ -32,6 +32,18 @@
     padding: 20px 0px;
     color: #222222;
 }
+
+.text-area-postulation-label-error {
+    align-self: center;
+    width: 100%;
+    font-weight: 400;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0px;
+    color: #CD5B45;
+}
+
 .select-team {
     appearance: none;
     font-family: "Inter", sans-serif;
