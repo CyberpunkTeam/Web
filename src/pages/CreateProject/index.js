@@ -181,6 +181,7 @@ export default function CreateProjectScreen() {
                     }
                 } else {
                     window.scrollTo(0, 0);
+                    context.setCreateMessage("Project created successfully")
                     navigate("/projects/" + r.pid + "/teamRecommendation", {
                         state: {
                             teams: r.teams_recommendations,
@@ -199,6 +200,7 @@ export default function CreateProjectScreen() {
                     }
                 } else {
                     window.scrollTo(0, 0);
+                    context.setCreateMessage("Project updated successfully")
                     navigate("/projects/" + r.pid)
                 }
                 setButtonDisabled(false)

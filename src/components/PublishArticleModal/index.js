@@ -47,6 +47,7 @@ export function PublishArticleModal(params) {
             if (r === undefined) {
                 context.setErrorMessage(errorMessage);
             } else {
+                context.setCreateMessage("Article published successfully")
                 navigate("/articles/" + r.cid)
             }
         }).catch((e) => {

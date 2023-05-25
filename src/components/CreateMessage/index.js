@@ -16,7 +16,7 @@ export default function CreateMessage() {
     useEffect(() => {
         const interval = setTimeout(() => {
             closeAll()
-        }, 30000);
+        }, 5000);
         return () => {
             clearInterval(interval);
         };
