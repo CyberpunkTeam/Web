@@ -1,5 +1,5 @@
 import {isMobile} from "react-device-detect";
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import AppContext from "../../../../utils/AppContext";
 import {Message2, People, User} from "iconsax-react";
 import {formatDateMessage} from "../../../../utils/dateFormat";
@@ -9,6 +9,11 @@ export default function ChatsSideBar(params) {
     let context = useContext(AppContext);
     const loading = context.chats === undefined
     const {actualChat, setActualChat} = params
+    const [search, setSearch] = useState("")
+
+    const setSearchHandler = (event) => {
+        setSearch(event.target.value);
+    }
 
     const user_image = (data) => {
         if (data.profile_image === "default") {
@@ -63,7 +68,7 @@ export default function ChatsSideBar(params) {
                                 </div>
                             </div>
                             <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
-                                {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                                {data.lastMessage !== undefined ? formatDateMessage(data.date) : null}
                             </div>
                             {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                         </div>
@@ -86,7 +91,7 @@ export default function ChatsSideBar(params) {
                             </div>
                         </div>
                         <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
-                            {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                            {data.lastMessage !== undefined ? formatDateMessage(data.date) : null}
                         </div>
                     </div>
                     {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
@@ -94,18 +99,54 @@ export default function ChatsSideBar(params) {
             )
         }
 
+        const emptyChats = () => {
+            let count = 0
+            context.chats.forEach((chatData) => {
+                if (chatData[1].lastMessage === undefined) {
+                    count++
+                }
+            })
+
+            if (search.length === 0 && count > 0) {
+                return (
+                    <div className={isMobile ? "newChatsTitleMobile" : "newChatsTitle"}>
+                        New chats
+                        {context.chats.map((chatData) => {
+                            if (chatData[1].lastMessage === undefined) {
+                                return chat(chatData)
+                            }
+                            return null
+                        })}
+                    </div>
+                )
+            }
+        }
+
         return (
             <div className={isMobile ? "chatsListDivMobile" : "chatsListDiv"}>
+                <input type={"text"} value={search}
+                       className={isMobile ? "chatInputSearchMobile" : "chatSearchInput"}
+                       placeholder={"Search"}
+                       onChange={setSearchHandler}/>
                 {context.chats.map((chatData) => {
-                    return chat(chatData)
+                    if (search.length === 0) {
+                        if (chatData[1].lastMessage === undefined) {
+                            return null
+                        }
+                    }
+                    if (chatData[1].userInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
+                        return chat(chatData)
+                    }
+                    return null
                 })}
+                {emptyChats()}
             </div>
         )
     }
 
     return (
         <div
-            className={actualChat.length !== 0 && context.size ? "chatSScrollerReduced" : isMobile ? "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
+            className={actualChat.length !== 0 && context.size ? "chatSScrollerReduced" : isMobile ? actualChat.length !== 0 ? "chatSScrollerContainerMobileEmpty" : "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
             {chatsView()}
         </div>
     )
