@@ -16,7 +16,7 @@ export default function AlertMessage() {
     useEffect(() => {
         const interval = setTimeout(() => {
             closeAll()
-        }, 30000);
+        }, 8000);
         return () => {
             clearInterval(interval);
         };

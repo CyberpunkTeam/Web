@@ -84,6 +84,19 @@
     font-size: 16px;
 }
 
+.inputError {
+    font-family: "Inter", sans-serif;
+    width: calc(100% - 16px);
+    padding: 2px 8px;
+    border-radius: 16px;
+    border: 1px solid #CD5B45;
+    outline: none;
+    height: 40px;
+    color: #222222;
+    background: #E3E3E3;
+    font-size: 16px;
+}
+
 .inputDisable {
     font-family: "Inter", sans-serif;
     width: 97%;
@@ -112,6 +125,19 @@
 }
 
 .input-mobile {
+    font-family: "Inter", sans-serif;
+    width: calc(100% - 32px);
+    border-radius: 46px;
+    border: 1px solid #CD5B45;
+    outline: none;
+    height: 132px;
+    color: #222222;
+    background: #E3E3E3;
+    font-size: 40px;
+    padding: 0 16px;
+}
+
+.input-mobile-error {
     font-family: "Inter", sans-serif;
     width: calc(100% - 32px);
     border-radius: 46px;

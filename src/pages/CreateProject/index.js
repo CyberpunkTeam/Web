@@ -31,6 +31,7 @@ export default function CreateProjectScreen() {
     const [buttonDisabled, setButtonDisabled] = useState(false);
     const errorMessageUpdate = "An error has occurred while updating project's information. Please, try again later"
     const errorMessageCreate = "An error has occurred while creating the project. Please, try again later"
+    const errorMessageCompleteData = "Please complete the required fields"
 
     const valuesSelected = (data) => {
         let list = []
@@ -83,6 +84,36 @@ export default function CreateProjectScreen() {
     const [files, setFiles] = useState(state.project === undefined ? [] : state.project.description.files_attached.files === undefined ? [] : state.project.description.files_attached.files);
     const [images, setImages] = useState(state.project === undefined ? [] : state.project.description.files_attached.images === undefined ? [] : state.project.description.files_attached.images);
 
+    const [errorName, setErrorName] = useState(false);
+    const [errorBudget, setErrorBudget] = useState(false);
+    const [errorTime, setErrorTime] = useState(false);
+    const [errorDescription, setErrorDescription] = useState(false);
+    const validateFields = () => {
+        let error = false;
+        if (name === "" || name.length <= 3) {
+            error = true;
+            setErrorName(true)
+        }
+
+        if (estimatedBudget === "0" || estimatedBudget === "") {
+            error = true;
+            setErrorBudget(true)
+        }
+
+        if (timeValue === "0" || timeValue === "") {
+            error = true;
+            setErrorTime(true)
+        }
+
+        if (description === "" || description.length < 30) {
+            error = true;
+            setErrorDescription(true)
+        }
+
+        return error;
+    }
+
+
     function handleFilesChange(e) {
         if (Array.from(e.target.files).length > 5 - files.length) {
             e.preventDefault();
@@ -126,8 +157,8 @@ export default function CreateProjectScreen() {
     }
 
     const projectButton = async () => {
-        if (name.length === 0) {
-            context.setErrorMessage(errorMessageCreate);
+        if (validateFields()) {
+            context.setErrorMessage(errorMessageCompleteData);
             return
         }
         setButtonDisabled(true)
@@ -209,6 +240,10 @@ export default function CreateProjectScreen() {
     }
 
     const setNameHandler = (event) => {
+        if (event.target.value.length > 4) {
+            setErrorName(false)
+        }
+
         setName(event.target.value);
     }
 
@@ -262,6 +297,10 @@ export default function CreateProjectScreen() {
     }
 
     const setDescriptionHandler = (event) => {
+        if (event.target.value.length > 30) {
+            setErrorDescription(false)
+        }
+
         if (event.target.value.length >= 2000) {
             setDescription(event.target.value.slice(0, 2000));
             return
@@ -274,6 +313,7 @@ export default function CreateProjectScreen() {
     }
 
     const setEstimatedBudgetHandler = (event) => {
+        setErrorBudget(false)
         setEstimatedBudget(event.target.value);
     }
 
@@ -286,6 +326,7 @@ export default function CreateProjectScreen() {
     }
 
     const setTimeValueHandler = (event) => {
+        setErrorTime(false)
         setTimeValue(event.target.value);
     }
 
@@ -338,12 +379,15 @@ export default function CreateProjectScreen() {
             <div className="projects-description-container">
                 <div className={isMobile ? "information-container-mobile" : "information-container"}>
                     <div className="information-form">
-                        <div className={isMobile ? "text-area-label-mobile" : "text-area-label"}>
-                            Summary
-                            <textarea className={isMobile ? "textarea-style-mobile" : "textarea-style"}
-                                      value={description} onChange={setDescriptionHandler}
-                                      name="Text1" cols="40"
-                                      rows="5"/>
+                        <div
+                            className={isMobile ? errorDescription ? "text-area-label-mobile-error" : "text-area-label-mobile" :
+                                errorDescription ? "text-area-label-error" : "text-area-label"}>
+                            Summary *
+                            <textarea
+                                className={isMobile ? errorDescription ? "textarea-style-mobile-error" : "textarea-style-mobile" : errorDescription ? "textarea-style-error" : "textarea-style"}
+                                value={description} onChange={setDescriptionHandler}
+                                name="Text1" cols="40"
+                                rows="5"/>
                         </div>
                         <div className={isMobile ? "files-upload-mobile" : "files-upload"}>
                             <div>
@@ -416,34 +460,49 @@ export default function CreateProjectScreen() {
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Name
+                            className={isMobile ?
+                                errorName ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorName ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorName ? "create-project-label-error" : "create-project-label"}>
+                            Name *
                             <div className="create-project-input">
-                                <input type="text" value={name} className={isMobile ? "input-mobile" : "input"}
+                                <input type="text" value={name}
+                                       className={isMobile ? "input-mobile" : errorName ? "inputError" : "input"}
                                        onChange={setNameHandler}/>
                             </div>
                         </label>
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Total Budget
+                            className={isMobile ?
+                                errorBudget ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorBudget ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorBudget ? "create-project-label-error" : "create-project-label"}>
+                            Total Budget *
                             <div className="budget-input-container">
                                 <input type="number" min="0" value={estimatedBudget}
-                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
+                                       className={isMobile ? errorBudget ? "budget-input-mobile-error" : "budget-input-mobile" : errorBudget ? "budget-input-error" : "budget-input"}
                                        onChange={setEstimatedBudgetHandler}/>
-                                <select value={coin} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                <select value={coin}
+                                        className={isMobile ? errorBudget ? "select-coin-mobile-error" : "select-coin-mobile" : errorBudget ? "select-coin-error" : "select-coin"}
                                         onChange={setCoinHandler}>
                                     <option value="DOLAR">USD</option>
                                 </select>
                             </div>
                         </label>
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Estimated Completion Time
+                            className={isMobile ?
+                                errorTime ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorTime ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorTime ? "create-project-label-error" : "create-project-label"}>
+                            Estimated Completion Time *
                             <div className="budget-input-container">
                                 <input type="number" min="0" value={timeValue}
-                                       className={isMobile ? "budget-input-mobile" : "budget-input"}
+                                       className={isMobile ? errorTime ? "budget-input-mobile-error" : "budget-input-mobile" : errorTime ? "budget-input-error" : "budget-input"}
                                        onChange={setTimeValueHandler}/>
-                                <select value={time} className={isMobile ? "select-coin-mobile" : "select-coin"}
+                                <select value={time}
+                                        className={isMobile ? errorTime ? "select-coin-mobile-error" : "select-coin-mobile" : errorTime ? "select-coin-error" : "select-coin"}
                                         onChange={setTimeHandler}>
                                     <option value="HOURS">Hours</option>
                                     <option value="DAYS">Days</option>
