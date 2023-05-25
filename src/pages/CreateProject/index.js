@@ -113,7 +113,6 @@ export default function CreateProjectScreen() {
         return error;
     }
 
-
     function handleFilesChange(e) {
         if (Array.from(e.target.files).length > 5 - files.length) {
             e.preventDefault();
@@ -240,7 +239,7 @@ export default function CreateProjectScreen() {
     }
 
     const setNameHandler = (event) => {
-        if (event.target.value.length > 4) {
+        if (event.target.value.length > 3) {
             setErrorName(false)
         }
 
@@ -468,7 +467,7 @@ export default function CreateProjectScreen() {
                             Name *
                             <div className="create-project-input">
                                 <input type="text" value={name}
-                                       className={isMobile ? "input-mobile" : errorName ? "inputError" : "input"}
+                                       className={isMobile ? errorName ? "input-mobile-error" : "input-mobile" : errorName ? "inputError" : "input"}
                                        onChange={setNameHandler}/>
                             </div>
                         </label>

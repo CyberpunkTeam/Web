@@ -247,7 +247,7 @@ export default function TeamModal(params) {
                             <div className="create-project-input">
                                 <input type="text"
                                        value={teamName}
-                                       className={isMobile ? "input-mobile" : errorName ? "inputError" : "input"}
+                                       className={isMobile ? errorName ? "input-mobile-error" : "input-mobile" : errorName ? "inputError" : "input"}
                                        onChange={setTeamHandler}/>
                             </div>
                         </label>

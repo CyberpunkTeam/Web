@@ -34,6 +34,24 @@ export default function NewMemberVacant(params) {
     const [cloud, setCloud] = useState([])
     const [db, setDb] = useState([])
     const errorMessage = "An error has occurred while creating this opportunity. Please, try again later"
+    const errorMessageCompleteData = "Please complete the required fields"
+
+    const [errorName, setErrorName] = useState(false);
+    const [errorDescription, setErrorDescription] = useState(false);
+    const validateFields = () => {
+        let error = false;
+        if (vacant === "" || vacant.length <= 3) {
+            error = true;
+            setErrorName(true)
+        }
+
+        if (description === "" || description.length < 30) {
+            error = true;
+            setErrorDescription(true)
+        }
+
+        return error;
+    }
 
     const goBack = () => {
         navigate("/team/" + params.tid, {state: "members"})
@@ -80,14 +98,26 @@ export default function NewMemberVacant(params) {
     }
 
     const setVacantHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorName(false)
+        }
+
         setVacant(event.target.value);
     }
 
     const setDescriptionHandler = (event) => {
+        if (event.target.value.length > 30) {
+            setErrorDescription(false)
+        }
         setDescription(event.target.value);
     }
 
     const createVacant = () => {
+        if (validateFields()) {
+            context.setErrorMessage(errorMessageCompleteData)
+            return;
+        }
+
         setButtonDisabled(true);
         const body = {
             title: vacant,
@@ -121,23 +151,31 @@ export default function NewMemberVacant(params) {
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Title
+                            className={isMobile ?
+                                errorName ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorName ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorName ? "create-project-label-error" : "create-project-label"}>
+                            Title *
                             <div className="create-project-input">
                                 <input type="text"
                                        value={vacant}
-                                       className={isMobile ? "input-mobile" : "input"}
+                                       className={isMobile ? errorName ? "input-mobile-error" : "input-mobile" : errorName ? "inputError" : "input"}
                                        onChange={setVacantHandler}/>
                             </div>
                         </label>
                         <div
-                            className={isMobile ? "text-area-label-vacant-mobile" : context.size ? "text-area-label-vacant-reduced" : "text-area-label-vacant"}>
-                            Description
-                            <textarea className={isMobile ? "new-vacant-textarea-mobile" : "new-vacant-textarea"}
-                                      value={description}
-                                      onChange={setDescriptionHandler}
-                                      name="Text1" cols="40"
-                                      rows="18"/>
+                            className={isMobile ? errorDescription ? "text-area-label-vacant-mobile-error" : "text-area-label-vacant-mobile" :
+                                context.size ? errorDescription ? "text-area-label-vacant-reduced-error" : "text-area-label-vacant-reduced" :
+                                    errorDescription ? "text-area-label-vacant-error" : "text-area-label-vacant"}>
+                            Description *
+                            <textarea
+                                className={isMobile ? errorDescription ? "new-vacant-textarea-mobile-error" : "new-vacant-textarea-mobile" :
+                                    errorDescription ? "new-vacant-textarea-error" : "new-vacant-textarea"}
+                                value={description}
+                                onChange={setDescriptionHandler}
+                                name="Text1" cols="40"
+                                rows="18"/>
                         </div>
                     </form>
                 </div>
