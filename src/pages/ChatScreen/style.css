@@ -493,6 +493,10 @@
     display: flex;
 }
 
+.chatSScrollerContainerMobileEmpty {
+    display: none;
+}
+
 .chat-photo-mobile {
     background: #0F2830;
     display: flex;
@@ -552,4 +556,16 @@
 
 .header-title-mobile-container {
     display: flex;
+}
+
+.newChatsTitle {
+    padding-top: 8px;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.newChatsTitleMobile {
+    padding-top: 8px;
+    font-weight: 600;
+    font-size: 40px;
 }

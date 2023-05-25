@@ -68,7 +68,7 @@ export default function ChatsSideBar(params) {
                                 </div>
                             </div>
                             <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
-                                {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                                {data.lastMessage !== undefined ? formatDateMessage(data.date) : null}
                             </div>
                             {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                         </div>
@@ -91,12 +91,35 @@ export default function ChatsSideBar(params) {
                             </div>
                         </div>
                         <div className={isMobile ? "messageListDateMobile" : "messageListDate"}>
-                            {data.lastMessage !== undefined ? formatDateMessage(data.date) : "New"}
+                            {data.lastMessage !== undefined ? formatDateMessage(data.date) : null}
                         </div>
                     </div>
                     {data.lastMessage && !data.lastMessage.read ? <div className={"chatsUnread"}/> : null}
                 </div>
             )
+        }
+
+        const emptyChats = () => {
+            let count = 0
+            context.chats.forEach((chatData) => {
+                if (chatData[1].lastMessage === undefined) {
+                    count++
+                }
+            })
+
+            if (search.length === 0 && count > 0) {
+                return (
+                    <div className={isMobile ? "newChatsTitleMobile" : "newChatsTitle"}>
+                        New chats
+                        {context.chats.map((chatData) => {
+                            if (chatData[1].lastMessage === undefined) {
+                                return chat(chatData)
+                            }
+                            return null
+                        })}
+                    </div>
+                )
+            }
         }
 
         return (
@@ -108,7 +131,7 @@ export default function ChatsSideBar(params) {
                 {context.chats.map((chatData) => {
                     if (search.length === 0) {
                         if (chatData[1].lastMessage === undefined) {
-                            return
+                            return null
                         }
                     }
                     if (chatData[1].userInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
@@ -116,13 +139,14 @@ export default function ChatsSideBar(params) {
                     }
                     return null
                 })}
+                {emptyChats()}
             </div>
         )
     }
 
     return (
         <div
-            className={actualChat.length !== 0 && context.size ? "chatSScrollerReduced" : isMobile ? "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
+            className={actualChat.length !== 0 && context.size ? "chatSScrollerReduced" : isMobile ? actualChat.length !== 0 ? "chatSScrollerContainerMobileEmpty" : "chatSScrollerContainerMobile" : context.size ? "chatSScrollerContainerReducedAll" : "chatSScrollerContainer"}>
             {chatsView()}
         </div>
     )
