@@ -1,7 +1,6 @@
 import './style.css'
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import AlertMessage from "../../components/AlertMessage";
 import React, {useState} from "react";
 import {isMobile} from "react-device-detect";
 import ChatsSideBar from "./components/chatsSideBar";
@@ -20,7 +19,6 @@ export default function ChatScreen() {
             </div>
             {isMobile && actualChat.length !== 0 ? null : <SearchBar/>}
             {isMobile && actualChat.length !== 0 ? null : <SideBar/>}
-            <AlertMessage/>
         </div>
     )
 }

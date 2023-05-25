@@ -17,7 +17,6 @@ import {isMobile} from "react-device-detect";
 import UserProjectMobileComponent from "../../components/UserProjectMobileComponent";
 import {modalStyle} from "../../styles/commonStyles";
 import UserSkills from "../../components/UserSkills";
-import AlertMessage from "../../components/AlertMessage";
 import {getMyTeams} from "../../services/teamService";
 import FollowingTag from "../../components/FollowingTag";
 import {RecommendUserModal} from "../../components/RecommendUserModal";
@@ -448,7 +447,6 @@ function ProfileScreen() {
                 {modal()}
                 <SearchBar/>
                 <SideBar/>
-                <AlertMessage/>
             </div>
         )
     }

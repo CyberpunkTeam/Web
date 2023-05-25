@@ -4,7 +4,6 @@ import React, {useContext, useEffect, useRef, useState} from "react";
 import {isMobile} from "react-device-detect";
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import AlertMessage from "../../components/AlertMessage";
 import AppContext from "../../utils/AppContext";
 import {GalleryImport} from "iconsax-react";
 import Modal from "react-modal";
@@ -205,7 +204,6 @@ export default function CreateArticles() {
             {modal()}
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 

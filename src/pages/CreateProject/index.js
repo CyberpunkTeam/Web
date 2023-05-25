@@ -23,7 +23,6 @@ import {
 import {AttachSquare, Gallery, Trash, Document} from "iconsax-react";
 import {saveFile} from "../../services/firebaseStorage";
 import {isMobile} from "react-device-detect";
-import AlertMessage from "../../components/AlertMessage";
 
 export default function CreateProjectScreen() {
     const {state} = useLocation();
@@ -571,7 +570,6 @@ export default function CreateProjectScreen() {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 

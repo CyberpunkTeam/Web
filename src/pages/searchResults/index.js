@@ -11,7 +11,6 @@ import FrameworkTag from "../../components/FrameworkTag";
 import PlatformTag from "../../components/PlatformTag";
 import {isMobile} from "react-device-detect";
 import CloudTag from "../../components/CloudTag";
-import AlertMessage from "../../components/AlertMessage";
 import {search} from "../../services/searchService";
 import FollowingTag from "../../components/FollowingTag";
 
@@ -328,7 +327,6 @@ export default function SearchResults() {
             </div>
             <SearchBar show={false}/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import './style.css'
 import {isMobile} from "react-device-detect";
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import AlertMessage from "../../components/AlertMessage";
 import React, {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
 import {LampCharge, Notepad2, People} from "iconsax-react";
@@ -125,7 +124,6 @@ export default function Home() {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 

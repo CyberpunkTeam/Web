@@ -794,7 +794,6 @@ export default function ProjectScreen() {
             {modal()}
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 }

@@ -2,7 +2,6 @@ import './style.css'
 import {isMobile} from "react-device-detect";
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
-import AlertMessage from "../../components/AlertMessage";
 import React, {useContext, useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import AppContext from "../../utils/AppContext";
@@ -231,7 +230,6 @@ export default function Article() {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 }

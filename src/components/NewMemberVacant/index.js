@@ -21,7 +21,6 @@ import SearchBar from "../SearchBar";
 import SideBar from "../SideBar";
 import AppContext from "../../utils/AppContext";
 import {useNavigate} from "react-router-dom";
-import AlertMessage from "../AlertMessage";
 
 export default function NewMemberVacant(params) {
     let context = useContext(AppContext);
@@ -249,7 +248,6 @@ export default function NewMemberVacant(params) {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 }
