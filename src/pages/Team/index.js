@@ -24,7 +24,6 @@ import {modalStyle} from "../../styles/commonStyles";
 import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
-import AlertMessage from "../../components/AlertMessage";
 import FollowingTag from "../../components/FollowingTag";
 import {createTeamChat} from "../../services/firebaseStorage";
 
@@ -475,7 +474,6 @@ export default function TeamScreen() {
                 {modal()}
                 <SearchBar/>
                 <SideBar/>
-                <AlertMessage/>
             </div>
         )
     }

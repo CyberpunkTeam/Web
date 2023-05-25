@@ -165,6 +165,7 @@ export default function TeamModal(params) {
                     context.setErrorMessage(errorMessageCreate);
                 }
             } else {
+                context.setCreateMessage("Team created successfully")
                 navigate("/team/" + response.tid)
             }
             setButtonDisabled(false)
@@ -194,6 +195,7 @@ export default function TeamModal(params) {
                     context.setErrorMessage(errorMessageUpdate);
                 }
             } else {
+                context.setCreateMessage("Team updated successfully")
                 goBack()
             }
             setButtonDisabled(false)

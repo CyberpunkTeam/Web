@@ -22,6 +22,7 @@ export function CompleteProjectModal(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                context.setCreateMessage("Completion request sent successfully")
                 params.closeModal()
             }
             setButtonDisabled(false);

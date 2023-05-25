@@ -34,6 +34,8 @@ import ChatScreen from "./pages/ChatScreen";
 import {createUserChat} from "./services/firebaseStorage";
 import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 import Notifications from "./pages/Notifications";
+import AlertMessage from "./components/AlertMessage";
+import CreateMessage from "./components/CreateMessage";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -48,6 +50,7 @@ function App() {
     const [chats, setChats] = useState(undefined)
     const [size, setSize] = useState(undefined);
     const [errorMessage, setErrorMessage] = useState(undefined);
+    const [createMessage, setCreateMessage] = useState(undefined);
     const db = getFirestore()
 
     useEffect(() => {
@@ -90,7 +93,9 @@ function App() {
         search,
         chats,
         errorMessage,
+        createMessage,
         setErrorMessage,
+        setCreateMessage,
         setSearch,
         auth,
         size,
@@ -158,6 +163,8 @@ function App() {
                         </Route>
                     </Routes>
                 </BrowserRouter>
+                <AlertMessage/>
+                <CreateMessage/>
             </div>
         </AppContext.Provider>
     )

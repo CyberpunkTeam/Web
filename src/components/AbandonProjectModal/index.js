@@ -31,6 +31,7 @@ export function AbandonProjectModal(params) {
                         context.setErrorMessage(errorMessage);
                     }
                 } else {
+                    context.setCreateMessage("Project abandoned successfully")
                     params.closeModal()
                     window.location.reload()
                 }

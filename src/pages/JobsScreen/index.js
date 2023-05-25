@@ -10,7 +10,6 @@ import TeamOpportunity from "../../components/TeamOpportunity";
 import logo from "../../assests/Collab-pana.svg";
 import ReactPaginate from "react-paginate";
 import {ArrowCircleLeft, ArrowCircleRight, ArrowDown2, ArrowUp2} from "iconsax-react";
-import AlertMessage from "../../components/AlertMessage";
 import Select from "react-select";
 import {
     CloudOptions,
@@ -582,7 +581,6 @@ export default function JobsScreen() {
                 </div>
                 <SearchBar/>
                 <SideBar/>
-                <AlertMessage/>
             </div>
         </>
 

@@ -1,0 +1,45 @@
+.create-container {
+    border-radius: 16px;
+    padding: 16px 32px;
+    color: #FAFAFA;
+    background: #2E9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.create-position {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+}
+
+div.appearCreate {
+    color: #FAFAFA;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    animation: opacityOn 2s normal linear;
+    animation-delay: 30s;
+    border-radius: 16px;
+    padding: 16px 32px;
+    background: #2E9999;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+}
+
+.tickIcon {
+    padding: 4px;
+    margin-right: 8px;
+}
+
+
+@keyframes opacityOn {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

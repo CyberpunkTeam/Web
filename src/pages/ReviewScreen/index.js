@@ -9,7 +9,6 @@ import {getProjectReview, projectReview} from "../../services/projectService";
 import {getTeamReview, teamReview} from "../../services/teamService";
 import Loading from "../../components/loading";
 import AppContext from "../../utils/AppContext";
-import AlertMessage from "../../components/AlertMessage";
 
 export default function ReviewScreen() {
     let context = useContext(AppContext);
@@ -73,6 +72,7 @@ export default function ReviewScreen() {
                             context.setErrorMessage(errorMessageFinishProject);
                         }
                     } else {
+                        context.setCreateMessage("Review created successfully")
                         goBack();
                     }
                     setLoading(false)
@@ -91,6 +91,7 @@ export default function ReviewScreen() {
                         context.setErrorMessage(errorMessage);
                     }
                 } else {
+                    context.setCreateMessage("Review created successfully")
                     goBack();
                 }
                 setLoading(false)
@@ -158,7 +159,6 @@ export default function ReviewScreen() {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 

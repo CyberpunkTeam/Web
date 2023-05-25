@@ -1,11 +1,13 @@
 import {User} from "iconsax-react";
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {sendTeamPostulation} from "../../services/notificationService";
 import {useLocation, useNavigate} from "react-router-dom";
 import SearchBar from "../../components/SearchBar";
 import SideBar from "../../components/SideBar";
+import AppContext from "../../utils/AppContext";
 
 export default function PostulateTeam() {
+    let context = useContext(AppContext);
     const {state} = useLocation();
     const navigate = useNavigate();
     const params = state
@@ -70,6 +72,7 @@ export default function PostulateTeam() {
             proposal_description: description
         }
         sendTeamPostulation(body).then(() => {
+            context.setCreateMessage("You have successfully postulated to the team")
             setButtonDisabled(false)
             goBack()
         })

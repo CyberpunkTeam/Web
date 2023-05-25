@@ -37,6 +37,7 @@ export function RecommendProjectModal(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                context.setCreateMessage("Project recommended successfully")
                 params.closeModal()
             }
             setButtonDisabled(false)

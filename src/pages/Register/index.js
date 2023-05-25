@@ -7,7 +7,6 @@ import {isMobile} from "react-device-detect";
 import Select from "react-select";
 import {selectedCities, selectedCitiesMobile} from "../../styles/commonStyles";
 import {searchCity} from "../../services/searchService";
-import AlertMessage from "../../components/AlertMessage";
 
 function Register(params) {
     let context = useContext(AppContext);
@@ -154,7 +153,6 @@ function Register(params) {
                     {buttonDisabled ? "" : "Finish"}
                 </button>
             </div>
-            <AlertMessage/>
         </div>
     );
 }

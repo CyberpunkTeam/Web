@@ -7,7 +7,6 @@ import Loading from "../../components/loading";
 import {createMembersTeamReview, getMembersTeamReview, getTeam} from "../../services/teamService";
 import MemberReview from "../../components/MemberReview";
 import AppContext from "../../utils/AppContext";
-import AlertMessage from "../../components/AlertMessage";
 
 export default function TeamReview() {
     const params = useParams();
@@ -95,6 +94,7 @@ export default function TeamReview() {
             })
             return null;
         })
+        context.setCreateMessage("Reviews sent successfully")
         navigate("/team/" + params.id)
         setLoading(false);
     }
@@ -122,7 +122,6 @@ export default function TeamReview() {
             </div>
             <SearchBar/>
             <SideBar/>
-            <AlertMessage/>
         </div>
     )
 

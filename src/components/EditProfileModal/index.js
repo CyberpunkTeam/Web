@@ -86,6 +86,7 @@ export default function EditProfileModal(params) {
                     context.setErrorMessage(errorMessageUpdate);
                 }
             } else {
+                context.setCreateMessage("User updated successfully")
                 context.setUser(response);
                 localStorage.setItem("user", JSON.stringify(response))
                 params.closeModal()

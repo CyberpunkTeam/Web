@@ -29,7 +29,6 @@ import Select from "react-select";
 import Slider from "@mui/material/Slider";
 import {styled} from "@mui/material/styles";
 import {formatter} from "../../utils/budgetFormatter";
-import AlertMessage from "../../components/AlertMessage";
 
 const CustomSlider = styled(Slider)(({theme}) => ({
     color: "#58ADAD",
@@ -890,7 +889,6 @@ export default function ProjectsScreen() {
                 </div>
                 <SearchBar/>
                 <SideBar/>
-                <AlertMessage/>
             </div>
         </>
     )

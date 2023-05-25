@@ -17,6 +17,7 @@ export function PostulateInTeamModal(params) {
                     context.setErrorMessage(errorMessageRequest);
                 }
             } else {
+                context.setCreateMessage("You have successfully postulated to the team")
                 params.closeModal()
             }
             setButtonDisabled(false);
