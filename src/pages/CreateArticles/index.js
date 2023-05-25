@@ -13,6 +13,7 @@ import {getMyTeams} from "../../services/teamService";
 import Loading from "../../components/loading";
 
 export default function CreateArticles() {
+    const errorMessageCompleteData = "Please complete the required fields"
     let context = useContext(AppContext);
     const editorRef = useRef(null);
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -21,6 +22,22 @@ export default function CreateArticles() {
     const [coverImg, setCoverImg] = useState(undefined);
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
 
+    const [errorName, setErrorName] = useState(false);
+    const [errorDescription, setErrorDescription] = useState(false);
+    const validateFields = () => {
+        let error = false;
+        if (title === "" || title.length <= 3) {
+            error = true;
+            setErrorName(true)
+        }
+
+        if (contentState.getPlainText('\u0001').length < 30) {
+            error = true;
+            setErrorDescription(true)
+        }
+
+        return error;
+    }
 
     const setError = (msg) => {
         if (context.errorMessage !== msg) {
@@ -53,14 +70,9 @@ export default function CreateArticles() {
     }
 
     const createFile = async () => {
-        if (title.length === 0) {
-            setError("Title can not be empty")
-            return
-        }
-
-        if (contentState.getPlainText('\u0001').length === 0) {
-            setError("The Article can not be empty")
-            return
+        if (validateFields()) {
+            setError(errorMessageCompleteData)
+            return;
         }
 
         setIsOpen(true)
@@ -68,6 +80,9 @@ export default function CreateArticles() {
 
     const focus = () => editorRef.current.focus();
     const onChange = (editorState) => {
+        if (contentState.getPlainText('\u0001').length > 30) {
+            setErrorDescription(false)
+        }
         setEditorState(editorState)
     };
 
@@ -109,6 +124,9 @@ export default function CreateArticles() {
         }
 
         const setTitleHandler = (event) => {
+            if (title.length > 3) {
+                setErrorName(false)
+            }
             setTitle(event.target.value);
         }
 
@@ -132,7 +150,8 @@ export default function CreateArticles() {
         return (
             <div className="cover-article-container">
                 <div className="article-background-container">
-                    <input type="text" className={"input-article-title"} placeholder={"Write title here"}
+                    <input type="text" className={errorName ? "input-article-title-error" : "input-article-title"}
+                           placeholder={"Write title here"}
                            onChange={setTitleHandler}/>
                     <label className="custom-cover-article-file-upload">
                         <input type="file" onChange={handleCoverChange} accept="image/jpeg, image/png"/>
@@ -151,7 +170,8 @@ export default function CreateArticles() {
     const modal = () => {
         return (
             <Modal isOpen={modalIsOpen} onRequestClose={closeModal} style={modalStyle} ariaHideApp={false}>
-                <PublishArticleModal title={title} closeModal={closeModal} contentState={contentState} teams={allTeams} coverImg={coverImg}/>
+                <PublishArticleModal title={title} closeModal={closeModal} contentState={contentState} teams={allTeams}
+                                     coverImg={coverImg}/>
             </Modal>
         )
     }
@@ -167,7 +187,7 @@ export default function CreateArticles() {
             </div>
             {cover()}
             <div className={"create-article-text-container"}>
-                <div className="RichEditor-root">
+                <div className={errorDescription ? "RichEditor-root-error" : "RichEditor-root"}>
                     <div className={"controllers"}>
                         <BlockStyleControls
                             editorState={editorState}
@@ -196,7 +216,7 @@ export default function CreateArticles() {
                 <button className={isMobile ? "cancel-edit-button-style-mobile" : "cancel-edit-button-style"}>
                     Cancel
                 </button>
-                <button className={ isMobile ? "button-style-mobile" : "save-edit-button-style"}
+                <button className={isMobile ? "button-style-mobile" : "save-edit-button-style"}
                         onClick={createFile}>
                     Publish
                 </button>

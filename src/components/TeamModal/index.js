@@ -12,10 +12,10 @@ import {
 import Select from "react-select";
 import {
     selected4, selectedCloud, selectedFrameworks,
-    selectedGreenStyle, selectedLanguages, selectedPlatform,
+    selectedGreenStyle, selectedGreenStyleError, selectedLanguages, selectedPlatform,
     selectedViolet,
     selectedViolet2,
-    selectedViolet3, selectPref
+    selectedViolet3, selectPref, selectPrefError
 } from "../../styles/commonStyles";
 import SearchBar from "../SearchBar";
 import SideBar from "../SideBar";
@@ -26,6 +26,7 @@ export default function TeamModal(params) {
     const navigate = useNavigate();
     const errorMessageUpdate = "An error has occurred while updating team's information. Please, try again later"
     const errorMessageCreate = "An error has occurred while creating the team. Please, try again later"
+    const errorMessageCompleteData = "Please complete the required fields"
 
     const valuesSelected = (data) => {
         let list = []
@@ -71,6 +72,23 @@ export default function TeamModal(params) {
     const databasesDefault = params.team === undefined ? [] : valuesSelected(params.team.technologies.databases)
     const [db, setDb] = useState(params.team === undefined ? [] : [...params.team.technologies.databases])
 
+    const [errorName, setErrorName] = useState(false);
+    const [errorPref, setErrorPref] = useState(false);
+    const validateFields = () => {
+        let error = false;
+        if (teamName === "" || teamName.length <= 3) {
+            error = true;
+            setErrorName(true)
+        }
+
+        if (idioms.length < 1) {
+            error = true;
+            setErrorPref(true)
+        }
+
+        return error;
+    }
+
     const goBack = () => {
         navigate(-1)
     }
@@ -109,6 +127,9 @@ export default function TeamModal(params) {
     }
 
     const setTeamHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorName(false)
+        }
         setTeamName(event.target.value);
     }
 
@@ -117,6 +138,9 @@ export default function TeamModal(params) {
         event.forEach((value) => {
             list.push(value.value)
         })
+        if (list.length > 0) {
+            setErrorPref(false)
+        }
         setPrefs(list)
     }
 
@@ -137,6 +161,11 @@ export default function TeamModal(params) {
     }
 
     const buttonOnClick = () => {
+        if (validateFields()) {
+            context.setErrorMessage(errorMessageCompleteData)
+            return
+        }
+
         if (params.team !== undefined) {
             return updateTeamButton()
         }
@@ -209,12 +238,16 @@ export default function TeamModal(params) {
                 <div className={isMobile || context.size ? "create-project-info-reduced" : "create-project-info"}>
                     <form className="create-project-form">
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Name
+                            className={isMobile ?
+                                errorName ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorName ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorName ? "create-project-label-error" : "create-project-label"}>
+                            Name *
                             <div className="create-project-input">
                                 <input type="text"
                                        value={teamName}
-                                       className={isMobile ? "input-mobile" : "input"}
+                                       className={isMobile ? errorName ? "input-mobile-error" : "input-mobile" : errorName ? "inputError" : "input"}
                                        onChange={setTeamHandler}/>
                             </div>
                         </label>
@@ -233,8 +266,12 @@ export default function TeamModal(params) {
                             </div>
                         </label>
                         <label
-                            className={isMobile ? "create-project-label-mobile" : context.size ? "create-project-label-reduced" : "create-project-label"}>
-                            Project Preferences ({prefs.length}/3)
+                            className={isMobile ?
+                                errorPref ? "create-project-label-mobile-error" : "create-project-label-mobile" :
+                                context.size ?
+                                    errorPref ? "create-project-label-reduced-error" : "create-project-label-reduced" :
+                                    errorPref ? "create-project-label-error" : "create-project-label"}>
+                            Project Preferences ({prefs.length}/3) *
                             <div className={isMobile ? "modal-form-input-select-mobile" : "modal-form-input-select"}>
                                 <Select
                                     isMulti
@@ -242,7 +279,7 @@ export default function TeamModal(params) {
                                     defaultValue={preferencesValues}
                                     options={optionsProjects}
                                     onChange={(choice) => setPrefHandler(choice)}
-                                    styles={isMobile ? selectPref : selectedGreenStyle}
+                                    styles={isMobile ? errorPref ? selectPrefError : selectPref : errorPref ? selectedGreenStyleError : selectedGreenStyle}
                                 />
                             </div>
                         </label>

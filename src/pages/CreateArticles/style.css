@@ -5,6 +5,14 @@
     padding: 16px;
 }
 
+.RichEditor-root-error {
+    background: #E3E3E3;
+    border-radius: 16px;
+    font-size: 14px;
+    padding: 16px;
+    border: 1px solid #CD5B45;
+}
+
 .RichEditor-editor {
     border-top: 1px solid #D3D3D3;
     cursor: text;
@@ -139,6 +147,29 @@
     background: rgba(0, 0, 0, 0.5);
 }
 
+.input-article-title-error {
+    font-family: "Inter", sans-serif;
+    font-weight: bold;
+    font-size: 28px;
+    width: calc(100% - 48px);
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin: 0 16px;
+    border: 1px solid #CD5B45;
+    outline: none;
+    height: 40px;
+    color: #FAFAFA;
+    background: rgba(0, 0, 0, 0.5);
+}
+
 .input-article-title::placeholder {
     color: #FAFAFA;
+}
+
+.input-article-title-error::placeholder {
+    color: #FAFAFA;
+}
+
+.editorContainerError{
+    border: 1px solid #CD5B45;
 }
