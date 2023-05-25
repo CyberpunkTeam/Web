@@ -8,7 +8,7 @@ export default function CreateMessage() {
     const [appear, setAppear] = useState(false)
 
     useEffect(() => {
-        if (context.errorMessage !== undefined) {
+        if (context.createMessage !== undefined) {
             setAppear(true)
         }
     }, [context.createMessage]);

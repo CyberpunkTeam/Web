@@ -68,6 +68,7 @@ export default function PostulationModal(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                context.setCreateMessage("Postulation sent successfully")
                 params.closeModal()
             }
             setButtonDisabled(false)

@@ -20,6 +20,7 @@ export function DeleteProjectModal(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                context.setCreateMessage("Project cancelled successfully")
                 window.location.reload()
             }
             setButtonDisabled(false);

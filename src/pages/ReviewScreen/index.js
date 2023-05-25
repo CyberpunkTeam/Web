@@ -72,6 +72,7 @@ export default function ReviewScreen() {
                             context.setErrorMessage(errorMessageFinishProject);
                         }
                     } else {
+                        context.setCreateMessage("Review created successfully")
                         goBack();
                     }
                     setLoading(false)
@@ -90,6 +91,7 @@ export default function ReviewScreen() {
                         context.setErrorMessage(errorMessage);
                     }
                 } else {
+                    context.setCreateMessage("Review created successfully")
                     goBack();
                 }
                 setLoading(false)

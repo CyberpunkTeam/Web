@@ -94,6 +94,7 @@ export default function TeamReview() {
             })
             return null;
         })
+        context.setCreateMessage("Reviews sent successfully")
         navigate("/team/" + params.id)
         setLoading(false);
     }

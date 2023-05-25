@@ -107,6 +107,7 @@ export default function NewMemberVacant(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                context.setCreateMessage("Vacant created successfully")
                 goBack()
             }
             setButtonDisabled(false);
