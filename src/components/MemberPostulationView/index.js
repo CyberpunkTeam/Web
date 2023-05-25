@@ -14,9 +14,11 @@ import PlatformTag from "../PlatformTag";
 import DataBaseTag from "../DataBaseTag";
 import CloudTag from "../CloudTag";
 import {sendUserTeamInvitation} from "../../services/notificationService";
+import {useNavigate} from "react-router-dom";
 
 export default function MemberPostulationView(params) {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
     const [showMore, setShowMore] = useState(false);
     const [modalIsOpen, setIsOpen] = useState(false);
     const [postulate, setPostulate] = useState(false);
@@ -285,6 +287,11 @@ export default function MemberPostulationView(params) {
             }
         }
 
+        const userNavigate = () => {
+            const user_link = members[index].uid === context.user.uid ? '/me' : '/user/' + members[index].uid;
+            navigate(user_link);
+        }
+
         return (
             <div className="applications">
                 <ArrowCircleLeft
@@ -294,7 +301,7 @@ export default function MemberPostulationView(params) {
                     color={index !== 0 ? "#AAAAAA" : "#F1F1F1"}
                 />
                 <div className={"applicationsInformation"}>
-                    <div className={isMobile ? "applicationsUserInformationMobile" : "applicationsUserInformation"}>
+                    <div className={isMobile ? "applicationsUserInformationMobile" : "applicationsUserInformation"} onClick={userNavigate}>
                         {userImage(members[index])}
                         {members[index].name} {members[index].lastname}
                         {recommended()}

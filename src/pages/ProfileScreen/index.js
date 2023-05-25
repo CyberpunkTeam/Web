@@ -5,7 +5,7 @@ import React, {useContext, useEffect, useState} from "react";
 import NotFound from "../NotFound";
 import {Edit, User, Notepad2, Message, Share, UserAdd} from "iconsax-react";
 import Modal from 'react-modal';
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {followUser, getProfile} from "../../services/userService";
 import Loading from "../../components/loading";
 import SearchBar from "../../components/SearchBar";
@@ -29,13 +29,14 @@ import FollowersComponent from "../../components/FollowersComponent";
 function ProfileScreen() {
     const params = useParams();
     let context = useContext(AppContext);
+    const {state} = useLocation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [followButtonStatus, setFollowButtonStatus] = useState(false);
     const [time, setTime] = useState(Date.now());
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalRecommend, setModalRecommend] = useState(false);
-    const [tagSelect, setTagSelect] = useState("profile")
+    const [tagSelect, setTagSelect] = useState(state === null ? "profile" : state.teams ? "teams" : "projects")
     const [allTeams, setAllTeams] = useState(undefined);
     const id = params.id ? params.id : context.user.uid
 
@@ -112,7 +113,15 @@ function ProfileScreen() {
             }
             context.setUser(userdata);
             localStorage.setItem("user", JSON.stringify(userdata))
-            setFollowButtonStatus(false);
+            console.log(userData.user.following.users.includes(context.user.uid))
+            if (userData.user.following.users.includes(context.user.uid)) {
+                createChat(context.user, userData.user).then((result) => {
+                    console.log(result)
+                    setFollowButtonStatus(false);
+                })
+            } else {
+                setFollowButtonStatus(false);
+            }
         })
     }
 
@@ -236,13 +245,12 @@ function ProfileScreen() {
         }
 
         const create = () => {
-            createChat(context.user, userData.user).then((combinedId) => {
-                context.chats.forEach((chat) => {
-                    if (chat[0] === combinedId) {
-                        navigate("/chats", {state: {actualChat: chat}})
-                    }
+            const combinedId = context.user.uid < id ? context.user.uid + id : id + context.user.uid
+            context.chats.forEach((chat) => {
+                if (chat[0] === combinedId) {
+                    navigate("/chats", {state: {actualChat: chat}})
+                }
 
-                })
             })
         }
 
@@ -345,7 +353,8 @@ function ProfileScreen() {
                         <UserSkills userData={userData}/>
                     </div>
                     <div className={isMobile ? "column-mobile" : context.size ? "row" : "column"}>
-                        <div className={isMobile ? "teamProjectsInProgressContainerMobile" : "teamProjectsInProgressContainerReduced"}>
+                        <div
+                            className={isMobile ? "teamProjectsInProgressContainerMobile" : "teamProjectsInProgressContainerReduced"}>
                             <div className={"teamInformationTitleContainer"}>
                                 <div className={isMobile ? "teamInformationTitleMobile" : "teamInformationTitle"}>
                                     <Notepad2 size={isMobile ? "80" : "32"} color="#FAFAFA" className="icon"/>

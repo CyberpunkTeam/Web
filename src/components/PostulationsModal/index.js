@@ -1,5 +1,5 @@
 import './style.css'
-import {useContext, useState} from "react";
+import React, {useContext, useState} from "react";
 import {ArrowCircleLeft, ArrowCircleRight, CloseCircle, Star1, TickCircle} from "iconsax-react";
 import TechnologyTag from "../TechnologyTag";
 import {updateTeamPostulation} from "../../services/notificationService";
@@ -20,7 +20,11 @@ export default function PostulationsModal(params) {
     const errorMessage = "An error has occurred while updating the postulation request. Please, try again later"
 
     if (params.postulations.length === 0) {
-        return
+        return (
+            <div className={"no-data-tag"}>
+                No postulations available
+            </div>
+        )
     }
 
     const seeMore = () => {
@@ -79,7 +83,7 @@ export default function PostulationsModal(params) {
                         })}
                     </div>
                     <div className="tags-modal">
-                        {data.team.idioms === null ? null :data.team.idioms.map((data) => {
+                        {data.team.idioms === null ? null : data.team.idioms.map((data) => {
                             return <PreferenceTag key={data + "-modal"} preference={data}/>
                         })}
                     </div>
@@ -170,9 +174,10 @@ export default function PostulationsModal(params) {
             )
         } else {
             return (
-                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold" onClick={() => {
-                    postulationButton("REJECTED")
-                }}/>
+                <CloseCircle className={"button"} size={isMobile ? 120 : 48} color="#CD5B45" variant="Bold"
+                             onClick={() => {
+                                 postulationButton("REJECTED")
+                             }}/>
             )
         }
     }
@@ -185,9 +190,10 @@ export default function PostulationsModal(params) {
             )
         } else {
             return (
-                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold" onClick={() => {
-                    postulationButton("ACCEPTED")
-                }}/>
+                <TickCircle size={isMobile ? 120 : 48} className={"button"} color="#014751" variant="Bold"
+                            onClick={() => {
+                                postulationButton("ACCEPTED")
+                            }}/>
             )
         }
     }

@@ -1543,3 +1543,22 @@
     justify-content: space-between;
     width: 100%;
 }
+
+.loading-tag {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2E9999;
+    font-size: 24px;
+}
+
+.no-data-tag {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #222222;
+    font-size: 24px;
+    font-weight: 200;
+}

@@ -10,7 +10,7 @@ import {
     Logout,
     People,
     EmojiHappy,
-    Home2, Briefcase
+    Home2, Briefcase, LampOn
 } from "iconsax-react";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
@@ -90,6 +90,14 @@ function SideBar() {
 
     const user = () => {
         navigate("/me")
+    }
+
+    const userTeams = () => {
+        navigate("/me", {state: {teams: true}})
+    }
+
+    const userProjects = () => {
+        navigate("/me", {state: {teams: false}})
     }
 
     const chat = () => {
@@ -319,6 +327,18 @@ function SideBar() {
                             </div>
                         </div>
                         <div className="bottom">
+                            <div className="navbar-icon" onClick={userTeams}>
+                                <People className="settings" color="#FAFAFA" variant="Bold" size={16}/>
+                                <div className={"navbar-text"}>
+                                    My teams
+                                </div>
+                            </div>
+                            <div className="navbar-icon" onClick={userProjects}>
+                                <LampOn className="settings" color="#FAFAFA" variant="Bold" size={16}/>
+                                <div className={"navbar-text"}>
+                                    My projects
+                                </div>
+                            </div>
                             <div className="navbar-icon" onClick={user}>
                                 {user_image()}
                                 <div className={"navbar-text"}>

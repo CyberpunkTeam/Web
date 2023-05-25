@@ -1,6 +1,6 @@
 import {AddCircle} from "iconsax-react";
 import AppContext from "../../utils/AppContext";
-import {useContext} from "react";
+import React, {useContext} from "react";
 import {useNavigate} from "react-router-dom";
 import {isMobile} from "react-device-detect";
 import ProjectTileMobileComponent from "../ProjectTileMobileComponent";
@@ -34,10 +34,21 @@ export default function UserProjectMobileComponent(params) {
         )
     }
 
+    const noData = () => {
+        if (params.userData.projects.length === 0) {
+            return (
+                <div className={"no-data-tag"}>
+                    No projects available
+                </div>
+            )
+        }
+    }
+
 
     return (
         <div className={"user-team-container"}>
             {addButton()}
+            {noData()}
             {params.userData.projects.map((data) => {
                 return <ProjectTileMobileComponent key={data.pid} data={data}/>
             })}

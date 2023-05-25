@@ -1,6 +1,6 @@
 import './style.css';
 import SideBar from "../../components/SideBar";
-import {useNavigate, useParams} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import Loading from "../../components/loading";
 import React, {useContext, useEffect, useState} from "react";
 import {getTeam, getTeamReviews} from "../../services/teamService";
@@ -30,6 +30,7 @@ import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamScreen() {
     const params = useParams();
+    const {state} = useLocation();
     const navigate = useNavigate();
     let context = useContext(AppContext);
     const [modalIsOpen, setIsOpen] = useState(false);
@@ -40,7 +41,8 @@ export default function TeamScreen() {
     const [teamData, setTeamData] = useState(undefined)
     const [loading, setLoading] = useState(true);
     const [postulations, setPostulations] = useState([])
-    const [tagSelect, setTagSelect] = useState("info")
+    const [loadingPostulations, setLoadingPostulations] = useState(true)
+    const [tagSelect, setTagSelect] = useState(state === null ? "info" : "members")
     const [time, setTime] = useState(Date.now());
     const [followButtonStatus, setFollowButtonStatus] = useState(false);
 
@@ -98,6 +100,7 @@ export default function TeamScreen() {
                         } else {
                             setPostulations(response)
                         }
+                        setLoadingPostulations(false)
                         setLoading(false);
                     })
                 })
@@ -335,10 +338,10 @@ export default function TeamScreen() {
 
         if (isMobile) {
             return (
-                <div key={data.uid} className="members-info-container-mobile-3">
+                <div key={data.uid} className="members-info-container-mobile-3" onClick={userNavigate}>
                     <div className="members-info-mobile">
                         {user_image(data)}
-                        <div className="member-name-mobile" onClick={userNavigate}>
+                        <div className="member-name-mobile">
                             {data.name} {data.lastname}
                             <div className="owner-mobile">
                                 {data.uid === teamData.owner ? 'Owner' : ''}
@@ -351,10 +354,10 @@ export default function TeamScreen() {
 
 
         return (
-            <div key={data.uid} className="members-info-container">
+            <div key={data.uid} className="members-info-container" onClick={userNavigate}>
                 <div className="members-info">
                     {user_image(data)}
-                    <div className="member-name" onClick={userNavigate}>
+                    <div className="member-name" >
                         {data.name} {data.lastname}
                         <div className="owner">
                             {data.uid === teamData.owner ? 'Owner' : ''}
@@ -386,7 +389,7 @@ export default function TeamScreen() {
 
     const tagsInfo = () => {
         if (tagSelect === "projects") {
-            return <TeamProjectPostulations postulations={postulations}/>
+            return <TeamProjectPostulations postulations={postulations} loadingPostulations={loadingPostulations}/>
         }
 
         if (tagSelect === "members") {
