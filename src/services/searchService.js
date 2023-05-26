@@ -2,10 +2,10 @@ import {get} from "./baseService";
 
 const endpoint = "searches/"
 
-export const search = (word) => {
-    return get(endpoint + '?word=' + word)
+export const search = (word, context) => {
+    return get(endpoint + '?word=' + word, context)
 }
 
-export const searchCity = (city) => {
-    return get('locations/?word=' + city)
+export const searchCity = (city, context) => {
+    return get('locations/?word=' + city, context)
 }

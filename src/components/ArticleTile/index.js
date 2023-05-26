@@ -15,11 +15,11 @@ export default function PublicationTile(params) {
 
     const like = async () => {
         if (liked) {
-            await unlikeArticle(params.publication.cid, context.user.uid)
+            await unlikeArticle(params.publication.cid, context.user.uid, context)
             setLike(false)
             setLikeLength(likeLength - 1)
         } else {
-            await likeArticle(params.publication.cid, context.user.uid)
+            await likeArticle(params.publication.cid, context.user.uid, context)
             setLike(true)
             setLikeLength(likeLength + 1)
         }

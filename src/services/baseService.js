@@ -1,6 +1,6 @@
 const serviceUrl = "https://apigateway-wpyxm22hfq-uc.a.run.app/"
 
-export const post = (endpoint, body) => {
+export const post = (endpoint, body, context) => {
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
@@ -31,7 +31,7 @@ export const post = (endpoint, body) => {
     ).catch(errors => console.log(errors))
 }
 
-export const get = (endpoint) => {
+export const get = (endpoint, context) => {
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
@@ -59,7 +59,7 @@ export const get = (endpoint) => {
     ).catch((error) => {return error})
 }
 
-export const put = (endpoint, body) => {
+export const put = (endpoint, body, context) => {
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
@@ -89,7 +89,7 @@ export const put = (endpoint, body) => {
     ).catch(errors => console.log(errors))
 }
 
-export const erase = (endpoint) => {
+export const erase = (endpoint, context) => {
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',

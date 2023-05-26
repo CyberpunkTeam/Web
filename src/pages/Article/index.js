@@ -20,7 +20,7 @@ export default function Article() {
     const [text, setText] = useState(undefined)
 
     useEffect(() => {
-        getArticle(params.id).then((ArticleResponse) => {
+        getArticle(params.id, context).then((ArticleResponse) => {
             fetch(ArticleResponse.href).then((response) => {
                 response.text().then((body) => {
                     setText(body)
@@ -32,13 +32,13 @@ export default function Article() {
 
     const like = async () => {
         if (article.likes.includes(context.user.uid)) {
-            await unlikeArticle(article.cid, context.user.uid)
+            await unlikeArticle(article.cid, context.user.uid, context)
 
         } else {
-            await likeArticle(article.cid, context.user.uid)
+            await likeArticle(article.cid, context.user.uid, context)
         }
 
-        getArticle(params.id).then((ArticleResponse) => {
+        getArticle(params.id, context).then((ArticleResponse) => {
             setArticle(ArticleResponse)
         })
     }

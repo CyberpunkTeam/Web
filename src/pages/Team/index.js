@@ -77,7 +77,7 @@ export default function TeamScreen() {
                         setUsers(users)
                     }
                 })
-                getTeamInvitations(params.id).then((invitations) => {
+                getTeamInvitations(params.id, context).then((invitations) => {
                     if (invitations === undefined) {
                         setError("An error has occurred while loading team's invitations. Please, try again later");
                     } else {

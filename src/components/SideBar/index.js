@@ -36,7 +36,7 @@ function SideBar() {
     const [messages, setMessages] = useState(0)
 
     useEffect(() => {
-        getNotifications(context.user.uid).then((response) => {
+        getNotifications(context.user.uid, context).then((response) => {
             setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {
@@ -153,7 +153,7 @@ function SideBar() {
     const notificationContainer = () => {
         const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
-                getInvitation(id).then((invitation) => {
+                getInvitation(id, context).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })

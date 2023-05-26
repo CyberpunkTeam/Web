@@ -22,7 +22,7 @@ export default function Home() {
     }
 
     useEffect( () => {
-            getHome(context.user.uid).then((publicationsResponse)=> {
+            getHome(context.user.uid, context).then((publicationsResponse)=> {
                 if (publicationsResponse === undefined) {
                     setError("An error has occurred while loading home screen. Please, try again later");
                     return

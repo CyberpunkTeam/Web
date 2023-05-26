@@ -62,7 +62,7 @@ function ProfileScreen() {
                 setError("An error has occurred while loading user's information. Please, try again later");
                 return
             }
-            getMyArticles(id).then((articlesResponse) => {
+            getMyArticles(id, context).then((articlesResponse) => {
                 if (response === undefined) {
                     setError("An error has occurred while loading user's information. Please, try again later");
                     return

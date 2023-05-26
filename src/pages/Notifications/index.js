@@ -21,7 +21,7 @@ export default function Notifications() {
     const notificationContainer = () => {
         const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
-                getInvitation(id).then((invitation) => {
+                getInvitation(id, context).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })
