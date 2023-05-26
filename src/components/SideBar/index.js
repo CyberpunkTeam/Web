@@ -24,9 +24,11 @@ import {getInvitation} from "../../services/invitationService";
 import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../services/projectService";
 import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
+import {updateUser} from "../../services/userService";
 
 function SideBar() {
     let context = useContext(AppContext);
+    const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
     const navigate = useNavigate();
     const [notifications, setNotifications] = useState([])
     const [time, setTime] = useState(Date.now());
@@ -34,6 +36,7 @@ function SideBar() {
     const [watchNotifications, setWatchNotifications] = useState(false)
     const [watchSettings, setWatchSettings] = useState(false)
     const [messages, setMessages] = useState(0)
+    const [temporalTeam, setTemporalTeam] = useState(context.user.temporal_team)
 
     useEffect(() => {
         getNotifications(context.user.uid).then((response) => {
@@ -272,12 +275,37 @@ function SideBar() {
             navigate("/")
         }
 
+        const checkAllow = () => {
+            updateUser(context.user.uid, {temporal_team: true}).then((response) => {
+                if (response === undefined) {
+                    if (context.errorMessage !== errorMessageUpdate) {
+                        context.setErrorMessage(errorMessageUpdate);
+                    }
+                } else {
+                    context.setUser(response);
+                    localStorage.setItem("user", JSON.stringify(response))
+                    setTemporalTeam(!temporalTeam)
+                }
+            })
+        }
+
         if (watchSettings) {
             return (
-                <div className="logout" onClick={logout}>
-                    <div className="logout-info">
-                        <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
-                        Log Out
+                <div className={context.size ? "notification-list-reduced" : "notification-list"}>
+                    <div className={"switchContainer"}>
+                        <div className={"switchText"}>
+                            Allow participation in temporary teams
+                        </div>
+                        <label className="switch">
+                            <input type="checkbox" onChange={checkAllow} checked={temporalTeam}/>
+                            <span className="slider round"/>
+                        </label>
+                    </div>
+                    <div className="logout" onClick={logout}>
+                        <div className="logout-info">
+                            <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
+                            Log Out
+                        </div>
                     </div>
                 </div>
             )
