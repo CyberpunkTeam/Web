@@ -108,10 +108,6 @@ export default function PublicationTile(params) {
                         <EmojiHappy size={isMobile ? "48" : "24"} color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
                         {likeLength}
                     </div>
-                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"}>
-                        <Share size={isMobile ? "48" : "24"} color="#014751" className={"icon"}/>
-                        Share
-                    </div>
                 </div>
             </div>
         </div>

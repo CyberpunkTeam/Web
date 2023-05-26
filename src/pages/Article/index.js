@@ -74,10 +74,6 @@ export default function Article() {
                                             className={"iconMobile"}/>
                                 {article.likes.length}
                             </div>
-                            <div className={"publishButtonsShareMobile"}>
-                                <Share size="48" color="#FAFAFA" className={"iconMobile"}/>
-                                Share
-                            </div>
                             {formatDatePublish(article.created_date)}
                         </div>
                     </div>
@@ -99,10 +95,6 @@ export default function Article() {
                                         variant={article.likes.includes(context.user.uid) ? "Bold" : "Outline"}
                                         className={"icon"}/>
                             {article.likes.length}
-                        </div>
-                        <div className={"publishButtonsShare"}>
-                            <Share size="24" color="#FAFAFA" className={"icon"}/>
-                            Share
                         </div>
                         {formatDatePublish(article.created_date)}
                     </div>
@@ -224,7 +216,8 @@ export default function Article() {
                     {author(article.author)}
                     {team(article.tid, article.team)}
                 </div>
-                <div className={isMobile ? "article-data-container-mobile" : context.size ? "article-data-container-reduced" : "article-data-container"}>
+                <div
+                    className={isMobile ? "article-data-container-mobile" : context.size ? "article-data-container-reduced" : "article-data-container"}>
                     <HTMLRenderer html={text}/>
                 </div>
             </div>
