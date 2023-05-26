@@ -134,7 +134,11 @@ export default function ChatsSideBar(params) {
                             return null
                         }
                     }
-                    if (chatData[1].userInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
+                    if (chatData[1].teamInfo !== undefined && chatData[1].teamInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
+                        return chat(chatData)
+                    }
+
+                    if (chatData[1].userInfo !== undefined && chatData[1].userInfo.displayName.toLowerCase().includes(search.toLowerCase())) {
                         return chat(chatData)
                     }
                     return null
