@@ -715,6 +715,18 @@
     align-content: flex-end;
 }
 
+.teamTags2 {
+    position: relative;
+    width: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    font-weight: 700;
+    color: #222222;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
 .teamTagContainer {
     display: flex;
     padding: 8px 0;

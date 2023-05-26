@@ -189,13 +189,13 @@ export default function TeamModal(params) {
             owner: context.user.uid
         }
 
-        createTeam(body).then((response) => {
+        createTeam(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageCreate) {
                     context.setErrorMessage(errorMessageCreate);
                 }
             } else {
-                createTeamChat(response).then(() => {
+                createTeamChat(response, context).then(() => {
                     context.setCreateMessage("Team created successfully")
                     navigate("/team/" + response.tid)
                 })
@@ -221,7 +221,7 @@ export default function TeamModal(params) {
             owner: context.user.uid
         }
 
-        updateTeam(params.team.tid, body).then((response) => {
+        updateTeam(params.team.tid, body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageUpdate) {
                     context.setErrorMessage(errorMessageUpdate);

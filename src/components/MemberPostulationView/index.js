@@ -159,7 +159,7 @@ export default function MemberPostulationView(params) {
     const rejectButton = () => {
         const reject = () => {
             setLoading(true)
-            rejectCandidate(params.data.tpid, members[index].uid).then((r) => {
+            rejectCandidate(params.data.tpid, members[index].uid, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageRequest) {
                         context.setErrorMessage(errorMessageRequest);
@@ -192,7 +192,7 @@ export default function MemberPostulationView(params) {
 
         const accept = () => {
             setLoading(true)
-            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index].uid).then((r) => {
+            acceptCandidate(params.data.tid, params.data.tpid, params.data.candidates[index].uid, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessage) {
                         context.setErrorMessage(errorMessage);

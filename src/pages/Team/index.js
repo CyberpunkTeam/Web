@@ -51,13 +51,13 @@ export default function TeamScreen() {
     }
 
     useEffect(() => {
-        getTeam(params.id).then((response) => {
+        getTeam(params.id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading team's information. Please, try again later");
                 return
             }
             setTeamData(response);
-            getTeamReviews(params.id).then((reviews) => {
+            getTeamReviews(params.id, context).then((reviews) => {
                 if (reviews === undefined) {
                     setError("An error has occurred while loading team`s reviews. Please, try again later");
                     return

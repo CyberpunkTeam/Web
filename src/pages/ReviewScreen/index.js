@@ -29,7 +29,7 @@ export default function ReviewScreen() {
                 setIsLoading(false);
             })
         } else {
-            getTeamReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
+            getTeamReview(state.project.pid, state.project.team_assigned.tid, context).then((r) => {
                 setReview(r);
                 setIsLoading(false);
             })
@@ -85,7 +85,7 @@ export default function ReviewScreen() {
                 setLoading(false)
             })
         } else {
-            teamReview(rateBody).then((teamReviewResponse) => {
+            teamReview(rateBody, context).then((teamReviewResponse) => {
                 if (teamReviewResponse === undefined) {
                     if (context.errorMessage !== errorMessage) {
                         context.setErrorMessage(errorMessage);

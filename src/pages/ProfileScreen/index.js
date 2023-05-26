@@ -71,7 +71,7 @@ function ProfileScreen() {
                 setUserData(response);
                 setLoading(false);
             })
-            getMyTeams(context.user.uid).then((teams) => {
+            getMyTeams(context.user.uid, context).then((teams) => {
                 if (teams === undefined) {
                     setError("An error has occurred while loading user's teams. Please, try again later");
                 } else {

@@ -23,7 +23,7 @@ export default function TemporalTeamPostulate(params) {
             return
         }
 
-        getTeamTemporal(params.project.pid).then((temporalTeamResponse) => {
+        getTeamTemporal(params.project.pid, context).then((temporalTeamResponse) => {
             if (temporalTeamResponse === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

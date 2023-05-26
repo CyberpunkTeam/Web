@@ -46,7 +46,7 @@ export default function CreateArticles() {
     }
 
     useEffect((() => {
-        getMyTeams(context.user.uid).then((teams) => {
+        getMyTeams(context.user.uid, context).then((teams) => {
             if (teams === undefined) {
                 setError("An error has occurred while loading user's teams. Please, try again later");
             } else {

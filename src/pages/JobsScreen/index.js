@@ -78,7 +78,7 @@ export default function JobsScreen() {
 
     useEffect(() => {
         const params = queryParams()
-        getAllTeamPositions(params).then((response) => {
+        getAllTeamPositions(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading jobs opportunities. Please, try again later") {
                     if (jobs === undefined) {
@@ -229,7 +229,7 @@ export default function JobsScreen() {
     const find = () => {
         setButtonDisabled(true);
         const params = queryParams()
-        getAllTeamPositions(params).then((response) => {
+        getAllTeamPositions(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading jobs opportunities. Please, try again later") {
                     if (jobs === undefined) {

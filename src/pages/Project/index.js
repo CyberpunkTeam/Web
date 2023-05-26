@@ -84,7 +84,7 @@ export default function ProjectScreen() {
             setLogs([...response.activities_record.reverse()])
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
-                    getOwnerTeams(context.user.uid).then((teams) => {
+                    getOwnerTeams(context.user.uid, context).then((teams) => {
                         if (teams === undefined) {
                             setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
@@ -92,7 +92,7 @@ export default function ProjectScreen() {
                         }
                     })
                 }
-                getMyTeams(context.user.uid).then((teams) => {
+                getMyTeams(context.user.uid, context).then((teams) => {
                     if (teams === undefined) {
                         setError("An error has occurred while loading user's teams. Please, try again later");
                     } else {
@@ -110,7 +110,7 @@ export default function ProjectScreen() {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
                         if (r.length === 0) {
-                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                            getTeamTemporal(response.pid, context).then((temporalTeamResponse) => {
                                 setTemporal(temporalTeamResponse)
                             })
                         } else {

@@ -28,8 +28,10 @@ export default function TeamPostulationView(params) {
     const project = "/projects/" + params.data.project.pid
     return (
         <div key={params.data.ppid} className="teamPostulationContainer">
-            <div className={isMobile ? "teamPostulationInfoMobile" : context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
-                <div className={isMobile ? "postulationInfoMobile" :  context.size ? "postulationInfoReduce" : "postulationInfo"}>
+            <div
+                className={isMobile ? "teamPostulationInfoMobile" : context.size ? "teamPostulationInfoReduce" : "teamPostulationInfo"}>
+                <div
+                    className={isMobile ? "postulationInfoMobile" : context.size ? "postulationInfoReduce" : "postulationInfo"}>
                     <div className={isMobile ? "title-and-budget-mobile" : "title-and-budget"}>
                         <Link to={project} className="projectTitle">
                             {params.data.project.name}
@@ -38,35 +40,26 @@ export default function TeamPostulationView(params) {
                             {formatter.format(params.data.estimated_budget)} USD
                         </div>
                     </div>
-                    <div className={"team-tags"}>
-                        <div className="tags-modal">
-                            {params.data.project.technologies.programming_language.map((data) => {
-                                return <TechnologyTag key={data + "-modal"} technology={data}/>
-                            })}
-                        </div>
-                        <div className="tags-modal">
-                            {params.data.project.technologies.frameworks.map((data) => {
-                                return <FrameworkTag key={data + "-modal"} framework={data}/>
-                            })}
-                        </div>
-                        <div className="tags-modal">
-                            {params.data.project.technologies.platforms.map((data) => {
-                                return <PlatformTag key={data + "-modal"} platform={data}/>
-                            })}
-                        </div>
-                        <div className="tags-modal">
-                            {params.data.project.technologies.databases.map((data) => {
-                                return <CloudTag key={data + "-modal"} cloud={data}/>
-                            })}
-                        </div>
-                        <div className="tags-modal">
-                            {params.data.project.idioms.map((data) => {
-                                return <PreferenceTag key={data + "-modal"} preference={data}/>
-                            })}
-                        </div>
+                    <div className={"teamTags2"}>
+                        {params.data.project.technologies.programming_language.map((data) => {
+                            return <TechnologyTag key={data + "-modal"} technology={data}/>
+                        })}
+                        {params.data.project.technologies.frameworks.map((data) => {
+                            return <FrameworkTag key={data + "-modal"} framework={data}/>
+                        })}
+                        {params.data.project.technologies.platforms.map((data) => {
+                            return <PlatformTag key={data + "-modal"} platform={data}/>
+                        })}
+                        {params.data.project.technologies.databases.map((data) => {
+                            return <CloudTag key={data + "-modal"} cloud={data}/>
+                        })}
+                        {params.data.project.idioms.map((data) => {
+                            return <PreferenceTag key={data + "-modal"} preference={data}/>
+                        })}
                     </div>
                 </div>
-                <div className={isMobile ? "descriptionContainerMobile" : context.size ? "descriptionContainerReduced" : "descriptionContainer"}>
+                <div
+                    className={isMobile ? "descriptionContainerMobile" : context.size ? "descriptionContainerReduced" : "descriptionContainer"}>
                     Description Sent
                     <div className="description-modal">
                         {showMore ? params.data.proposal_description.substring(0, params.data.proposal_description.length) : params.data.proposal_description.substring(0, 600)}

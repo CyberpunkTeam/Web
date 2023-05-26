@@ -10,7 +10,7 @@ export function DeleteVacantModal(params) {
     const errorMessageRequest = "An error has occurred while deleting this opportunity. Please, try again later"
     const deletePosition = () => {
         setButtonDisabled(true);
-        deleteVacant(params.data.tpid, {state: "CLOSED"}).then((r) => {
+        deleteVacant(params.data.tpid, {state: "CLOSED"}, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);

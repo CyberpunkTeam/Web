@@ -18,10 +18,6 @@ export const getTeam = (uid, context) => {
     return get(endpoint + uid, context)
 }
 
-export const addMember = (tid, uid, context) => {
-    return post(endpoint + tid + "/members/" + uid, context)
-}
-
 export const updateTeam = (tid, body, context) => {
     return put(endpoint + tid, body, context)
 }
