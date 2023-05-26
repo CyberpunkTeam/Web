@@ -272,12 +272,27 @@ function SideBar() {
             navigate("/")
         }
 
+        const checkAllow = () => {
+            console.log("Hola");
+        }
+
         if (watchSettings) {
             return (
-                <div className="logout" onClick={logout}>
-                    <div className="logout-info">
-                        <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
-                        Log Out
+                <div className={context.size ? "notification-list-reduced" : "notification-list"}>
+                    <div className={"switchContainer"}>
+                        <div className={"switchText"}>
+                            Allow participation in temporary teams
+                        </div>
+                        <label className="switch">
+                            <input type="checkbox" onClick={checkAllow}/>
+                            <span className="slider round"/>
+                        </label>
+                    </div>
+                    <div className="logout" onClick={logout}>
+                        <div className="logout-info">
+                            <Logout className="logout-icon" color="white" variant="Outline" size={24}/>
+                            Log Out
+                        </div>
                     </div>
                 </div>
             )
