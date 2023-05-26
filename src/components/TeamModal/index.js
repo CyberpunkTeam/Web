@@ -20,6 +20,7 @@ import {
 import SearchBar from "../SearchBar";
 import SideBar from "../SideBar";
 import {isMobile} from "react-device-detect";
+import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamModal(params) {
     let context = useContext(AppContext);
@@ -194,8 +195,10 @@ export default function TeamModal(params) {
                     context.setErrorMessage(errorMessageCreate);
                 }
             } else {
-                context.setCreateMessage("Team created successfully")
-                navigate("/team/" + response.tid)
+                createTeamChat(response).then(() => {
+                    context.setCreateMessage("Team created successfully")
+                    navigate("/team/" + response.tid)
+                })
             }
             setButtonDisabled(false)
         })

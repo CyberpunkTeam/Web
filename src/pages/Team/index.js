@@ -25,7 +25,6 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import FollowingTag from "../../components/FollowingTag";
-import {createTeamChat} from "../../services/firebaseStorage";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -189,13 +188,11 @@ export default function TeamScreen() {
         }
 
         const create = () => {
-            createTeamChat(teamData).then(() => {
-                context.chats.forEach((chat) => {
-                    if (chat[0] === teamData.tid) {
-                        navigate("/chats", {state: {actualChat: chat}})
-                    }
+            context.chats.forEach((chat) => {
+                if (chat[0] === teamData.tid) {
+                    navigate("/chats", {state: {actualChat: chat}})
+                }
 
-                })
             })
         }
 
@@ -356,7 +353,7 @@ export default function TeamScreen() {
             <div key={data.uid} className="members-info-container" onClick={userNavigate}>
                 <div className="members-info">
                     {user_image(data)}
-                    <div className="member-name" >
+                    <div className="member-name">
                         {data.name} {data.lastname}
                         <div className="owner">
                             {data.uid === teamData.owner ? 'Owner' : ''}
