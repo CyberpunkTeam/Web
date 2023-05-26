@@ -6,31 +6,31 @@ export const getNotifications = (uid, context) => {
     return get(endpoint + "?receiver_id=" + uid, context)
 }
 
-export const sendInvitation = (body) => {
+export const sendInvitation = (body, context) => {
     return post(endpoint + "team_invitation/", body, context)
 }
 
-export const viewNotifications = (notifications) => {
+export const viewNotifications = (notifications, context) => {
     return put(endpoint + "viewed/?nids=" + notifications, context)
 }
 
-export const sendTeamPostulation = (body) => {
+export const sendTeamPostulation = (body, context) => {
     return post(endpoint + "team_postulation/", body, context)
 }
 
-export const updateTeamPostulation = (body) => {
+export const updateTeamPostulation = (body, context) => {
     return post(endpoint + "team_postulation_response/", body, context)
 }
 
-export const requestFinishProject = (body) => {
+export const requestFinishProject = (body, context) => {
     return post(endpoint + "project_finished_requests/", body, context)
 }
 
-export const getFinishProject = (id) => {
+export const getFinishProject = (id, context) => {
     return get(`/project_finished_requests/${id}`, context)
 }
 
-export const getRequestFinishProject = (tid, pid) => {
+export const getRequestFinishProject = (tid, pid, context) => {
     return get(`/project_finished_requests/?tid=${tid}&pid=${pid}`, context)
 }
 
@@ -42,7 +42,7 @@ export const abandonProject = (body, context) => {
     return post(endpoint + "project_abandonment/", body, context)
 }
 
-export const abandonProjectRequest = (body) => {
+export const abandonProjectRequest = (body, context) => {
     return post(endpoint + "project_abandons_requests/", body, context)
 }
 

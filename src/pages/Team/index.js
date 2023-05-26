@@ -70,7 +70,7 @@ export default function TeamScreen() {
                     list.push(data.uid)
                 })
                 setMembersList(list)
-                getUsers().then((users) => {
+                getUsers(context).then((users) => {
                     if (users === undefined) {
                         setError("An error has occurred while loading users. Please, try again later");
                     } else {
@@ -92,7 +92,7 @@ export default function TeamScreen() {
                         }
                     }
 
-                    getTeamPostulations(params.id).then((response) => {
+                    getTeamPostulations(params.id, context).then((response) => {
                         if (invitations === undefined) {
                             setError("An error has occurred while loading team's postulations. Please, try again later");
                         } else {
@@ -141,7 +141,7 @@ export default function TeamScreen() {
             return;
         }
         setFollowButtonStatus(true);
-        followTeams(context.user.uid, params.id).then((userdata) => {
+        followTeams(context.user.uid, params.id, context).then((userdata) => {
             if (userdata === undefined) {
                 setError("An error has occurred while following the user. Please, try again later");
                 return

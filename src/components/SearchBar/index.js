@@ -21,7 +21,7 @@ export default function SearchBar(params) {
             setIsSearch(false);
             return
         }
-        search(event.target.value).then((response) => {
+        search(event.target.value, context).then((response) => {
             setResult(response)
             setIsSearch(true);
             context.setSearch(response)

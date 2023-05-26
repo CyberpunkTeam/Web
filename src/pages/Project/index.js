@@ -75,7 +75,7 @@ export default function ProjectScreen() {
     }
 
     useEffect(() => {
-        getProject(params.id).then((response) => {
+        getProject(params.id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading project's information. Please, try again later");
                 return
@@ -105,7 +105,7 @@ export default function ProjectScreen() {
                         setAllTeams(t);
                     }
                 })
-                getTemporallyTeamRecommendations(response).then((r) => {
+                getTemporallyTeamRecommendations(response, context).then((r) => {
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
@@ -118,14 +118,14 @@ export default function ProjectScreen() {
                         }
                     }
                 })
-                getProjectTeamRecommendations(response).then((r) => {
+                getProjectTeamRecommendations(response, context).then((r) => {
                     if (r === undefined) {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
                     }
                 })
-                getProjectPostulations(params.id).then((postulationResponse) => {
+                getProjectPostulations(params.id, context).then((postulationResponse) => {
                     if (postulationResponse === undefined) {
                         setError("An error has occurred while loading team's postulations. Please, try again later");
                     } else {

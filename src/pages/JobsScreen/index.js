@@ -94,7 +94,7 @@ export default function JobsScreen() {
     }, [time]);
 
     useEffect(() => {
-        getUserOpportunities(context.user).then((recommendationsResponse) => {
+        getUserOpportunities(context.user, context).then((recommendationsResponse) => {
             if (recommendationsResponse === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading jobs recommendations. Please, try again later") {
                     if (recommendations === undefined) {

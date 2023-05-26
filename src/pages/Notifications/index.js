@@ -1,6 +1,6 @@
 import './style.css';
 import {isMobile} from "react-device-detect";
-import React from "react";
+import React, {useContext} from "react";
 import NotFound from "../NotFound";
 import {ArrowLeft2, EmojiHappy, LampCharge, Message, People, SearchNormal1} from "iconsax-react";
 import SideBar from "../../components/SideBar";
@@ -9,8 +9,10 @@ import {getPostulation, getProject, getRequestAbandonProjectWithID} from "../../
 import {getFinishProject, getTeamPosition} from "../../services/notificationService";
 import {formatDate} from "../../utils/dateFormat";
 import {useLocation, useNavigate} from "react-router-dom";
+import AppContext from "../../utils/AppContext";
 
 export default function Notifications() {
+    let context = useContext(AppContext);
     const navigate = useNavigate();
     const {state} = useLocation();
 
@@ -26,18 +28,18 @@ export default function Notifications() {
                     navigate(link);
                 })
             } else if (notification_type === "TEAM_POSTULATION" || notification_type === "TEAM_POSTULATION_RESPONSE") {
-                getPostulation(id).then((postulation) => {
+                getPostulation(id, context).then((postulation) => {
                     const link = "/projects/" + postulation.pid
                     navigate(link);
                 })
             } else if (notification_type === "NEW_TEAM_MEMBERS") {
                 navigate("/user/" + id);
             } else if (notification_type === "PROJECT_FINISHED_REQUEST") {
-                getFinishProject(id).then((r) => {
+                getFinishProject(id, context).then((r) => {
                     navigate("/projects/" + r.pid);
                 })
             } else if (notification_type === "PROJECT_FINISHED") {
-                getProject(id).then((response) => {
+                getProject(id, context).then((response) => {
                     if (message.includes("rechazada") || message.includes("rejected")) {
                         navigate("/projects/" + response.pid)
                     } else {
@@ -45,7 +47,7 @@ export default function Notifications() {
                     }
                 });
             } else if (notification_type === "PROJECT_ABANDONS_REQUEST") {
-                getRequestAbandonProjectWithID(id).then((response) => {
+                getRequestAbandonProjectWithID(id, context).then((response) => {
                     navigate("/projects/" + response.pid)
                 })
             } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION") {
@@ -53,7 +55,7 @@ export default function Notifications() {
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
             } else if (notification_type === "NEW_TEAM_CANDIDATE" || notification_type === "POSITION_INVITATION") {
-                getTeamPosition(id).then((response) => {
+                getTeamPosition(id, context).then((response) => {
                     navigate("/team/" + response.team.tid)
                 })
             } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM") {

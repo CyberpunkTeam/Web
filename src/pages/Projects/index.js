@@ -131,7 +131,7 @@ export default function ProjectsScreen() {
 
     useEffect(() => {
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     if (projects === undefined) {
@@ -180,7 +180,7 @@ export default function ProjectsScreen() {
         setRange([0, maxValue])
 
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
@@ -198,7 +198,7 @@ export default function ProjectsScreen() {
     const find = () => {
         setButtonDisabled(true);
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");

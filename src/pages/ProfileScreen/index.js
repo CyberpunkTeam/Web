@@ -57,7 +57,7 @@ function ProfileScreen() {
     useEffect(() => resetUserData, [params.id])
 
     useEffect(() => {
-        getProfile(id).then((response) => {
+        getProfile(id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading user's information. Please, try again later");
                 return
@@ -105,7 +105,7 @@ function ProfileScreen() {
             return;
         }
         setFollowButtonStatus(true);
-        followUser(context.user.uid, id).then((userdata) => {
+        followUser(context.user.uid, id, context).then((userdata) => {
             if (userdata === undefined) {
                 setError("An error has occurred while following the user. Please, try again later");
                 return

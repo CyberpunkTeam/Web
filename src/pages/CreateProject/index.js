@@ -204,7 +204,7 @@ export default function CreateProjectScreen() {
         }
 
         if (state.project === undefined) {
-            createProject(body).then((r) => {
+            createProject(body, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageCreate) {
                         context.setErrorMessage(errorMessageCreate);
@@ -223,7 +223,7 @@ export default function CreateProjectScreen() {
                 setButtonDisabled(false)
             })
         } else {
-            updateProject(state.project.pid, body).then((r) => {
+            updateProject(state.project.pid, body, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageUpdate) {
                         context.setErrorMessage(errorMessageUpdate);

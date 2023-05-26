@@ -21,7 +21,7 @@ export default function LeaveProject(params) {
             return;
         }
 
-        getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
+        getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);
@@ -52,7 +52,7 @@ export default function LeaveProject(params) {
             "reasons" : request.reasons
         }
 
-        abandonProject(body).then((response) => {
+        abandonProject(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

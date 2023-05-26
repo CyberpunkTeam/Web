@@ -71,7 +71,7 @@ export default function PostulateTeam() {
             currency: "DOLAR",
             proposal_description: description
         }
-        sendTeamPostulation(body).then(() => {
+        sendTeamPostulation(body, context).then(() => {
             context.setCreateMessage("You have successfully postulated to the team")
             setButtonDisabled(false)
             goBack()

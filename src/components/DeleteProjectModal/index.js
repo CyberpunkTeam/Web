@@ -14,7 +14,7 @@ export function DeleteProjectModal(params) {
         const body = {
             "state": "CANCELLED"
         }
-        updateProject(params.project.pid, body).then((response) => {
+        updateProject(params.project.pid, body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

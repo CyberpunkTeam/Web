@@ -217,7 +217,7 @@ export default function SearchResults() {
                 context.setSearch({})
                 return
             }
-            search(event.target.value).then((response) => {
+            search(event.target.value, context).then((response) => {
                 context.setSearch(response)
             })
         }

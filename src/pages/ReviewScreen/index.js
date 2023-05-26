@@ -24,7 +24,7 @@ export default function ReviewScreen() {
 
     useEffect(() => {
         if (state.isProject) {
-            getProjectReview(state.project.pid, state.project.team_assigned.tid).then((r) => {
+            getProjectReview(state.project.pid, state.project.team_assigned.tid, context).then((r) => {
                 setReview(r);
                 setIsLoading(false);
             })
@@ -53,7 +53,7 @@ export default function ReviewScreen() {
         }
 
         if (state.isProject) {
-            projectReview(rateBody).then((response) => {
+            projectReview(rateBody, context).then((response) => {
                 if (response === undefined) {
                     if (context.errorMessage !== errorMessageProjectReview) {
                         context.setErrorMessage(errorMessageProjectReview);
@@ -66,7 +66,7 @@ export default function ReviewScreen() {
                     "tid": state.project.team_assigned.tid,
                     "request_id": state.request.pfr_id
                 }
-                finishProject(body).then((updateResponse) => {
+                finishProject(body, context).then((updateResponse) => {
                     if (updateResponse === undefined) {
                         if (context.errorMessage !== errorMessageFinishProject) {
                             context.setErrorMessage(errorMessageFinishProject);

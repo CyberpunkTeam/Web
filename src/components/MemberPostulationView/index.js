@@ -143,7 +143,7 @@ export default function MemberPostulationView(params) {
             tpid: params.data.tpid,
             uid: members[index].uid
         }
-        sendUserTeamInvitation(body).then((r) => {
+        sendUserTeamInvitation(body, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorRecommendedMessage) {
                     context.setErrorMessage(errorRecommendedMessage);

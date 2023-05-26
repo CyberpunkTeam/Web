@@ -34,7 +34,7 @@ function Register(params) {
     const setSearchHandler = (value) => {
         if (value.length >= 3) {
             setLoading(true);
-            searchCity(value).then((response) => {
+            searchCity(value, context).then((response) => {
                 let list = []
                 response.forEach((city) => {
                     list.push({value: city, label: city})

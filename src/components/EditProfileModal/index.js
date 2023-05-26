@@ -49,7 +49,7 @@ export default function EditProfileModal(params) {
     const setSearchHandler = (value) => {
         if (value.length >= 3) {
             setLoading(true);
-            searchCity(value).then((response) => {
+            searchCity(value, context).then((response) => {
                 let list = []
                 response.forEach((city) => {
                     list.push({value: city, label: city})
@@ -80,7 +80,7 @@ export default function EditProfileModal(params) {
             setCoverImg(photo_url);
         }
 
-        updateUser(context.user.uid, body).then((response) => {
+        updateUser(context.user.uid, body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageUpdate) {
                     context.setErrorMessage(errorMessageUpdate);

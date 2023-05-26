@@ -37,7 +37,7 @@ export default function PostulationsModal(params) {
             "state": status
         }
         setLoading(true)
-        updateTeamPostulation(body).then((response) => {
+        updateTeamPostulation(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

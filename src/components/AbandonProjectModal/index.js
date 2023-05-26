@@ -25,7 +25,7 @@ export function AbandonProjectModal(params) {
         }
 
         if (condition) {
-            abandonProject(body).then((response) => {
+            abandonProject(body, context).then((response) => {
                 if (response === undefined) {
                     if (context.errorMessage !== errorMessage) {
                         context.setErrorMessage(errorMessage);
@@ -38,7 +38,7 @@ export function AbandonProjectModal(params) {
                 setButtonDisabled(false)
             })
         } else {
-            abandonProjectRequest(body).then((response) => {
+            abandonProjectRequest(body, context).then((response) => {
                 if (response === undefined) {
                     if (context.errorMessage !== errorMessage) {
                         context.setErrorMessage(errorMessage);
