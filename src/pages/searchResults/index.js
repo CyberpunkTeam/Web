@@ -135,6 +135,7 @@ export default function SearchResults() {
                 <div key={data.uid} className="user-data-container">
                     <div className={isMobile ? "name-mobile" : "name"}>
                         {data.name} {data.lastname}
+                        {data.state === "BLOCKED" ? <BlockTag/> : null}
                         {context.user.following.users.includes(data.uid) ? <FollowingTag/> : null}
                     </div>
                     <div className={isMobile ? "extra-data-mobile" : "extra-data"}>
