@@ -15,7 +15,7 @@ export const getProject = (pid, context) => {
 }
 
 export const getProjects = (params, context) => {
-    return get(endpoint + "?state=PENDING&currency=DOLAR" + params, context)
+    return get(endpoint + "?state=PENDING&currency=DOLAR&internal_state=ACTIVE" + params, context)
 }
 
 export const getPostulation = (ppid, context) => {
