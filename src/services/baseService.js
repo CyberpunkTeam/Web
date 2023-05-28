@@ -19,7 +19,7 @@ export const post = (endpoint, body, context) => {
             if (response.headers.has("token-refresh")) {
                 localStorage.setItem("auth_token", response.headers.get("token-refresh"))
             }
-            if (response.status === 403) {
+            if (context !== null && response.status === 403) {
                 context.setLocked(true);
                 return undefined
             }
@@ -53,7 +53,7 @@ export const get = (endpoint, context) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status === 403) {
+                    if (context !== null && response.status === 403) {
                         context.setLocked(true);
                         return data
                     }
@@ -89,7 +89,7 @@ export const put = (endpoint, body, context) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status === 403) {
+                    if (context !== null && response.status === 403) {
                         context.setLocked(true);
                         return data
                     }
@@ -121,7 +121,7 @@ export const erase = (endpoint, context) => {
             }
             return response.json().then(
                 data => {
-                    if (response.status === 403) {
+                    if (context !== null && response.status === 403) {
                         context.setLocked(true);
                         return data
                     }

@@ -4,20 +4,23 @@ import Modal from "react-modal";
 import {isMobile} from "react-device-detect";
 import {useContext, useEffect, useState} from "react";
 import AppContext from "../../utils/AppContext";
+import {useNavigate} from "react-router-dom";
 
 export default function LockUser() {
     let context = useContext(AppContext);
+    const navigate = useNavigate();
+
     const [modalIsOpen, setIsOpen] = useState(false);
     const closeModal = () => {
+        context.setLocked(false);
+        setIsOpen(false);
         if (context.user) {
             localStorage.removeItem("user");
             localStorage.removeItem("auth_token")
             window.location.reload()
             context.setUser(undefined);
+            navigate("/")
         }
-
-        context.setLocked(false);
-        setIsOpen(false);
     }
 
     useEffect(() => {
