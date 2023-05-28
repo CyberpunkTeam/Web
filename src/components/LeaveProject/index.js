@@ -103,6 +103,10 @@ export default function LeaveProject(params) {
         }
     }
 
+    if (params.project.internal_state === "BLOCKED") {
+        return null;
+    }
+
     if (request !== undefined) {
         return (
             <div className="invitation-container">

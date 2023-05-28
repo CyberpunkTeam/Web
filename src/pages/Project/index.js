@@ -46,6 +46,7 @@ import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 import {RecommendProjectModal} from "../../components/RecommendProjectModal";
+import BlockTag from "../../components/BlockTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -237,6 +238,10 @@ export default function ProjectScreen() {
     }
 
     const postulate = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid === context.user.uid) {
             return
         }
@@ -280,6 +285,10 @@ export default function ProjectScreen() {
     }
 
     const teamRecommendations = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid !== context.user.uid) {
             return
         }
@@ -318,7 +327,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.state !== "PENDING") {
+        if (project.state !== "PENDING" || project.internal_state === "BLOCKED") {
             return
         }
 
@@ -366,6 +375,10 @@ export default function ProjectScreen() {
     }
 
     const actionsButton = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid !== context.user.uid) {
             return
         }
@@ -465,6 +478,10 @@ export default function ProjectScreen() {
                 return
             }
 
+            if (project.internal_state === "BLOCKED") {
+                return;
+            }
+
             if (project.creator.uid === context.user.uid) {
 
                 const edit = () => {
@@ -491,6 +508,10 @@ export default function ProjectScreen() {
         }
 
         const recommendProject = () => {
+            if (project.internal_state === "BLOCKED") {
+                return;
+            }
+
             if (project.owner === context.user.uid || allTeams === undefined || allTeams.length === 0) {
                 return
             }
@@ -571,6 +592,7 @@ export default function ProjectScreen() {
                 <div className="project-title-container">
                     <div className="team-name">
                         {project.name}
+                        {project.internal_state === "BLOCKED" ? <BlockTag/> : null}
                     </div>
                     {tags()}
                 </div>

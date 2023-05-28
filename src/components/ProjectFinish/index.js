@@ -99,6 +99,10 @@ export default function ProjectFinish(params) {
         }
     }
 
+    if (params.project.internal_state === "BLOCKED") {
+        return null;
+    }
+
     if (finish !== undefined) {
         return (
             <div className="invitation-container">
