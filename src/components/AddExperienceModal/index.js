@@ -17,28 +17,70 @@ export default function AddExperienceModal(params) {
     const [actualDate, setActualDate] = useState(false);
     const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
+    const [errorPosition, setErrorPosition] = useState(false);
+    const [errorCompany, setErrorCompany] = useState(false);
+    const [errorStartDate, setErrorStartDate] = useState(false);
+    const [errorFinishDate, setErrorFinishDate] = useState(false);
+    const validateFields = () => {
+        let error = false;
+
+        if (position.length <= 3) {
+            error = true;
+            setErrorPosition(true)
+        }
+
+        if (company.length <= 3) {
+            error = true;
+            setErrorCompany(true)
+        }
+
+        if (!startDate) {
+            error = true;
+            setErrorStartDate(true)
+        }
+
+        if (!actualDate && !finishDate) {
+            error = true;
+            setErrorFinishDate(true)
+        }
+
+        return error;
+    }
+
     const ActualJob = () => {
         setActualDate(!actualDate)
     }
 
     const setPositionHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorPosition(false)
+        }
         setPosition(event.target.value);
     }
 
     const setCompanyHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorCompany(false)
+        }
         setCompany(event.target.value);
     }
 
     const setStartDateHandler = (date) => {
+        setErrorStartDate(false)
         setStartDate(date);
     }
 
     const setFinishDateHandler = (date) => {
+        setErrorFinishDate(false)
         setFinishDate(date);
     }
 
 
     const createEducationButton = () => {
+        if (validateFields()) {
+            context.setErrorMessage("Please complete the required fields");
+            return;
+        }
         setButtonDisabled(true)
         let workExperience = [...context.user.work_experience]
         const newWorkExperience =
@@ -75,20 +117,20 @@ export default function AddExperienceModal(params) {
                 Add Job Experience
             </div>
             <form className="modal-form">
-                <div className="label">
+                <div className={errorPosition ? "label-error" : "label"}>
                     <label>
-                        Position
+                        Position *
                         <input type="text" value={position} className="input" onChange={setPositionHandler}/>
                     </label>
                 </div>
-                <div className="label">
+                <div className={errorCompany ? "label-error" : "label"}>
                     <label>
-                        Company
+                        Company *
                         <input type="text" value={company} className="input" onChange={setCompanyHandler}/>
                     </label>
                 </div>
-                <div className="labelPadding">
-                    Start Date
+                <div className={errorStartDate ? "labelPaddingError" : "labelPadding"}>
+                    Start Date *
                     <DatePicker selected={startDate} showMonthYearPicker dateFormat="MM/yyyy" className="input"
                                 onChange={setStartDateHandler}/>
                 </div>
@@ -98,9 +140,9 @@ export default function AddExperienceModal(params) {
                     </div>
                     I currently have this position
                 </div>
-                <div className={actualDate ? "labelDisable" : "label"}>
+                <div className={actualDate ? "labelDisable" : errorFinishDate ? "label-error" : "label"}>
                     <div>
-                        End Date
+                        End Date {actualDate ? null : "*"}
                         <DatePicker selected={actualDate ? "" : finishDate} readOnly={actualDate} showMonthYearPicker
                                     dateFormat="MM/yyyy" className={actualDate ? "inputDisable" : "input"}
                                     onChange={setFinishDateHandler}/>

@@ -24,6 +24,7 @@ import {getMyArticles} from "../../services/contentService";
 import {createChat} from "../../services/firebaseStorage";
 import ArticleTile from "../../components/ArticleTile";
 import FollowersComponent from "../../components/FollowersComponent";
+import BlockTag from "../../components/BlockTag";
 
 function ProfileScreen() {
     const params = useParams();
@@ -159,6 +160,7 @@ function ProfileScreen() {
             <div className="user-data-container">
                 <div className={isMobile ? "name-mobile" : "name"}>
                     {id !== context.user.uid ? userData.user.name : context.user.name} {id !== context.user.uid ? userData.user.lastname : context.user.lastname}
+                    {userData.user.state === "BLOCKED" ? <BlockTag/> : null}
                     {context.user.following.users.includes(id) ? <FollowingTag/> : null}
                 </div>
                 <div className={isMobile ? "extra-data-mobile" : "extra-data"}>
@@ -202,6 +204,10 @@ function ProfileScreen() {
     }
 
     const followButton = () => {
+        if (userData.user.state === "BLOCKED") {
+            return null
+        }
+
         if (id === context.user.uid || context.user.following.users.includes(id)) {
             return
         }
@@ -227,6 +233,10 @@ function ProfileScreen() {
     }
 
     const recommendUser = () => {
+        if (userData.user.state === "BLOCKED") {
+            return null
+        }
+
         if (id === context.user.uid || !context.user.following.users.includes(id) || allTeams === undefined || allTeams.length === 0) {
             return
         }
@@ -250,6 +260,10 @@ function ProfileScreen() {
     }
 
     const chatUser = () => {
+        if (userData.user.state === "BLOCKED") {
+            return null
+        }
+
         if (id === context.user.uid || !context.user.following.users.includes(id) || !userData.user.following.users.includes(context.user.uid)) {
             return
         }

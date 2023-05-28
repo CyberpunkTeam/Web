@@ -19,28 +19,71 @@ export default function AddEducationModal(params) {
     const [actualDate, setActualDate] = useState(false);
     const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
 
+    const [errorTittle, setErrorTittle] = useState(false);
+    const [errorInstitution, setErrorInstitution] = useState(false);
+    const [errorStartDate, setErrorStartDate] = useState(false);
+    const [errorFinishDate, setErrorFinishDate] = useState(false);
+    const validateFields = () => {
+        let error = false;
+
+        if (title.length <= 3) {
+            error = true;
+            setErrorTittle(true)
+        }
+
+        if (institution.length <= 3) {
+            error = true;
+            setErrorInstitution(true)
+        }
+
+        if (!startDate) {
+            error = true;
+            setErrorStartDate(true)
+        }
+
+        if (!actualDate && !finishDate) {
+            error = true;
+            setErrorFinishDate(true)
+        }
+
+        return error;
+    }
+
     const ActualJob = () => {
         setActualDate(!actualDate)
     }
 
     const setTitleHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorTittle(false)
+        }
         setTitle(event.target.value);
     }
 
     const setInstitutionHandler = (event) => {
+        if (event.target.value.length > 3) {
+            setErrorInstitution(false)
+        }
         setInstitution(event.target.value);
     }
 
     const setStartDateHandler = (date) => {
+        setErrorStartDate(false)
         setStartDate(date);
     }
 
     const setFinishDateHandler = (date) => {
+        setErrorFinishDate(false)
         setFinishDate(date);
     }
 
 
     const createEducationButton = () => {
+        if (validateFields()) {
+            context.setErrorMessage("Please complete the required fields");
+            return;
+        }
+
         setButtonDisabled(true)
         let educations = [...context.user.education]
         const newEducation =
@@ -79,20 +122,20 @@ export default function AddEducationModal(params) {
                 Add Degree or Certification
             </div>
             <form className="modal-form">
-                <div className="label">
+                <div className={errorTittle ? "label-error" : "label"}>
                     <label>
-                        Title
+                        Title *
                         <input type="text" value={title} className="input" onChange={setTitleHandler}/>
                     </label>
                 </div>
-                <div className="label">
+                <div className={errorInstitution ? "label-error" : "label"}>
                     <label>
-                        Institution
+                        Institution *
                         <input type="text" value={institution} className="input" onChange={setInstitutionHandler}/>
                     </label>
                 </div>
-                <div className="labelPadding">
-                    Start Date
+                <div className={errorStartDate ? "labelPaddingError" : "labelPadding"}>
+                    Start Date *
                     <DatePicker selected={startDate} showMonthYearPicker dateFormat="MM/yyyy" className="input"
                                 onChange={setStartDateHandler}/>
                 </div>
@@ -102,9 +145,9 @@ export default function AddEducationModal(params) {
                     </div>
                     In Progress
                 </div>
-                <div className={actualDate ? "labelDisable" : "label"}>
+                <div className={actualDate ? "labelDisable" : errorFinishDate ? "label-error" : "label"}>
                     <div>
-                        End Date
+                        End Date {actualDate ? null : "*"}
                         <DatePicker selected={actualDate ? "" : finishDate} readOnly={actualDate} showMonthYearPicker
                                     dateFormat="MM/yyyy" className={actualDate ? "inputDisable" : "input"}
                                     onChange={setFinishDateHandler}/>
