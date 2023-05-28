@@ -23,12 +23,15 @@ export default function TemporalTeamPostulate(params) {
             return
         }
 
-        getTeamTemporal(params.project.pid).then((temporalTeamResponse) => {
+        getTeamTemporal(params.project.pid, context).then((temporalTeamResponse) => {
             if (temporalTeamResponse === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                if (temporalTeamResponse.detail === "User is blocked") {
+                    return;
+                }
                 let members = []
                 let teams = []
                 if (temporalTeamResponse.length !== 0) {

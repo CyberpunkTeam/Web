@@ -27,7 +27,7 @@ export default function TeamReview() {
     }
 
     useEffect(() => {
-        getMembersTeamReview(state.pid, params.id, context.user.uid).then((response) => {
+        getMembersTeamReview(state.pid, params.id, context.user.uid, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageReviews) {
                     context.setErrorMessage(errorMessageReviews);
@@ -36,7 +36,7 @@ export default function TeamReview() {
             }
             setReview(response)
             if (response.length === 0) {
-                getTeam(params.id).then((response) => {
+                getTeam(params.id, context).then((response) => {
                     if (response === undefined) {
                         if (context.errorMessage !== errorMessage) {
                             context.setErrorMessage(errorMessage);
@@ -85,7 +85,7 @@ export default function TeamReview() {
                 member_reviewed: value,
                 member_reviewer: context.user.uid
             }
-           createMembersTeamReview(body).then((response) => {
+           createMembersTeamReview(body, context).then((response) => {
                 if (response === undefined) {
                     if (context.errorMessage !== errorMessageReviewsSend) {
                         context.setErrorMessage(errorMessageReviewsSend);

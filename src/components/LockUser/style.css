@@ -1,0 +1,10 @@
+.blocked-button-style-red {
+    width: 100%;
+    border-radius: 16px;
+    height: 40px;
+    color: white;
+    border: 0;
+    background: #CD5B45;
+    font-size: 16px;
+    cursor: pointer;
+}

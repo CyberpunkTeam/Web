@@ -204,12 +204,15 @@ export default function CreateProjectScreen() {
         }
 
         if (state.project === undefined) {
-            createProject(body).then((r) => {
+            createProject(body, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageCreate) {
                         context.setErrorMessage(errorMessageCreate);
                     }
                 } else {
+                    if (r.detail === "User is blocked") {
+                        return;
+                    }
                     window.scrollTo(0, 0);
                     context.setCreateMessage("Project created successfully")
                     navigate("/projects/" + r.pid + "/teamRecommendation", {
@@ -223,7 +226,7 @@ export default function CreateProjectScreen() {
                 setButtonDisabled(false)
             })
         } else {
-            updateProject(state.project.pid, body).then((r) => {
+            updateProject(state.project.pid, body, context).then((r) => {
                 if (r === undefined) {
                     if (context.errorMessage !== errorMessageUpdate) {
                         context.setErrorMessage(errorMessageUpdate);

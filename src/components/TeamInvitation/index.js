@@ -15,11 +15,14 @@ export default function TeamInvitation(params) {
     const [invitation, setInvitation] = useState(undefined);
 
     useEffect(() => {
-        getPostulantTeamInvitations(context.user.uid, params.tid).then((r) => {
+        getPostulantTeamInvitations(context.user.uid, params.tid, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);
                 }
+                return;
+            }
+            if (r.detail === "User is blocked") {
                 return;
             }
             if (r.length !== 0) {
@@ -43,7 +46,7 @@ export default function TeamInvitation(params) {
     const invitationButton = (status) => {
         setLoading(true)
 
-        updateInvitation(invitation.tiid, {"state": status}).then(async (r) => {
+        updateInvitation(invitation.tiid, {"state": status}, context).then(async (r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
@@ -90,6 +93,10 @@ export default function TeamInvitation(params) {
                 }}/>
             )
         }
+    }
+
+    if (params.state === "BLOCKED") {
+        return null;
     }
 
     if (invitation !== undefined) {

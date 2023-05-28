@@ -14,12 +14,15 @@ export default function PublicationTile(params) {
     const [likeLength, setLikeLength] = useState(params.publication.likes.length)
 
     const like = async () => {
+        if (params.publication.state === "BLOCKED") {
+            return
+        }
         if (liked) {
-            await unlikeArticle(params.publication.cid, context.user.uid)
+            await unlikeArticle(params.publication.cid, context.user.uid, context)
             setLike(false)
             setLikeLength(likeLength - 1)
         } else {
-            await likeArticle(params.publication.cid, context.user.uid)
+            await likeArticle(params.publication.cid, context.user.uid, context)
             setLike(true)
             setLikeLength(likeLength + 1)
         }
@@ -107,10 +110,6 @@ export default function PublicationTile(params) {
                     <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"} onClick={like}>
                         <EmojiHappy size={isMobile ? "48" : "24"} color="#014751" variant={liked ? "Bold" : null} className={"icon"}/>
                         {likeLength}
-                    </div>
-                    <div className={isMobile ? "publishButtonsLikeMobile" : "publishButtonsLike"}>
-                        <Share size={isMobile ? "48" : "24"} color="#014751" className={"icon"}/>
-                        Share
                     </div>
                 </div>
             </div>

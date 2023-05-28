@@ -131,7 +131,7 @@ export default function ProjectsScreen() {
 
     useEffect(() => {
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     if (projects === undefined) {
@@ -140,6 +140,9 @@ export default function ProjectsScreen() {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
+            }
+            if (response.detail === "User is blocked") {
+                return;
             }
             setProjects([...response]);
             if (maxValue === -1) {
@@ -180,12 +183,15 @@ export default function ProjectsScreen() {
         setRange([0, maxValue])
 
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
+            }
+            if (response.detail === "User is blocked") {
+                return;
             }
             setProjects([...response]);
             setButtonDisabled(false);
@@ -198,12 +204,15 @@ export default function ProjectsScreen() {
     const find = () => {
         setButtonDisabled(true);
         const params = queryParams()
-        getProjects(params).then((response) => {
+        getProjects(params, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== "An error has occurred while loading projects. Please, try again later") {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
+            }
+            if (response.detail === "User is blocked") {
+                return;
             }
             setProjects([...response]);
             setIndex(0)

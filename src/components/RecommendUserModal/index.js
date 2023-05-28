@@ -31,7 +31,7 @@ export function RecommendUserModal(params) {
             "uid_recommendation": params.uid
         }
 
-        sendUserRecommendation(body).then((response) => {
+        sendUserRecommendation(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

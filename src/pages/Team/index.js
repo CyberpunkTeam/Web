@@ -25,6 +25,7 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import FollowingTag from "../../components/FollowingTag";
+import BlockTag from "../../components/BlockTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -51,13 +52,16 @@ export default function TeamScreen() {
     }
 
     useEffect(() => {
-        getTeam(params.id).then((response) => {
+        getTeam(params.id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading team's information. Please, try again later");
                 return
             }
+            if (response.detail === "User is blocked") {
+                return;
+            }
             setTeamData(response);
-            getTeamReviews(params.id).then((reviews) => {
+            getTeamReviews(params.id, context).then((reviews) => {
                 if (reviews === undefined) {
                     setError("An error has occurred while loading team`s reviews. Please, try again later");
                     return
@@ -70,14 +74,14 @@ export default function TeamScreen() {
                     list.push(data.uid)
                 })
                 setMembersList(list)
-                getUsers().then((users) => {
+                getUsers(context).then((users) => {
                     if (users === undefined) {
                         setError("An error has occurred while loading users. Please, try again later");
                     } else {
                         setUsers(users)
                     }
                 })
-                getTeamInvitations(params.id).then((invitations) => {
+                getTeamInvitations(params.id, context).then((invitations) => {
                     if (invitations === undefined) {
                         setError("An error has occurred while loading team's invitations. Please, try again later");
                     } else {
@@ -92,7 +96,7 @@ export default function TeamScreen() {
                         }
                     }
 
-                    getTeamPostulations(params.id).then((response) => {
+                    getTeamPostulations(params.id, context).then((response) => {
                         if (invitations === undefined) {
                             setError("An error has occurred while loading team's postulations. Please, try again later");
                         } else {
@@ -141,7 +145,7 @@ export default function TeamScreen() {
             return;
         }
         setFollowButtonStatus(true);
-        followTeams(context.user.uid, params.id).then((userdata) => {
+        followTeams(context.user.uid, params.id, context).then((userdata) => {
             if (userdata === undefined) {
                 setError("An error has occurred while following the user. Please, try again later");
                 return
@@ -153,6 +157,10 @@ export default function TeamScreen() {
     }
 
     const followTeamButton = () => {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
+
         let members = []
         teamData.members.forEach((member) => {
             members.push(member.uid)
@@ -214,8 +222,11 @@ export default function TeamScreen() {
         )
     }
     const editButton = () => {
-        if (teamData.owner === context.user.uid) {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
 
+        if (teamData.owner === context.user.uid) {
             if (isMobile) {
                 return (
                     <div className="edit-button-mobile" onClick={editButtonNavigation}>
@@ -275,6 +286,7 @@ export default function TeamScreen() {
                                 <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
                                 {teamData.overall_rating.toFixed(1)}
                             </div>
+                            {teamData.state === "BLOCKED" ? <BlockTag/> : null}
                             {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                         </div>
                         {tags()}
@@ -299,6 +311,7 @@ export default function TeamScreen() {
                             <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
                             {teamData.overall_rating.toFixed(1)}
                         </div>
+                        {teamData.state === "BLOCKED" ? <BlockTag/> : null}
                         {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                     </div>
                     {tags()}
@@ -374,6 +387,10 @@ export default function TeamScreen() {
     }
 
     const addButton = () => {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
+
         if (context.user.uid === teamData.owner) {
             return (
                 <button className="addMemberButton" onClick={openModal}>
@@ -389,7 +406,10 @@ export default function TeamScreen() {
         }
 
         if (tagSelect === "members") {
-            return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
+            return <MembersPostulations owner={teamData.owner}
+                                        tid={teamData.tid}
+                                        members={membersList}
+                                        state={teamData.state}/>
         }
 
         if (tagSelect === "info") {
@@ -446,7 +466,7 @@ export default function TeamScreen() {
         return (
             <div className={"team-screen"}>
                 <div className="team-container">
-                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData}/>
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData} state={teamData.state}/>
                     {cover()}
                 </div>
                 <div className="profile-data-container">

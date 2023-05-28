@@ -49,20 +49,26 @@ function ProfileScreen() {
     }
 
     const resetUserData = () => {
-        setUserData({});
-        setLoading(true);
-        window.location.reload()
+        if (!context.locked){
+            setUserData({});
+            setLoading(true);
+            window.location.reload()
+        }
+
     };
 
     useEffect(() => resetUserData, [params.id])
 
     useEffect(() => {
-        getProfile(id).then((response) => {
+        getProfile(id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading user's information. Please, try again later");
                 return
             }
-            getMyArticles(id).then((articlesResponse) => {
+            if (response.detail === "User is blocked") {
+                return;
+            }
+            getMyArticles(id, context).then((articlesResponse) => {
                 if (response === undefined) {
                     setError("An error has occurred while loading user's information. Please, try again later");
                     return
@@ -71,10 +77,13 @@ function ProfileScreen() {
                 setUserData(response);
                 setLoading(false);
             })
-            getMyTeams(context.user.uid).then((teams) => {
+            getMyTeams(context.user.uid, context).then((teams) => {
                 if (teams === undefined) {
                     setError("An error has occurred while loading user's teams. Please, try again later");
                 } else {
+                    if (response.detail === "User is blocked") {
+                        return;
+                    }
                     let t = []
                     teams.forEach((team) => {
                         if (team.owner !== context.user.uid && !team.temporal) {
@@ -105,14 +114,16 @@ function ProfileScreen() {
             return;
         }
         setFollowButtonStatus(true);
-        followUser(context.user.uid, id).then((userdata) => {
+        followUser(context.user.uid, id, context).then((userdata) => {
             if (userdata === undefined) {
                 setError("An error has occurred while following the user. Please, try again later");
                 return
             }
+            if (userdata.detail === "User is blocked") {
+                return;
+            }
             context.setUser(userdata);
             localStorage.setItem("user", JSON.stringify(userdata))
-            console.log(userData.user.following.users.includes(context.user.uid))
             if (userData.user.following.users.includes(context.user.uid)) {
                 createChat(context.user, userData.user).then((result) => {
                     console.log(result)

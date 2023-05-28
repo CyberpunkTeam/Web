@@ -11,7 +11,7 @@ export function PostulateInTeamModal(params) {
 
     const postulate = () => {
         setButtonDisabled(true)
-        teamPostulate(params.data.tpid, context.user.uid).then((r) => {
+        teamPostulate(params.data.tpid, context.user.uid, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);

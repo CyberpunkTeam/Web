@@ -43,7 +43,7 @@ export function PublishArticleModal(params) {
             body.tid = reason
         }
 
-        createArticle(body).then((r) => {
+        createArticle(body, context).then((r) => {
             if (r === undefined) {
                 context.setErrorMessage(errorMessage);
             } else {

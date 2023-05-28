@@ -92,7 +92,7 @@ export default function PostulationModal(params) {
             currency: "DOLAR",
             proposal_description: description
         }
-        sendTeamPostulation(body).then((response) => {
+        sendTeamPostulation(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

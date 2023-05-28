@@ -46,13 +46,16 @@ export default function CreateArticles() {
     }
 
     useEffect((() => {
-        getMyTeams(context.user.uid).then((teams) => {
+        getMyTeams(context.user.uid, context).then((teams) => {
             if (teams === undefined) {
                 setError("An error has occurred while loading user's teams. Please, try again later");
             } else {
+                if (teams.detail === "User is blocked") {
+                    return;
+                }
                 let t = []
                 teams.forEach((team) => {
-                    if (!team.temporal) {
+                    if (!team.temporal && team.state !== "BLOCKED") {
                         t.push(team)
                     }
                 })

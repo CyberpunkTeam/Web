@@ -46,6 +46,7 @@ import CloudTag from "../../components/CloudTag";
 import AlertMessage from "../../components/AlertMessage";
 import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 import {RecommendProjectModal} from "../../components/RecommendProjectModal";
+import BlockTag from "../../components/BlockTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -75,42 +76,51 @@ export default function ProjectScreen() {
     }
 
     useEffect(() => {
-        getProject(params.id).then((response) => {
+        getProject(params.id, context).then((response) => {
             if (response === undefined) {
                 setError("An error has occurred while loading project's information. Please, try again later");
                 return
+            }
+            if (response.detail === "User is blocked") {
+                return;
             }
             setProject(response)
             setLogs([...response.activities_record.reverse()])
             if (response.state === "PENDING") {
                 if (response.creator.uid !== context.user.uid) {
-                    getOwnerTeams(context.user.uid).then((teams) => {
+                    getOwnerTeams(context.user.uid, context).then((teams) => {
                         if (teams === undefined) {
                             setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
-                            setUserTeam(teams);
+                            let activeTeams = []
+                            teams.forEach((team) => {
+                                if (team.state === "ACTIVE") {
+                                    activeTeams.push(team)
+                                }
+                            })
+                            setUserTeam(activeTeams);
                         }
                     })
                 }
-                getMyTeams(context.user.uid).then((teams) => {
+                getMyTeams(context.user.uid, context).then((teams) => {
                     if (teams === undefined) {
                         setError("An error has occurred while loading user's teams. Please, try again later");
                     } else {
                         let t = []
                         teams.forEach((team) => {
-                            if (!team.temporal && team.owner !== context.user.uid) {
+                            if (!team.temporal && team.owner !== context.user.uid && team.state === "ACTIVE") {
                                 t.push(team)
                             }
                         })
                         setAllTeams(t);
                     }
                 })
-                getTemporallyTeamRecommendations(response).then((r) => {
+                getTemporallyTeamRecommendations(response, context).then((r) => {
                     if (r === undefined) {
                         setError("An error has occurred while loading temporally team. Please, try again later");
                     } else {
                         if (r.length === 0) {
-                            getTeamTemporal(response.pid).then((temporalTeamResponse) => {
+                            getTeamTemporal(response.pid, context).then((temporalTeamResponse) => {
                                 setTemporal(temporalTeamResponse)
                             })
                         } else {
@@ -118,14 +128,14 @@ export default function ProjectScreen() {
                         }
                     }
                 })
-                getProjectTeamRecommendations(response).then((r) => {
+                getProjectTeamRecommendations(response, context).then((r) => {
                     if (r === undefined) {
                         setError("An error has occurred while loading recommended teams. Please, try again later");
                     } else {
                         setRecommendations(r)
                     }
                 })
-                getProjectPostulations(params.id).then((postulationResponse) => {
+                getProjectPostulations(params.id, context).then((postulationResponse) => {
                     if (postulationResponse === undefined) {
                         setError("An error has occurred while loading team's postulations. Please, try again later");
                     } else {
@@ -231,6 +241,10 @@ export default function ProjectScreen() {
     }
 
     const postulate = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid === context.user.uid) {
             return
         }
@@ -274,6 +288,10 @@ export default function ProjectScreen() {
     }
 
     const teamRecommendations = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid !== context.user.uid) {
             return
         }
@@ -312,7 +330,7 @@ export default function ProjectScreen() {
             return
         }
 
-        if (project.state !== "PENDING") {
+        if (project.state !== "PENDING" || project.internal_state === "BLOCKED") {
             return
         }
 
@@ -360,6 +378,10 @@ export default function ProjectScreen() {
     }
 
     const actionsButton = () => {
+        if (project.internal_state === "BLOCKED") {
+            return null;
+        }
+
         if (project.creator.uid !== context.user.uid) {
             return
         }
@@ -459,6 +481,10 @@ export default function ProjectScreen() {
                 return
             }
 
+            if (project.internal_state === "BLOCKED") {
+                return;
+            }
+
             if (project.creator.uid === context.user.uid) {
 
                 const edit = () => {
@@ -485,6 +511,10 @@ export default function ProjectScreen() {
         }
 
         const recommendProject = () => {
+            if (project.internal_state === "BLOCKED") {
+                return;
+            }
+
             if (project.owner === context.user.uid || allTeams === undefined || allTeams.length === 0) {
                 return
             }
@@ -565,6 +595,7 @@ export default function ProjectScreen() {
                 <div className="project-title-container">
                     <div className="team-name">
                         {project.name}
+                        {project.internal_state === "BLOCKED" ? <BlockTag/> : null}
                     </div>
                     {tags()}
                 </div>

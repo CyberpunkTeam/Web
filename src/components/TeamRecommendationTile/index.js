@@ -25,7 +25,7 @@ export default function TeamRecommendationTile(params) {
             tid: data.tid,
             pid: params.project
         }
-        projectInvitation(body).then(
+        projectInvitation(body, context).then(
             () => {
                 setSendIt(true);
                 setLoading(false);

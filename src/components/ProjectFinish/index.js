@@ -23,13 +23,17 @@ export default function ProjectFinish(params) {
             return;
         }
 
-        getRequestFinishProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
+        getRequestFinishProject(params.project.team_assigned.tid, params.project.pid, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);
                 }
                 return;
             }
+            if (r.detail === "User is blocked") {
+                return;
+            }
+
             if (r.length !== 0) {
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].state === "PENDING") {
@@ -53,7 +57,7 @@ export default function ProjectFinish(params) {
             "request_id": finish.pfr_id
         }
 
-        finishProject(body).then((response) => {
+        finishProject(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
@@ -97,6 +101,10 @@ export default function ProjectFinish(params) {
                 }}/>
             )
         }
+    }
+
+    if (params.project.internal_state === "BLOCKED") {
+        return null;
     }
 
     if (finish !== undefined) {

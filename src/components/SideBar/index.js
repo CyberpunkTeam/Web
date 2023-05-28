@@ -39,7 +39,10 @@ function SideBar() {
     const [temporalTeam, setTemporalTeam] = useState(context.user.temporal_team)
 
     useEffect(() => {
-        getNotifications(context.user.uid).then((response) => {
+        getNotifications(context.user.uid, context).then((response) => {
+            if (response.detail === "User is blocked") {
+                return;
+            }
             setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {
@@ -117,7 +120,7 @@ function SideBar() {
 
         if (unreadNotifications.length !== 0) {
             const not = "[" + unreadNotifications.toString() + "]"
-            viewNotifications(not).then((r => {
+            viewNotifications(not, context).then((r => {
                 setUnreadNotifications([])
             }))
         }
@@ -156,23 +159,23 @@ function SideBar() {
     const notificationContainer = () => {
         const buttonNavigation = (id, notification_type, message, metadata) => {
             if (notification_type === "TEAM_INVITATION") {
-                getInvitation(id).then((invitation) => {
+                getInvitation(id, context).then((invitation) => {
                     const link = "/team/" + invitation.metadata.team.tid
                     navigate(link);
                 })
             } else if (notification_type === "TEAM_POSTULATION" || notification_type === "TEAM_POSTULATION_RESPONSE") {
-                getPostulation(id).then((postulation) => {
+                getPostulation(id, context).then((postulation) => {
                     const link = "/projects/" + postulation.pid
                     navigate(link);
                 })
             } else if (notification_type === "NEW_TEAM_MEMBERS") {
                 navigate("/user/" + id);
             } else if (notification_type === "PROJECT_FINISHED_REQUEST") {
-                getFinishProject(id).then((r) => {
+                getFinishProject(id, context).then((r) => {
                     navigate("/projects/" + r.pid);
                 })
             } else if (notification_type === "PROJECT_FINISHED") {
-                getProject(id).then((response) => {
+                getProject(id, context).then((response) => {
                     if (message.includes("rechazada") || message.includes("rejected")) {
                         navigate("/projects/" + response.pid)
                     } else {
@@ -180,23 +183,29 @@ function SideBar() {
                     }
                 });
             } else if (notification_type === "PROJECT_ABANDONS_REQUEST") {
-                getRequestAbandonProjectWithID(id).then((response) => {
+                getRequestAbandonProjectWithID(id, context).then((response) => {
                     navigate("/projects/" + response.pid)
                 })
-            } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION") {
+            } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION"
+                || notification_type === "PROJECT_BLOCKED" || notification_type === "PROJECT_UNBLOCKED"
+                || notification_type === "TEAM_PROJECT_BLOCKED" || notification_type === "TEAM_PROJECT_UNBLOCKED") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
             } else if (notification_type === "NEW_TEAM_CANDIDATE" || notification_type === "POSITION_INVITATION") {
-                getTeamPosition(id).then((response) => {
+                getTeamPosition(id, context).then((response) => {
                     navigate("/team/" + response.team.tid)
                 })
-            } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM") {
+            } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM"
+                || notification_type === "TEAM_BLOCKED" || notification_type === "TEAM_UNBLOCKED") {
                 navigate("/team/" + id)
             } else if (notification_type === "TEAM_PROJECT_INTERNAL_RECOMMENDATION") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_MEMBER_INTERNAL_RECOMMENDATION" || notification_type === "NEW_FOLLOWER") {
                 navigate("/user/" + id)
+            }
+            else if (notification_type === "CONTENT_BLOCKED" || notification_type === "CONTENT_UNBLOCKED") {
+                navigate("/articles/" + id)
             }
         }
 

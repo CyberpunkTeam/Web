@@ -58,7 +58,7 @@ export default function AddEducationModal(params) {
             education: educations
         }
 
-        updateUser(context.user.uid, body).then((response) => {
+        updateUser(context.user.uid, body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageUpdate) {
                     context.setErrorMessage(errorMessageUpdate);

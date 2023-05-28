@@ -74,7 +74,6 @@ export default function ProjectTileMobileComponent(params) {
         )
     }
 
-
     return (
         <div className={isMobile ? "coverProjectMobile" : "coverProject"} onClick={goTo}>
             <div className={isMobile ? "project-tile-title-container-mobile" : "project-tile-title-container"}>
@@ -82,8 +81,10 @@ export default function ProjectTileMobileComponent(params) {
                 <div className={isMobile || context.size ? "status-tag-container-mobile" : "status-tag-container"}>
                     <div className={"status-tag-container"}>
                         {projectTileIcon()}
-                        <div className={isMobile ? "status-tag-mobile" : "status-tag"}>
-                            {state}
+                        <div
+                            className={isMobile ? data.internal_state === "BLOCKED" ? "status-blocked-tag-mobile" : "status-tag-mobile"
+                                : data.internal_state === "BLOCKED" ? "status-blocked-tag" : "status-tag"}>
+                            {data.internal_state === "BLOCKED" ? "Blocked" : state}
                         </div>
                     </div>
                     <div className={isMobile ? "status-tag-mobile" : "status-tag"}>

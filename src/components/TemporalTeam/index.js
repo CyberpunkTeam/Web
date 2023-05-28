@@ -26,7 +26,7 @@ export default function TemporalTeam(params) {
             skills: data.skills,
             pid: params.project
         }
-        createTeamTemporal(body).then(
+        createTeamTemporal(body, context).then(
             () => {
                 setSendIt(true);
                 params.setTeamSelected(data.name)

@@ -99,10 +99,14 @@ function Login() {
     }
 
     const getUserService = (userCredential) => {
-        getUser(userCredential.user.uid).then((userdata => {
+        getUser(userCredential.user.uid, context).then((userdata => {
             if (Object.keys(userdata).length === 0) {
                 setUid(userCredential.user.uid);
                 setCompleteData(true);
+                return
+            }
+            if (userdata.detail === "User is blocked") {
+                setButtonDisabled(false)
                 return
             }
             context.setUser(userdata);
@@ -135,7 +139,7 @@ function Login() {
                     let body = {"auth_google_token": token, "user_id": userCredential.user.uid}
                     createToken(body).then((authToken) => {
                         localStorage.setItem("auth_token", authToken.token)
-                        getUserService(userCredential).then(() => {
+                        getUserService(userCredential, context).then(() => {
                             setButtonDisabled(false)
                         })
                     })

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
 import {firebaseConfig} from "./config/firebaseConfig";
 import {initializeApp} from "firebase/app";
 import {getAuth} from "firebase/auth";
@@ -36,6 +36,7 @@ import {doc, getFirestore, onSnapshot} from "firebase/firestore";
 import Notifications from "./pages/Notifications";
 import AlertMessage from "./components/AlertMessage";
 import CreateMessage from "./components/CreateMessage";
+import LockUser from "./components/LockUser";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
@@ -46,6 +47,7 @@ function App() {
     const userStorage = localStorage.getItem("user")
 
     const [user, setUser] = useState(userStorage !== undefined ? JSON.parse(userStorage) : undefined);
+    const [locked, setLocked] = useState(false);
     const [search, setSearch] = useState(undefined);
     const [chats, setChats] = useState(undefined)
     const [size, setSize] = useState(undefined);
@@ -88,6 +90,8 @@ function App() {
     }
 
     const data = {
+        locked,
+        setLocked,
         user,
         setUser,
         search,
@@ -162,6 +166,7 @@ function App() {
                             <Route path="*" element={<NotFound/>}/>
                         </Route>
                     </Routes>
+                    <LockUser/>
                 </BrowserRouter>
                 <AlertMessage/>
                 <CreateMessage/>

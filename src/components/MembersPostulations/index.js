@@ -16,7 +16,7 @@ export default function MembersPostulations(params) {
     const errorMessageRequest = "An error has occurred while loading team opportunities. Please, try again later"
 
     useEffect(() => {
-        getTeamVacants(params.tid).then((response) => {
+        getTeamVacants(params.tid, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     setVacants([])
@@ -44,6 +44,11 @@ export default function MembersPostulations(params) {
     }
 
     const addButton = () => {
+        if (params.state === "BLOCKED") {
+            return null;
+        }
+
+
         if (params.owner !== context.user.uid) {
             return
         }
@@ -78,7 +83,8 @@ export default function MembersPostulations(params) {
         }
 
         const noData = () => {
-            if (vacants.length === 0) {
+
+            if (vacants.length === 0 || params.state === "BLOCKED") {
                 return (
                     <div className={"no-data-tag"}>
                         No vacants available

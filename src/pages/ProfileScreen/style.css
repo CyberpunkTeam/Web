@@ -588,6 +588,21 @@
     border-radius: 8px;
 }
 
+.status-blocked-tag {
+    color: #FAFAFA;
+    padding: 0 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    background: rgba(255, 41, 0, 0.5);
+    height: 24px;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+}
+
 .status-tag-mobile {
     padding: 4px 16px;
     display: flex;
@@ -596,6 +611,20 @@
     margin-left: 8px;
     margin-top: 16px;
     background: rgba(227, 227, 227, 0.9);
+    font-weight: 400;
+    font-size: 32px;
+    border-radius: 16px;
+}
+
+.status-blocked-tag-mobile {
+    padding: 4px 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    margin-top: 16px;
+    color: #FAFAFA;
+    background: rgba(255, 41, 0, 0.5);
     font-weight: 400;
     font-size: 32px;
     border-radius: 16px;
@@ -706,6 +735,18 @@
     width: 60%;
     overflow-x: auto;
     min-height: 100%;
+    flex-direction: row;
+    align-items: baseline;
+    font-weight: 700;
+    color: #222222;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+}
+
+.teamTags2 {
+    position: relative;
+    width: 100%;
     flex-direction: row;
     align-items: baseline;
     font-weight: 700;

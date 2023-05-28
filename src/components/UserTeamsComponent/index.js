@@ -8,6 +8,7 @@ import PreferenceTag from "../PreferenceTag";
 import FrameworkTag from "../FrameworkTag";
 import PlatformTag from "../PlatformTag";
 import CloudTag from "../CloudTag";
+import BlockTag from "../BlockTag";
 
 export default function UserTeamsComponent(params) {
     let context = useContext(AppContext);
@@ -62,6 +63,7 @@ export default function UserTeamsComponent(params) {
                     <Star1 size={isMobile ? "40" : "16"} color="#ECA95A" variant="Linear" className={"star"}/>
                     {data.overall_rating.toFixed(1)}
                 </div>
+                {data.state === "BLOCKED" ? <BlockTag/> : null}
             </div>
         )
     }

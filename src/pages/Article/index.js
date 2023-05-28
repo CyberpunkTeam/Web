@@ -10,6 +10,7 @@ import {getArticle, likeArticle, unlikeArticle} from "../../services/contentServ
 import HTMLRenderer from 'react-html-renderer'
 import {EmojiHappy, People, Share, User} from "iconsax-react";
 import {formatDatePublish} from "../../utils/dateFormat";
+import BlockTag from "../../components/BlockTag";
 
 
 export default function Article() {
@@ -20,7 +21,10 @@ export default function Article() {
     const [text, setText] = useState(undefined)
 
     useEffect(() => {
-        getArticle(params.id).then((ArticleResponse) => {
+        getArticle(params.id, context).then((ArticleResponse) => {
+            if (ArticleResponse.detail === "User is blocked") {
+                return;
+            }
             fetch(ArticleResponse.href).then((response) => {
                 response.text().then((body) => {
                     setText(body)
@@ -31,14 +35,18 @@ export default function Article() {
     }, [params.id]);
 
     const like = async () => {
-        if (article.likes.includes(context.user.uid)) {
-            await unlikeArticle(article.cid, context.user.uid)
-
-        } else {
-            await likeArticle(article.cid, context.user.uid)
+        if (article.state === "BLOCKED") {
+            return
         }
 
-        getArticle(params.id).then((ArticleResponse) => {
+        if (article.likes.includes(context.user.uid)) {
+            await unlikeArticle(article.cid, context.user.uid, context)
+
+        } else {
+            await likeArticle(article.cid, context.user.uid, context)
+        }
+
+        getArticle(params.id, context).then((ArticleResponse) => {
             setArticle(ArticleResponse)
         })
     }
@@ -67,16 +75,15 @@ export default function Article() {
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
+                        <div className={"blockedContainer"}>
+                            {article.state === "BLOCKED" ? <BlockTag/> : null}
+                        </div>
                         <div className={"publish-date-mobile"}>
                             <div className={"publishButtonsLikeMobile"} onClick={like}>
                                 <EmojiHappy size={48} color="#FAFAFA"
                                             variant={article.likes.includes(context.user.uid) ? "Bold" : "Outline"}
                                             className={"iconMobile"}/>
                                 {article.likes.length}
-                            </div>
-                            <div className={"publishButtonsShareMobile"}>
-                                <Share size="48" color="#FAFAFA" className={"iconMobile"}/>
-                                Share
                             </div>
                             {formatDatePublish(article.created_date)}
                         </div>
@@ -93,16 +100,15 @@ export default function Article() {
                     <div className="team-name">
                         {article.title}
                     </div>
+                    <div className={"blockedContainer"}>
+                        {article.state === "BLOCKED" ? <BlockTag/> : null}
+                    </div>
                     <div className="publish-date">
                         <div className={"publishButtonsLike"} onClick={like}>
                             <EmojiHappy size="24" color="#FAFAFA"
                                         variant={article.likes.includes(context.user.uid) ? "Bold" : "Outline"}
                                         className={"icon"}/>
                             {article.likes.length}
-                        </div>
-                        <div className={"publishButtonsShare"}>
-                            <Share size="24" color="#FAFAFA" className={"icon"}/>
-                            Share
                         </div>
                         {formatDatePublish(article.created_date)}
                     </div>
@@ -213,7 +219,6 @@ export default function Article() {
         )
     }
 
-
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
             <div className="team-container">
@@ -224,7 +229,8 @@ export default function Article() {
                     {author(article.author)}
                     {team(article.tid, article.team)}
                 </div>
-                <div className={isMobile ? "article-data-container-mobile" : context.size ? "article-data-container-reduced" : "article-data-container"}>
+                <div
+                    className={isMobile ? "article-data-container-mobile" : context.size ? "article-data-container-reduced" : "article-data-container"}>
                     <HTMLRenderer html={text}/>
                 </div>
             </div>

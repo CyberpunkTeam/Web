@@ -16,7 +16,7 @@ export function CompleteProjectModal(params) {
             "tid": params.project.team_assigned.tid
         }
 
-        requestFinishProject(body).then((response) => {
+        requestFinishProject(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);

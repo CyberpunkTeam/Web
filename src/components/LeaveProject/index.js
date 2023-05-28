@@ -21,11 +21,14 @@ export default function LeaveProject(params) {
             return;
         }
 
-        getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid).then((r) => {
+        getRequestAbandonProject(params.project.team_assigned.tid, params.project.pid, context).then((r) => {
             if (r === undefined) {
                 if (context.errorMessage !== errorMessageRequest) {
                     context.setErrorMessage(errorMessageRequest);
                 }
+                return;
+            }
+            if (r.detail === "User is blocked") {
                 return;
             }
             if (r.length !== 0) {
@@ -52,7 +55,7 @@ export default function LeaveProject(params) {
             "reasons" : request.reasons
         }
 
-        abandonProject(body).then((response) => {
+        abandonProject(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
@@ -101,6 +104,10 @@ export default function LeaveProject(params) {
                 <TickCircle size="48" color="#014751" variant="Bold" className={"icon-button"} onClick={accept} />
             )
         }
+    }
+
+    if (params.project.internal_state === "BLOCKED") {
+        return null;
     }
 
     if (request !== undefined) {

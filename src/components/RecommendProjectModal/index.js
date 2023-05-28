@@ -31,7 +31,7 @@ export function RecommendProjectModal(params) {
             "pid_recommendation": params.project.pid
         }
 
-        sendProjectRecommendation(body).then((response) => {
+        sendProjectRecommendation(body, context).then((response) => {
             if (response === undefined) {
                 if (context.errorMessage !== errorMessage) {
                     context.setErrorMessage(errorMessage);
