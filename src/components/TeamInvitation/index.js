@@ -22,6 +22,9 @@ export default function TeamInvitation(params) {
                 }
                 return;
             }
+            if (r.details === "User is blocked") {
+                return;
+            }
             if (r.length !== 0) {
                 if (r[0].state === "PENDING") {
                     setInvitation(r[0])

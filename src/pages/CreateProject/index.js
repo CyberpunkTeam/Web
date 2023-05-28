@@ -210,6 +210,9 @@ export default function CreateProjectScreen() {
                         context.setErrorMessage(errorMessageCreate);
                     }
                 } else {
+                    if (r.details === "User is blocked") {
+                        return;
+                    }
                     window.scrollTo(0, 0);
                     context.setCreateMessage("Project created successfully")
                     navigate("/projects/" + r.pid + "/teamRecommendation", {

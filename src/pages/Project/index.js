@@ -81,6 +81,9 @@ export default function ProjectScreen() {
                 setError("An error has occurred while loading project's information. Please, try again later");
                 return
             }
+            if (response.details === "User is blocked") {
+                return;
+            }
             setProject(response)
             setLogs([...response.activities_record.reverse()])
             if (response.state === "PENDING") {

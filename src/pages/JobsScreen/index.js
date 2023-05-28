@@ -88,6 +88,9 @@ export default function JobsScreen() {
                 }
                 return
             }
+            if (response.details === "User is blocked") {
+                return;
+            }
             setJobs(response)
             setLoading(false)
         })

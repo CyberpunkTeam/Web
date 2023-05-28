@@ -1,14 +1,13 @@
 const serviceUrl = "https://apigateway-wpyxm22hfq-uc.a.run.app/"
 
 export const post = (endpoint, body, context) => {
-    //console.log(context)
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-    if (token !== null ){
-       headers["X-Tiger-Token"] = "Bearer " + token
+    if (token !== null) {
+        headers["X-Tiger-Token"] = "Bearer " + token
     }
 
     return fetch(serviceUrl + endpoint, {
@@ -17,8 +16,12 @@ export const post = (endpoint, body, context) => {
         body: JSON.stringify(body)
     }).then(
         response => {
-            if (response.headers.has("token-refresh")){
+            if (response.headers.has("token-refresh")) {
                 localStorage.setItem("auth_token", response.headers.get("token-refresh"))
+            }
+            if (response.status === 403) {
+                context.setLocked(true);
+                return undefined
             }
             return response.json().then(
                 data => {
@@ -33,12 +36,11 @@ export const post = (endpoint, body, context) => {
 }
 
 export const get = (endpoint, context) => {
-    //console.log(context)
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
     }
-    if (token !== null ){
+    if (token !== null) {
         headers["X-Tiger-Token"] = "Bearer " + token
     }
     return fetch(serviceUrl + endpoint, {
@@ -46,11 +48,16 @@ export const get = (endpoint, context) => {
         headers: headers
     }).then(
         response => {
-            if (response.headers.has("token-refresh")){
+            if (response.headers.has("token-refresh")) {
                 localStorage.setItem("auth_token", response.headers.get("token-refresh"))
             }
             return response.json().then(
                 data => {
+                    console.log(response, data)
+                    if (response.status === 403) {
+                        context.setLocked(true);
+                        return data
+                    }
                     if (response.status >= 400) {
                         return undefined
                     }
@@ -58,30 +65,35 @@ export const get = (endpoint, context) => {
                 }
             )
         }
-    ).catch((error) => {return error})
+    ).catch((error) => {
+        return error
+    })
 }
 
 export const put = (endpoint, body, context) => {
-    //console.log(context)
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json',
     }
-    if (token !== null ){
+    if (token !== null) {
         headers["X-Tiger-Token"] = "Bearer " + token
     }
     return fetch(serviceUrl + endpoint, {
         method: 'PUT',
         headers: headers,
-        body: body !== undefined ? JSON.stringify(body): null
+        body: body !== undefined ? JSON.stringify(body) : null
     }).then(
         response => {
-            if (response.headers.has("token-refresh")){
+            if (response.headers.has("token-refresh")) {
                 localStorage.setItem("auth_token", response.headers.get("token-refresh"))
             }
             return response.json().then(
                 data => {
+                    if (response.status === 403) {
+                        context.setLocked(true);
+                        return data
+                    }
                     if (response.status >= 400) {
                         return undefined
                     }
@@ -93,12 +105,11 @@ export const put = (endpoint, body, context) => {
 }
 
 export const erase = (endpoint, context) => {
-    //console.log(context)
     const token = localStorage.getItem("auth_token")
     let headers = {
         'Accept': 'application/json',
     }
-    if (token !== null ){
+    if (token !== null) {
         headers["X-Tiger-Token"] = "Bearer " + token
     }
     return fetch(serviceUrl + endpoint, {
@@ -106,11 +117,15 @@ export const erase = (endpoint, context) => {
         headers: headers
     }).then(
         response => {
-            if (response.headers.has("token-refresh")){
+            if (response.headers.has("token-refresh")) {
                 localStorage.setItem("auth_token", response.headers.get("token-refresh"))
             }
             return response.json().then(
                 data => {
+                    if (response.status === 403) {
+                        context.setLocked(true);
+                        return data
+                    }
                     if (response.status >= 400) {
                         return undefined
                     }
@@ -118,5 +133,7 @@ export const erase = (endpoint, context) => {
                 }
             )
         }
-    ).catch((error) => {return error})
+    ).catch((error) => {
+        return error
+    })
 }

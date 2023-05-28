@@ -105,6 +105,10 @@ function Login() {
                 setCompleteData(true);
                 return
             }
+            if (userdata.detail === "User is blocked") {
+                setButtonDisabled(false)
+                return
+            }
             context.setUser(userdata);
             localStorage.setItem("user", JSON.stringify(userdata))
             navigate('/home')

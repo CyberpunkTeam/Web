@@ -37,6 +37,9 @@ function SideBar() {
 
     useEffect(() => {
         getNotifications(context.user.uid, context).then((response) => {
+            if (response.details === "User is blocked") {
+                return;
+            }
             setNotifications(response.reverse());
             let notifications = []
             response.forEach((data) => {

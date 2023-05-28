@@ -86,6 +86,9 @@ export default function EditProfileModal(params) {
                     context.setErrorMessage(errorMessageUpdate);
                 }
             } else {
+                if (response.details === "User is blocked") {
+                    return;
+                }
                 context.setCreateMessage("User updated successfully")
                 context.setUser(response);
                 localStorage.setItem("user", JSON.stringify(response))

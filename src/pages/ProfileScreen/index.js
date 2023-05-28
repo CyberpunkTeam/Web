@@ -67,6 +67,9 @@ function ProfileScreen() {
                     setError("An error has occurred while loading user's information. Please, try again later");
                     return
                 }
+                if (response.details === "User is blocked") {
+                    return;
+                }
                 setArticles(articlesResponse)
                 setUserData(response);
                 setLoading(false);
@@ -75,6 +78,9 @@ function ProfileScreen() {
                 if (teams === undefined) {
                     setError("An error has occurred while loading user's teams. Please, try again later");
                 } else {
+                    if (response.details === "User is blocked") {
+                        return;
+                    }
                     let t = []
                     teams.forEach((team) => {
                         if (team.owner !== context.user.uid && !team.temporal) {

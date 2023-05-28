@@ -137,6 +137,9 @@ export default function NewMemberVacant(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
+                if (response.details === "User is blocked") {
+                    return;
+                }
                 context.setCreateMessage("Vacant created successfully")
                 goBack()
             }

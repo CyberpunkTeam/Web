@@ -28,6 +28,9 @@ export default function LeaveProject(params) {
                 }
                 return;
             }
+            if (r.details === "User is blocked") {
+                return;
+            }
             if (r.length !== 0) {
                 for (let i = 0; i < r.length; i++) {
                     if (r[i].state === "PENDING") {

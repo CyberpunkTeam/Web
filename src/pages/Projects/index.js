@@ -141,6 +141,9 @@ export default function ProjectsScreen() {
                 }
                 return
             }
+            if (response.details === "User is blocked") {
+                return;
+            }
             setProjects([...response]);
             if (maxValue === -1) {
                 let max = 0;
@@ -187,6 +190,9 @@ export default function ProjectsScreen() {
                 }
                 return
             }
+            if (response.details === "User is blocked") {
+                return;
+            }
             setProjects([...response]);
             setButtonDisabled(false);
             closeAll()
@@ -204,6 +210,9 @@ export default function ProjectsScreen() {
                     context.setErrorMessage("An error has occurred while loading projects. Please, try again later");
                 }
                 return
+            }
+            if (response.details === "User is blocked") {
+                return;
             }
             setProjects([...response]);
             setIndex(0)

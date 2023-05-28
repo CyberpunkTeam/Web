@@ -72,6 +72,10 @@ export default function GoogleLoginButton(params) {
                                     setLoadingGoogle(false)
                                 })
                             } else {
+                                if (r.detail === "User is blocked") {
+                                    setLoadingGoogle(false);
+                                    return
+                                }
                                 context.setUser(r)
                                 localStorage.setItem("user", JSON.stringify(r))
                                 navigate("/home")
