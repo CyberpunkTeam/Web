@@ -52,7 +52,7 @@ export default function CreateArticles() {
             } else {
                 let t = []
                 teams.forEach((team) => {
-                    if (!team.temporal) {
+                    if (!team.temporal && team.state !== "BLOCKED") {
                         t.push(team)
                     }
                 })

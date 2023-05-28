@@ -14,6 +14,9 @@ export default function PublicationTile(params) {
     const [likeLength, setLikeLength] = useState(params.publication.likes.length)
 
     const like = async () => {
+        if (params.publication.state === "BLOCKED") {
+            return
+        }
         if (liked) {
             await unlikeArticle(params.publication.cid, context.user.uid, context)
             setLike(false)

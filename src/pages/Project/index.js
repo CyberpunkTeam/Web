@@ -88,7 +88,13 @@ export default function ProjectScreen() {
                         if (teams === undefined) {
                             setError("An error has occurred while loading user's teams. Please, try again later");
                         } else {
-                            setUserTeam(teams);
+                            let activeTeams = []
+                            teams.forEach((team) => {
+                                if (team.state === "ACTIVE") {
+                                    activeTeams.push(team)
+                                }
+                            })
+                            setUserTeam(activeTeams);
                         }
                     })
                 }
@@ -98,7 +104,7 @@ export default function ProjectScreen() {
                     } else {
                         let t = []
                         teams.forEach((team) => {
-                            if (!team.temporal && team.owner !== context.user.uid) {
+                            if (!team.temporal && team.owner !== context.user.uid && team.state === "ACTIVE") {
                                 t.push(team)
                             }
                         })

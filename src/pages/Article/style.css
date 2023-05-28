@@ -148,6 +148,12 @@
     right: 16px;
 }
 
+.blockedContainer {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
 .publish-date-mobile {
     display: flex;
     font-size: 32px;

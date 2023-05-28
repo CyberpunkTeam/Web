@@ -13,6 +13,7 @@ import {isMobile} from "react-device-detect";
 import CloudTag from "../../components/CloudTag";
 import {search} from "../../services/searchService";
 import FollowingTag from "../../components/FollowingTag";
+import BlockTag from "../../components/BlockTag";
 
 export default function SearchResults() {
     let context = useContext(AppContext);
@@ -62,6 +63,7 @@ export default function SearchResults() {
                     <Link to={team_link} className={isMobile ? "teamLinkNameMobile" : "teamLinkName"}>
                         {data.name}
                     </Link>
+                    {data.state === "BLOCKED" ? <BlockTag/> : null}
                 </div>
             )
         }

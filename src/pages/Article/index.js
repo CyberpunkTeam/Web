@@ -10,6 +10,7 @@ import {getArticle, likeArticle, unlikeArticle} from "../../services/contentServ
 import HTMLRenderer from 'react-html-renderer'
 import {EmojiHappy, People, Share, User} from "iconsax-react";
 import {formatDatePublish} from "../../utils/dateFormat";
+import BlockTag from "../../components/BlockTag";
 
 
 export default function Article() {
@@ -31,6 +32,10 @@ export default function Article() {
     }, [params.id]);
 
     const like = async () => {
+        if (article.state === "BLOCKED") {
+            return
+        }
+
         if (article.likes.includes(context.user.uid)) {
             await unlikeArticle(article.cid, context.user.uid, context)
 
@@ -67,6 +72,9 @@ export default function Article() {
                         <div className="team-name-mobile">
                             {article.title}
                         </div>
+                        <div className={"blockedContainer"}>
+                            {article.state === "BLOCKED" ? <BlockTag/> : null}
+                        </div>
                         <div className={"publish-date-mobile"}>
                             <div className={"publishButtonsLikeMobile"} onClick={like}>
                                 <EmojiHappy size={48} color="#FAFAFA"
@@ -88,6 +96,9 @@ export default function Article() {
                     className={article.cover_image === null || article.cover_image === "default" ? "article-title-container" : "article-title-container-withCover"}>
                     <div className="team-name">
                         {article.title}
+                    </div>
+                    <div className={"blockedContainer"}>
+                        {article.state === "BLOCKED" ? <BlockTag/> : null}
                     </div>
                     <div className="publish-date">
                         <div className={"publishButtonsLike"} onClick={like}>
@@ -204,7 +215,6 @@ export default function Article() {
             </div>
         )
     }
-
 
     return (
         <div className={isMobile ? "profile-screen-mobile" : "team-screen"}>
