@@ -180,7 +180,9 @@ function SideBar() {
                 getRequestAbandonProjectWithID(id, context).then((response) => {
                     navigate("/projects/" + response.pid)
                 })
-            } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION") {
+            } else if (notification_type === "ABANDONED_PROJECT" || notification_type === "PROJECT_INVITATION"
+                || notification_type === "PROJECT_BLOCKED" || notification_type === "PROJECT_UNBLOCKED"
+                || notification_type === "TEAM_PROJECT_BLOCKED" || notification_type === "TEAM_PROJECT_UNBLOCKED") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_REVIEW") {
                 navigate("/team/review/" + id, {state: metadata})
@@ -188,12 +190,16 @@ function SideBar() {
                 getTeamPosition(id, context).then((response) => {
                     navigate("/team/" + response.team.tid)
                 })
-            } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM") {
+            } else if (notification_type === "TEAM_POSITION_ACCEPTED" || notification_type === "NEW_TEMPORAL_TEAM"
+                || notification_type === "TEAM_BLOCKED" || notification_type === "TEAM_UNBLOCKED") {
                 navigate("/team/" + id)
             } else if (notification_type === "TEAM_PROJECT_INTERNAL_RECOMMENDATION") {
                 navigate("/projects/" + id)
             } else if (notification_type === "TEAM_MEMBER_INTERNAL_RECOMMENDATION" || notification_type === "NEW_FOLLOWER") {
                 navigate("/user/" + id)
+            }
+            else if (notification_type === "CONTENT_BLOCKED" || notification_type === "CONTENT_UNBLOCKED") {
+                navigate("/articles/" + id)
             }
         }
 

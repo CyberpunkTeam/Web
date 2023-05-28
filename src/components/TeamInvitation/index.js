@@ -92,6 +92,10 @@ export default function TeamInvitation(params) {
         }
     }
 
+    if (params.state === "BLOCKED") {
+        return null;
+    }
+
     if (invitation !== undefined) {
         return (
             <div className="invitation-container">

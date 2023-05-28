@@ -25,6 +25,7 @@ import PlatformTag from "../../components/PlatformTag";
 import FrameworkTag from "../../components/FrameworkTag";
 import CloudTag from "../../components/CloudTag";
 import FollowingTag from "../../components/FollowingTag";
+import BlockTag from "../../components/BlockTag";
 
 export default function TeamScreen() {
     const params = useParams();
@@ -153,6 +154,10 @@ export default function TeamScreen() {
     }
 
     const followTeamButton = () => {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
+
         let members = []
         teamData.members.forEach((member) => {
             members.push(member.uid)
@@ -214,8 +219,11 @@ export default function TeamScreen() {
         )
     }
     const editButton = () => {
-        if (teamData.owner === context.user.uid) {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
 
+        if (teamData.owner === context.user.uid) {
             if (isMobile) {
                 return (
                     <div className="edit-button-mobile" onClick={editButtonNavigation}>
@@ -275,6 +283,7 @@ export default function TeamScreen() {
                                 <Star1 size="32" color="#ECA95A" variant="Linear" className={"star"}/>
                                 {teamData.overall_rating.toFixed(1)}
                             </div>
+                            {teamData.state === "BLOCKED" ? <BlockTag/> : null}
                             {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                         </div>
                         {tags()}
@@ -299,6 +308,7 @@ export default function TeamScreen() {
                             <Star1 size="24" color="#ECA95A" variant="Linear" className={"star"}/>
                             {teamData.overall_rating.toFixed(1)}
                         </div>
+                        {teamData.state === "BLOCKED" ? <BlockTag/> : null}
                         {context.user.following.teams.includes(params.id) ? <FollowingTag/> : null}
                     </div>
                     {tags()}
@@ -374,6 +384,10 @@ export default function TeamScreen() {
     }
 
     const addButton = () => {
+        if (teamData.state === "BLOCKED") {
+            return null;
+        }
+
         if (context.user.uid === teamData.owner) {
             return (
                 <button className="addMemberButton" onClick={openModal}>
@@ -389,7 +403,10 @@ export default function TeamScreen() {
         }
 
         if (tagSelect === "members") {
-            return <MembersPostulations owner={teamData.owner} tid={teamData.tid} members={membersList}/>
+            return <MembersPostulations owner={teamData.owner}
+                                        tid={teamData.tid}
+                                        members={membersList}
+                                        state={teamData.state}/>
         }
 
         if (tagSelect === "info") {
@@ -446,7 +463,7 @@ export default function TeamScreen() {
         return (
             <div className={"team-screen"}>
                 <div className="team-container">
-                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData}/>
+                    <TeamInvitation tid={teamData.tid} owner={teamData.members[0]} team={teamData} state={teamData.state}/>
                     {cover()}
                 </div>
                 <div className="profile-data-container">
