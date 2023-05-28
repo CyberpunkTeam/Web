@@ -53,7 +53,6 @@ export const get = (endpoint, context) => {
             }
             return response.json().then(
                 data => {
-                    console.log(response, data)
                     if (response.status === 403) {
                         context.setLocked(true);
                         return data

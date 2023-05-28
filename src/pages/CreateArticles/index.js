@@ -50,7 +50,7 @@ export default function CreateArticles() {
             if (teams === undefined) {
                 setError("An error has occurred while loading user's teams. Please, try again later");
             } else {
-                if (teams.details === "User is blocked") {
+                if (teams.detail === "User is blocked") {
                     return;
                 }
                 let t = []

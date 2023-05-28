@@ -141,7 +141,7 @@ export default function ProjectsScreen() {
                 }
                 return
             }
-            if (response.details === "User is blocked") {
+            if (response.detail === "User is blocked") {
                 return;
             }
             setProjects([...response]);
@@ -190,7 +190,7 @@ export default function ProjectsScreen() {
                 }
                 return
             }
-            if (response.details === "User is blocked") {
+            if (response.detail === "User is blocked") {
                 return;
             }
             setProjects([...response]);
@@ -211,7 +211,7 @@ export default function ProjectsScreen() {
                 }
                 return
             }
-            if (response.details === "User is blocked") {
+            if (response.detail === "User is blocked") {
                 return;
             }
             setProjects([...response]);

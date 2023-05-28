@@ -49,9 +49,12 @@ function ProfileScreen() {
     }
 
     const resetUserData = () => {
-        setUserData({});
-        setLoading(true);
-        window.location.reload()
+        if (!context.locked){
+            setUserData({});
+            setLoading(true);
+            window.location.reload()
+        }
+
     };
 
     useEffect(() => resetUserData, [params.id])
@@ -62,13 +65,13 @@ function ProfileScreen() {
                 setError("An error has occurred while loading user's information. Please, try again later");
                 return
             }
+            if (response.detail === "User is blocked") {
+                return;
+            }
             getMyArticles(id, context).then((articlesResponse) => {
                 if (response === undefined) {
                     setError("An error has occurred while loading user's information. Please, try again later");
                     return
-                }
-                if (response.details === "User is blocked") {
-                    return;
                 }
                 setArticles(articlesResponse)
                 setUserData(response);
@@ -78,7 +81,7 @@ function ProfileScreen() {
                 if (teams === undefined) {
                     setError("An error has occurred while loading user's teams. Please, try again later");
                 } else {
-                    if (response.details === "User is blocked") {
+                    if (response.detail === "User is blocked") {
                         return;
                     }
                     let t = []
@@ -116,9 +119,11 @@ function ProfileScreen() {
                 setError("An error has occurred while following the user. Please, try again later");
                 return
             }
+            if (userdata.detail === "User is blocked") {
+                return;
+            }
             context.setUser(userdata);
             localStorage.setItem("user", JSON.stringify(userdata))
-            console.log(userData.user.following.users.includes(context.user.uid))
             if (userData.user.following.users.includes(context.user.uid)) {
                 createChat(context.user, userData.user).then((result) => {
                     console.log(result)

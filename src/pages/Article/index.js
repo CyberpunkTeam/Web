@@ -22,7 +22,7 @@ export default function Article() {
 
     useEffect(() => {
         getArticle(params.id, context).then((ArticleResponse) => {
-            if (ArticleResponse.details === "User is blocked") {
+            if (ArticleResponse.detail === "User is blocked") {
                 return;
             }
             fetch(ArticleResponse.href).then((response) => {

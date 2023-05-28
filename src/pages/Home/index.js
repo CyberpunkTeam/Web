@@ -27,7 +27,8 @@ export default function Home() {
                     setError("An error has occurred while loading home screen. Please, try again later");
                     return
                 }
-                if (publicationsResponse.details === "User is blocked") {
+                console.log()
+                if (publicationsResponse.detail === "User is blocked") {
                     return;
                 }
                 setPublications(publicationsResponse)

@@ -29,7 +29,7 @@ export default function TemporalTeamPostulate(params) {
                     context.setErrorMessage(errorMessage);
                 }
             } else {
-                if (temporalTeamResponse.details === "User is blocked") {
+                if (temporalTeamResponse.detail === "User is blocked") {
                     return;
                 }
                 let members = []

@@ -57,7 +57,7 @@ export default function TeamScreen() {
                 setError("An error has occurred while loading team's information. Please, try again later");
                 return
             }
-            if (response.details === "User is blocked") {
+            if (response.detail === "User is blocked") {
                 return;
             }
             setTeamData(response);

@@ -28,7 +28,7 @@ export default function LeaveProject(params) {
                 }
                 return;
             }
-            if (r.details === "User is blocked") {
+            if (r.detail === "User is blocked") {
                 return;
             }
             if (r.length !== 0) {

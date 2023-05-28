@@ -195,7 +195,7 @@ export default function TeamModal(params) {
                     context.setErrorMessage(errorMessageCreate);
                 }
             } else {
-                if (response.details === "User is blocked") {
+                if (response.detail === "User is blocked") {
                     return;
                 }
                 createTeamChat(response, context).then(() => {
@@ -230,7 +230,7 @@ export default function TeamModal(params) {
                     context.setErrorMessage(errorMessageUpdate);
                 }
             } else {
-                if (response.details === "User is blocked") {
+                if (response.detail === "User is blocked") {
                     return;
                 }
                 context.setCreateMessage("Team updated successfully")

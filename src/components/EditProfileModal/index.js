@@ -86,7 +86,7 @@ export default function EditProfileModal(params) {
                     context.setErrorMessage(errorMessageUpdate);
                 }
             } else {
-                if (response.details === "User is blocked") {
+                if (response.detail === "User is blocked") {
                     return;
                 }
                 context.setCreateMessage("User updated successfully")

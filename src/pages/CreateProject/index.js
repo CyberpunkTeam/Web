@@ -210,7 +210,7 @@ export default function CreateProjectScreen() {
                         context.setErrorMessage(errorMessageCreate);
                     }
                 } else {
-                    if (r.details === "User is blocked") {
+                    if (r.detail === "User is blocked") {
                         return;
                     }
                     window.scrollTo(0, 0);

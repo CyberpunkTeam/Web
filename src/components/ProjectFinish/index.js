@@ -30,7 +30,7 @@ export default function ProjectFinish(params) {
                 }
                 return;
             }
-            if (r.details === "User is blocked") {
+            if (r.detail === "User is blocked") {
                 return;
             }
 
