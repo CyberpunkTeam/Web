@@ -21,7 +21,7 @@ import {
     Trash,
     Document,
     User,
-    Share, Star1
+    Share
 } from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -43,7 +43,6 @@ import FrameworkTag from "../../components/FrameworkTag";
 import BudgetTag from "../../components/BudgetTag";
 import {formatter} from "../../utils/budgetFormatter";
 import CloudTag from "../../components/CloudTag";
-import AlertMessage from "../../components/AlertMessage";
 import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 import {RecommendProjectModal} from "../../components/RecommendProjectModal";
 import BlockTag from "../../components/BlockTag";
@@ -53,7 +52,6 @@ import crypto from "../../assests/Crypto.jpg";
 import dataA from "../../assests/DataA.jpg";
 import dataS from "../../assests/DataS.jpg";
 import dataE from "../../assests/DataEng.jpg";
-import FollowingTag from "../../components/FollowingTag";
 
 export default function ProjectScreen() {
     const params = useParams();
