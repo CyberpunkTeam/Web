@@ -156,6 +156,7 @@
     width: calc(90% - 64px);
     margin: 0 32px;
     overflow-x: auto;
+    height: 80%;
     color: #222222;
     flex-direction: row;
     align-items: baseline;

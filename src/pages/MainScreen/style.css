@@ -128,7 +128,8 @@
     font-family: "Inter", sans-serif;
     width: calc(100% - 32px);
     border-radius: 46px;
-    border: 1px solid #CD5B45;
+    border-color: #E3E3E3;
+    border-width: 0;
     outline: none;
     height: 132px;
     color: #222222;
@@ -141,8 +142,7 @@
     font-family: "Inter", sans-serif;
     width: calc(100% - 32px);
     border-radius: 46px;
-    border-color: #E3E3E3;
-    border-width: 0;
+    border: 1px solid #CD5B45;
     outline: none;
     height: 132px;
     color: #222222;
