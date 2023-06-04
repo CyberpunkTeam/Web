@@ -26,7 +26,7 @@ import {isMobile} from "react-device-detect";
 import {formatDate} from "../../utils/dateFormat";
 import {updateUser} from "../../services/userService";
 
-function SideBar() {
+function SideBar(params) {
     let context = useContext(AppContext);
     const errorMessageUpdate = "An error has occurred while updating user information. Please, try again later"
     const navigate = useNavigate();
@@ -95,14 +95,26 @@ function SideBar() {
     }
 
     const user = () => {
+        if (params.setTagSelect) {
+            params.setTagSelect("profile");
+            return
+        }
         navigate("/me")
     }
 
     const userTeams = () => {
+        if (params.setTagSelect) {
+            params.setTagSelect("teams");
+            return
+        }
         navigate("/me", {state: {teams: true}})
     }
 
     const userProjects = () => {
+        if (params.setTagSelect) {
+            params.setTagSelect("projects");
+            return
+        }
         navigate("/me", {state: {teams: false}})
     }
 

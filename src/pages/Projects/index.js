@@ -60,7 +60,7 @@ export default function ProjectsScreen() {
     //const [projectsAll, setProjectsAll] = useState([]);
     const [loading, setLoading] = useState(true);
     const [team, setTeam] = useState(true);
-    const [time, setTime] = useState(Date.now());
+    //const [time, setTime] = useState(Date.now());
     const [shake, setShake] = useState(false);
     const [index, setIndex] = useState(0);
     const pageCount = Math.ceil(projects.length / 10);
@@ -117,7 +117,7 @@ export default function ProjectsScreen() {
         return params
     }
 
-    useEffect(() => {
+    /*useEffect(() => {
         setTeam(!team)
     }, [time]);
 
@@ -127,7 +127,7 @@ export default function ProjectsScreen() {
         return () => {
             clearInterval(interval);
         };
-    }, [team]);
+    }, [team]);*/
 
     useEffect(() => {
         const params = queryParams()
@@ -159,7 +159,7 @@ export default function ProjectsScreen() {
         }).catch((error) => {
             console.log(error)
         });
-    }, [time]);
+    }, []);
 
     const cleanAll = () => {
         setTechs([])

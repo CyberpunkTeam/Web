@@ -21,7 +21,7 @@ import {
     Trash,
     Document,
     User,
-    Share
+    Share, Star1
 } from "iconsax-react";
 import AppContext from "../../utils/AppContext";
 import Modal from "react-modal";
@@ -47,6 +47,13 @@ import AlertMessage from "../../components/AlertMessage";
 import TemporalTeamPostulate from "../../components/TemporalTeamPostulate";
 import {RecommendProjectModal} from "../../components/RecommendProjectModal";
 import BlockTag from "../../components/BlockTag";
+import backend from "../../assests/Backend.jpg";
+import mobile from "../../assests/mobile.jpg";
+import crypto from "../../assests/Crypto.jpg";
+import dataA from "../../assests/DataA.jpg";
+import dataS from "../../assests/DataS.jpg";
+import dataE from "../../assests/DataEng.jpg";
+import FollowingTag from "../../components/FollowingTag";
 
 export default function ProjectScreen() {
     const params = useParams();
@@ -210,6 +217,28 @@ export default function ProjectScreen() {
         return (
             <NotFound/>
         )
+    }
+
+    const coverImageType = () => {
+        switch (project.project_type) {
+            case 'Backend':
+                return backend
+            /*case 'Web':
+                return <Monitor size={isMobile ? "48" : "24"} color="#FAFAFA"
+                                className={isMobile ? "type-icon-mobile" : "type-icon"}/>*/
+            case 'Mobile':
+                return mobile
+            case 'Crypto':
+                return crypto
+            case 'Data Analytics':
+                return dataA
+            case 'Data Science':
+                return dataS
+            case 'Data Engineering':
+                return dataE
+            default:
+                return "https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg"
+        }
     }
 
     const filesUploads = (file) => {
@@ -436,7 +465,8 @@ export default function ProjectScreen() {
 
         return (
             <div
-                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"} onClick={userNavigate}>
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}
+                onClick={userNavigate}>
                 <div className={isMobile ? "members-info-mobile" : "members-info"}>
                     {user_image(data)}
                     <div className={isMobile ? "member-name-mobile" : "member-name"}>
@@ -462,7 +492,8 @@ export default function ProjectScreen() {
 
         return (
             <div
-                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"} onClick={userNavigate}>
+                className={isMobile ? "members-info-container-mobile" : context.size ? "members-info-container-reduced" : "members-info-container"}
+                onClick={userNavigate}>
                 <div className={isMobile ? "members-info-mobile" : "members-info"}>
                     <div className={isMobile ? "member-photo-mobile" : "member-photo"}>
                         <People color="#FAFAFA" size={isMobile ? 32 : 24} variant="Bold"/>
@@ -574,35 +605,36 @@ export default function ProjectScreen() {
         if (isMobile) {
             return (
                 <div className="team-cover-container-mobile">
-                    <div className="project-title-container-mobile">
+                    <div className="project-data-container-mobile">
                         <div className="team-name-mobile">
                             {project.name}
+                            {project.internal_state === "BLOCKED" ? <BlockTag/> : null}
                         </div>
                         {tags()}
+                        <div className="cover-buttons">
+                            {recommendProject()}
+                            {editButton()}
+                        </div>
                     </div>
-                    <div className="cover-buttons">
-                        {recommendProject()}
-                        {editButton()}
-                    </div>
-                    {editButton()}
-
+                    <img src={coverImageType()} className="team-image-container-mobile" alt=""/>
                 </div>
             )
         }
 
         return (
             <div className="cover-container">
-                <div className="project-title-container">
+                <div className="project-data-container-image">
                     <div className="team-name">
                         {project.name}
                         {project.internal_state === "BLOCKED" ? <BlockTag/> : null}
                     </div>
                     {tags()}
+                    <div className="cover-buttons">
+                        {recommendProject()}
+                        {editButton()}
+                    </div>
                 </div>
-                <div className="cover-buttons">
-                    {recommendProject()}
-                    {editButton()}
-                </div>
+                <img src={coverImageType()} className="image-container" alt=""/>
             </div>
         )
     }
@@ -775,11 +807,11 @@ export default function ProjectScreen() {
     }
 
     const noData = () => {
-            return (
-                <div className={"no-data-tag"}>
-                    No postulations available
-                </div>
-            )
+        return (
+            <div className={"no-data-tag"}>
+                No postulations available
+            </div>
+        )
     }
 
     return (
