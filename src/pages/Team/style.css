@@ -125,7 +125,7 @@
 
 .project-tile-tags {
     width: calc(90% - 64px);
-    margin: 0 16px;
+    margin: 16px;
     position: relative;
     overflow-x: auto;
     flex-direction: row;

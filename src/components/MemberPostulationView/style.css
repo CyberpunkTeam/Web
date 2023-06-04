@@ -305,9 +305,9 @@
 }
 
 .descriptionApplicationMobile {
-    padding: 16px;
+    padding: 16px 0;
     font-weight: 400;
-    font-size: 24px;
+    font-size: 28px;
 }
 
 .seeMoreApplication {
