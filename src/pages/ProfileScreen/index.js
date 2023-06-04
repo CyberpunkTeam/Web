@@ -471,7 +471,7 @@ function ProfileScreen() {
                 </div>
                 {modal()}
                 <SearchBar/>
-                <SideBar/>
+                <SideBar setTagSelect={setTagSelect}/>
             </div>
         )
     }
