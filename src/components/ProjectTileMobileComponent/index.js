@@ -9,6 +9,12 @@ import {Bitcoin, Box1, ChartSquare, CpuSetting, Hex, Mobile, Monitor, Scroll} fr
 import CloudTag from "../CloudTag";
 import React, {useContext} from "react";
 import AppContext from "../../utils/AppContext";
+import crypto from "../../assests/Crypto.jpg";
+import mobile from "../../assests/mobile.jpg";
+import backend from "../../assests/Backend.jpg";
+import dataA from "../../assests/DataA.jpg";
+import dataS from "../../assests/DataS.jpg";
+import dataE from "../../assests/DataEng.jpg";
 
 export default function ProjectTileMobileComponent(params) {
     const data = params.data
@@ -23,20 +29,20 @@ export default function ProjectTileMobileComponent(params) {
     const coverImageType = () => {
         switch (data.project_type) {
             case 'Backend':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2Fbackend%202.jpg?alt=media&token=64cbb3bf-47a8-4875-8386-4d10e6294868&_gl=1*myp2i5*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzMDg2NC40MS4xLjE2ODU4MzI3MTUuMC4wLjA."
+                return backend
             /*case 'Web':
                 return <Monitor size={isMobile ? "48" : "24"} color="#FAFAFA"
                                 className={isMobile ? "type-icon-mobile" : "type-icon"}/>*/
             case 'Mobile':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2Fmobile.png?alt=media&token=4ca98a37-c4aa-4108-ae56-9a043fdaef22&_gl=1*1st8bhg*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzMDg2NC40MS4xLjE2ODU4MzEzODEuMC4wLjA."
+                return mobile
             case 'Crypto':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2Fcryto.jpg?alt=media&token=de884969-f9cc-4bfe-a14c-ceb917f2e938&_gl=1*csyjsy*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzMDg2NC40MS4xLjE2ODU4MzEzMzkuMC4wLjA."
+                return crypto
             case 'Data Analytics':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2FData%20analytics%202.jpg?alt=media&token=260f29cc-852a-4c35-8e27-18618341ccff&_gl=1*19gr5nb*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzMDg2NC40MS4xLjE2ODU4MzE0MTIuMC4wLjA."
+                return dataA
             case 'Data Science':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2Fdata%20scienze.jpg?alt=media&token=fa33b643-06f3-4cf8-b23e-3942670b41f4&_gl=1*kplpeo*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzMDg2NC40MS4xLjE2ODU4MzE0MzUuMC4wLjA."
+                return dataS
             case 'Data Engineering':
-                return "https://firebasestorage.googleapis.com/v0/b/find-my-team-386501.appspot.com/o/ProjectsWallpapers%2Fdata%20eng.jpg?alt=media&token=2c5da014-f0c3-4674-aeef-7014a4b6f0a3&_gl=1*93wgq8*_ga*MjEwMzY0MDM2MS4xNjY5Njc0NDc5*_ga_CW55HF8NVT*MTY4NTgzNjU2Ny40Mi4xLjE2ODU4MzY1NzYuMC4wLjA."
+                return dataE
             default:
                 return "https://scopeblog.stanford.edu/wp-content/uploads/2020/08/chris-ried-ieic5Tq8YMk-unsplash-1024x684.jpg"
         }
