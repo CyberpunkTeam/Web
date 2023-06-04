@@ -250,7 +250,7 @@ export default function TeamScreen() {
         const tags = () => {
 
             return (
-                <div className={isMobile || context.size ? "teamCoverTagsMobile" : "team-tags"}>
+                <div className={isMobile ? "teamCoverTagsMobile" : "team-tags"}>
                     {teamData.technologies.programming_language.map((data) => {
                         return <TechnologyTag key={data} technology={data}/>
                     })}
