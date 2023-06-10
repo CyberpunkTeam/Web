@@ -488,6 +488,7 @@
     bottom: 0;
     -webkit-transition: .4s;
     transition: .4s;
+    background: rgba(205, 91, 69, 0.5);
 }
 
 .slider:before {
@@ -499,6 +500,7 @@
     left: 2px;
     -webkit-transition: .4s;
     transition: .4s;
+    background: #FAFAFA;
 }
 
 input:checked + .slider {
