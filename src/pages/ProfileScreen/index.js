@@ -471,7 +471,7 @@ function ProfileScreen() {
                 </div>
                 {modal()}
                 <SearchBar/>
-                <SideBar setTagSelect={setTagSelect}/>
+                <SideBar setTagSelect={setTagSelect} me={context.user.uid === id}/>
             </div>
         )
     }
