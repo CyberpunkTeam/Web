@@ -544,7 +544,7 @@ export default function ProjectScreen() {
                 return;
             }
 
-            if (project.owner === context.user.uid || allTeams === undefined || allTeams.length === 0) {
+            if (project.creator.uid === context.user.uid || allTeams === undefined || allTeams.length === 0) {
                 return
             }
 
