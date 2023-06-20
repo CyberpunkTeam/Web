@@ -132,7 +132,7 @@ export default function ProjectTileMobileComponent(params) {
                 <div className={isMobile ? "projectDescriptionMobile" : "projectDescription"}>
                     {data.description.summary.length <= 1 ? "Without Description" : "Description"}
                     <div className={isMobile ? "descriptionApplicationMobile" : "descriptionApplication"}>
-                        {data.description.summary.substring(0, context.size ? 140 : 320)}{data.description.summary.length > (context.size ? 140 : 320) ? "..." : null}
+                        {data.description.summary.substring(0, 140)}{data.description.summary.length > 140 ? "..." : null}
                     </div>
                 </div>
             </div>
