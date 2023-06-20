@@ -479,7 +479,7 @@
 }
 
 /* The slider */
-.slider {
+.sliderSettings {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -491,7 +491,7 @@
     background: rgba(205, 91, 69, 0.5);
 }
 
-.slider:before {
+.sliderSettings:before {
     position: absolute;
     content: "";
     height: 20px;
@@ -503,25 +503,25 @@
     background: #FAFAFA;
 }
 
-input:checked + .slider {
+input:checked + .sliderSettings {
     background-color: #2E9999;
 }
 
-input:focus + .slider {
+input:focus + .sliderSettings {
     box-shadow: 0 0 1px #2E9999;
 }
 
-input:checked + .slider:before {
+input:checked + .sliderSettings:before {
     -webkit-transform: translateX(24px);
     -ms-transform: translateX(24px);
     transform: translateX(24px);
 }
 
 /* Rounded sliders */
-.slider.round {
+.sliderSettings.round {
     border-radius: 22px;
 }
 
-.slider.round:before {
+.sliderSettings.round:before {
     border-radius: 50%;
 }

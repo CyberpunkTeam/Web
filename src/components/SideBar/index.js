@@ -95,7 +95,7 @@ function SideBar(params) {
     }
 
     const user = () => {
-        if (params.setTagSelect) {
+        if (params.setTagSelect && params.me) {
             params.setTagSelect("profile");
             return
         }
@@ -103,7 +103,7 @@ function SideBar(params) {
     }
 
     const userTeams = () => {
-        if (params.setTagSelect) {
+        if (params.setTagSelect && params.me) {
             params.setTagSelect("teams");
             return
         }
@@ -111,7 +111,7 @@ function SideBar(params) {
     }
 
     const userProjects = () => {
-        if (params.setTagSelect) {
+        if (params.setTagSelect && params.me) {
             params.setTagSelect("projects");
             return
         }
@@ -319,7 +319,7 @@ function SideBar(params) {
                         </div>
                         <label className="switch">
                             <input type="checkbox" onChange={checkAllow} checked={temporalTeam}/>
-                            <span className="slider round"/>
+                            <span className="sliderSettings round"/>
                         </label>
                     </div>
                     <div className="logout" onClick={logout}>
