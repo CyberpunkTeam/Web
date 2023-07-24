@@ -57,6 +57,11 @@ export const get = (endpoint, context) => {
                         context.setLocked(true);
                         return data
                     }
+
+                    if(response.status === 404) {
+                        return response
+                    }
+
                     if (response.status >= 400) {
                         return undefined
                     }
