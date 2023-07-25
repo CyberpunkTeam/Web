@@ -57,14 +57,15 @@ export default function GoogleLoginButton(params) {
                     createToken(tokenBody).then((authToken) => {
                         localStorage.setItem("auth_token", authToken.token)
                         getUser(user.uid, context).then((r) => {
-                            if (r === undefined) {
+                            if (r.status === 404) {
                                 const userLogin = {
-                                    'name': user.displayName.split(" ",)[0],
-                                    "lastname": user.displayName.split(" ")[1],
+                                    'name': user.displayName.split(" ",)[0] !== undefined ? user.displayName.split(" ",)[0] : "",
+                                    "lastname": user.displayName.split(" ")[1] !== undefined ? user.displayName.split(" ")[1] : "",
                                     "email": user.email,
                                     "location": "",
                                     "uid": user.uid
                                 }
+
                                 createUser(userLogin).then((r) => {
                                     context.setUser(r);
                                     localStorage.setItem("user", JSON.stringify(r))
